@@ -1,0 +1,772 @@
+/**
+Theme Name: Astra
+Theme URI: https://wpastra.com/
+Author: Brainstorm Force
+Author URI: https://wpastra.com/about/?utm_source=theme_preview&utm_medium=author_link&utm_campaign=astra_theme
+Description: Astra is fast, fully customizable & beautiful WordPress theme suitable for blog, personal portfolio, business website and WooCommerce storefront. It is very lightweight (less than 50KB on frontend) and offers unparalleled speed. Built with SEO in mind, Astra comes with Schema.org code integrated and is Native AMP ready so search engines will love your site. It offers special features and templates so it works perfectly with all page builders like Elementor, Beaver Builder, Visual Composer, SiteOrigin, Divi, etc. Some of the other features: # WooCommerce Ready # Responsive # RTL & Translation Ready # Extendible with premium addons # Regularly updated # Designed, Developed, Maintained & Supported by Brainstorm Force. Looking for a perfect base theme? Look no further. Astra is fast, fully customizable and WooCommerce ready theme that you can use for building any kind of website!
+Version: 3.9.4
+Requires at least: 5.3
+Tested up to: 6.1
+Requires PHP: 5.3
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: astra
+Domain Path: /languages
+Tags: custom-menu, custom-logo, entertainment, one-column, two-columns, left-sidebar, e-commerce, right-sidebar, custom-colors, editor-style, featured-images, full-width-template, microformats, post-formats, rtl-language-support, theme-options, threaded-comments, translation-ready, blog
+AMP: true
+
+Astra WordPress Theme, Copyright 2020 WPAstra.
+Astra is distributed under the terms of the GNU GPL.
+
+Astra is based on Underscores https://underscores.me/, (C) 2012-2020 Automattic, Inc.
+Underscores is distributed under the terms of the GNU GPL v2 or later.
+
+Normalizing styles have been helped along thanks to the fine work of.
+Nicolas Gallagher and Jonathan Neal https://necolas.github.com/normalize.css/
+
+Astra icon font is based on IcoMoon-Free vector icon by Keyamoon.
+IcoMoon-Free vector icon distributed under terms of CC BY 4.0 or GPL. (https://creativecommons.org/licenses/by/4.0/ or https://www.gnu.org/licenses/gpl.html)
+Source: http://keyamoon.com/
+
+Flexibility is a JavaScript polyfill for Flexbox By Jonathan Neal, 10up. (https://github.com/jonathantneal/flexibility)
+Licensed under MIT ( https://github.com/jonathantneal/flexibility/blob/master/LICENSE.md )
+
+Screenshot image is a collage of actual sites created using the Astra WordPress Theme.
+
+Icons used in the Screenshot image are all licensed under Creative Commons ( CC BY 4.0 ) License ( https://fontawesome.com/license/free )
+https://fontawesome.com/v5.15/icons/store?style=solid
+https://fontawesome.com/v5.15/icons/shopping-cart?style=solid
+https://fontawesome.com/v5.15/icons/pen-square?style=solid
+https://fontawesome.com/v5.15/icons/user-tie?style=solid
+https://fontawesome.com/v5.15/icons/user-tie?style=solid
+
+Illustrations used in the Screenshot images are all licensed under Creative Commons ( CC0 ) License ( https://gumroad.com/l/humaaans )
+https://websitedemos.net/web-design-agency-08/wp-content/uploads/sites/796/2021/05/standing-24.png
+https://websitedemos.net/web-design-agency-08/wp-content/uploads/sites/796/2021/05/sitting-2.png
+
+Hand-drawn illustrations used are created by Brainstorm Force and released under Creative Commons ( CC0 ) License.
+https://websitedemos.net/web-design-agency-08/wp-content/uploads/sites/796/2021/05/girl-with-image-container.png
+https://websitedemos.net/web-design-agency-08/wp-content/uploads/sites/796/2021/05/boy-with-code-container.png
+https://websitedemos.net/web-design-agency-08/wp-content/uploads/sites/796/2021/05/web-browser.png
+
+The same site as screenshot can be imported from here https://websitedemos.net/web-design-agency-08/.
+
+For more information, refer to this document on how to create a page like in the screenshot - https://wpastra.com/docs/replicating-the-screenshot/.
+
+Astra default breadcrumb is based on Breadcrumb Trail by Justin Tadlock. (https://github.com/justintadlock/breadcrumb-trail)
+Breadcrumb Trail is distributed under the terms of the GNU GPL v2 or later.
+
+Astra local fonts feature is based on Webfonts Loader by WordPress Themes Team (WPTT). (https://github.com/WPTT/webfont-loader)
+Licensed under MIT ( https://github.com/WPTT/webfont-loader/blob/master/LICENSE )
+
+/* Note: The CSS files are loaded from assets/css/ folder. */
+.page-title .ast-archive-title {
+    margin-bottom: 10px;
+    text-transform: capitalize;
+    display: none !important;
+}
+.elementor-background-overlay{background-color: #000000DE!important;}
+#dropdownMenuButton:focus{
+    background-color: unset;
+    border: unset; 
+}
+#dropdownMenuButton:hover{
+    background-color: unset;
+    border: 1px solid transparent;
+}
+.dropdown-item:hover{
+    background-color: unset;
+    border: unset;
+}
+
+
+/* General header HTML */ 
+*{
+
+    
+    font-family: 'Poppins';
+    letter-spacing: 0.29px;
+    font-weight: 400;
+    
+}
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+  font-family: Poppins,Helvetica,sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+nav{
+    height: 6rem;
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+    position: absolute;
+    z-index: 10;
+}
+
+/*Styling logo*/
+.logo{
+    padding:1vh 1vw;
+    text-align: center;
+    margin-top:8px;
+}
+.logo img {
+    height: 4rem;
+    width: 17rem;
+}
+
+/*Styling Links*/
+.nav-links{
+    display: flex;
+    list-style: none; 
+    width: 110vw;
+    /* padding: 0 11.7rem; */
+    justify-content: space-evenly;
+    
+    align-items: center;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+
+
+img.footer-logo{
+    height: 83% ;
+}
+.nav-links li a{
+    text-decoration: none;
+    margin: 0 0.7vw;
+    color: #fff;
+}
+.nav-links li a:hover {
+    color: #61DAFB;
+}
+.nav-links li {
+    position: relative;
+}
+.nav-links li a::before {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 0%;
+    background-color: #61DAFB;
+    position: absolute;
+    transition: all ease-in-out 250ms;
+    margin: 0 0 0 10%;
+}
+.nav-links li a:hover::before{
+    width: 80%;
+}
+
+/*Styling Buttons*/
+.login-button{
+    background-color: #fff;
+    border: 1.5px solid #f2f5f7;
+    border-radius: 2em;
+    color: #134793;
+    padding: 0.6rem 0.8rem;
+    margin-left: 2vw;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 150px;
+
+}
+/* .login-button:hover {
+    color: #131418;
+    background-color: #f2f5f7;
+    border:1.5px solid #f2f5f7;
+    transition: all ease-in-out 350ms;
+} */
+.join-button {
+    color: #fff;
+    background-color: #f96703;
+    border: 1.5px solid #f96703;
+    border-radius: 2em;
+    padding: 0.6rem 0.8rem;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 150px;
+}
+/* .join-button:hover {
+    color: #f2f5f7;
+    background-color: transparent;
+    border:1.5px solid #f2f5f7;
+    transition: all ease-in-out 350ms;
+} */
+
+.nav-dropdown {
+  position: absolute;
+  display: none;
+  z-index: 1;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+/*Styling Hamburger Icon*/
+.hamburger div{
+    width: 30px;
+    height:3px;
+    background: #f2f5f7;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+.hamburger{
+    display: none;
+}
+
+.hero_image img {
+    width: 100%;
+    height: 567px;
+    object-fit: cover;
+  }
+  
+  .container{
+    display: grid;
+    grid-template-areas: "overflow-content";
+  }
+  
+  .hero_image{
+    grid-area: overflow-content;
+  }
+  
+  
+/*  .hero_text{
+    grid-area: overflow-content;
+    color: white;
+    margin: 10% auto 10% auto;
+    font-size: 2rem;
+    margin-top: 12%;
+  }*/
+.column-1{
+    width: 60%;
+}
+.column-2{
+    width: 40%;
+    display: flex;
+}
+.content{
+    padding: 50px 200px 0px 200px;
+}
+.row{
+    color:#131418;
+    width: 100%;
+
+    display: flex;
+}  
+  
+.container-row {
+    /* background-color: antiquewhite; */
+    border-radius: 20px;
+    box-shadow: 2px 2px 10px 0px #707070;
+    color: #131418;
+    height: auto;
+    margin-bottom: 50px;
+}
+.course-inner .row{
+  margin-left: 0;
+  margin-right: 0;
+}
+
+[data-tab-content] {
+    display: none;
+  }
+  
+  .active[data-tab-content] {
+    display: block;
+    margin-left: 30px;
+  }
+  
+  
+  
+   .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style-type: none;
+    margin: 0;
+    padding: 20px;
+    background-color: #e7e7e7;
+    margin: 20px;
+    border-radius: 9px;
+  }
+  
+  .tab {
+    cursor: pointer;
+    padding: 10px;
+    width: 175px;
+    font-size: 14px;
+    text-align: center;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}   
+  
+  .tab.active {
+    background-color: #f96703;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 100px;
+    text-align: center;
+    width: 175px;
+    font-size: 14px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+  .tab:hover {
+    background-color: #f96703;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 175px;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  /*.tab-content {
+    margin-left: 20px;
+    margin-right: 20px;
+  }*/
+  .back_btn a {
+    font-size: 14px;
+    color: #0E559F;
+    box-shadow: 0px 3px 99px #ccd6ff3e;
+    border: 1px solid #0E559F;
+    border-radius: 9px;
+    padding: 1rem 4.5rem;
+    font-weight: 600;
+    background: transparent;
+    transition: 0.3s all;
+    text-decoration: auto;
+}
+.back_btn{
+    margin-top: 50px;
+}
+.course-content{
+    margin-top:30px;
+}
+/*.course-content h3{
+    width: 393px;
+}
+*/
+.back_btn a:hover {
+    background: #0E559F;
+    color: #fff;
+}
+
+
+
+
+.accordion-content {
+    max-width: 570px;
+    margin: 0 auto;
+    padding-top: 17px;
+    
+    border-radius: 8px;
+  }
+  .accordion-item {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.09);
+    cursor: pointer;
+    background: #F96703;
+    margin-bottom: 0.5em;
+    color: #fff;
+    margin-bottom:20px;
+  }
+  .item-header {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 0.2em;
+  }
+  
+  .item-icon {
+    margin-top: 1rem;
+    flex: 0 0 25px;
+    display: grid;
+    place-items: center;
+    font-size: 1.25rem;
+    height: 25px;
+    width: 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.09);
+  }
+  .item-icon i {
+    transition: all 0.25s cubic-bezier(0.5, 0, 0.1, 1);
+  }
+  .item-question {
+    font-size: 1em;
+    line-height: 1;
+    font-weight: 500;
+  }
+  
+  .active .item-icon i {
+    transform: rotate(180deg);
+  }
+  
+  .active .item-question {
+    font-weight: 500;
+  }
+  
+  .item-content {
+    margin-bottom: 10px;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 300ms ease;
+  }
+  .lesson-content{
+    margin-left: 20px;
+  }
+  .accordion-item a {text-decoration:none; color: #fff;}
+  
+  .item-answer {
+    display: flex;
+    line-height: 150%;
+    opacity: 0.8;
+  }
+.get-started  button {
+    all: initial;
+    color: #fff;
+    background-color: #25f;
+    border-radius: 10px;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    
+    height: 30px;
+    padding: 5px;
+  }
+  .get-started{
+    margin-top: 10px;
+  }
+  .get-started a{
+    text-decoration: none;
+  }
+  .no-3 {
+    font-size: 1.5em;
+    padding: 0.5em 1em;
+  }
+/* Footer css satrt here */  
+  .footer-distributed{
+	background: #134793;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+	width: 100%;
+	text-align: left;
+	font: bold 16px sans-serif;
+	padding: 20px 200px 20px 200px
+}
+
+/* Create two equal columns that floats next to each other */
+.footer-column1 {
+  float: left;
+  width: 40%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+.footer-column2 {
+  float: left;
+  width: 60%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+.footer-row {
+
+  display: flex;
+}
+
+.footer-logo{
+  width: 43%;
+}
+/* Clear floats after the columns */
+.footer-row:after {
+  content: "";
+  display: table;
+  clear: both;
+  display: flex;
+}
+
+
+.footer-hero {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.social-links_2 {
+  display: flex;
+  margin-left: 70%;
+}
+
+.social-links_2 a {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  text-decoration: none;
+  color: #134793;
+  box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
+  margin: 0 5px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.5s;
+  background-color: #fff;
+}
+
+.social-links_2 a .fab {
+  font-size: 30px;
+  line-height: 55px;
+  position: relative;
+  z-index: 10;
+  transition: color 0.5s;
+}
+
+.social-links_2 a::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: -90px;
+  left: 0;
+  background: #000;
+  background: linear-gradient(-45deg, #ed1c94, #ffec17);
+  position: absolute;
+  transition: 0.5s;
+}
+
+.footer-menu span{
+  margin:6px;
+}
+.footer-menu, span a{
+  color: #fff;
+  text-decoration: none;
+}
+.footer-terms, span a{
+  color: #fff;
+  text-decoration: none;
+}
+.footer-terms {
+  margin-left:59%;
+}
+.copy-right {
+  margin-left:60%;
+}
+.footer-menu, .footer-terms, .copy-right {
+  margin-top: 40px;
+  color: #fff;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+.separator .line{
+  max-width: 1100px;
+  margin: 2rem auto;
+  height: 1px;
+  flex: 1;
+  background-color: #fff;
+}
+
+/*Stying for small screens*/
+@media (max-width:1440px) and (min-width:1200px){
+.nav-links li {
+  font-size: 13px;
+  
+}
+.my_pro_head {max-width: 95%;}
+.my_pro_head .um-profile {max-width: 100%!important;}
+.dashboard_home_footer{max-width: 89%;}
+.my_pro_head .col-xl-12{margin: 0px;}
+.my_pro_head .row{margin: 0px; padding: 0px;}
+
+
+.logo {
+    padding: 0 !important;
+    text-align: center;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+.login-button, .join-button{
+  width: 120px;
+  font-size: 14px;
+  margin: 0px;
+}
+.content{
+  margin-top: 50px ;
+  padding: 50px 80px 0px 80px;
+}
+.tabs{
+  padding: 10px;
+  margin: 5px;
+}
+.tab{
+  font-size:14px;
+}
+.tab:hover{
+  width: 185px;
+}
+.course-content h3 {
+  width: 305px;
+}
+.footer-menu, .footer-terms, .copy-right{
+  font-size: 14px;
+  margin-left: 50px;
+}
+.footer-menu span {
+  margin: 1px;
+}
+.footer-terms{
+  margin-left: 56%;
+}
+.copy-right{
+  margin-left: 57%;
+}
+.footer-logo {  
+  margin-top: 50px ;
+  height: 71% !important;
+  width: 52%;
+}
+
+.footer-distributed{
+  padding: 20px 50px 0px 50px;
+}
+.social-links_2{
+  margin-left: 60%;
+}
+.footer-column2 {
+  width: 81%;
+}
+.accordion-item{
+  border-radius: 15px;
+}
+.accordion-content{
+  padding-right: 15px;
+}
+}
+
+@media screen and (max-width: 800px){
+    nav{
+        position: fixed;
+        z-index: 3;
+    }
+    .hamburger{
+        display:block;
+        position: absolute;
+        cursor: pointer;
+        right: 5%;
+        top: 50%;
+        transform: translate(-5%, -50%);
+        z-index: 2;
+        transition: all 0.7s ease;
+    }
+    .nav-links{
+        position: fixed;
+        background: #131418;
+        height: 100vh;
+        width: 100%;
+        flex-direction: column;
+        clip-path: circle(50px at 90% -20%);
+        -webkit-clip-path: circle(50px at 90% -10%);
+        transition: all 1s ease-out;
+        pointer-events: none;
+    }
+    .nav-links.open{
+        clip-path: circle(1000px at 90% -10%);
+        -webkit-clip-path: circle(1000px at 90% -10%);
+        pointer-events: all;
+    }
+    .nav-links li{
+        opacity: 0;
+    }
+    .nav-links li:nth-child(1){
+        transition: all 0.5s ease 0.2s;
+    }
+    .nav-links li:nth-child(2){
+        transition: all 0.5s ease 0.4s;
+    }
+    .nav-links li:nth-child(3){
+        transition: all 0.5s ease 0.6s;
+    }
+    .nav-links li:nth-child(4){
+        transition: all 0.5s ease 0.7s;
+    }
+    .nav-links li:nth-child(5){
+        transition: all 0.5s ease 0.8s;
+    }
+    .nav-links li:nth-child(6){
+        transition: all 0.5s ease 0.9s;
+        margin: 0;
+    }
+    .nav-links li:nth-child(7){
+        transition: all 0.5s ease 1s;
+        margin: 0;
+    }
+    li.fade{
+        opacity: 1;
+    }
+}
+/*Animating Hamburger Icon on Click*/
+.toggle .line1{
+    transform: rotate(-45deg) translate(-5px,6px);
+}
+.toggle .line2{
+    transition: all 0.7s ease;
+    width:0;
+}
+.toggle .line3{
+    transform: rotate(45deg) translate(-5px,-6px);
+}
+
+
+.dashboard_home_footer .under{ flex: 0 0 71.666667%; max-width: 73%;}
+.line_1{border-right: 1px solid #fff;}
+.dashboard_home_footer .privercy_pag a{padding: 0px 10px;}
+.mypro .elementor { margin: 0px;}
+.modal .modal-dialog {width: 650px!important; border-radius: 9px; box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);}
+body.elementor-page-1595 { background-color: #F5F9FA;}
+.site .site-content .ast-container .primary img{display: none;}
+#eval_form p{margin-top: 0px;}
+#eval_form .wpcf7-response-output{top: 19px; position: relative; font-size: 23px; background: #fff; color: #f00; text-align: center;}
+#eval_form p label.eve1 { width: 49%; margin-right:5px;}
+#eval_form p .wpcf7-submit{background:#F96703; border-radius: 10px; width: 346px; height: 63px; font-size: 20px;}
+.wpcf7-radio .wpcf7-list-item label input[type="radio"]:checked, input[type=reset], input[type="checkbox"]:checked, input[type="checkbox"]:hover:checked, input[type="checkbox"]:focus:checked, input[type=range]::-webkit-slider-thumb{background-color: #ff0000!important;}
+
+
+
+/* groups styles */
+.title_group 
+    {
+    font-size: 25px;
+    }
+    .btn-primary {
+    background: #F9671D 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 99px #ccd6ff3e;
+    border-radius: 9px;
+    font-size: 13px;
+    color: #FFFFFF;
+    height:50px;
+    padding:12px 12px;
+    border:1px solid#F9671D;
+}
+.btn-primary:hover {
+    background: #F9671D 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 99px #ccd6ff3e;
+    border-radius: 9px;
+    font-size: 13px;
+    color: #FFFFFF;
+    height:50px;
+    padding:12px 12px;
+    border:1px solid#F9671D;
+}

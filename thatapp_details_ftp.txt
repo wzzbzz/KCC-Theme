@@ -1,0 +1,32 @@
+Sftp :
+Host : 192.241.153.202
+U : root
+P : 9Forrestferilglobal@123!a
+
+Port : 22
+
+
+store group type 
+
+ if($blog_group_id == 'all_users')
+          {
+             add_post_meta( $blog_id, 'blog_group_id', @$_POST['blog_group_id']);
+          }
+          else
+          {
+              add_post_meta( $blog_id, 'blog_group_id', @$_POST['blog_groups']);
+            
+          }
+
+
+
+Send Email  Wordpress  
+
+// Generate OTP and send email
+         $otp =generate_otp();
+         $message = 'Your verification code is: ' . $otp;
+         $subject = 'OTP Verification';
+         $header = "From:noreply@thatappdev.space \r\n";
+         $header .= "MIME-Version: 1.0\r\n";
+         $header .= "Content-type: text/html\r\n";
+     wp_mail( $email, $subject, $message,$header);

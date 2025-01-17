@@ -1,0 +1,926 @@
+@media (max-width:1440px) and (min-width:1200px){
+    .container { max-width: 1300px!important; }
+    .container-fluid { max-width: 1350px;}
+
+    .main_side_bar_left {width: 110px;}  
+    .side_open_logo {max-width: 140px; height: auto;}      
+    .main_menu_Sec a {min-height: 60px;}
+    .menu_icon {width: 70px;}
+    .side_text_view p { font-size: 15px;}
+    .main_menu_Sec.active a:before { width: 3px;}
+    .main_side_bar_left:hover {width: 230px;}
+
+    .top_title h5 {font-size: 35px;}
+    .serch_sec_top .form-control {font-size: 20px; height: 40px;}
+    .notification_sec img{max-width: 20px;height: auto;}
+    .dropdown.right_dropdown button.dropdown-toggle { font-size: 15px;}
+    .dropdown.right_dropdown .dropdown-item { font-size: 16px;  padding: 0.2rem 0.5rem;}   
+    .top_heading_sec p {font-size: 50px;}
+    .top_heading_sec small { font-size: 15px;}
+    .main_dsh_text h6 { font-size: 20px;}
+    .main_dsh_text p {font-size: 12px;}
+    .side_main_img img { max-width: 380px;}
+    .center_dsh_box {padding: 1rem 0 2rem 1rem;}  
+    .mian_box_btm .top_lay img { max-width: 70px;  height: auto;}
+    .mian_box_btm .top_lay h5 {font-size: 35px;}
+    .mian_box_btm .top_lay p {font-size: 15px;}
+    .mian_box_btm h4 {font-size: 18px;}
+    .mian_box_btm a { font-size: 16px; }
+    .mian_box_btm { padding: 1.5rem 1rem;}
+    .knowlage_box h5 { font-size: 18px;}
+    .credential_sec img.knowlage_img { max-width: 160px;}
+    .credential_sec h5 {  font-size: 15px;}
+    .credential_sec p { font-size: 10px;}
+    .credential_sec img.coordination-img { max-width: 70px; margin-right: 1rem;}
+    .linked_pages a { font-size: 13px; margin-right: 1rem;}
+    .privercy_pag a {  font-size: 13px; padding-right: 1rem;}
+    .copy_right_Sec p { font-size: 13px;}
+    .mt-5{margin-top:10px !important;}
+    .um input[type=submit].um-button, .um input[type=submit].um-button:focus, .um a.um-button, .um a.um-button.um-disabled:hover, .um a.um-button.um-disabled:focus, .um a.um-button.um-disabled:active {
+        background: #F96703;
+        width: 350px;
+    }
+    /* Banner and menu section */
+    .elementor-10 .elementor-element.elementor-element-a40690b {
+        margin-top: -5px;
+        margin-bottom: 0px;
+        padding: 0% 3% 0% 3%;
+        z-index: 999;
+        margin-top: -31px !important ;
+    }
+    .elementor-10 .elementor-element.elementor-element-dd77387 {
+        width: 20%;
+        margin-top: 25px;
+        font-size: 14px;
+    }
+    .elementor-10 .elementor-element.elementor-element-3f25bd0 .elementor-nav-menu--main .elementor-item {
+        color: #FFFFFF;
+        fill: #FFFFFF;
+        padding-left: 0px;
+        padding-right: 20px;
+        margin-top: 15px;
+    }
+    .elementor-10 .elementor-element.elementor-element-3f25bd0 .elementor-nav-menu .elementor-item {
+        font-family: "Roboto", Sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+    }
+    .elementor-widget-wrap>.elementor-element {
+        width: 101% !important;
+        margin-top: 15px;
+    }
+    
+    .elementor img {
+        height: auto;
+        max-width: 100%;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .elementor-3092 .elementor-element.elementor-element-feadc78 .elementor-heading-title {
+        color: #FFFFFF;
+        font-family: "Poppins", Sans-serif;
+        font-size: 22px;
+        font-weight: 600;
+    }
+    .wp-image-4805{
+        max-width:80% !important;
+        margin-top: 5px;
+    }
+    .elementor-10 .elementor-element.elementor-element-3f25bd0 > .elementor-widget-container {
+        margin: 30px -2px 0px 0px !important ;
+    }
+    
+
+    /* help and support - profile setting */
+    .profile_sec_top img {max-width: 180px;}
+    .side_profile_view h4 { font-size: 30px;}
+    .side_profile_view p {font-size: 14px;}
+    .linked_page_left a {font-size: 14px;}
+    .profile_upload .avatar-upload_1 .avatar-preview {  width: 180px; height: 180px; }
+    .profile_upload .avatar-upload_1 .avatar-edit { right: 35px; bottom: 4px;}
+    .selection_yes p { font-size: 14px;}
+    .selector-item_label { height: 60px;  width: 60px;font-size: 13px!important;}
+
+     /* help and support tickit */
+     .user_serch_messsage img { max-width: 50px; height: 50px; border-radius: 28px;}
+     .user_serch_messsage {padding: 0.5rem 0.5rem; }
+     .user_sserch h6 { font-size: 14px;} 
+     .user_sserch small {font-size: 12px;}
+     .user_serch_messsage p {font-size: 12px;}
+     .btm_dis{flex-wrap: wrap;}
+     .name_head img { max-width: 50px; height: 50px;}
+     .name_head h5 { font-size: 15px;}
+     .name_head p {  font-size: 10px;}
+     .create_tickit_Btn button.btn_tickit {font-size: 12px;  padding: 0.5rem 0.5rem;}
+     .my_mes_Sec p {font-size: 12px;}
+     .again_message_Sec .again_mes_chat p {font-size: 12px;}
+     .send_btn button.btn_send { font-size: 15px;  padding: 0.8rem 4rem;}
+
+     /* help and support setting */
+     .accordian_Sec #accordion .card .btn.btn-link {font-size: 12px;}
+     .accordian_Sec #accordion .card-body { font-size: 11px;}
+     .faq_tab_pills .nav-pills .nav-item a.nav-link { font-size: 13px;}
+     .still_have_ques h5 { font-size: 16px;}
+     .still_have { padding: 0.8rem 0.5rem;}
+
+     /* notification modal */
+     .mian_notification_sec img{max-width: 50px;height: 50px;}
+     .mian_notification_sec h5 { font-size: 16px;}
+     .mian_notification_sec p { font-size: 13px;}
+     .mian_notification_sec span { font-size: 12px;}
+     .title_notification a {font-size: 13px;}
+     .notification_sec.btn-group .dropdown-menu.dropdown-menu-right.show { width: 480px;}
+
+     /* 16-01-2023 */
+     .message_Serch_user { height: calc(100vh - 280px);}
+     .chat_writting_sec { height: calc(100vh - 340px);}
+     .top_logo_sec .side_open_logo{max-width: 150px;height: auto;}
+     .main_box_center_tickit.chat_tickit { padding: 3rem 1.5rem 0rem 1.5rem;}
+    
+     /* messasge */
+     .send_img_Sec img{max-width: 170px; height: 170px;}
+     .linked_page a{ font-size: 12px;}
+    .copy_right_mian p{font-size: 12px; }
+    .add_Sec_modal p { font-size: 14px;}
+    .create_tickit .modal-header h5 {  font-size: 18px; }
+
+    /* coordination center */
+    .notification_Sec_main h5 { font-size: 20px;}
+    .notification_Sec_main p { font-size: 12px; }
+    .back_btn a { font-size: 12px; padding: 1rem 3rem;}
+    .donation_tab_pills .nav-item a.nav-link {font-size: 13px; min-width: 100px;}
+
+    /* donate detail */
+    .donation_detail h5 { font-size: 23px;}
+    .donation_detail span { font-size: 10px;}
+    .about_donate p {font-size: 10px; margin: 0.8rem 0rem;}
+
+
+    /* blog detail */
+    .all_about_blog h4 { font-size: 25px;}
+    .all_about_blog small{ font-size: 12px;}
+    .all_about_blog p { font-size: 12px;} 
+
+    /* kniwlage center */
+    .certi_title button.btn_know {font-size: 12px; }
+    .certi_title h4 { font-size: 15px;}
+    .certi_title p {  font-size: 14px; }
+
+    /* login */
+    .login_social a img {max-width: 50px;height: auto;}
+    .login_with p {  font-size: 16px;}
+/*     .login_left_text p { font-size: 15px;    margin: 0.5rem 0;color:#fff;} */
+    
+/*     .login_left_text h4 {font-size: 30px;color:#fff;} */
+    .login_left_text h4 span {font-size: 45px;}
+    .rigt_side_text h5 { font-size: 35px;}
+    .rigt_side_text p { font-size: 16px;}
+    .main_login_img {   min-height: 100vh;  background-size: 50% 100%;}
+/*     .main_login_img-1 {   min-height: 100vh;  background-size: 50% 100%;} */
+    .login_nav .navbar-brand img{   max-width: 120px; height: auto;}
+    button.btn_account { font-size: 15px;}
+    .main_login_img section{padding-top: 80px;}
+    .main_login_img-1 section{padding-top: 30px;}
+    button.btn_account.active{ font-size: 13px;color: #fff; width:200px}
+
+
+    /* knowledge list */
+    .verification-code--inputs input[type=text] {
+        width: 45px;
+        height: 45px;        
+        border-radius: 9px;
+        margin: 0.5rem 0.2rem;
+    }
+    /* Single Announcement  */
+    .col-xl-11.col-lg-11.col-md-11.col-10.my-4.announcement { padding-left: 100px;}
+
+}
+@media(width:1366px){
+    .top_logo_sec { padding: 1rem 0rem 0rem 0.2rem;}
+    .main_side_bar_left { height: max-content;  width: 75px;  position: absolute;  top: 0;  left: 0;}
+    .center_logo_sec { background-size: contain;  height: auto; display: grid;
+    justify-content: unset;  background-position: center left;  min-height: max-content;  padding: 2rem 0;}
+    .main_menu_Sec a {  margin: 0.2rem 0rem; } 
+    .top_logo_sec .side_open_logo {max-width: 110px; height: auto;}
+    .top_logo_sec .small_logo{max-width: 70px; height: auto;}
+    .bottom_logo_sec {   position: relative;  bottom: unset;}
+    .top_logo_sec a img { padding: 0rem 0rem;}
+}
+@media (max-width:1199px) and (min-width:992px){
+    .container { max-width: 950px!important;} 
+
+   
+    .menu_icon {width: 70px;}
+    .side_text_view p { font-size: 15px;}
+    .main_menu_Sec.active a:before { width: 3px;}
+    .main_side_bar_left:hover {width: 230px;}
+    .top_logo_sec { padding: 1rem 0rem 0rem 0.2rem;}
+    .main_side_bar_left { height: max-content;  width: 80px;  position: absolute;  top: 0;  left: 0;}
+    .center_logo_sec { background-size: contain;  height: auto; display: grid;
+    justify-content: unset;  background-position: center left;  min-height: max-content;  padding: 2rem 0;}
+    .main_menu_Sec a {  margin: 0.2rem 0rem;min-height: 60px; } 
+    .top_logo_sec .side_open_logo {max-width: 110px; height: auto;}
+    .top_logo_sec .small_logo{max-width: 70px; height: auto;}
+    .bottom_logo_sec {   position: relative;  bottom: unset;}
+    .top_logo_sec a img { padding: 0rem 0rem;}
+
+    .top_title h5 {font-size: 30px;}
+    .serch_sec_top .form-control {font-size: 15px; height: 35px;}
+    .notification_sec {margin-right: 1rem;}    
+    .notification_sec a img{max-width: 20px;height: auto;}
+    .dropdown.right_dropdown button.dropdown-toggle { font-size: 15px;}
+    .dropdown.right_dropdown .dropdown-item { font-size: 16px;  padding: 0.2rem 0.5rem;}  
+    .top_logo_sec .side_open_logo { max-width: 120px; height: auto;} 
+    .top_heading_sec p {font-size: 40px;}
+    .top_heading_sec small { font-size: 15px;}
+    .main_dsh_text h6 { font-size: 20px;}
+    .main_dsh_text p {font-size: 12px;}
+    .side_main_img img { display: none;}
+    .center_dsh_box {padding: 1rem 0 2rem 1rem;}  
+    .mian_box_btm .top_lay img { max-width: 60px;  height: auto;}
+    .mian_box_btm .top_lay h5 {font-size: 30px;}
+    .mian_box_btm .top_lay p {font-size: 15px;}
+    .mian_box_btm h4 {font-size: 15px;}
+    .mian_box_btm p {font-size: 11px;}    
+    .mian_box_btm a { font-size: 12px; }
+    .mian_box_btm { padding: 1rem 1rem;}
+    .knowlage_box h5 { font-size: 18px;}
+    .credential_sec img.knowlage_img { max-width: 160px;}
+    .credential_sec h5 {  font-size: 15px;}
+    .credential_sec p { font-size: 10px;}
+    .credential_sec img.coordination-img { max-width: 70px; margin-right: 1rem;}
+    .linked_pages a { font-size: 11px; margin-right: 0.5rem;}    
+    .privercy_pag a {  font-size: 11px; padding-right: 0.5rem;}
+    .copy_right_Sec p { font-size: 11px;}
+    .social_icon_sec a img { margin: 0 10px 10px 0px;}
+
+     /* help and support - profile setting */
+     .profile_sec_top img {max-width: 180px;}
+     .side_profile_view h4 { font-size:25px;}
+     .side_profile_view p {font-size: 14px;}
+     .linked_page_left a {font-size: 12px;}
+     .profile_upload .avatar-upload_1 .avatar-preview {  width: 150px; height: 150px; }     
+     .selection_yes p { font-size: 14px;}
+     .selector-item_label { height: 60px;  width: 60px;font-size: 13px!important;}
+     .top_profile h4 {font-size: 16px;}
+     .top_profile img{max-width: 25px;height: auto;}
+     .profile_upload .avatar-upload_1 { max-width: 175px;}
+
+      /* help and support tickit */
+      .user_serch_messsage img { max-width: 30px; height: 30px; border-radius: 28px;}
+      .left_Side_chat{padding: 0;}
+      .user_serch_messsage {padding: 0.5rem 0.5rem; }
+      .user_sserch h6 { font-size: 12px;} 
+      .user_sserch small {    font-size: 10px;font-weight: 600;}
+      .user_serch_messsage p {font-size: 12px;}
+      .btm_dis{flex-wrap: wrap;}
+      .name_head img { max-width: 40px; height: 40px;}
+      .name_head h5 { font-size: 13px;}
+      .name_head p {  font-size: 10px;}
+      .create_tickit_Btn button.btn_tickit {font-size: 12px;  padding: 0.5rem 0.5rem;}
+      .my_mes_Sec p {font-size: 12px;}
+      .again_message_Sec .again_mes_chat p {font-size: 12px;}
+      .send_btn button.btn_send { font-size: 13px;  padding: 0.8rem 3rem;}
+      .chat_writting_sec {padding: 0 0.2rem 0rem 0rem;  height: 500px;}
+    
+
+      /* help and support setting */
+     .accordian_Sec #accordion .card .btn.btn-link {font-size: 12px;}
+     .accordian_Sec #accordion .card-body { font-size: 11px;}
+     .faq_tab_pills .nav-pills .nav-item a.nav-link { font-size: 13px;}
+     .still_have_ques h5 { font-size: 16px;}
+     .still_have { padding: 0.8rem 0.5rem;}
+    
+      /* notification modal */
+      .mian_notification_sec img{max-width: 50px;height: 50px;}
+      .mian_notification_sec h5 { font-size: 16px;}
+      .mian_notification_sec p { font-size: 13px;}
+      .mian_notification_sec span { font-size: 12px;}
+      .title_notification a {font-size: 13px;}
+      .notification_sec.btn-group .dropdown-menu.dropdown-menu-right.show { width: 450px;}
+      .title_notification p { font-size: 12px;}
+      .title_notification h4 {font-size: 16px;}
+
+   /* 16-01-2023 */
+   .message_Serch_user { height: 500px;}
+
+   /* .chat_writting_sec { height: calc(100vh - 340px);} */
+   /* .top_logo_sec .side_open_logo{max-width: 150px;height: auto;} */
+   .main_box_center_tickit.chat_tickit { padding: 3rem 1.5rem 0rem 1.5rem;}
+  
+   /* messasge */
+   .send_img_Sec img{max-width: 170px; height: 170px;}
+   .linked_page a{ font-size: 12px;}
+   .copy_right_mian p{font-size: 12px; }
+   .add_Sec_modal p { font-size: 14px;}
+   .create_tickit .modal-header h5 { font-size: 20px;}
+
+   /* coordination center */
+   .notification_Sec_main h5 { font-size: 20px;}
+   .notification_Sec_main p { font-size: 12px; }
+   .back_btn a { font-size: 12px; padding: 1rem 3rem;}
+
+  
+   
+    /* donate */
+    .donation_tab_pills .grid-container {grid-template-columns: auto auto auto;}
+    .discription_donate h5 {font-size: 14px;}
+    .to_donate button.btn_donate { font-size: 12px;}
+    .discription_donate p { font-size: 10px;}   
+    .donation_tab_pills .nav-item a.nav-link {font-size: 13px; min-width: 100px;}
+
+    /* donate detail */
+    .donation_detail h5 { font-size: 23px;}
+    .donation_detail span { font-size: 10px;}
+    .about_donate p {font-size: 10px; margin: 0.8rem 0rem;}
+    .congrates_img h5 { font-size: 30px;}
+    .congrates_img p {font-size: 13px;}  
+    .left_donate_Sec p { font-size: 13px;}
+    .questions_sec h5 {font-size: 22px;}
+    .left_donate_Sec h5 {font-size: 22px;}
+
+
+    /* blog-2 */
+    .linked_blog a { font-size: 13px;  min-width: 150px;}
+    .btn_list a { font-size: 12px;  padding: 1rem 1rem;}
+    .blog_box h4 { font-size: 13px;}
+    .blog_box p { font-size: 11px;}
+    .blog_grid .grid-container{grid-template-columns: 1fr 1fr 1fr; }
+    .btm_pagination_sec .pagination .page-item a.page-link { font-size: 12px;}
+    .btm_pagination_sec .pagination .page-item { margin: 0 5px;}
+
+    /* blog detail */
+    .all_about_blog h4 { font-size: 20px;}
+    .all_about_blog small{ font-size: 12px;}
+    .all_about_blog p { font-size: 12px;}
+    .releated_blog_sec h5 {font-size: 16px;}
+
+    /* blog detail-1 */ 
+    .btn_list button.btn_front_page{  font-size: 10px; min-width: 130px;}
+
+    /* coordination center main */
+    .side_left_sec h4 { font-size: 22px;}
+    .main_box_btm h5 {font-size: 15px;}
+    .main_box_btm li {font-size: 12px;}
+    
+
+    /* disater situational reprt click */
+    .btn_list_blog a {font-size: 11px; padding: 0.8rem 1rem;}
+    .btn_list_blog a img{max-width: 12px;height: auto}
+    .main_table_sec thead th { font-size: 10px; padding: 0.5rem 0.2rem;}
+    .main_table_sec tbody tr td { font-size: 11px;}
+    .main_table_sec tbody button.btn_view {font-size: 10px; padding: 0.5rem 1rem;}
+
+    /* create new flow */
+    .main_profile_form .form-control { font-size: 13px;}
+    .title_create h4 { font-size: 14px;} 
+    .radio_sec.flow_radio_Sec label { font-size: 12px;}
+    .title_create p { font-size: 12px;}
+
+    .main_flow h4 {font-size: 13px;}
+    .main_flow p {  font-size: 12px;}
+
+    
+    /* kniwlage center */
+    .certi_title button.btn_know {font-size: 12px; }
+    .certi_title h4 { font-size: 15px;}
+    .certi_title p {  font-size: 14px; }
+
+     /* login */
+     .login_social a img {max-width: 50px;height: auto;}
+     .login_with p {  font-size: 16px;}
+/*      .login_left_text p { font-size: 15px;    margin: 0.5rem 0;color:#fff;} */
+/*      .login_left_text h4 {font-size: 30px;color:#fff;} */
+     .login_left_text h4 span {font-size: 45px;}
+     .resend_code p{color:#fff;}
+     .rigt_side_text h5 { font-size: 25px; color: #000;}
+	.copy_right a{color: #000;}
+     .rigt_side_text p { font-size: 12px;}
+     .main_login_img {   min-height: 100vh;  background-size: 50% 100%;}
+     .main_login_img-1 {   min-height: 100vh;  background-size: 100% 100%;}
+     .login_nav .navbar-brand img{   max-width: 120px; height: auto;}
+     button.btn_account { font-size: 15px;}
+     .main_login_img section{padding-top: 80px;}
+     .main_login_img-1 section{padding-top: 80px;}  
+     button.btn_account.active{ font-size: 13px;color: #fff; width:150px}
+
+     .mt-5{margin-top:20px !important;}
+     .col-xl-3.col-lg-6{width: 30%;}
+    
+     
+
+}
+@media (max-width:991px) and (min-width:768px){
+    .container { max-width: 700px!important;} 
+   
+    /* .main_side_bar_left {width:80px;}  
+    .side_open_logo {max-width: 140px; height: auto;}      
+    .main_menu_Sec a {min-height: 60px;}
+    .menu_icon {width: 70px;}
+    .side_text_view p { font-size: 15px;}
+    .main_menu_Sec.active a:before { width: 3px;}
+    .main_side_bar_left:hover {width: 230px;} */
+
+    .menu_icon {width: 70px;}
+    .side_text_view p { font-size: 15px;}
+    .main_menu_Sec.active a:before { width: 3px;}
+    .main_side_bar_left:hover {width: 230px;}
+    .top_logo_sec { padding: 1rem 0rem 0rem 0.2rem;}
+    .main_side_bar_left { height: max-content;  width: 80px;  position: absolute;  top: 0;  left: 0;}
+    .center_logo_sec { background-size: contain;  height: auto; display: grid;
+    justify-content: unset;  background-position: center left;  min-height: max-content;  padding: 2rem 0;}
+    .main_menu_Sec a {  margin: 0.2rem 0rem;min-height: 60px; } 
+    .top_logo_sec .side_open_logo {max-width: 110px; height: auto;}
+    .top_logo_sec .small_logo{max-width: 70px; height: auto;}
+    .bottom_logo_sec {   position: relative;  bottom: unset;}
+    .top_logo_sec a img { padding: 0rem 0rem;}
+
+    .top_title h5 {font-size: 25px;}
+    .serch_sec_top .form-control {font-size: 20px; height: 40px;}
+    .notification_sec {margin-right: 1rem;}    
+    .notification_sec a img{max-width: 20px;height: auto;}
+    .dropdown.right_dropdown button.dropdown-toggle { font-size: 15px;}
+    .dropdown.right_dropdown .dropdown-item { font-size: 16px;  padding: 0.2rem 0.5rem;}  
+    .top_logo_sec .side_open_logo { max-width: 120px; height: auto;} 
+    .top_heading_sec p {font-size: 40px;}
+    .top_heading_sec small { font-size: 15px;}
+    .main_dsh_text h6 { font-size: 20px;}
+    .main_dsh_text p {font-size: 12px;}
+    .side_main_img img { display: none;}
+    .center_dsh_box {padding: 1rem 0 2rem 1rem;}  
+    .mian_box_btm .top_lay img { max-width: 60px;  height: auto;}
+    .mian_box_btm .top_lay h5 {font-size: 30px;}
+    .mian_box_btm .top_lay p {font-size: 15px;}
+    .mian_box_btm h4 {font-size: 15px;}
+    .mian_box_btm p {font-size: 11px;}    
+    .mian_box_btm a { font-size: 12px; }
+    .mian_box_btm { padding: 1rem 1rem;}
+    .knowlage_box h5 { font-size: 18px;}
+    .credential_sec img.knowlage_img { max-width: 140px;}
+    .credential_sec h5 {  font-size: 15px;}
+    .credential_sec p { font-size: 10px;}
+    .credential_sec img.coordination-img { max-width: 60px; margin-right: 1rem;}
+    .linked_pages a { font-size: 11px; margin-right: 0.5rem;}    
+    .privercy_pag a {  font-size: 11px; padding-right: 0.5rem;}
+    .copy_right_Sec p { font-size: 11px;}
+    .social_icon_sec a img { margin: 0 10px 10px 0px;}
+    .main_footer_sec { padding: 1rem 1rem 1rem 1rem;}
+
+    /* help and support - profile setting */
+    .profile_sec_top img {max-width: 140px;}
+    .side_profile_view h4 { font-size:25px;}
+    .side_profile_view p {font-size: 14px;}
+    .linked_page_left a {font-size: 12px;}
+    .profile_upload .avatar-upload_1 .avatar-preview {  width: 150px; height: 150px; }     
+    .selection_yes p { font-size: 14px;}
+    .selector-item_label { height: 60px;  width: 60px;font-size: 13px!important;}
+    .top_profile h4 {font-size: 16px;}
+    .top_profile img{max-width: 25px;height: auto;}
+    .profile_upload .avatar-upload_1 { max-width: 175px;}
+    .update_btn button.btn_update {  padding: 1rem;  font-size: 14px;}
+    .main_profile_form .form-control { font-size: 13px;}
+    .main_profile_form label { font-size: 12px;}
+
+     /* help and support tickit */
+     .user_serch_messsage img { max-width: 30px; height: 30px; border-radius: 28px;}
+     .left_Side_chat{padding: 0;}
+     .user_serch_messsage {padding: 0.5rem 0.5rem; }
+     .user_sserch h6 { font-size: 12px;} 
+     .user_sserch small {    font-size: 10px;font-weight: 600;}
+     .user_serch_messsage p {font-size: 12px;}
+     .btm_dis{flex-wrap: wrap;}
+     .name_head img { max-width: 40px; height: 40px;}
+     .name_head h5 { font-size: 13px;}
+     .name_head p {  font-size: 10px;}
+     .create_tickit_Btn button.btn_tickit {font-size: 12px;  padding: 0.5rem 0.5rem;}
+     .my_mes_Sec p {font-size: 12px;}
+     .again_message_Sec .again_mes_chat p {font-size: 12px;}
+     .send_btn button.btn_send { font-size: 13px;  padding: 0.8rem 3rem;}
+     .chat_writting_sec {height:400px;padding: 0 0.2rem 0rem 0rem;}
+     .my_mes_Sec { max-width: 50%;}
+     .again_message_Sec { max-width: 50%;}
+    
+
+      /* chat */
+    .main_chat.hide-left-chat .left_Side_chat { display: none;transition: 1s all; }
+    .main_chat.hide-leftbar .chatmenu-background { display: none;transition: 1s all;}
+    .main_chat.chatmenu-background {display: block; transition: 1s all;}
+    .center-chat { flex: 0 0 100%;padding: 0px;}
+    .main_chat .left_Side_chat { flex: 0 0 50%; max-width: 50%; position: absolute; left: 0px; z-index: 2; 
+        transition: .3s all; background: #ffffff; height: 100%; padding: 1rem; top: 0px; border-radius: 0px; box-shadow: 0px 10px 30px #00000029;}
+    .hide-left-chat .left_Side_chat {left: -1000px; transition: 1s all; }
+    .center-chat{ position: relative;}
+    .main_chat.hide-left-chat .left_Side_chat .close-btn-chat button {display: block;}
+    .main_chat.hide-left-chat .open_chat_uer_menu button { display:block;}
+    .mian_tickit_Sec{position: relative;}
+    .chat_Section_main {  border-left: unset;}
+
+
+    /* help and support setting */
+    .accordian_Sec #accordion .card .btn.btn-link {font-size: 12px;}
+    .accordian_Sec #accordion .card-body { font-size: 11px;}
+    .faq_tab_pills .nav-pills .nav-item a.nav-link { font-size: 13px;}
+    .still_have_ques h5 { font-size: 16px;}
+    .still_have { padding: 0.8rem 0.5rem;}
+    
+
+    /* notification modal */
+    .mian_notification_sec img{max-width: 40px;height: 40px;}
+    .mian_notification_sec h5 { font-size: 14px;}
+    .mian_notification_sec p { font-size: 13px;}
+    .mian_notification_sec span { font-size: 12px;}
+    .title_notification a {font-size: 13px;}
+    .notification_sec.btn-group .dropdown-menu.dropdown-menu-right.show { width: 450px;transform: translate3d(-220px, 51px, 0px)!important;}
+    .title_notification p { font-size: 12px;}
+    .title_notification h4 {font-size: 16px;}
+
+
+      /* 16-01-2023 */
+   .message_Serch_user { height: 400px;}
+   .dropdown.right_dropdown .dropdown-toggle img { max-width: 40px;}
+
+   /* .chat_writting_sec { height: calc(100vh - 340px);} */
+   /* .top_logo_sec .side_open_logo{max-width: 150px;height: auto;} */
+   .main_box_center_tickit.chat_tickit { padding: 3rem 1.5rem 0rem 1.5rem;}  
+   /* messasge */
+   .send_img_Sec img{max-width: 120px; height: 120px;}
+   .linked_page a{ font-size: 12px;}
+   .copy_right_mian p{font-size: 12px; }
+   .add_Sec_modal p { font-size: 14px;}
+   .create_tickit .modal-header h5 { font-size: 20px;}
+
+   /* coordination center */
+   .notification_Sec_main h5 { font-size: 20px;}
+   .notification_Sec_main p { font-size: 12px; }
+   .back_btn a { font-size: 12px; padding: 1rem 3rem;}
+
+   /* donate */
+   .donation_tab_pills .grid-container {grid-template-columns: auto auto auto;}
+   .discription_donate h5 {font-size: 14px;}
+   .to_donate button.btn_donate { font-size: 12px;}
+   .discription_donate p { font-size: 10px;}
+   .donation_tab_pills .nav-item a.nav-link {font-size: 13px; min-width: 100px;
+    margin: 0 0.5rem 0 0;}
+
+    /* donate detail */
+    .donation_detail h5 { font-size: 23px;}
+    .donation_detail span { font-size: 10px;}
+    .about_donate p {font-size: 10px; margin: 0.8rem 0rem;}   
+    .congrates_img h5 { font-size: 25px;}
+    .congrates_img p {font-size: 13px;}  
+    .left_donate_Sec p { font-size: 13px;}
+    .questions_sec h5 {font-size: 22px;}
+    .left_donate_Sec h5 {font-size: 22px;}
+
+      
+    /* blog-2 */
+    .linked_blog a { font-size: 13px;  min-width: 150px;}
+    
+    .blog_box h4 { font-size: 13px;}
+    .blog_box p { font-size: 11px;}
+    .blog_grid .grid-container{grid-template-columns: 1fr 1fr;} 
+    .btm_pagination_sec .pagination .page-item a.page-link { font-size: 10px;}
+    .btm_pagination_sec .pagination .page-item { margin: 0 5px; padding: 0.3rem 0.6rem;}
+    .btn_list a {  font-size: 10px;   padding: 0.5rem 0.5rem;}
+    .btn_list a img {  max-width: 10px;  height: 10px;  margin-right: 0px!important;}
+
+    /* blog detail */
+    .all_about_blog h4 { font-size: 20px;}
+    .all_about_blog small{ font-size: 10px;}
+    .all_about_blog p { font-size: 10px;}
+    .releated_blog_sec h5 {font-size: 16px;}
+
+    /* blog detail-1 */ 
+    .btn_list button.btn_front_page{  font-size: 10px; min-width: 130px;}
+
+    /* coordination center main */
+    .side_left_sec h4 { font-size: 22px;}
+    .main_box_btm h5 {font-size: 15px;}
+    .main_box_btm li {font-size: 12px;}
+
+     /* disater situational reprt click */
+     .btn_list_blog a {font-size: 11px; padding: 0.8rem 1rem;}
+     .btn_list_blog a img{max-width: 12px;height: auto}
+     .main_table_sec thead th {font-size: 10px;  padding: 0.5rem 0.2rem;   min-width: 180px;}   
+     .main_table_sec tbody tr td { font-size: 11px;}
+     .main_table_sec tbody button.btn_view {font-size: 10px; padding: 0.5rem 1rem;}
+     .main_table_sec ::-webkit-scrollbar { width: 5px;height: 3px;}
+
+     /* create new flow */   
+    .title_create h4 { font-size: 14px;} 
+
+    /* create new flow */   
+    .title_create h4 { font-size: 14px;} 
+    .radio_sec.flow_radio_Sec label { font-size: 12px;}
+    .title_create p { font-size: 12px;}
+    .main_flow h4 {font-size: 13px;}
+    .main_flow p {  font-size: 12px;}
+
+
+    .title_trecking h5 { font-size: 14px;}
+
+    /* kniwlage center */
+    .certi_title button.btn_know {font-size: 12px; }
+    .certi_title h4 { font-size: 15px;}
+    .certi_title p {  font-size: 14px; }
+
+    /* login */
+    .login_social a img {max-width: 50px;height: auto;}
+    .login_with p {  font-size: 16px;}
+.login_left_text {
+    text-align: center;
+}
+    .login_left_text p { font-size: 15px;    margin: 0.5rem 0;}
+    .login_left_text h4 {font-size: 25px;}
+    .login_left_text h4 span {font-size: 40px;}
+    .rigt_side_text h5 {  font-size: 20px;   color: #000;  text-align: center; margin-top: 3rem;}      
+    .rigt_side_text p { font-size: 12px;  color: #000;text-align: center; }
+    .main_login_img {   background-image: unset;}
+    .main_login_img-1 {   background-image: unset;}
+    .login_nav .navbar-brand img{   max-width: 120px; height: auto;}
+    button.btn_account { font-size: 13px;color: #000;}
+    button.btn_account.active{ font-size: 13px;color: #fff;}
+    .main_login_img section{padding-top: 10px;}
+    .main_login_img-1 section{padding-top: 10px;}
+    .copy_right a {  font-size: 12px;  color: #000;  padding: 0 8px;   border-right: 1px solid #000;}
+    .center-text_sec{justify-content: center!important;}
+    
+
+}
+@media (max-width:575px) and (min-width:320px){
+
+
+
+    /* .main_side_bar_left {width:80px;}  
+    .side_open_logo {max-width: 140px; height: auto;}      
+    .main_menu_Sec a {min-height: 60px;}
+    .menu_icon {width: 70px;}
+    .side_text_view p { font-size: 15px;}
+    .main_menu_Sec.active a:before { width: 3px;}
+    .main_side_bar_left:hover {width: 230px;} */
+
+    .menu_icon {width: 70px;}
+    .side_text_view p { font-size: 15px;}
+    .main_menu_Sec.active a:before { width: 3px;}
+    .main_side_bar_left:hover {width: 230px;}
+    .top_logo_sec { padding: 1rem 0rem 0rem 0.2rem;}
+    .main_side_bar_left { height: max-content;  width: 80px;  position: absolute;  top: 0;  left: 0;}
+    .center_logo_sec { background-size: contain;  height: auto; display: grid;
+    justify-content: unset;  background-position: center left;  min-height: max-content;  padding: 2rem 0;}
+    .main_menu_Sec a {  margin: 0.2rem 0rem;min-height: 60px; } 
+    .top_logo_sec .side_open_logo {max-width: 110px; height: auto;}
+    .top_logo_sec .small_logo{max-width: 70px; height: auto;}
+    .bottom_logo_sec {   position: relative;  bottom: unset;}
+    .top_logo_sec a img { padding: 0rem 0rem;}
+    .side_text_view p { font-size: 15px;}
+    .main_menu_Sec.active a:before { width: 3px;}
+
+
+
+    .notification_sec a img {  max-width: 20px;}
+    .top_title h5 {font-size: 25px;}
+    .serch_sec_top .form-control {font-size: 20px; height: 40px;}
+    .notification_sec {margin-right: 1rem;}    
+    .notification_sec img{max-width: 20px;height: auto;}
+    .dropdown.right_dropdown button.dropdown-toggle { font-size: 15px;}
+    .dropdown.right_dropdown .dropdown-item { font-size: 13px;  padding: 0.2rem 0.5rem;}  
+    .top_logo_sec .side_open_logo { max-width: 120px; height: auto;} 
+    .top_heading_sec p {font-size: 30px;}
+    .top_heading_sec small { font-size: 13px;}
+    .main_dsh_text h6 { font-size: 20px;}
+    .main_dsh_text p {font-size: 12px;}
+    .side_main_img img { display: none;}
+    .center_dsh_box {padding: 1rem 0 2rem 1rem;}  
+    .mian_box_btm .top_lay img { max-width: 60px;  height: auto;}
+    .mian_box_btm .top_lay h5 {font-size: 30px;}
+    .mian_box_btm .top_lay p {font-size: 15px;}
+    .mian_box_btm h4 {font-size: 15px;}
+    .mian_box_btm p {font-size: 11px;}    
+    .mian_box_btm a { font-size: 12px; }
+    .mian_box_btm { padding: 1rem 1rem;}
+    .knowlage_box h5 { font-size: 18px;}
+    .credential_sec img.knowlage_img { max-width: 100%; margin-bottom: 0.5rem;}    
+    .credential_sec h5 {  font-size: 15px;}
+    .credential_sec p { font-size: 10px;}
+    .credential_sec img.coordination-img { max-width: 60px; margin-right: 1rem;}
+    .linked_pages a { font-size: 11px; margin-right: 0.5rem;}    
+    .privercy_pag a {  font-size: 11px; padding-right: 0.5rem;}
+    .copy_right_Sec p { font-size: 11px;}
+    .social_icon_sec a img {margin: 0 10px 10px 0px; max-width: 30px;height: auto;}    
+    .main_footer_sec { padding: 1rem 1rem 1rem 1rem;}
+    .main_dsh_text.before_Sec::before{content: unset;}
+    .main_box_center { padding: 1rem 1rem; }
+    .main_box_center:first-child div{flex-wrap: wrap;}
+    .knowlage_box  img{max-width: 20px;height: auto;}
+    .view_all{margin-top: 0.5rem;}
+    .arrow_sec{display: none;}
+    .footer_logo img { max-width: 130px; height: auto; margin-bottom: 1.5rem;}
+    .footer_logo{text-align: end;}
+
+    /* help and support - profile setting */
+    .profile_sec_top img {max-width: 140px;}
+    .side_profile_view h4 { font-size:25px;}
+    .side_profile_view p {font-size: 14px;}
+    .linked_page_left a {font-size: 12px;}
+    .profile_upload .avatar-upload_1 .avatar-preview {  width: 150px; height: 150px; }     
+    .selection_yes p { font-size: 14px;}
+    .selector-item_label { height: 60px;  width: 60px;font-size: 13px!important;}
+    .top_profile h4 {font-size: 16px;}
+    .top_profile img{max-width: 25px;height: auto;}
+    .profile_upload .avatar-upload_1 { max-width: 175px;}
+    .update_btn button.btn_update {  padding: 1rem;  font-size: 14px;}
+    .main_profile_form .form-control { font-size: 13px;}
+    .main_profile_form label { font-size: 12px;}
+ 
+     /* help and support tickit */
+     .user_serch_messsage img { max-width: 30px; height: 30px; border-radius: 28px;}
+     .left_Side_chat{padding: 0;}
+     .user_serch_messsage {padding: 0.5rem 0.5rem; }
+     .user_sserch h6 { font-size: 12px;} 
+     .user_sserch small {    font-size: 10px;font-weight: 600;}
+     .user_serch_messsage p {font-size: 12px;}
+     .btm_dis{flex-wrap: wrap;}
+     .name_head img { max-width: 40px; height: 40px;}
+     .name_head h5 { font-size: 13px;}
+     .name_head p {  font-size: 10px;}
+     .create_tickit_Btn button.btn_tickit {font-size: 12px;  padding: 0.5rem 0.5rem;}
+     .my_mes_Sec p {font-size: 12px;}
+     .again_message_Sec .again_mes_chat p {font-size: 12px;}
+     .send_btn button.btn_send { font-size: 13px;  padding: 0.8rem 3rem;}
+     .chat_writting_sec {height: 400px;padding: 0 0.2rem 0rem 0rem;}
+     .top_profile {flex-wrap: wrap;}
+     .my_mes_Sec { max-width: 100%;}
+     .again_message_Sec { max-width: 100%;}
+     .time_chat p {font-size: 10px; }
+     .bg_sec_chat , .again_message_Sec .again_mes_chat { padding: 0.5rem 0.5rem;}
+     .mesage_type {flex-wrap: wrap;}
+     .main_box_center_tickit.chat_tickit{ padding: 3rem 0.5rem 1rem 0.5rem;}
+
+      /* chat */
+    .main_chat.hide-left-chat .left_Side_chat { display: none;transition: 1s all; }
+    .main_chat.hide-leftbar .chatmenu-background { display: none;transition: 1s all;}
+    .main_chat.chatmenu-background {display: block; transition: 1s all;}
+    .center-chat { flex: 0 0 100%;padding: 0px;}
+    .main_chat .left_Side_chat { flex: 0 0 100%; max-width: 100%; position: absolute; left: 0px; z-index: 2; 
+        transition: .3s all; background: #ffffff; height: 100%; padding: 1rem; top: 0px; border-radius: 0px; box-shadow: 0px 10px 30px #00000029;}
+    .hide-left-chat .left_Side_chat {left: -1000px; transition: 1s all; }
+    .center-chat{ position: relative;}
+    .main_chat.hide-left-chat .left_Side_chat .close-btn-chat button {display: block;}
+    .main_chat.hide-left-chat .open_chat_uer_menu button { display:block;}
+    .mian_tickit_Sec{position: relative;}
+    .chat_Section_main {  border-left: unset;}
+
+    /* help and support setting */
+    .accordian_Sec #accordion .card .btn.btn-link {font-size: 12px;}
+    .accordian_Sec #accordion .card-body { font-size: 11px;}
+    .faq_tab_pills .nav-pills .nav-item a.nav-link { font-size: 13px;}
+    .still_have_ques h5 { font-size: 16px;}
+    .still_have { padding: 0.8rem 0.5rem;}
+    .faq_tab_pills .nav-pills .nav-item a.nav-link {font-size: 12px; padding: 0px 0.5rem 0.8rem 0; }
+
+    /* notification modal */
+    .mian_notification_sec img{max-width: 40px;height: 40px;}
+    .mian_notification_sec h5 { font-size: 14px;}
+    .mian_notification_sec p { font-size: 13px;}
+    .mian_notification_sec span { font-size: 12px;}
+    .title_notification a {font-size: 13px;}
+    .notification_sec.btn-group .dropdown-menu.dropdown-menu-right.show {width: 380px; transform: translate3d(-90px, 41px, 0px)!important; }
+    .title_notification p { font-size: 12px;}
+    .title_notification h4 {font-size: 16px;}
+
+    /* 16-01-2023 */
+   .message_Serch_user { height: 400px;}
+   .dropdown.right_dropdown .dropdown-toggle img { max-width: 40px;}
+   
+   /* .chat_writting_sec { height: calc(100vh - 340px);} */
+   /* .top_logo_sec .side_open_logo{max-width: 150px;height: auto;} */
+   .main_box_center_tickit.chat_tickit { padding: 2rem 0rem 0rem 0rem;}
+ 
+   /* messasge */
+   .send_img_Sec img{max-width: 100px; height: 100px;}
+   .back_bg .dropdown-menu .dropdown-item img {
+    margin-right: 0.5rem;  max-width: 15px;  height: auto;}
+   .linked_page a{ font-size: 10px;}
+   .copy_right_mian p{font-size: 10px; }
+   .copy_right_mian , .linked_page {text-align: center;}
+   .add_Sec_modal p { font-size: 14px;}
+   .create_tickit .modal-header h5 {font-size: 18px;}
+
+    /* coordination center */
+    .notification_Sec_main h5 { font-size: 20px;}
+    .notification_Sec_main p { font-size: 12px; }
+    .back_btn a {font-size: 12px; padding: 0.8rem 0rem; width: 100%;display: block; text-align: center;}
+    .back_btn {margin: 1rem 0rem; width: 100%;}
+
+     /* donate */
+   .donation_tab_pills .grid-container {grid-template-columns: auto;}
+   .discription_donate h5 {font-size: 14px;}
+   .to_donate button.btn_donate { font-size: 12px;}
+   .discription_donate p { font-size: 10px;}
+   .donation_tab_pills .nav-item a.nav-link { font-size: 13px; min-width: max-content;
+    margin: 0 0.5rem 0 0;}
+    
+    /* donate detail */
+    .donation_detail h5 { font-size: 18px;}
+    .donation_detail span { font-size: 10px;}
+    .about_donate p {font-size: 10px; margin: 0.8rem 0rem;}
+    .donation_detail{flex-wrap: wrap;}
+    .donate_btn_right{width: 100%;}
+    .donate_btn_right button.now_donate { margin: 1rem 0; font-size: 12px;width: 100%;}      
+    .congrates_img h5 { font-size: 18px;}
+    .congrates_img p {font-size: 10px;}  
+    .left_donate_Sec p { font-size: 13px;}
+    .questions_sec h5 {font-size: 18px;}
+    .left_donate_Sec h5 {font-size: 20px;}
+    .title_details h5 {font-size: 16px; margin-top: 2rem;}
+    .questions_sec h3 {font-size: 13px;}
+    .contact_us_sec a, .contact_us_sec address {font-size: 12px;}
+    .deatil_form label {font-size: 12px;}
+    .donation_list ul li {font-size: 10px;}  
+
+    /* blog-2 */
+    .linked_blog a { font-size: 10px;  min-width: 100px;margin-right: 0px!important;}
+    .btn_list a { font-size: 10px;  padding: 0.5rem 0.5rem;}
+    .btn_list a img{max-width: 10px; height: 10px; margin-right: 0px!important;}    
+    .blog_box h4 { font-size: 13px;}
+    .blog_box p { font-size: 10px;}
+    .blog_grid .grid-container{grid-template-columns: 1fr;}
+    .blog_box { padding: 1rem 0.5rem;}
+    .btm_pagination_sec .pagination .page-item a.page-link { font-size: 10px;}
+    .btm_pagination_sec .pagination .page-item { margin: 0 5px; padding: 0.3rem 0.6rem;}
+
+    /* blog detail */
+    .all_about_blog h4 { font-size: 18px;}
+    .all_about_blog small{ font-size: 10px;}
+    .all_about_blog p { font-size: 10px;}
+    .releated_blog_sec h5 {font-size: 15px;}
+    .releated_blog_sec{flex-wrap: wrap;}
+
+    /* blog detail-1 */ 
+    .btn_list {position: relative; display: flex;top: unset;right: unset;
+        align-items: center; justify-content: center; flex-wrap: wrap;}
+    .btn_list button.btn_front_page {  min-width: max-content; margin: 0.5rem 0;}
+
+
+    /* coordination center main */
+    .side_left_sec h4 { font-size: 22px;}
+    .main_box_btm h5 {font-size: 15px;}
+    .main_box_btm li {font-size: 12px;}
+
+      /* disater situational reprt click */
+      .btn_list_blog a {font-size: 11px; padding: 0.8rem 1rem;}
+      .btn_list_blog a img{max-width: 12px;height: auto}
+      .main_table_sec thead th {font-size: 10px;  padding: 0.5rem 0.2rem;   min-width: 150px;}   
+      .main_table_sec tbody tr td { font-size: 10px;}
+      .main_table_sec tbody button.btn_view {font-size: 10px; padding: 0.5rem 1rem;}
+      .main_table_sec ::-webkit-scrollbar { width: 5px;height: 3px;}
+
+
+    
+    /* create new flow */   
+    .title_create h4 { font-size: 12px;} 
+    .radio_sec.flow_radio_Sec label { font-size: 12px;}
+    .title_create p { font-size: 12px;}
+    .main_flow h4 {font-size: 12px;}
+    .main_flow p {  font-size: 11px;}
+    .main_flow div {  margin: 1rem 1rem 1rem 0rem;}
+
+
+    /* trecking-click-3 */
+    .print_btn{ margin: 1rem 0rem;width: 100%;}
+    .title_trecking h5 { font-size: 14px;}
+    .linked_blog.tracking_blogs{display: flex;  align-items: center;
+        flex-wrap: wrap!important; width: -webkit-fill-available;}
+
+        
+    /* kniwlage center */
+    .certi_title button.btn_know {font-size: 12px; }
+    .certi_title h4 { font-size: 11px;}
+    .certi_title p {  font-size: 12px; }
+    .right_side_know h3 { font-size: 15px;}
+    .right_side_know h5 {font-size: 11px;}
+    
+     /* login */
+     .login_social a img {max-width: 50px;height: auto;}
+     .login_with p {  font-size: 16px;}
+     .login_left_text p { font-size: 12px;    margin: 0.5rem 0;}
+     .login_left_text h4 {font-size: 25px;}
+     .login_left_text h4 span {font-size: 40px;}
+     .rigt_side_text h5 {  font-size: 15px;   color: #000;  text-align: center; margin-top: 3rem;}      
+     .rigt_side_text p { font-size: 12px;  color: #000;text-align: center; }
+     .main_login_img {   background-image: unset;}
+     .main_login_img-1 {   background-image: unset;}
+     .login_nav .navbar-brand img{   max-width: 120px; height: auto;}
+     button.btn_account { font-size: 13px;color: #000;}
+     button.btn_account.active{ font-size: 13px;color: #fff;}
+     .main_login_img section{padding-top: 10px;}
+     .main_login_img-1 section{padding-top: 10px;}
+     .copy_right a {  font-size: 12px;  color: #000;  padding: 0 8px;   border-right: 1px solid #000;}
+     .center-text_sec{justify-content: center!important;}
+
+  
+
+
+}
+@media (max-width:320px){}

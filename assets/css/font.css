@@ -1,0 +1,433 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-Bold.woff2') format('woff2'),
+        url('../webfonts/Poppins-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-Black.woff2') format('woff2'),
+        url('../webfonts/Poppins-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-BlackItalic.woff2') format('woff2'),
+        url('../webfonts/Poppins-BlackItalic.woff') format('woff');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-ExtraLight.woff2') format('woff2'),
+        url('../webfonts/Poppins-ExtraLight.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-Italic.woff2') format('woff2'),
+        url('../webfonts/Poppins-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-Light.woff2') format('woff2'),
+        url('../webfonts/Poppins-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-LightItalic.woff2') format('woff2'),
+        url('../webfonts/Poppins-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-ExtraBold.woff2') format('woff2'),
+        url('../webfonts/Poppins-ExtraBold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-Medium.woff2') format('woff2'),
+        url('../webfonts/Poppins-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-BoldItalic.woff2') format('woff2'),
+        url('../webfonts/Poppins-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-ExtraLightItalic.woff2') format('woff2'),
+        url('../webfonts/Poppins-ExtraLightItalic.woff') format('woff');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-ExtraBoldItalic.woff2') format('woff2'),
+        url('../webfonts/Poppins-ExtraBoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-Thin.woff2') format('woff2'),
+        url('../webfonts/Poppins-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-SemiBoldItalic.woff2') format('woff2'),
+        url('../webfonts/Poppins-SemiBoldItalic.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-SemiBold.woff2') format('woff2'),
+        url('../webfonts/Poppins-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-ThinItalic.woff2') format('woff2'),
+        url('../webfonts/Poppins-ThinItalic.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-Regular.woff2') format('woff2'),
+        url('../webfonts/Poppins-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-MediumItalic.woff2') format('woff2'),
+        url('../webfonts/Poppins-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial';
+    src: url('../webfonts/AktivGroteskTrial-Black.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial';
+    src: url('../webfonts/AktivGroteskTrial-Bold.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial';
+    src: url('../webfonts/AktivGroteskTrial-BoldItalic.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial Hair';
+    src: url('../webfonts/AktivGroteskTrial-HairItalic.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-HairItalic.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial Hair';
+    src: url('../webfonts/AktivGroteskTrial-Hair.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-Hair.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial';
+    src: url('../webfonts/AktivGroteskTrial-BlackItalic.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-BlackItalic.woff') format('woff');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial';
+    src: url('../webfonts/AktivGroteskTrial-Regular.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial';
+    src: url('../webfonts/AktivGroteskTrial-MediumItalic.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial';
+    src: url('../webfonts/AktivGroteskTrial-LightItalic.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial';
+    src: url('../webfonts/AktivGroteskTrial-Medium.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial';
+    src: url('../webfonts/AktivGroteskTrial-Light.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial';
+    src: url('../webfonts/AktivGroteskTrial-Italic.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial XBold';
+    src: url('../webfonts/AktivGroteskTrial-XBold.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-XBold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial';
+    src: url('../webfonts/AktivGroteskTrial-SemiBoldItalic.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-SemiBoldItalic.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial';
+    src: url('../webfonts/AktivGroteskTrial-Thin.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial';
+    src: url('../webfonts/AktivGroteskTrial-SemiBold.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial';
+    src: url('../webfonts/AktivGroteskTrial-ThinItalic.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-ThinItalic.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Cd Trial';
+    src: url('../webfonts/AktivGroteskCdTrial-Black.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskCdTrial-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Cd Trial';
+    src: url('../webfonts/AktivGroteskCdTrial-Bold.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskCdTrial-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Trial XBold';
+    src: url('../webfonts/AktivGroteskTrial-XBoldItalic.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskTrial-XBoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Cd Trial';
+    src: url('../webfonts/AktivGroteskCdTrial-BoldItalic.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskCdTrial-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Cd Trial';
+    src: url('../webfonts/AktivGroteskCdTrial-BlackItalic.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskCdTrial-BlackItalic.woff') format('woff');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Cd Trial';
+    src: url('../webfonts/AktivGroteskCdTrial-LightItalic.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskCdTrial-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Cd Trial Hair';
+    src: url('../webfonts/AktivGroteskCdTrial-HairItalic.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskCdTrial-HairItalic.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Cd Trial';
+    src: url('../webfonts/AktivGroteskCdTrial-Light.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskCdTrial-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Cd Trial';
+    src: url('../webfonts/AktivGroteskCdTrial-Italic.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskCdTrial-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Cd Trial';
+    src: url('../webfonts/AktivGroteskCdTrial-Medium.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskCdTrial-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Cd Trial Hair';
+    src: url('../webfonts/AktivGroteskCdTrial-Hair.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskCdTrial-Hair.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Cd Trial';
+    src: url('../webfonts/AktivGroteskCdTrial-Regular.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskCdTrial-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aktiv Grotesk Cd Trial';
+    src: url('../webfonts/AktivGroteskCdTrial-MediumItalic.woff2') format('woff2'),
+        url('../webfonts/AktivGroteskCdTrial-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+

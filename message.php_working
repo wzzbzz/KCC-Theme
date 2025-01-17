@@ -1,0 +1,436 @@
+<?php 
+
+/* Template Name: Message */
+get_header('new'); ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>message-wcc</title>
+
+    <!-- Favicon -->    
+     <link rel="shortcut icon" type="image/jpg" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.png"> 
+
+    <!-- css links -->
+    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/all.min.css" rel="stylesheet">
+    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/owl.carousel.min.css" rel="stylesheet">
+    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/owl.theme.default.min.css" rel="stylesheet">
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/font.css" rel="stylesheet">
+    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/style.css" rel="stylesheet">
+    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/responsive.css" rel="stylesheet">
+	<link href="<?php echo get_template_directory_uri(); ?>/assets/css/wcc_custom_style.css" rel="stylesheet">
+<style type="text/css">
+    .modal{
+        visibility: unset;
+    }
+    .main_all_bg_Sec .main_footer_sec {
+    background: #134793 0% 0% no-repeat padding-box;
+    border-radius: 50px 0px 0px 0px;
+    padding: 1rem 0rem 0rem 0rem;
+    margin-top: 40px;
+    float: right;
+}
+.main_all_bg_Sec .main_footer_sec .footer_logo img {margin-bottom:12px; max-width:85%;}
+</style>
+</head>
+<body class="main_all_bg_Sec">
+    
+    <div class="main_side_bar_left">
+        <div class="main_menu_sec">
+            <div class="top_logo_sec">
+                <a href="#" class="d-flex align-items-center ">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/small_logo.png" class="img-fluid small_logo">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/opn_menu_logo.png" class="img-fluid side_open_logo ">
+                </a>
+            </div>
+            <div class="center_logo_sec">
+                <div class="main_menu_Sec">
+                    <a href="home.html">
+                        <div class="menu_icon ">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/home_icon.png" class="img-fluid normal_icon">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/active_home_icon.png" class="img-fluid active_icon">
+                        </div>
+                        <div class="side_text_view">
+                            <p>Home</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="main_menu_Sec">
+                    <a href="#">
+                        <div class="menu_icon ">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/dashboard_icon.png" class="img-fluid normal_icon">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/active_dashboard_icon.png" class="img-fluid active_icon">
+                        </div>
+                        <div class="side_text_view">
+                            <p>My Dashboard</p>
+                        </div>
+                    </a>
+                </div>
+               
+                <div class="main_menu_Sec">
+                    <a href="#">
+                        <div class="menu_icon ">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/knowlage_icon.png" class="img-fluid normal_icon">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/active_knowlage_icon.png" class="img-fluid active_icon">
+                        </div>
+                        <div class="side_text_view">
+                            <p>Knowledge
+                                Center</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="main_menu_Sec">
+                    <a href="#">
+                        <div class="menu_icon ">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/coordination_icon.png" class="img-fluid normal_icon">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/active_coordination_icon.png" class="img-fluid active_icon">
+                        </div>
+                        <div class="side_text_view">
+                            <p>Coordination
+                                Center</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="main_menu_Sec">
+                    <a href="#">
+                        <div class="menu_icon ">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/calender_icon.png" class="img-fluid normal_icon">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/active_calender_icon.png" class="img-fluid active_icon">
+                        </div>
+                        <div class="side_text_view">
+                            <p>Calendar</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="main_menu_Sec">
+                    <a href="#">
+                        <div class="menu_icon ">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/resources_icon.png" class="img-fluid normal_icon">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/active_resources_icon.png" class="img-fluid active_icon">
+                        </div>
+                        <div class="side_text_view">
+                            <p>My Resources</p>
+                        </div>
+                    </a>
+                </div>                
+            </div>
+            <div class="bottom_logo_sec">
+                <div class="main_menu_Sec">
+                    <a href="#">
+                        <div class="menu_icon ">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/donate_icon.png" class="img-fluid">                           
+                        </div>
+                        <div class="side_text_view">
+                            <p>Donate</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="main_menu_Sec">
+                    <a href="#">
+                        <div class="menu_icon ">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/help_support_icon.png" class="img-fluid">                           
+                        </div>
+                        <div class="side_text_view">
+                            <p>Help & Support</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="main_menu_Sec">
+                    <a href="#">
+                        <div class="menu_icon ">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/setting_icon.png" class="img-fluid">                           
+                        </div>
+                        <div class="side_text_view">
+                            <p>Settings</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-12 ">
+        <div class="row justify-content-end mt-3">
+
+             <?php include('user_topbar.php')?>
+
+            <div class="col-xl-11 col-lg-11 col-md-11 col-10 mt-3">
+                <div class="main_box_center_tickit chat_tickit col-xl-11">
+                    <div class="col-xl-12">
+                        <div class="top_profile d-flex justify-content-between align-items-center pb-3">
+                            <div>
+                                <div class="d-flex align-items-center">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/my_message.png" class="img-fluid mr-2">
+                                    <h4>Messages</h4>
+                                </div>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                            </div>
+                            <div class="create_tickit_Btn">
+                                <button class="btn btn_tickit" data-toggle="modal" data-target="#exampleModalCenter"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/crete_group.png" class="img-fluid mr-2">Create a Group</button>
+                            </div>
+                        </div>
+                        <div class="mian_tickit_Sec d-flex main_chat hide-left-chat">
+                            <div class="col-xl-4 col-lg-4 left_Side_chat">
+                                <div class="close-btn-chat">
+                                    <button type="button" class="close" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="side_menu_chat">
+                                    <div class="serch_sec_top">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search chat">
+                                    </div>
+                                    <div class="message_Serch_user mt-3">
+                                        <div class="user_serch_messsage d-flex align-items-center">
+                                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/1.png" class="img-fluid">
+                                            <div class="user_sserch ml-2">
+                                                <div class="mb-2">
+                                                    <h6>Josephine Arden</h6>                                                  
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-between mb-2 btm_dis">
+                                                    <p>Let have a meeting.. I will be available ….</p>
+                                                    <p><span>30 min</span></p> 
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="user_serch_messsage d-flex align-items-center">
+                                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/6.png" class="img-fluid">
+                                            <div class="user_sserch ml-2">
+                                                <div class=" mb-2">
+                                                    <h6>Wanda Dean</h6>                                                    
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-between mb-2 btm_dis">
+                                                    <p>Let have a meeting.. I will be available ….</p>
+                                                    <p><span>30 min</span></p>                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="user_serch_messsage d-flex align-items-center">
+                                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/1.png" class="img-fluid">
+                                            <div class="user_sserch ml-2">
+                                                <div class="mb-2">
+                                                    <h6>Group Name</h6> 
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-between mb-2 btm_dis">
+                                                    <p>Let have a meeting.. I will be available ….</p>
+                                                    <p><span>30 min</span></p>                                                    
+                                                </div>
+                                            </div>
+                                        </div>                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-lg-8  center-chat">
+                                <div class="chat_Section_main ">
+                                    <div class="open_chat_uer_menu">
+                                        <!-- <button id="chat_open"><i class="fas fa-bars"></i></button> -->
+                                        <div><button id="chat-menu"><i class="fas fa-align-left"></i></button> </div>
+                                    </div>
+                                    <div class="header_title_Chat">
+                                        <div class="name_head d-flex align-items-center">
+                                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/1.png" class="img-fluid mr-3">
+                                            <div>
+                                                <h5>Josephine Arden</h5>
+                                                <p><i class="fas fa-circle"></i> Online</p>
+                                            </div>
+                                        </div>                                       
+                                    </div>
+                                    <div class="chat_writting_sec">
+                                        <div class="my_mes_Sec my-3">
+                                            <div class="bg_sec_chat">
+                                                <p>Cool, let's talk about it later, shall we? This is going to be a huge!! We already sent you the details bro.</p>
+                                            </div>
+                                            <small>15:30</small>
+                                        </div>
+                                        <div class="my_mes_Sec my-3">
+                                            <div class="send_img_Sec">
+                                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/send_img.png" class="img-fluid">   
+                                            </div>
+                                            <small>15:30</small>
+                                        </div>
+
+                                        <div class="time_chat text-center my-3">
+                                            <p>Yesterday</p>
+                                        </div>
+                                        <div class="again_message_Sec my-4">                                            
+                                            <div class=" again_mes_chat">
+                                                <p>Cool, let's talk about it later, shall we? This is going to be a huge!! We already sent you the details bro.</p>                                                
+                                            </div>
+                                            <small>15:30</small>
+                                        </div>
+                                        <div class="my_mes_Sec my-3">
+                                            <div class="bg_sec_chat">
+                                                <p>Cool, let's talk about it later, shall we? This is going to be a huge!! We already sent you the details bro.</p>
+                                            </div>
+                                            <small>15:30</small>
+                                        </div>
+                                        <div class="again_message_Sec my-4">                                            
+                                            <div class=" again_mes_chat">
+                                                <p>Cool, let's talk about it later, shall we? This is going to be a huge!! We already sent you the details bro.</p>                                                
+                                            </div>
+                                            <small>15:30</small>
+                                        </div>
+                                        <div class="my_mes_Sec my-3">
+                                            <div class="bg_sec_chat">
+                                                <p>Cool, let's talk about it later, shall we? This is going to be a huge!! We already sent you the details bro.</p>
+                                            </div>
+                                            <small>15:30</small>
+                                        </div>                 
+                                    </div>
+                                    <div class="mesage_type d-flex align-items-center my-2">                                        
+                                        <div class="input_type">
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Type something….">                                        
+                                            <div class="smily_Sec">
+                                                <a href="#"><i class="far fa-image"></i></a>
+                                                <a href="#"><i class="fa-solid fa-paperclip mx-2"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="send_btn">
+                                            <button class="btn btn_send">Send</button>
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+                
+            </div>
+
+        </div>  
+        
+        <!--Footer-->
+
+        <div class="col-xl-11 col-lg-11 col-md-10 col-10 main_footer_sec d-flex justify-content-between  flex-wrap">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-12">
+                    <div class="footer_logo">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/footer_logo.png" class="img-fluid">
+                    </div>
+            </div>
+             <div class="col-xl-8 col-lg-9 col-md-9 col-12">
+                    <div class="side_right_footer ">
+                    <div class="social_icon_sec">
+                        <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/footer_linkdin.png" class="img-fluid"></a>
+                        <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/footer_fb.png" class="img-fluid"></a>
+                        <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/footer_twitter.png" class="img-fluid"></a>
+                        <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/footer_instra.png" class="img-fluid"></a>
+                    </div>
+                    <div class="linked_pages">
+                        <a href="<?php echo get_site_url(); ?>/">HOME</a>
+                        <a href="<?php echo get_site_url(); ?>/what-we-do/">WHAT WE DO</a>
+                        <a href="<?php echo get_site_url(); ?>/world-cares-center/">WORLD CARES CENTER</a>
+                        <a href="<?php echo get_site_url(); ?>/training/">TRAINING</a>
+                        <a href="<?php echo get_site_url(); ?>/cordination/">COORDINATION</a>
+                        <a href="<?php echo get_site_url(); ?>/blogs/">BLOG</a>
+                        <a href="<?php echo get_site_url(); ?>/contact-us/">CONTACT US</a>
+                        <a href="#">DONATE</a>
+                    </div>
+                    <div class="privercy_pag">
+                        <a href="<?php echo get_site_url(); ?>/terms-of-use/">TERMS OF USE</a>
+                        <a href="<?php echo get_site_url(); ?>/privacy-policy/">PRIVACY POLICY  </a>
+                        <a href="#">SITEMAP</a>
+                    </div>
+                    </div>
+                <div class="copy_right_Sec">
+                <p>COPYRIGHT © 2020 ALL RIGHTS RESERVED</p>
+                </div>
+             </div>
+    </div>
+    </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered create_tickit" role="document">
+      <div class="modal-content">
+        <div class="modal-header justify-content-center">
+          <h5 class="modal-title" id="exampleModalLongTitle">Create a Group Chat</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/close_modal.png" class="img-fluid">
+          </button>
+        </div>
+        <div class="modal-body main_profile_form">
+            <div class="form-group">
+                <label for="exampleInputPassword1">Username</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Janedoe23">
+            </div>
+            <div class="form-group select_sec">
+                <label for="exampleFormControlSelect1">Gender</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>Select</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>                                                      
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Example textarea</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry."></textarea>
+              </div>
+              <div class="update_btn">
+                <button class="btn btn_update">Create Group</button>
+            </div>
+        </div>      
+      </div>
+    </div>
+  </div>
+   
+
+
+    <!-- js links -->
+    <script src="<?php echo get_template_directory_uri(); ?>/assets/js/jquery.min.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/assets/js/popper.min.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/assets/js/bootstrap.min.js"></script>   
+    <script src="<?php echo get_template_directory_uri(); ?>/assets/js/owl.carousel.min.js"></script>
+
+    <script>
+      function toggleIcon(e) {
+    $(e.target)
+        .prev('.panel-heading')
+        .find(".more-less")
+        .toggleClass('glyphicon-plus glyphicon-minus');
+}
+$('.panel-group').on('hidden.bs.collapse', toggleIcon);
+$('.panel-group').on('shown.bs.collapse', toggleIcon);
+    </script>
+
+<script>
+    $(document).ready(function(){
+        $("#left-menu").click(function(){
+            $(".deshboard_main").removeClass('hide-leftbar');
+        });
+        $("#right-menu").click(function(){
+            $(".deshboard_main").removeClass('hide-rightbar');
+            $(".deshboard_main").addClass('hide-leftbar');
+
+        });
+        $(".close-btn button").click(function(){
+            $(".deshboard_main").addClass('hide-rightbar');
+        });
+        $(".closeleftbar-btn button").click(function(){
+            $(".deshboard_main").addClass('hide-leftbar');
+        });
+    
+        //chat
+
+            $("#chat-menu").click(function(){
+            $(".main_chat").removeClass('hide-left-chat');
+        });
+        $(".close-btn-chat button").click(function(){
+            $(".main_chat").addClass('hide-left-chat');
+        });
+            });
+</script>
+
+  
+
+</body>
+</html>

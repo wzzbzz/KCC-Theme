@@ -1,0 +1,125 @@
+.member_box{background: #FFF 0% 0% no-repeat padding-box;padding: 0.5rem 0.5rem;box-shadow: 0px 10px 20px #00000029;
+   border-radius: 15px;position:relative;}
+  .member_box .dropdown {position:absolute;right:0;}
+.member_box img{max-width: 100%; height: 150px;border-radius: 50%; object-fit: cover;}
+.member_box h4{font-size: 15px; color: #242424;}
+.memebr_tab_pills .nav-pills a{box-shadow: 0px 10px 20px #00000029;}
+.member_list_blog a{background: transparent;  box-shadow: 0px 3px 99px #ccd6ff3e;
+border-radius: 9px; font-size: 15px; color: #242424;  padding: 0.6rem 2rem; font-weight:600; }
+.member_list_blog a.active{background: #F9671D 0% 0% no-repeat padding-box;color:#fff }
+.follow-btn{background: #F96703 0% 0% no-repeat padding-box;font-size: 15px;color: #fff;font-weight: 500;min-width: 180px;border-radius: 9px;display: inline-block;text-align: center;padding: 0.5rem 0.8rem;}
+.membergroup-img {width:100%; height:300px; object-fit:cover;}
+.memebr_tab_pills{background: transparent 0% 0% no-repeat padding-box;
+   box-shadow: 0px 10px 20px #00000029; border-radius: 20px; padding: 2rem 0;}
+.memebr_tab_pills .nav-item a.nav-link{font-size: 16px; color: #242424;box-shadow: none;
+    padding: 0.5rem 2.8rem; margin: 0 0.3rem 0 0;background: transparent;border-radius: 9px;min-width: 150px;text-align: center;}
+.memebr_tab_pills .nav-item a.nav-link.active{background: #F96703 0% 0% no-repeat padding-box;
+   box-shadow: 0px 10px 20px #00000029;color: #fff; }
+.memebr_tab_pills .grid-container { display: grid; grid-template-columns: auto auto auto auto auto; padding: 10px;width: 100%;}
+.memebr_tab_pills{ background: transparent;  box-shadow: unset;}
+.memebr_tab_pills ul.nav-pills{ background:#f1f1f3 0% 0% no-repeat padding-box; width: 100%; box-shadow: 0px 10px 20px #00000029; border: 1px solid #E8E8E8;  border-radius: 15px; padding: 0.5rem;  width: fit-content; margin-left:0}
+.memebr_tab_pills ul.nav-pills1{    background:transparent; box-shadow:none;
+   border: 1px solid transparent;  border-radius: 15px; padding: 0.5rem;  width: fit-content; margin-left:0}
+   .memebr_tab_pills ul.nav-pills1 a{ box-shadow:none; }
+   .add-memberbtn {background: #F9671D 0% 0% no-repeat padding-box;color:#fff ;box-shadow: 0px 3px 99px #ccd6ff3e;
+border-radius: 9px; font-size: 15px;  padding: 0.6rem 2rem; font-weight:600;position:absolute;top:112px;right:17px;}
+.parent-member {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.image1 {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.image2 {
+  position: absolute;
+  top: 0;
+  left: 45px;
+}
+.image3 {
+  position: absolute;
+  top: 0;
+  left: 80px;
+}
+.image4 {
+  position: absolute;
+  top: 0;
+  left: 115px;
+}
+.image5 {
+  position: absolute;
+  top: 0;
+  left: 145px;
+}
+.image6 {
+    position: absolute;
+    top: 0;
+    left: 180px;
+    background: #0E559F;
+    border-radius: 50%;
+    color: #fff;
+    width: 70px;
+    height: 70px;
+    padding: 24px 7px;
+}
+.member_list_blog {
+    padding: 1rem 1rem 1rem 0;
+}
+.to_donate button.btn_white {
+    font-size: 14px;
+    color: #F96703;
+    background: #FFF 0% 0% no-repeat padding-box;
+    border-radius: 12px;
+    width: 100%;
+    padding: 0.8rem 1rem;
+    margin: 0rem 0 0.5rem 0rem;
+}
+.member_box .dropdown-toggle {
+		float:right;
+}
+.member_box .dropdown-toggle::after {
+		content:none;
+}
+.member_box a {
+		box-shadow:none !important;
+}
+.mediadoc_form input, .mediadoc_form textarea, .mediadoc_form select {
+    border: none;
+}
+.mediadoc_form label {
+    padding-left: 0.75rem;
+    margin-bottom: 0;
+}
+.mediadoc_form .form-group{
+    box-shadow: 0px 10px 20px #00000029;
+    border-radius: 5px;
+    padding: 10px;
+}
+.mediadoc_form .chosen-container.chosen-container-multi {
+	width:100% !important;
+}
+ .chosen-container.chosen-container-multi .chosen-choices {border:none;background-image: linear-gradient(#fff 1%,#fff 15%);}
+.chosen-container-multi .chosen-choices li.search-choice {    border: 1px solid #F9671D;
+    background: #F9671D;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 15px;}
+.chosen-container-multi .chosen-choices li.search-choice .search-choice-close::after {content: 'x';}
+.drag-drop-images {
+	border: 2px dashed #D7D7D7;
+    padding: 1rem;
+    margin-bottom: 1rem;
+	border-radius: 3px;
+}
+.chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
+    top: 11px;
+}
+ul.chosen-choices::after {
+    content: "▼";
+    position: absolute;
+    right: 0;
+    top: 7px;
+	color:#a29d9d;
+}

@@ -1,0 +1,92 @@
+<form>
+<div class="row">
+<b><label> Email Address
+[text email default:user_email]</label></b>
+</div>
+
+<div class="row">
+<b><label> Last Name
+[text last name default:user_last_name] </label></b>
+</div>
+<div class="row">
+<b><label> First Name
+[text first Name  default:user_first_name]</label></b>
+</div>
+<div class="row">
+<b><label>Date
+[date date due-date "today"]</lable></b>
+</div>
+<div class="row">
+<h6>Course Objective was</h6>
+</div>
+[radio Course_Objective label_first use_label_Course  default:1 "Not met" "Partially Met" "Completely Met"]
+
+
+<div class="row">
+<h6>Overall Course was ... Interesting</h6>
+</div>
+[radio Overall_Course label_first use_label_Objective default:1 "Strongly Disagree"
+"Disagree" "Agree" "Strongly Agree" "Not Applicable"]
+
+
+
+<div class="row">
+<h6>was interactive</h6>
+</div>
+[radio was_interactive label_first use_label_Course default:1 "Strongly Disagree"
+"Disagree" "Agree" "Strongly Agree" "Not Applicable"]
+
+<div class="row">
+<h6>made me feel I can do my job/volunteer better</h6>
+</div>
+[radio made_me label_first use_label_interactive default:1 "Strongly Disagree"
+"Disagree" "Agree" "Strongly Agree" "Not Applicable"]
+
+<div class="row">
+<h6>taught me skills I will use on my job/volunteering</h6>
+</div>
+[radio taught_me label_first use_label_made default:1 "Strongly Disagree"
+"Disagree" "Agree" "Strongly Agree" "Not Applicable"]
+
+<div class="row">
+<h6>able to reduce the risks associated with disaster volunteering</h6>
+</div>
+[radio able_to label_first use_label_taught default:1 "Strongly Disagree"
+"Disagree" "Agree" "Strongly Agree" "Not Applicable"]
+
+
+<div class="row">
+<h6>The training has prepared me to recognize COVID-19 hazards on the job</h6>
+</div>
+[radio The_training label_first use_label_training  default:1 "Strongly Disagree"
+"Disagree" "Agree" "Strongly Agree" "Not Applicable"]
+
+<div class="row">
+<h6>The Training has increased my knowledge on how to safely respond to COVID-19 hazards on the job</h6>
+</div>
+[radio has_increased label_first use_label_training  default:1 "Strongly Disagree"
+"Disagree" "Agree" "Strongly Agree" "Not Applicable"]
+
+
+
+<div class="row">
+<h6>Please rate the Course</h6>
+</div>
+[radio Please_rate label_first use_label_rate default:1 "Poor"
+"Average" "Good" "Excellent"]
+
+<b><h6>The most important thing I learned and will use from this course was ...</h6></b>
+[text The_most  placeholder]
+
+<b><h6>The Course would be more useful to me if it ...</h6></b>
+[text The_Course placeholder]
+
+<b><h6>Something that I will do differently because of this course is</h6></b>
+[text Something_that placeholder]
+
+
+
+
+
+
+[submit "Submit"]
