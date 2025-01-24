@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Developed By : AlexaGlobal SoftTech Pvt. Ltd.
  * URL : http://alexaglobalsofttech.com
@@ -21,6 +22,12 @@ define('ASTRA_THEME_DIR', trailingslashit(get_template_directory()));
 define('ASTRA_THEME_URI', trailingslashit(esc_url(get_template_directory_uri())));
 define('ASTRA_PRO_UPGRADE_URL', 'https://wpastra.com/pro/');
 define('ASTRA_EXT_MIN_VER', '3.9.2');
+
+/*
+*  Include jwc (Jim Williams Consulting)
+*/
+require_once ASTRA_THEME_DIR . 'inc/jwc/jwc.php';
+require_once ASTRA_THEME_DIR . 'inc/KCC/kcc.php';
 
 /**
  * Setup Helper Functions
@@ -159,7 +166,8 @@ require_once ASTRA_THEME_DIR . 'inc/core/deprecated/deprecated-functions.php';
 //cleanup point A
 
 
-function load_fontawesome() {
+function load_fontawesome()
+{
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 }
 add_action('wp_enqueue_scripts', 'load_fontawesome');
@@ -169,7 +177,8 @@ add_action('wp_enqueue_scripts', 'load_fontawesome');
 
 
 /* Utility code to display the name of the PHP file and path */
-function display_file_path() {
+function display_file_path()
+{
     if (defined('SHOW_FILE_PATH') && SHOW_FILE_PATH) {
         // Use debug_backtrace to get the correct file if called from another function
         $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1);
@@ -182,7 +191,8 @@ function display_file_path() {
 }
 /* A second way to use footer for Utility code to display the name of the PHP file and path */
 add_action('wp_footer', 'show_template');
-function show_template() {
+function show_template()
+{
     if (defined('SHOW_FILE_PATH') && SHOW_FILE_PATH) {
         global $template;
         echo '<div style="background-color: #fdd; color: #900; padding: 6px; font-family: monospace; z-index: 9999; position: fixed; bottom: 0; left: 0; padding: 5px;">';
@@ -193,8 +203,8 @@ function show_template() {
 
 
 if (defined('SHOW_FILE_PATH') && SHOW_FILE_PATH) {
-    add_filter('template_directory_uri', function($uri) {
-        return str_replace('https://knowledge.communication.worldcares.org', 'https://localhost', $uri);
+    add_filter('template_directory_uri', function ($uri) {
+        return str_replace(site_url() . '', 'https://localhost', $uri);
     }, 1); // Set priority to 1, higher priority
 }
 
@@ -214,31 +224,18 @@ function custom_post_type()
     $labels = array(
 
         'name'                => _x('Announcement', 'Post Type General Name', 'twentythirteen'),
-
         'singular_name'       => _x('Announcement', 'Post Type Singular Name', 'twentythirteen'),
-
         'menu_name'           => __('Announcement', 'twentythirteen'),
-
         'parent_item_colon'   => __('Parent Announcement', 'twentythirteen'),
-
         'all_items'           => __('All Announcement', 'twentythirteen'),
-
         'view_item'           => __('View Announcement', 'twentythirteen'),
-
         'add_new_item'        => __('Add New Announcement', 'twentythirteen'),
-
         'add_new'             => __('Add New', 'twentythirteen'),
-
         'edit_item'           => __('Edit Announcement', 'twentythirteen'),
-
         'update_item'         => __('Update Announcement', 'twentythirteen'),
-
         'search_items'        => __('Search Announcement', 'twentythirteen'),
-
         'not_found'           => __('Not Found', 'twentythirteen'),
-
         'not_found_in_trash'  => __('Not found in Trash', 'twentythirteen'),
-
     );
 
 
@@ -248,50 +245,28 @@ function custom_post_type()
 
 
     $args = array(
-
         'label'               => __('Announcement', 'twentythirteen'),
-
         'description'         => __('Announcement', 'twentythirteen'),
-
         'labels'              => $labels,
-
         'supports'            => array('title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields',),
-
         'hierarchical'        => false,
-
         'public'              => true,
-
         'show_ui'             => true,
-
         'show_in_menu'        => true,
-
         'show_in_nav_menus'   => true,
-
         'show_in_admin_bar'   => true,
-
         'menu_position'       => 5,
-
         'can_export'          => true,
-
         'has_archive'         => true,
-
         'exclude_from_search' => false,
-
         'publicly_queryable'  => true,
-
         'capability_type'     => 'page',
-
         'show_in_rest'        => true,
-
-
-
         // This is where we add taxonomies to our CPT
 
         'taxonomies'          => array('category'),
 
     );
-
-
 
     // Registering your Custom Post Type
 
@@ -307,8 +282,6 @@ function custom_post_type()
 * unnecessarily executed.
 
 */
-
-
 
 add_action('init', 'custom_post_type', 0);
 
@@ -348,9 +321,7 @@ function my_custom_tab_in_um($tabs)
 {
 
     $tabs[800]['helpSupport']['icon'] = 'um-faicon-pencil';
-
     $tabs[800]['helpSupport']['title'] = 'Help & Support';
-
     $tabs[800]['helpSupport']['custom'] = true;
 
     return $tabs;
@@ -379,125 +350,6 @@ function um_account_tab__helpSupport($info)
         echo $output;
     }
 }
-
-
-
-
-
-function send_group_request_callback_function()
-{
-
-    global $wpdb;
-
-    $group_id = $_POST['group_id'];
-
-    $current_user_id = get_current_user_id();
-
-    $groupDetail = get_post($group_id);
-
-    $member_id = $groupDetail->post_author;
-
-
-
-    // echo 'vinay';
-
-    $user = get_user_by('ID', $member_id);
-
-    $groupOwnerEmail = $user->user_email;
-
-    $requestedFrom  = get_user_by('ID', $current_user_id);
-
-    $myArr = array();
-
-    $sql = "SELECT * FROM group_invite WHERE group_id = '" . $group_id . "' AND invited_to = '" . $member_id . "' AND invited_from ='" . $current_user_id . "' ";
-
-    $check = $wpdb->get_results($sql, ARRAY_A);
-
-    $myArr['sql'] = $sql;
-
-    $myArr['ums'] = $check;
-
-    if (count($check) > 0) {
-
-        $myArr['msg'] = "Already Requested";
-
-        $myJSON = json_encode($myArr);
-
-        echo $myJSON;
-
-        die();
-    }
-
-
-
-    $tablename =  'group_invite';
-
-    $current_user_id = get_current_user_id();
-
-    $group_id = ($_POST['group_id']) ? $group_id : "";
-
-    $insertData = array(
-
-        'invited_to' => $member_id,
-
-        'invited_from' => $current_user_id,
-
-        'status' => 'pending',
-
-        'request_type' => 'join_request',
-
-        'group_id' => $group_id
-
-    );
-
-
-
-    $dd = $wpdb->insert('group_invite', $insertData);
-
-//CLEANUP POINT B
-
-    /* M001: User Join Notification to Group Owner */
-
-    $subject = "User Join Notification";
-
-    $headers = 'From: ' . get_bloginfo('name') . ' <no-reply@worldcares.org>' . "\r\n";
-
-    $message = "
-                    Hi " . $user->display_name . ",\n
-                    A user $requestedFrom->display_name has requested to join your group $groupDetail->post_title. Please accept/reject user invitation from your My Dashboard section.\n
-                    View Invitation: " . site_url('tab-my-group-requests') . "\n
-                    Thank You, Admin";
-
-                $params = array(
-                    'subject' => $subject,
-                    'body' => $message,
-                    'to' => $groupOwnerEmail,
-                    'action_link' => site_url('tab-my-group-requests'),
-                    'user_id' => $user->ID
-                );
-                // Call the emailHandler function to send email notifications
-                emailHandler($params);
-
-    /*email to group owner*/
-
-    $myArr['sql'] = $dd;
-
-    $myArr['msg'] = "Request sent successfully";
-
-    $myJSON = json_encode($myArr);
-
-    echo $myJSON;
-
-    die();
-}
-
-add_action('wp_ajax_send_group_request', 'send_group_request_callback_function');    // If called from admin panel
-
-add_action('wp_ajax_nopriv_send_group_request', 'send_group_request_callback_function');    // If called from front end
-
-
-
-
 
 
 
@@ -547,9 +399,9 @@ function accept_group_request_callback_function()
 
 }
 
-add_action('wp_ajax_accept_group_request', 'accept_group_request_callback_function');
+// add_action('wp_ajax_accept_group_request', 'accept_group_request_callback_function');
 
-add_action('wp_ajax_nopriv_accept_group_request', 'accept_group_request_callback_function');
+// add_action('wp_ajax_nopriv_accept_group_request', 'accept_group_request_callback_function');
 
 
 
@@ -562,24 +414,30 @@ function reject_group_request_callback_function()
 
     global $wpdb;
 
+    // Group ID
     $group_id = $_POST['group_id'];
-
+    // Current User ID
     $current_user_id = get_current_user_id();
-
+    // Member ID Submitted
     $member_id = $_POST['uid'];
 
+    // Group's Id
     $id = $_POST['id'];
 
+    // output data 
     $myArr = array();
 
+    // Delete the Group Invite from the custom table
     $responseData = $wpdb->delete('group_invite', array('id' => $id, 'group_id' => $group_id));
 
+    // output data
     $myArr['responseData'] = $responseData;
-
     $myArr['msg'] = "Deleted";
 
+    // encript to hson
     $myJSON = json_encode($myArr);
 
+    // dump the json data to the browser
     echo $myJSON;
 
     die();
@@ -631,9 +489,9 @@ function join_open_group()
     die();
 }
 
-add_action('wp_ajax_join_open_group', 'join_open_group');
+//add_action('wp_ajax_join_open_group', 'join_open_group');
 
-add_action('wp_ajax_nopriv_join_open_group', 'join_open_group');
+//add_action('wp_ajax_nopriv_join_open_group', 'join_open_group');
 
 
 
@@ -891,21 +749,21 @@ function lmuser_add_in_group_callback_function()
 
     $headers = 'From: ' . get_bloginfo('name') . ' <no_reply@worldcares.org>' . "\r\n";
 
-       $message = "
+    $message = "
                 Hi " . $user->display_name . ",\n
                 User $invitedUser->display_name, has accepted the request for the group $group_title.\n
                 You can see under My Group section in user dashboard.\n
                 View Report: " . site_url('my-dashboard') . "\n
                 Thank You, Admin";
-                $params = array(
-                    'subject' => $subject,
-                    'body' => $message,
-                    'to' => $invitedFromEmail,
-                    'action_link' => site_url('my-dashboard'),
-                    'user_id' => $user->ID
-                );
-            emailHandler($params);
-            // wp_mail($invitedFromEmail, $subject, $message, $headers);
+    $params = array(
+        'subject' => $subject,
+        'body' => $message,
+        'to' => $invitedFromEmail,
+        'action_link' => site_url('my-dashboard'),
+        'user_id' => $user->ID
+    );
+    emailHandler($params);
+    // wp_mail($invitedFromEmail, $subject, $message, $headers);
 
     /*send email to invited from user for accept or reject*/
 
@@ -1413,7 +1271,7 @@ function myplugin_register_user($request)
     $message = 'Your One-Time Password (OTP) verification code is: ' . $otp;
     $message .= "\n";
     $message .= 'Enter the OTP at: ';
-    $message .= 'https://knowledge.communication.worldcares.org/confirmation/?email=' . $encoded_email;
+    $message .= site_url() . '/confirmation/?email=' . $encoded_email;
 
     // Email subject and headers
     $subject = 'Knowledge Communication Center Verification';
@@ -1610,19 +1468,20 @@ add_action('init', 'resend_OTP');
 
 // M005: Forgot Password OTP
 
-function forgot_OTP($query) {
+function forgot_OTP($query)
+{
     if (!empty($_POST['forgot_OTP'])) {
         $email = sanitize_email($_POST['email']);
-        
+
         // Check if the email exists in the system
         $user = get_user_by('email', $email);
-        
+
         if (!$user) {
             // If no user is found, display a message
             $message = "The email <strong>{$email}</strong> is not in our system. ";
             $message .= 'You can <a href="javascript:history.back()">Go back</a> or ';
-            $message .= '<a href="https://knowledge.communication.worldcares.org/registration/">Create a new account</a>.';
-            
+            $message .= '<a href=site_url() . "/registration/">Create a new account</a>.';
+
             wp_die($message);  // Display the message and stop the script execution
         }
 
@@ -1812,218 +1671,6 @@ function wpCustomStyleSheet()
 add_action('admin_enqueue_scripts', 'wpCustomStyleSheet');
 
 
-
-
-
-function ums_create_group()
-{
-
-    if (!empty($_POST['ums_create_group'])) {
-
-        global $wpdb;
-
-        $post_title = ($_POST['post_title']) ? sanitize_text_field($_POST['post_title']) : "";
-
-        $sql =  "SELECT * FROM wp_posts WHERE post_type ='groups' AND post_status ='publish'";
-
-        //$allGroups = $wpdb->get_results("SELECT * FROM wp_posts WHERE post_type ='groups' AND post_status ='publish'" );
-
-        $allGroups = $wpdb->get_results($sql);
-
-
-
-        /*Start loop*/
-
-        foreach ($allGroups as $value) {
-
-            $oldGroup  = $value->post_title;
-
-
-
-            if ($post_title == $oldGroup) {
-
-                echo "<script>
-
-                alert('This group name has been already taken, Please try with other name. ');
-
-                window.location.href='https://knowledge.communication.worldcares.org/wccgroups';
-
-                </script>";
-            }
-        }
-
-
-
-        /*end loop*/
-
-
-
-        $post_content = ($_POST['post_content']) ? sanitize_text_field($_POST['post_content']) : "";
-
-        $post_type   =  'groups';
-
-        $post_status  =  'pending';
-
-        $group_type   =  ($_POST['group_type']) ? sanitize_text_field($_POST['group_type']) : "";
-
-        $taxonomy    =   'ld_group_category';
-
-        $current_user_id = get_current_user_id();
-
-        $wordpress_post = array(
-
-            'post_title' => $post_title,
-
-            'post_content' => $post_content,
-
-            'post_status' => 'pending',
-
-            'post_author' => $current_user_id,
-
-            'post_type' => 'groups',
-
-            'post_category' => array($group_type)
-
-        );
-
-        $group_id =     wp_insert_post($wordpress_post);
-
-
-
-        //ld_update_group_access( $current_user_id, $group_id );
-
-        add_post_meta($group_id, 'group_type', $group_type);
-
-        $uploaddir = wp_upload_dir();
-
-        $file = $_FILES["group_image"]["name"];
-
-        $uploadfile = $uploaddir['path'] . '/' . basename($file);
-
-
-
-        if (move_uploaded_file($_FILES["group_image"]["tmp_name"], $uploadfile)) {
-
-            $filename = basename($uploadfile);
-
-            $wp_filetype = wp_check_filetype(basename($filename), null);
-
-            $attachment = array(
-
-                'post_mime_type' => $wp_filetype['type'],
-
-                'post_title' => preg_replace('/\.[^.]+$/', '', $filename),
-
-                'post_content' => '',
-
-                'post_status' => 'inherit',
-
-                'menu_order' => $_i + 1000
-
-            );
-
-            $attach_id = wp_insert_attachment($attachment, $uploadfile);
-
-            set_post_thumbnail($group_id, $attach_id);
-        }
-
-
-
-        //M006 Group Approval Request Notification to Admins
-
-        $adminUsers = get_users('role=Administrator');
-
-
-/*
-        foreach ($adminUsers as $value) {
-            $subject = "Group Approval Request Notification";
-            $headers = 'From: ' . get_bloginfo('name') . ' <no_reply@worldcares.org>' . "\r\n";
-            $message = "
-                Hi " . $value->display_name . ",
-
-                A user has created the group with title, <strong>$post_title</strong>. Please approve it from your admin dashboard.
-
-                You can approve the group directly here: " . site_url('wp-admin/edit.php?post_type=groups') . "
-
-                Thank You, Admin";
-
-            wp_mail($value->user_email, $subject, $message, $headers);
-        }
-        */
-
-
-        foreach ($adminUsers as $value) {
-            $subject = "Group Approval Request Notification";
-            $headers = 'From: ' . get_bloginfo('name') . ' <no_reply@worldcares.org>' . "\r\n";
-            $headers .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
-            $message =
-                "Hi " . esc_html($value->display_name) . ",\n" .
-                "A user has created the group with the title: " . esc_html($post_title) . ". Please approve it from your admin dashboard.\n" .
-                "You can approve the group directly here: " . esc_url(site_url('wp-admin/edit.php?post_type=groups')) . "\n" .
-                "To approve it, you need to select 'Edit' and from the Edit page, select 'Publish'. A Published group means it was approved.\n" .
-                "Thank You, Admin";
-
-                $params = array(
-                    'subject' => $subject,
-                    'body' => $message,
-                    'to' => $value->user_email,
-                    'action_link' => esc_url(site_url('wp-admin/edit.php?post_type=groups')),
-                    'user_id' => $value->ID
-                );
-                // Call the emailHandler function to send email notifications
-                emailHandler($params);
-            // wp_mail($value->user_email, $subject, $message, $headers);
-        }
-
-
-        // M007: Group Creation Notification to User
-
-        $userDetail  =  get_userdata($current_user_id);
-
-        $userEmail  = $userDetail->user_email;
-
-        $group_title  = get_the_title($group_id);
-
-        $subject = "Group Notification";
-
-        $headers = 'From: ' . get_bloginfo('name') . ' <no-reply@worldcares.org>' . "\r\n";
-
-        $message = "
-
-                    Hi " . $userDetail->display_name . ",\n
-                    Your $group_type Group $post_title has been submitted for approval. Once approved, you will see the group on your dashboard.\n
-                    View Report: " . site_url('wccgroups') . "\n
-
-                    Thank You.";
-
-                    $params = array(
-                        'subject' => $subject,
-                        'body' => $message,
-                        'to' => $userEmail,
-                        'action_link' => site_url('wccgroups'),
-                        'user_id' => $userDetail->ID,
-                    );
-                    // Call the emailHandler function to send email notifications
-                    emailHandler($params);
-                //   wp_mail($userEmail, $subject, $message, $headers);
-
-
-        echo "<script>
-
-                alert('Group created successfully and sent to admin for approval !');
-
-                window.location.href='https://knowledge.communication.worldcares.org/wccgroups';
-
-                </script>";
-
-        exit;
-    }
-}
-
-add_action('init', 'ums_create_group');
-
-
-
 function ums_update_group()
 {
 
@@ -2166,7 +1813,7 @@ function ums_create_resource()
 
         );
 
-    // M008: Resource Notification to All Users
+        // M008: Resource Notification to All Users
 
         if ($_POST['ums_create_resource'] == "ums_create_resource") {
 
@@ -2307,8 +1954,6 @@ add_action('init', 'ums_delete_resource');
 function create_feed()
 {
 
-
-
     if (!empty($_POST['create_feed'])) {
 
         $post_content = ($_POST['post_content']) ? sanitize_text_field($_POST['post_content']) : "";
@@ -2316,21 +1961,15 @@ function create_feed()
         $current_user_id = get_current_user_id();
 
         $wordpress_post = array(
-
             'post_content' => $post_content,
-
             'post_status' => 'publish',
-
             'post_author' => $current_user_id,
-
             'post_type' => 'feeds'
-
         );
 
 
 
         $feed_id =     wp_insert_post($wordpress_post);
-
         add_post_meta($feed_id, 'feed_group_id', $_POST['ugroup_id']);
 
 
@@ -3014,15 +2653,15 @@ function orgnaizationReport_alert()
                 User has requested to help with the report $report_title($uniqueReportID).\n
                 View Report: " . site_url('view-organization-request-form/?id=' . $report_alert_id) . "\n
                 Thank You, Admin";
-                $params = array(
-                    'subject' => $subject,
-                    'body' => $message,
-                    'to' => $user->user_email,
-                    'action_link' => site_url('view-organization-request-form/?id=' . $report_alert_id),
-                    'user_id' => $user->ID,
-                    'post_id' => $report_alert_id
-                );
-                emailHandler($params);
+            $params = array(
+                'subject' => $subject,
+                'body' => $message,
+                'to' => $user->user_email,
+                'action_link' => site_url('view-organization-request-form/?id=' . $report_alert_id),
+                'user_id' => $user->ID,
+                'post_id' => $report_alert_id
+            );
+            emailHandler($params);
             // wp_mail($user->user_email, $subject, $message, $headers);
 
 
@@ -3081,16 +2720,16 @@ function orgnaizationReport_alert()
                 View Report: " . site_url('view-organization-request-form/?id=' . $report_alert_id) . "\n
                 Thank You, Admin";
 
-                $params = array(
-                    'subject' => $subject,
-                    'body' => $message,
-                    'to' => $user->user_email,
-                    'action_link' => site_url('view-organization-request-form/?id=' . $report_alert_id),
-                    'user_id' => $user->ID,
-                    'post_id' => $report_alert_id
-                );
-                emailHandler($params);
-              // wp_mail($user->user_email, $subject, $message, $headers);
+            $params = array(
+                'subject' => $subject,
+                'body' => $message,
+                'to' => $user->user_email,
+                'action_link' => site_url('view-organization-request-form/?id=' . $report_alert_id),
+                'user_id' => $user->ID,
+                'post_id' => $report_alert_id
+            );
+            emailHandler($params);
+            // wp_mail($user->user_email, $subject, $message, $headers);
 
             /*Send email to author */
             foreach ($reportsformsData as $key => $value) {
@@ -3176,15 +2815,15 @@ function approve_organizationRequest()
              You may communicate with the author via the message board in your Dashboard.\n
              View Report: " . site_url('view-organization-request-form/?id=' . $report_alert_id) . "\n
              Thank You, Admin";
-             $params = array(
-                'subject' => $subject,
-                'body' => $message,
-                'to' => $user->user_email,
-                'action_link' => site_url('view-organization-request-form/?id=' . $report_alert_id),
-                'user_id' => $user->ID,
-                'post_id' => $report_alert_id
-            );
-            emailHandler($params);
+        $params = array(
+            'subject' => $subject,
+            'body' => $message,
+            'to' => $user->user_email,
+            'action_link' => site_url('view-organization-request-form/?id=' . $report_alert_id),
+            'user_id' => $user->ID,
+            'post_id' => $report_alert_id
+        );
+        emailHandler($params);
         // wp_mail($user->user_email, $subject, $message, $headers);
         // send email to user who applied
         echo "<script>
@@ -3260,16 +2899,16 @@ function reject_organizationRequest()
             Thank you for your interest in $report_title ($uniqueReportID) at this time your application has been declined.\n
             View Report: " . site_url('view-organization-request-form/?id=' . $report_alert_id) . "\n
             Thank You";
-            $params = array(
-                'subject' => $subject,
-                'body' => $message,
-                'to' => $user->user_email,
-                'action_link' => site_url('view-organization-request-form/?id=' . $report_alert_id),
-                'user_id' => $user->ID,
-                'post_id' => $report_alert_id
-            );
-            emailHandler($params);
-          // wp_mail($user->user_email, $subject, $message, $headers);
+        $params = array(
+            'subject' => $subject,
+            'body' => $message,
+            'to' => $user->user_email,
+            'action_link' => site_url('view-organization-request-form/?id=' . $report_alert_id),
+            'user_id' => $user->ID,
+            'post_id' => $report_alert_id
+        );
+        emailHandler($params);
+        // wp_mail($user->user_email, $subject, $message, $headers);
 
         // send email to user who applied
         echo "<script>
@@ -3361,16 +3000,16 @@ function survivorNeedIntakeReport_alert()
                 View Report: $report_title($uniqueReportID).\n
                 View Report: " . site_url('survivors-needs-intake-form/?id=' . $report_alert_id) . "\n
                 Thank You, Admin";
-                $params = array(
-                    'subject' => $subject,
-                    'body' => $message,
-                    'to' => $user->user_email,
-                    'action_link' => site_url('survivors-needs-intake-form/?id=' . $report_alert_id),
-                    'user_id' => $user->ID,
-                    'post_id' => $report_alert_id
-                );
-                emailHandler($params);
-               // wp_mail($user->user_email, $subject, $message, $headers);
+            $params = array(
+                'subject' => $subject,
+                'body' => $message,
+                'to' => $user->user_email,
+                'action_link' => site_url('survivors-needs-intake-form/?id=' . $report_alert_id),
+                'user_id' => $user->ID,
+                'post_id' => $report_alert_id
+            );
+            emailHandler($params);
+            // wp_mail($user->user_email, $subject, $message, $headers);
 
             /*Send email to author */
 
@@ -3424,16 +3063,16 @@ function survivorNeedIntakeReport_alert()
                 View Report: $report_title.\n
                 View Report: " . site_url('survivors-needs-intake-form/?id=' . $report_alert_id) . "\n
                 Thank You, Admin";
-                $params = array(
-                    'subject' => $subject,
-                    'body' => $message,
-                    'to' => $user->user_email,
-                    'action_link' => site_url('survivors-needs-intake-form/?id=' . $report_alert_id),
-                    'user_id' => $user->ID,
-                    'post_id' => $report_alert_id
-                );
-                emailHandler($params);
-                // wp_mail($user->user_email, $subject, $message, $headers);
+            $params = array(
+                'subject' => $subject,
+                'body' => $message,
+                'to' => $user->user_email,
+                'action_link' => site_url('survivors-needs-intake-form/?id=' . $report_alert_id),
+                'user_id' => $user->ID,
+                'post_id' => $report_alert_id
+            );
+            emailHandler($params);
+            // wp_mail($user->user_email, $subject, $message, $headers);
 
             /*Send email to author */
 
@@ -3460,28 +3099,7 @@ function survivorNeedIntakeReport_alert()
 
 add_action('init', 'survivorNeedIntakeReport_alert');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Survivor need intake form report apply
-
-
-
 function intakeFormReport_alert()
 {
 
@@ -3496,95 +3114,44 @@ function intakeFormReport_alert()
     if (!empty($_POST['intakeFormReport_alert'])) {
 
         $group_id = ($_POST['group_id']) ? sanitize_text_field($_POST['group_id']) : "";
-
         $report_alert_id = ($_POST['rid']) ? sanitize_text_field($_POST['rid']) : "";
-
         $post_author = ($_POST['post_author']) ? sanitize_text_field($_POST['post_author']) : "";
-
         $page_url = ($_POST['page_url']) ? sanitize_text_field($_POST['page_url']) : "";
-
         $current_user_id = get_current_user_id();
-
         $current_date   =  date('Y/m/d');
 
 
-
-        /*$meta = get_post_meta($report_alert_id);
-
-    print_r($meta);
-
-    die;*/
-
-
-
         if (empty($report_alert_id)) {
-
             $reportsformsData = array(
-
                 'report_alert_id'    => $report_alert_id,
-
                 'report_post_author'  => $post_author,
-
                 'report_applied_by_' . $current_user_id   => $current_user_id,
-
                 'report_status_' . $current_user_id   => 'applied',
-
                 'report_status_for_' . $report_alert_id   => 'report_applied',
-
-                //  'report_status_for_'.$report_alert_id ='applied',
-
                 'report_applied_date_' . $current_user_id  => $current_date
-
             );
 
-
-
-            /*echo 'vinay1';
-
-            print_r($reportsformsData);
-
-            die;*/
-
-
-
             foreach ($reportsformsData as $key => $value) {
-
                 if (!empty($value)) {
-
                     update_post_meta($report_alert_id, $key, sanitize_text_field($value));
                 }
             }
-
             //wc_print_notices('message success', "Applied-1 success!");
 
         } else {
 
             $reportsformsData = array(
-
                 'report_alert_id'    => $report_alert_id,
-
                 'report_post_author'  => $post_author,
-
                 'report_applied_by_' . $current_user_id   => $current_user_id,
-
                 'report_status_' . $current_user_id   => 'applied',
-
                 'report_status_for_' . $report_alert_id   => 'report_applied',
-
                 //  'report_status_for_'.$report_alert_id ='applied',
-
                 'report_applied_date_' . $current_user_id  => $current_date
-
             );
 
-
-
-
-
             foreach ($reportsformsData as $key => $value) {
-
                 if (!empty($value)) {
-
                     update_post_meta($report_alert_id, $key, sanitize_text_field($value));
                 }
             }
@@ -3721,7 +3288,7 @@ function customerview_admin_page()
 
     </div>
 
-<?php
+    <?php
 
 }
 
@@ -4062,7 +3629,7 @@ function create_volunteerReq()
                 // Get the group owner (the post author of the group)
                 $group_owner_id = get_post_field('post_author', $group_id);
                 $group_owner = get_user_by('id', $group_owner_id);
-            
+
                 // Compose the email for the group owner
                 $group_title = get_the_title($group_id);
                 $subject = "Private Volunteer Request Notification";
@@ -4071,7 +3638,7 @@ function create_volunteerReq()
                     Please review the request in your group: $group_title.\n
                     View Report: " . site_url('view-organization-request-form/?id=' . $rf_id) . "\n
                     Thank You, Admin";
-            
+
                 // Set the parameters for the email
                 $params = array(
                     'subject' => $subject,
@@ -4081,14 +3648,14 @@ function create_volunteerReq()
                     'user_id' => $group_owner->ID,
                     'post_id' => $rf_id
                 );
-            
+
                 // Use the custom email handler to send the email
                 debugLog("Sending email to group owner: " . $group_owner->user_email);
                 emailHandler($params);
-            
+
                 // Save the publish status as post meta
                 add_post_meta($rf_publish, 'rf_publish', $_POST['rf_publish']);
-            } 
+            }
             // Scenario 2: 'all_rrn_users' option selected, send email to all users
             elseif ($rf_publish == 'all_rrn_users') {
                 $all_users = get_users();
@@ -4115,7 +3682,7 @@ function create_volunteerReq()
                 }
 
                 add_post_meta($rf_publish, 'rf_publish', $_POST['rf_publish']);
-            } 
+            }
             // Scenario 3: Send email to specific group members
             else {
 
@@ -4130,7 +3697,7 @@ function create_volunteerReq()
                 debugLog("Group ID for publish: " . $rf_publish);
                 // Get the group name (title)
                 $group_name = get_the_title($rf_publish);
-                debugLog("Group title for publish: " . $group_name);   
+                debugLog("Group title for publish: " . $group_name);
 
                 // Debug the result of learndash_get_groups_user_ids
                 if (empty($allGroupUserID)) {
@@ -4175,8 +3742,7 @@ function create_volunteerReq()
             $multiapply = isset($_POST['rf_apply']) && is_array($_POST['rf_apply']) ? $_POST['rf_apply'] : [];
             $all_disasters = implode(',', $multiapply);
             update_post_meta($rf_id, 'rf_apply', $all_disasters);
-
-        } 
+        }
         // Update an existing report if $rf_id is already set
         else {
             debugLog("Update new post for volunteer request.");
@@ -5410,17 +4976,17 @@ function after_ActionReport()
                 } else {
                     foreach ($allGroupUserID as $USERID) {
                         debugLog("Inserting new post for After Action Report email loop BBB");
-    
+
                         $user = get_user_by('id', $USERID);
-    
+
                         $groupUserEmail = $user->user_email;
-    
+
                         echo $groupUserEmail;
-    
+
                         $subject = "After Action Report Notification";
-    
+
                         $headers = 'From: ' . get_bloginfo('name') . ' <no_reply@worldcares.org>' . "\r\n";
-    
+
                         $message = "
     
                         Hi " . $user->display_name . ",\n
@@ -5429,7 +4995,7 @@ function after_ActionReport()
                          View Report: " . site_url('after-action-report/?id=' . $rf_id) . "\n
     
                         Thank You, Admin";
-    
+
                         $params = array(
                             'subject' => $subject,
                             'body' => $message,
@@ -5440,12 +5006,12 @@ function after_ActionReport()
                         );
                         // Call the emailHandler function to send email notifications
                         emailHandler($params);
-    
+
                         // wp_mail($groupUserEmail, $subject, $message, $headers);
                     }
                 }
 
-               
+
 
                 add_post_meta($rf_publish, 'rf_publish', @$_POST['$rf_publish']);
             }
@@ -6439,13 +6005,13 @@ function ums_create_resourcemedia()
                     Hi " . $value->display_name . ",\n
                     A new media resource $post_title has been published in the group $group_title.\n
                     Thank You, Admin";
-                    $params = array(
-                        'subject' => $subject,
-                        'body' => $message,
-                        'to' => $value->user_email,
-                        'user_id' => $value->ID
-                    );
-                    emailHandler($params);
+                $params = array(
+                    'subject' => $subject,
+                    'body' => $message,
+                    'to' => $value->user_email,
+                    'user_id' => $value->ID
+                );
+                emailHandler($params);
                 // wp_mail($value->user_email, $subject, $message, $headers);
             }
 
@@ -6471,15 +6037,15 @@ function ums_create_resourcemedia()
                     A new Disaster Situational Report  $post_title has just been published to the group $group_title.\n
                     View Report: " . site_url('disaster-situational-report/?id=' . $media_post_id) . "\n
                     Thank You, Admin";
-                    $params = array(
-                        'subject' => $subject,
-                        'body' => $message,
-                        'to' => $groupUserEmail,
-                        'user_id' => $user->ID,
-                        'action_link' => site_url('disaster-situational-report/?id=' . $media_post_id),
-                        'post_id' => $media_post_id
-                    );
-                    emailHandler($params);
+                $params = array(
+                    'subject' => $subject,
+                    'body' => $message,
+                    'to' => $groupUserEmail,
+                    'user_id' => $user->ID,
+                    'action_link' => site_url('disaster-situational-report/?id=' . $media_post_id),
+                    'post_id' => $media_post_id
+                );
+                emailHandler($params);
                 // wp_mail($groupUserEmail, $subject, $message, $headers);
             }
 
@@ -7133,15 +6699,15 @@ function create_blog()
                      A user has created a blog titled $post_title in the group $group_title.\n
                      View Blog: " . get_permalink($blog_id) . "\n
                      Thank You, Admin";
-                     $params = array(
-                        'subject' => $subject,
-                        'body' => $message,
-                        'to' => $value->user_email,
-                        'action_link' => get_permalink($blog_id),
-                        'user_id' => $value->ID,
-                        'post_id' => $blog_id
-                    );
-                    emailHandler($params);
+                $params = array(
+                    'subject' => $subject,
+                    'body' => $message,
+                    'to' => $value->user_email,
+                    'action_link' => get_permalink($blog_id),
+                    'user_id' => $value->ID,
+                    'post_id' => $blog_id
+                );
+                emailHandler($params);
                 // wp_mail($value->user_email, $subject, $message, $headers);
             }
 
@@ -7171,15 +6737,15 @@ function create_blog()
                     A user has created a blog titled $post_title in the group $group_title.\n
                     View Blog: " . get_permalink($blog_id) . "\n
                     Thank You, Admin";
-                    $params = array(
-                        'subject' => $subject,
-                        'body' => $message,
-                        'to' => $groupUserEmail,
-                        'action_link' => get_permalink($blog_id),
-                        'user_id' => $user->ID,
-                        'post_id' => $blog_id
-                    );
-                    emailHandler($params);
+                $params = array(
+                    'subject' => $subject,
+                    'body' => $message,
+                    'to' => $groupUserEmail,
+                    'action_link' => get_permalink($blog_id),
+                    'user_id' => $user->ID,
+                    'post_id' => $blog_id
+                );
+                emailHandler($params);
                 // wp_mail($groupUserEmail, $subject, $message, $headers);
             }
 
@@ -7238,7 +6804,7 @@ function create_blog()
             $adminEmail  = $value->user_email;
             $userInfo  =  get_userdata($value->ID);
             $message =  "A new blog titled $post_title has been created in the group $group_title. Please approve it from your admin dashboard.\n
-            View Blog: ". site_url('my-dashboard') . "";
+            View Blog: " . site_url('my-dashboard') . "";
             $subject = 'Blog Notification';
             $header = "From:noreply@knowledge.communication.worldcares.org \r\n";
 
@@ -7282,7 +6848,7 @@ function create_blog()
 
                 alert('Blog created successfully and sent to admin for approval !');
 
-                window.location.href='https://knowledge.communication.worldcares.org/wccgroups';
+                window.location.href='" . site_url() . "/wccgroups';
 
                 </script>";
 
@@ -7339,35 +6905,35 @@ function loginUsers($query)
 
             if ($my_url === 'general-donation') {
 
-                $concat1 =  'https://knowledge.communication.worldcares.org/dev/dontaion/' . $my_url;
+                $concat1 =  site_url() . '/dev/dontaion/' . $my_url;
 
                 wp_redirect($concat1);
 
                 exit;
             } elseif ($my_url === 'disaster-response-fund') {
 
-                $concat2 =  'https://knowledge.communication.worldcares.org/dev/dontaion/disaster-response-fund';
+                $concat2 =  site_url() . '/dev/dontaion/disaster-response-fund';
 
                 wp_redirect($concat2);
 
                 exit;
             } elseif ($my_url == 'ppe-for-ready-responders/') {
 
-                $concat3 =  'https://knowledge.communication.worldcares.org/dev/dontaion/ppe-for-ready-responders/';
+                $concat3 =  site_url() . '/dev/dontaion/ppe-for-ready-responders/';
 
                 wp_redirect($concat3);
 
                 exit;
             } elseif ($my_url == 'help-haiti') {
 
-                $concat4 =  'https://knowledge.communication.worldcares.org/dev/dontaion/help-haiti';
+                $concat4 =  site_url() . '/dev/dontaion/help-haiti';
 
                 wp_redirect($concat4);
 
                 exit;
             } elseif ($my_url == 'help-ukraine') {
 
-                $concat5 =  'https://knowledge.communication.worldcares.org/dev/dontaion/help-ukraine';
+                $concat5 =  site_url() . '/dev/dontaion/help-ukraine';
 
                 wp_redirect($concat5);
 
@@ -9071,9 +8637,9 @@ function DV_Introductory_Level_Training($atts)
     $query = new WP_Query($args);
 
     $max_num_pages = $query->max_num_pages;
-//$max_num_pages = '25';
+    //$max_num_pages = '25';
 
-	
+
     $ums = get_posts($args);
 
     $str = '<div class="container training">
@@ -9179,7 +8745,7 @@ function DV_Introductory_Level_Training($atts)
 
     echo  $str;
 
-     /* echo "<div class='page-nav-container'>" . paginate_links(array(
+    /* echo "<div class='page-nav-container'>" . paginate_links(array(
 
     'total' => $max_num_pages,
 
@@ -11350,7 +10916,6 @@ function update_feed_like_count()
 
 
 add_action('wp_ajax_update_feed_like', 'update_feed_like_count');
-
 add_action('wp_ajax_nopriv_update_feed_like', 'update_feed_like_count');
 
 
@@ -11550,17 +11115,20 @@ add_action('wp_ajax_fetch_notifications', 'fetch_notifications_callback');
 add_action('wp_ajax_nopriv_fetch_notifications', 'fetch_notifications_callback');
 
 // Define the callback function to handle the AJAX request
-function fetch_notifications_callback() {
+function fetch_notifications_callback()
+{
+    pre("fetch_notifications_callback");
+    die;
     global $wpdb;
 
     // Validate the user ID
-    if ( ! isset($_POST['userid']) || ! is_numeric($_POST['userid']) ) {
+    if (! isset($_POST['userid']) || ! is_numeric($_POST['userid'])) {
         wp_send_json_error(array('message' => 'Invalid User ID'), 400); // Send 400 error if user ID is invalid
         wp_die();
     }
 
-     $userId = intval($_POST['userid']);
-     $ID = intval($_POST['ID']);
+    $userId = intval($_POST['userid']);
+    $ID = intval($_POST['ID']);
 
 
 
@@ -11604,7 +11172,8 @@ function fetch_notifications_callback() {
     wp_die(); // Ensure the script terminates correctly
 }
 //feed the notification panel count on page \wp-content\themes\astra\dashboard-home.php
-function get_unread_notification_count($userId) {
+function get_unread_notification_count($userId)
+{
     global $wpdb;
     // Query to count notifications where dateacknowledged is NULL (unread)
     $count = $wpdb->get_var($wpdb->prepare("
@@ -11625,7 +11194,7 @@ add_filter('avatar_defaults', 'wpb_new_gravatar');
 function wpb_new_gravatar($avatar_defaults)
 {
 
-    $myavatar = 'https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/opn_menu_logo.png';
+    $myavatar = site_url() . '/wp-content/themes/astra/assets/images/opn_menu_logo.png';
 
     $avatar_defaults[$myavatar] = "Default Gravatar";
 
@@ -11633,7 +11202,10 @@ function wpb_new_gravatar($avatar_defaults)
 }
 
 
-function enqueue_jquery() {
+function enqueue_jquery()
+{
+    wp_deregister_script('jquery');
+    wp_register_script('jquery', "https://code.jquery.com/jquery-3.7.1.min.js", array(), '3.7.1');
     wp_enqueue_script('jquery');
 }
 add_action('wp_enqueue_scripts', 'enqueue_jquery');
@@ -11678,15 +11250,15 @@ function notifyauthor($post_id)
             Your post titled $post->post_title has been approved and published.\n
             View Post: " . get_permalink($post_id) . "\n
             Thank You, Admin";
-            $params = array(
-                'subject' => $subject,
-                'body' => $message,
-                'to' => $author->user_email,
-                'action_link' => get_permalink($post_id),
-                'user_id' => $author->ID,
-                'post_id' => $post_id
-            );
-            emailHandler($params);
+        $params = array(
+            'subject' => $subject,
+            'body' => $message,
+            'to' => $author->user_email,
+            'action_link' => get_permalink($post_id),
+            'user_id' => $author->ID,
+            'post_id' => $post_id
+        );
+        emailHandler($params);
         // wp_mail($author->user_email, $subject, $message, $headers);
 
         // Set a meta key as a counter
@@ -12057,7 +11629,7 @@ function search_DisasterReport()
 
     global $wpdb;
 
-   /* session_start(); */
+    /* session_start(); */
 
 
 
@@ -12307,16 +11879,16 @@ function acceptMemberRequest()
                    $invitedToUser->display_name  has accepted your request to join the group $group_name.\n
                     View Member: " . site_url('my-dashboard') . "\n
                     Thank You, Admin";
-                    $params = array(
-                        'subject' => $subject,
-                        'body' => $message,
-                        'to' => $user->user_email,
-                        'action_link' => site_url('my-dashboard'),
-                        'user_id' => $user->ID
-                    );
-                    // Call the emailHandler function to send email notifications
-                    emailHandler($params);
-                //    wp_mail($user->user_email, $subject, $message, $headers);
+        $params = array(
+            'subject' => $subject,
+            'body' => $message,
+            'to' => $user->user_email,
+            'action_link' => site_url('my-dashboard'),
+            'user_id' => $user->ID
+        );
+        // Call the emailHandler function to send email notifications
+        emailHandler($params);
+        //    wp_mail($user->user_email, $subject, $message, $headers);
 
         /*send email*/
 
@@ -12344,9 +11916,8 @@ add_action('init', 'acceptMemberRequest');
 function cancelMemberRequest()
 {
 
+    
     global $wpdb;
-
-
 
     if (!empty($_POST['cancelMemberRequest'])) {
 
@@ -12381,16 +11952,16 @@ function cancelMemberRequest()
                     $invitedToUser->display_name has rejected your request to join the group $group_name.\n
                     View Member: " . site_url('my-dashboard') . "\n
                     Thank You, Admin";
-                    $params = array(
-                        'subject' => $subject,
-                        'body' => $message,
-                        'to' => $user->user_email,
-                        'action_link' => site_url('my-dashboard'),
-                        'user_id' => $user->ID
-                    );
-                    // Call the emailHandler function to send email notifications
-                    emailHandler($params);
-                    // wp_mail($user->user_email, $subject, $message, $headers);
+        $params = array(
+            'subject' => $subject,
+            'body' => $message,
+            'to' => $user->user_email,
+            'action_link' => site_url('my-dashboard'),
+            'user_id' => $user->ID
+        );
+        // Call the emailHandler function to send email notifications
+        emailHandler($params);
+        // wp_mail($user->user_email, $subject, $message, $headers);
         /*send email*/
     } else {
     }
@@ -12446,14 +12017,14 @@ function RequestSentacceptMemberRequest()
                     $invitedToUser->display_name has accepted your request to join the group $group_name.\n
                     View Group: " . site_url('my-dashboard') . "
                     Thank You, Admin";
-                    $params = array(
-                        'subject' => $subject,
-                        'body' => $message,
-                        'to' => $user->user_email,
-                        'action_link' => site_url('my-dashboard'),
-                        'user_id' => $user->ID
-                    );
-                    emailHandler($params);
+        $params = array(
+            'subject' => $subject,
+            'body' => $message,
+            'to' => $user->user_email,
+            'action_link' => site_url('my-dashboard'),
+            'user_id' => $user->ID
+        );
+        emailHandler($params);
         // wp_mail($user->user_email, $subject, $message, $headers);
 
         /*send email*/
@@ -12519,15 +12090,15 @@ function RequestSentcancelMemberRequest()
                     $invitedToUser->display_name has rejected your request to join the group $group_name.\n
                     View Member: " . site_url('my-dashboard') . "\n
                     Thank You, Admin";
-                    $params = array(
-                        'subject' => $subject,
-                        'body' => $message,
-                        'to' => $user->user_email,
-                        'action_link' => site_url('my-dashboard'),
-                        'user_id' => $user->ID
-                    );
-                    emailHandler($params);
-                //    wp_mail($user->user_email, $subject, $message, $headers);
+        $params = array(
+            'subject' => $subject,
+            'body' => $message,
+            'to' => $user->user_email,
+            'action_link' => site_url('my-dashboard'),
+            'user_id' => $user->ID
+        );
+        emailHandler($params);
+        //    wp_mail($user->user_email, $subject, $message, $headers);
 
         /*send email*/
     } else {
@@ -12572,7 +12143,7 @@ add_filter('comment_form_defaults', function ($fields) {
 
                  You must
 
-                 <a href="https://knowledge.communication.worldcares.org/login">Login</a> to post a comment.</p>'
+                 <a href=site_url() . "/login">Login</a> to post a comment.</p>'
 
         ),
 
@@ -12607,13 +12178,15 @@ add_action('edit_user_profile', 'shhow_user_additional_info');
 add_action('wp_ajax_get_user_badges', 'get_user_badges_callback');
 add_action('wp_ajax_nopriv_get_user_badges', 'get_user_badges_callback');
 
-function get_user_badges_callback() {
+function get_user_badges_callback()
+{
     $user_id = get_current_user_id(); // You can also get the user ID from the AJAX request
     echo get_user_badges($user_id);
     wp_die(); // This is necessary to properly end the AJAX request
 }
 
-function get_user_badges($user_id) {
+function get_user_badges($user_id)
+{
     global $wpdb;
     // Prepare and execute the SQL query to call the MySQL function
     $query = $wpdb->prepare("SELECT getBadges(%d) AS badges", $user_id);
@@ -12627,7 +12200,7 @@ function get_user_badges($user_id) {
     }
 }
 
-add_shortcode('user_badges', function() {
+add_shortcode('user_badges', function () {
     $user_id = get_current_user_id(); // Or any other way to get the user ID
     return get_user_badges($user_id);
 });
@@ -12671,7 +12244,8 @@ function kcc_notifications_list($userid, $mode)
 add_action('wp_ajax_get_unanswered_notifications', 'get_unanswered_notifications');
 add_action('wp_ajax_nopriv_get_unanswered_notifications', 'get_unanswered_notifications');
 
-function get_unanswered_notifications() {
+function get_unanswered_notifications()
+{
     global $wpdb;
     $userid = intval($_POST['userid']);
     $notifications = kcc_notifications_list($userid, 0); // Mode 0: unanswered
@@ -12680,30 +12254,30 @@ function get_unanswered_notifications() {
         foreach ($notifications as $notification) {
             $date = new DateTime($notification->datecreated);
             $formatted_date = $date->format('d-M-y H:i');
-            ?>
+    ?>
             <div class="mian_notification_sec">
-               <div class="notification-icon-wrapper">
-                  <span class="fa-stack fa-2x">
-                     <i class="fa fa-circle-thin fa-stack-2x"></i>
-                     <i class="fa fa-lock fa-stack-1x"></i>
-                  </span>
-               </div>
-               <div class="notification-content">
-                  <div class="d-flex align-items-center justify-content-between">
-                     <h5><?php echo $notification->title; ?></h5>
-                     <span> <?php echo $formatted_date; ?> </span>
-                  </div>
-                  <p><?php echo $notification->shorttext; ?></p>
-                  <i class="fa <?php echo htmlspecialchars($notification->icontodisplay); ?>"></i>
-                  <?php if (!empty($notification->linkTo)) {
-                     $url = esc_url($notification->linkTo); ?>
-                     <button class="see-more-link" onclick="redirectToNotification('<?php echo $url; ?>', <?php echo $notification->id; ?>)">
-                        See more <i class="fas fa-right-from-bracket"></i>
-                     </button>
-                  <?php } ?>
-               </div>
+                <div class="notification-icon-wrapper">
+                    <span class="fa-stack fa-2x">
+                        <i class="fa fa-circle-thin fa-stack-2x"></i>
+                        <i class="fa fa-lock fa-stack-1x"></i>
+                    </span>
+                </div>
+                <div class="notification-content">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h5><?php echo $notification->title; ?></h5>
+                        <span> <?php echo $formatted_date; ?> </span>
+                    </div>
+                    <p><?php echo $notification->shorttext; ?></p>
+                    <i class="fa <?php echo htmlspecialchars($notification->icontodisplay); ?>"></i>
+                    <?php if (!empty($notification->linkTo)) {
+                        $url = esc_url($notification->linkTo); ?>
+                        <button class="see-more-link" onclick="redirectToNotification('<?php echo $url; ?>', <?php echo $notification->id; ?>)">
+                            See more <i class="fas fa-right-from-bracket"></i>
+                        </button>
+                    <?php } ?>
+                </div>
             </div>
-            <?php
+        <?php
         }
     } else {
         echo '<div class="ml-4"><p class="noNewNotifications">- No New Notifications -</p></div>';
@@ -12718,7 +12292,8 @@ function get_unanswered_notifications() {
 add_action('wp_ajax_get_acknowledged_notifications', 'get_acknowledged_notifications');
 add_action('wp_ajax_nopriv_get_acknowledged_notifications', 'get_acknowledged_notifications');
 
-function get_acknowledged_notifications() {
+function get_acknowledged_notifications()
+{
     global $wpdb;
 
     // Get the user ID from the AJAX request
@@ -12731,30 +12306,30 @@ function get_acknowledged_notifications() {
         foreach ($notifications as $notification) {
             $date = new DateTime($notification->dateacknowledged);
             $formatted_date = $date->format('d-M-y H:i');
-            ?>
-               <div class="mian_notification_sec">
-                  <div class="notification-icon-wrapper">
-                     <span class="fa-stack fa-2x">
+        ?>
+            <div class="mian_notification_sec">
+                <div class="notification-icon-wrapper">
+                    <span class="fa-stack fa-2x">
                         <i class="fa fa-circle-thin fa-stack-2x"></i>
                         <i class="fa fa-lock fa-stack-1x"></i>
-                     </span>
-                  </div>
-                  <div class="notification-content">
-                     <div class="d-flex align-items-center justify-content-between">
+                    </span>
+                </div>
+                <div class="notification-content">
+                    <div class="d-flex align-items-center justify-content-between">
                         <h5><?php echo $notification->title; ?></h5>
                         <span> <?php echo $formatted_date; ?> </span>
-                     </div>
-                     <p><?php echo $notification->shorttext; ?></p>
-                     <i class="fa <?php echo htmlspecialchars($notification->icontodisplay); ?>"></i>
-                     <?php if (!empty($notification->linkTo)) {
+                    </div>
+                    <p><?php echo $notification->shorttext; ?></p>
+                    <i class="fa <?php echo htmlspecialchars($notification->icontodisplay); ?>"></i>
+                    <?php if (!empty($notification->linkTo)) {
                         $url = esc_url($notification->linkTo); ?>
                         <button class="see-more-link" onclick="redirectToNotification('<?php echo $url; ?>', <?php echo $notification->id; ?>)">
-                           See more <i class="fas fa-right-from-bracket"></i>
+                            See more <i class="fas fa-right-from-bracket"></i>
                         </button>
-                     <?php } ?>
-                  </div>
-               </div>
-            <?php
+                    <?php } ?>
+                </div>
+            </div>
+    <?php
         }
     } else {
         echo '<div class="ml-4"><p class="noNewNotifications">- No Acknowledged Notifications -</p></div>';
@@ -12805,7 +12380,7 @@ function shhow_user_additional_info($user)
 
     $Postnum = $wpdb->get_var($PostCount);
 
-?>
+    ?>
 
     <h3><?php _e('Additional Information'); ?></h3>
 
@@ -12948,9 +12523,9 @@ function shhow_user_additional_info($user)
 
 // Start KCC Function
 
-function theme_js_script() {
-    wp_enqueue_script( 'theme-script', get_template_directory_uri() . '/js/custom.js');
-
+function theme_js_script()
+{
+    wp_enqueue_script('theme-script', get_template_directory_uri() . '/js/custom.js');
 }
 add_action('wp_enqueue_scripts', 'theme_js_script');
 
@@ -12958,7 +12533,8 @@ add_action('wp_enqueue_scripts', 'theme_js_script');
 add_action('wp_ajax_get_certificate_link', 'ajax_get_certificate_link');
 add_action('wp_ajax_nopriv_get_certificate_link', 'ajax_get_certificate_link');
 
-function ajax_get_certificate_link() {
+function ajax_get_certificate_link()
+{
     // Check if the request is valid
     if (isset($_POST['course_id'])) {
         $course_id = intval($_POST['course_id']);
@@ -12971,7 +12547,8 @@ function ajax_get_certificate_link() {
 }
 
 // In your theme's functions.php
-function get_certificate_link($course_id) {
+function get_certificate_link($course_id)
+{
     // Check if LearnDash is active
     if (function_exists('learndash_get_course_certificate_link')) {
         // Retrieve the certificate link for the specified course ID
@@ -12993,6 +12570,7 @@ function emailHandler($params)
     $bcc = $params['bcc'] ?? '';
     $calledFrom = $params['calledFrom'] ?? '';
     $post_id = $params['post_id'] ?? '';
+
     global $wpdb;
 
     // Log the email to the emailLog table
@@ -13080,22 +12658,27 @@ function emailHandler($params)
 }
 
 add_action('wp_ajax_redirect_event_request', 'redirect_event_request_function');    // If called from admin panel
- function redirect_event_request_function (){
+function redirect_event_request_function()
+{
     if (isset($_POST['post_id'])) {
-    $event_link = tribe_get_event_link($_POST['post_id']);
+        $event_link = tribe_get_event_link($_POST['post_id']);
         wp_send_json_success($event_link); // Return the link as JSON
     }
- }
+}
 
- // For redirect to login page when user not logged_in
-function require_login_for_protected_pages() {
-    if ( !is_user_logged_in()) {
-        $redirect_url = esc_url( home_url( $_SERVER['REQUEST_URI'] ) ); wp_safe_redirect( wp_login_url( $redirect_url ) ); exit;
+// For redirect to login page when user not logged_in
+function require_login_for_protected_pages()
+{
+    if (!is_user_logged_in()) {
+        $redirect_url = esc_url(home_url($_SERVER['REQUEST_URI']));
+        wp_safe_redirect(wp_login_url($redirect_url));
+        exit;
     }
- }
+}
 
- // For clear notification after view notification
- function clear_notification_for_this_page() {
+// For clear notification after view notification
+function clear_notification_for_this_page()
+{
 
     //9/23 This function does not seem to match the intent
     //it will become more apparent when you try to to load in all the notification supression
@@ -13118,15 +12701,16 @@ function require_login_for_protected_pages() {
             array('%d')
         );
     }
- }
- add_action('wp_ajax_clear_notification_for_this_page', 'clear_notification_for_this_page');
+}
+add_action('wp_ajax_clear_notification_for_this_page', 'clear_notification_for_this_page');
 
- // Function to handle fetching quiz items and answers for page templat-quiz-selection
+// Function to handle fetching quiz items and answers for page templat-quiz-selection
 // Function to handle fetching quiz items and answers via AJAX
-function get_quiz_items() {
+function get_quiz_items()
+{
     if (isset($_POST['quiz_id'])) {
         $quiz_id = intval($_POST['quiz_id']);
-        
+
         // Fetch quiz questions using the LearnDash function to retrieve quiz questions
         $question_query = new WP_Query(array(
             'post_type' => 'sfwd-question', // LearnDash question post type
@@ -13146,7 +12730,7 @@ function get_quiz_items() {
         if ($question_query->have_posts()) {
             while ($question_query->have_posts()) {
                 $question_query->the_post();
-                
+
                 // Fetch the correct answer from the question meta
                 $correct_answer = get_post_meta(get_the_ID(), 'correct_answer', true);
 
@@ -13168,12 +12752,13 @@ function get_quiz_items() {
 add_action('wp_ajax_get_quiz_items', 'get_quiz_items');
 add_action('wp_ajax_nopriv_get_quiz_items', 'get_quiz_items'); // If non-logged-in users need access
 
-function debugLog($message) {
+function debugLog($message)
+{
     global $wpdb;
-    
+
     // Sanitize the message to prevent SQL injection
     $safe_message = sanitize_text_field($message);
-    
+
     // Insert the debug message into the debug table
     $wpdb->insert(
         $wpdb->prefix . 'debug_log', // The table name
@@ -13184,6 +12769,43 @@ function debugLog($message) {
     );
 }
 
+function handleFileUpload()
+{
+    if(empty($_FILES['group_image']['name'])) {
+        return 0;
+    }
 
+    // check for a file upload and process it 
+    $uploaddir = wp_upload_dir();
+
+    $file = $_FILES["group_image"]["name"];
+
+    $uploadfile = $uploaddir['path'] . '/' . basename($file);
+
+
+    if (move_uploaded_file($_FILES["group_image"]["tmp_name"], $uploadfile)) {
+        // get file name
+        $filename = basename($uploadfile);
+        // get file type
+        $wp_filetype = wp_check_filetype(basename($filename), null);
+
+        // create wordpress attachement parameters
+        $attachment = array(
+            'post_mime_type' => $wp_filetype['type'],
+            'post_title' => preg_replace('/\.[^.]+$/', '', $filename),
+            'post_content' => '',
+            'post_status' => 'inherit'
+            //'menu_order' => $_i + 1000
+        );
+
+
+        // add to media library
+        $attach_id = wp_insert_attachment($attachment, $uploadfile);
+    } else {
+        $attach_id = 0;
+    }
+
+    return $attach_id;
+}
 
 ?>

@@ -25,7 +25,7 @@
       color:#4ABE2B;
       padding:0; font:inherit;
       cursor:pointer;
-      text-decoration: none;"
+      text-decoration: none;
    }
    .see-more-link:hover {
       text-decoration: none;
@@ -120,7 +120,7 @@
    }
 
    // Use Bootstrap's show.bs.dropdown event to reset notifications every time the dropdown is opened
-   $('#notification_button').parent().on('show.bs.dropdown', function() {
+   jQuery('#notification_button').parent().on('show.bs.dropdown', function() {
       resetUnansweredNotifications(); // Reset to unanswered notifications when the dropdown is opened
    });
 

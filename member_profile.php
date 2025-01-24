@@ -9,6 +9,7 @@
 <?php
 /* Template Name: Member Profile */
 session_start();
+
 get_header('new'); 
 
 if (isset($_SERVER['HTTP_REFERER'])) {

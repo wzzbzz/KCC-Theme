@@ -92,7 +92,7 @@
                                         <div class="custom-card d-flex align-items-center justify-content-center">
                                             <div class="close-group">
                                                 <div class="text-center">
-                                                    <!--<img src="https://picsum.photos/150/150?grayscale">-->
+    
                                                     <img src ="<?php echo get_avatar_url($value->invited_to); ?>">
                                                 </div>
                                                 <div class="text-center mt-3">

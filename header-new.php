@@ -24,27 +24,14 @@
     <link href="<?php echo get_template_directory_uri(); ?>/style.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/responsive.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
-     <!-- <link rel="stylesheet" type="text/css" href="<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/um-fonticons-ii.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/um-fonticons-fa.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/um-styles.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/um-profile.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/select2/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/um-crop.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/um-modal.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/um-account.css">
-    <link rel='stylesheet'  href='<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/um-fileupload.css' />
-    <link rel='stylesheet'  href='<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/um-misc.css' />
-    <link rel='stylesheet'  href='<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/pickadate/default.css' />
-    <link rel='stylesheet'  href='<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/pickadate/default.date.css'  />
-    <link rel='stylesheet'  href='<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/pickadate/default.time.css'/>
-    <link rel='stylesheet'  href='<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/um-raty.css'  />
-    <link rel='stylesheet' href='<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/simplebar.css' />
-    <link rel='stylesheet' href='<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/um-tipsy.css'  />
-    <link rel='stylesheet' href='<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/um-responsive.css' />
-    <link rel='stylesheet' href='<?php echo get_site_url(); ?>/wp-content/plugins/ultimate-member/assets/css/um-old-default.css' /> -->
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/wcc_custom_style.css" rel="stylesheet">  
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/media.css" rel="stylesheet">  
     <link rel="stylesheet" type="text/css" href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/style_new.min.css"/>
+    <!-- <link rel='stylesheet' id='elementor-icons-css' href='https://knowledge.communication.worldcares.org/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=5.25.0' type='text/css' media='all' />
+    <link rel='stylesheet' id='elementor-icons-shared-0-css' href='https://knowledge.communication.worldcares.org/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.min.css?ver=5.15.3' type='text/css' media='all' />
+    <link rel='stylesheet' id='elementor-icons-fa-solid-css' href='https://knowledge.communication.worldcares.org/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.min.css?ver=5.15.3' type='text/css' media='all' />
+    <script src="https://knowledge.communication.worldcares.org/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/js/iconHelper.js?ver=1.0" id="eae-iconHelper-js"></script>
+     <link rel="stylesheet" type="text/css" href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/style_new.min.css"/> -->
 	
 </head>
 <body class="main_all_bg_Sec">

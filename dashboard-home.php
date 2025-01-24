@@ -3,7 +3,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
+die("Dashboard Home Template (dashboard-home.php) is being used.");  
 /* Template Name: Dashboard Home */
 
 // Display file path for debugging

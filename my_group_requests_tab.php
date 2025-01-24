@@ -117,7 +117,7 @@
             global $wpdb;
 
      //   echo $sql = "SELECT * FROM `group_invite` WHERE  status='pending' AND  (`invited_from` = '".$current_user_id."' OR invited_to =  '".$current_user_id."')" ;
-             $sql = " SELECT group_id,MAX(id) as id ,MAX(invited_to) as invited_to ,MAX(invited_from) as invited_from ,MAX(created_at) as created_at FROM `group_invite` WHERE status='pending' AND `invited_to` =  '".$current_user_id."' GROUP BY group_id" ;
+            $sql = "SELECT group_id, id, invited_to, invited_from, created_at FROM `group_invite` WHERE status='pending' AND `invited_to` =  '".$current_user_id."' GROUP BY group_id" ;
             $allInvitedUsers = $wpdb->get_results($sql);
             $sendHtml = '';
             $receivedHtml = '';
@@ -216,7 +216,7 @@
                             </div>
                         </a>
                          <div class="col-md-12 text-center ">
-                            <a target="_blank" href="https://knowledge.communication.worldcares.org/group-members?group_id='.$grpupVal->ID.'"><button class="btn btn-primary mb-3"> Members </button></a>
+                            <a target="_blank" href="'.site_url('group-members').'?group_id='.$grpupVal->ID.'"><button class="btn btn-primary mb-3"> Members </button></a>
                         </div>
                         
                         

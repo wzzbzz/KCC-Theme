@@ -93,7 +93,7 @@
                                     
                                 <?php
                                 $result = $wpdb->get_results("SELECT * FROM group_invite WHERE `group_id` = $groupId AND `invited_to` = $current_user_id  AND `status` = 'pending'");
-                                if(!empty($result))
+                                if(!empty($result)){
                                  foreach($result as $value) {
                                  $userInfo  =  get_userdata($value->invited_from);
                                  ?>
@@ -128,12 +128,12 @@
                                                             <?php if(get_post_meta($groupId,'group_type',true) == 'Private') { ?>
                                                               
                                                               	<div class="follow btn-1">
-                                    	     						<a href="javascript:void(0);" class="btn btn-primary acceptUser ums_btn<?php echo $value->id?>" data-uid="<?php echo $value->invited_to?>" data-id="<?php echo $value->id?>" data-groupid="<?php echo $value->group_id?>" title="Accept">Accept</a>
+                                    	     						<a href="javascript:void(0);" class="btn btn-primary acceptUser ums_btn<?php echo $value->id?>" data-uid="<?php echo $value->invited_from?>" data-id="<?php echo $value->id?>" data-groupid="<?php echo $value->group_id?>" title="Accept">Accept</a>
                                     	     					</div>
                                                             
                                                             <?php } elseif(get_post_meta($groupId,'group_type',true) == 'Closed') { ?>
                                                                 <div class="follow btn-1">
-                                    	     						<a href="javascript:void(0);" class="btn btn-primary acceptUser ums_btn<?php echo $value->id?>" data-uid="<?php echo $value->invited_to?>" data-id="<?php echo $value->id?>" data-groupid="<?php echo $value->group_id?>" title="Accept">Accept</a>
+                                    	     						<a href="javascript:void(0);" class="btn btn-primary acceptUser ums_btn<?php echo $value->id?>" data-uid="<?php echo $value->invited_from?>" data-id="<?php echo $value->id?>" data-groupid="<?php echo $value->group_id?>" title="Accept">Accept</a>
                                     	     					</div>
                                     	     					
                                     	     				<?php } else {?>	
@@ -158,7 +158,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                <?php } else { ?>
+                                <?php } }else { ?>
                                 
                                  <span class="text-danger mx-3"> <?php echo 'There are no pending requests/ invitations.'?> </span>
                                 

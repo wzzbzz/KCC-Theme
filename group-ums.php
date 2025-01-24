@@ -24,11 +24,11 @@
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/style.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/responsive.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/wcc_custom_style.css" rel="stylesheet">
-    <!-- <link rel='stylesheet' id='elementor-icons-css' href='https://knowledge.communication.worldcares.org/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=5.25.0' type='text/css' media='all' />
-    <link rel='stylesheet' id='elementor-icons-shared-0-css' href='https://knowledge.communication.worldcares.org/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.min.css?ver=5.15.3' type='text/css' media='all' />
-    <link rel='stylesheet' id='elementor-icons-fa-solid-css' href='https://knowledge.communication.worldcares.org/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.min.css?ver=5.15.3' type='text/css' media='all' />
-    <script src="https://knowledge.communication.worldcares.org/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/js/iconHelper.js?ver=1.0" id="eae-iconHelper-js"></script>
-     <link rel="stylesheet" type="text/css" href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/style_new.min.css"/> -->
+    <!-- <link rel='stylesheet' id='elementor-icons-css' href='/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=5.25.0' type='text/css' media='all' />
+    <link rel='stylesheet' id='elementor-icons-shared-0-css' href='/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.min.css?ver=5.15.3' type='text/css' media='all' />
+    <link rel='stylesheet' id='elementor-icons-fa-solid-css' href='/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.min.css?ver=5.15.3' type='text/css' media='all' />
+    <script src="/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/js/iconHelper.js?ver=1.0" id="eae-iconHelper-js"></script>
+     <link rel="stylesheet" type="text/css" href="/wp-content/themes/astra/assets/css/style_new.min.css"/> -->
 
 </head>
 <body class="main_all_bg_Sec">
@@ -61,7 +61,7 @@
     
     </style>
     <?php include('user-sidebar.php')?>
-
+  
     <div class="col-xl-12 ">
         <div class="row justify-content-end mt-3">
 
@@ -306,7 +306,6 @@
                                                 <div class="d-flex">
                                                     <div class="main-group-image">
                                                         
-                                                      
                                                         <?php if(!empty( $userList)){ ?> 
                                                        
                                                             <?php 
@@ -345,14 +344,14 @@
                                                 </div>
                                                 <div class="col-md-12 text-center ">
                                                      <?php if($group_type == 'Private'){?>
-                                                    <a target="_blank" href="https://knowledge.communication.worldcares.org/all-joined-members?group_id=<?php echo $grpupVal->ID?>"><button class="btn btn-primary mb-3"> Members </button></a>
+                                                    <a target="_blank" href="<?php site_url();?>/all-joined-members?group_id=<?php echo $grpupVal->ID?>"><button class="btn btn-primary mb-3"> Members </button></a>
                                                     <?php } elseif($group_type == 'Closed') { ?>
                                                     
-                                                    <a target="_blank" href="https://knowledge.communication.worldcares.org/all-joined-members?group_id=<?php echo $grpupVal->ID?>"><button class="btn btn-primary mb-3"> Members </button></a>
+                                                    <a target="_blank" href="<?php site_url();?>/all-joined-members?group_id=<?php echo $grpupVal->ID?>"><button class="btn btn-primary mb-3"> Members </button></a>
                                                     
                                                     <?php } else { ?>
                                                      
-                                                     <a target="_blank" href="https://knowledge.communication.worldcares.org/all-joined-members?group_id=<?php echo $grpupVal->ID?>"><button class="btn btn-primary mb-3"> Members </button></a> 
+                                                     <a target="_blank" href="<?php site_url();?>/all-joined-members?group_id=<?php echo $grpupVal->ID?>"><button class="btn btn-primary mb-3"> Members </button></a> 
                                                      
                                                     <?php } ?>
                                                 </div>
@@ -520,7 +519,7 @@
                   <div class="d-flex justify-content-center">
                      <div>
                         <div>
-                           <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/avatar.png" alt="Abhishek Rajput" height="150" title="" width="150" class="rounded-circle userImg">
+                           <img src="/wp-content/themes/astra/avatar.png" alt="Abhishek Rajput" height="150" title="" width="150" class="rounded-circle userImg">
                         </div>
                      </div>
                   </div>
@@ -548,15 +547,15 @@
                      <div class=" col-md-10">
                         <div class="d-flex justify-content-between">
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_1.png" class="img-fluid" alt="image">  
+                              <img src="/wp-content/themes/astra/assets/images/cdvc_1.png" class="img-fluid" alt="image">  
                               <p>CDVC Level 1</p>
                            </div>
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_2.png" class="img-fluid" alt="image">
+                              <img src="/wp-content/themes/astra/assets/images/cdvc_2.png" class="img-fluid" alt="image">
                               <p>CDVC Level 2</p>
                            </div>
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_3.png" class="img-fluid" alt="image">
+                              <img src="/wp-content/themes/astra/assets/images/cdvc_3.png" class="img-fluid" alt="image">
                               <p>CDVC Level 3</p>
                            </div>
                         </div>
