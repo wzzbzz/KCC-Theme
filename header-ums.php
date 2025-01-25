@@ -25,11 +25,11 @@
 
       <!-- Favicon -->
     <link rel="shortcut icon" type="image/jpg"
-        href="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/images/favicon.png">
+        href="<?= site_url;?>/wp-content/themes/astra/assets/images/favicon.png">
 
     <!-- css links -->
 \  
-    <link href="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/css/bhawna.css" rel="stylesheet">
+    <link href="<?= site_url;?>/wp-content/themes/astra/assets/css/bhawna.css" rel="stylesheet">
 
     <style>
 
@@ -37,14 +37,14 @@
     </style>
 
 
-    <link href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/all.min.css" rel="stylesheet">
-    <link href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/owl.carousel.min.css" rel="stylesheet">
-    <link href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/owl.theme.default.min.css" rel="stylesheet">
+    <link href="<?= site_url;?>wp-content/themes/astra/assets/css/all.min.css" rel="stylesheet">
+    <link href="<?= site_url;?>wp-content/themes/astra/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?= site_url;?>wp-content/themes/astra/assets/css/owl.carousel.min.css" rel="stylesheet">
+    <link href="<?= site_url;?>wp-content/themes/astra/assets/css/owl.theme.default.min.css" rel="stylesheet">
     <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/font.css" rel="stylesheet">
-    <link href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/style.css" rel="stylesheet">
-    <link href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/responsive.css" rel="stylesheet">
+    <link href="<?= site_url;?>wp-content/themes/astra/assets/css/font.css" rel="stylesheet">
+    <link href="<?= site_url;?>wp-content/themes/astra/assets/css/style.css" rel="stylesheet">
+    <link href="<?= site_url;?>wp-content/themes/astra/assets/css/responsive.css" rel="stylesheet">
 
 
 </head>

@@ -66,8 +66,8 @@ if(empty($author_img)){
 
  $headerurl = $_SERVER['REQUEST_URI']; 
 
- $main_url = 'https://knowledge.communication.worldcares.org';
-
+//  $main_url = 'https://knowledge.communication.worldcares.org';
+ $main_url = site_url();
  $baseHref = $main_url."$headerurl";
 
 ?>
@@ -384,7 +384,7 @@ if(empty($author_img)){
 
                                <div class="mem-image">
 
-                                    <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/avatar.png" alt="" height="" title="" width="">
+                                    <img src="<?= get_template_directory_uri();?>/avatar.png" alt="" height="" title="" width="">
 
                                 </div>
 

@@ -3,14 +3,16 @@
 namespace KCC\Notifications;
 
 use KCC\Group;
-use Mpdf\Tag\P;
+use KCC\User;
 
-class GroupApprovalNotification extends Notification
+class GroupInvitationNotification extends Notification
 {
 
     protected $group_id;
     protected $group;
-
+    protected $user_id;
+    protected $user;
+    
     public function __construct($args)
     {
 
@@ -24,6 +26,15 @@ class GroupApprovalNotification extends Notification
             return;
         }
 
+        $this->user_id = $args['user_id'] ?? '';
+
+        if(empty($this->user_id)){
+            die("no");
+            return;
+        }
+
+        $this->user = new User($this->user_id);
+
         // the recipient will be the groupLeader
         $this->group = new Group($this->group_id);
         $groupLeader = $this->group->getLeader();
@@ -32,7 +43,7 @@ class GroupApprovalNotification extends Notification
         $this->recipients['to'] = [$groupLeader];
 
         // set the subject here for now
-        $this->subject = "Your Group Has Been Approved";
+        $this->subject = "Invitation to Join Group";
     }
 
     public function send()
@@ -62,8 +73,12 @@ class GroupApprovalNotification extends Notification
         global $wpdb;
 
         foreach ($this->recipients['to'] as $recipient) {
-            $this->body = sprintf("Hi %s,\n" .
-                "Your group %s has been approved.\n", $recipient->name(), $this->group->name());
+    
+            $this->body = sprintf(" Hi %s,\n
+                        You are invited in the group %s. Please accept/reject invitation from My Contacts in My Dashboard section. \n
+                View Invitation: %s \n
+                Thank You, Admin", $recipient->name(), $this->group->name(), site_url('tab-my-group-requests'));
+
             $result = wp_mail($recipient->email(), $this->subject, $this->body, $this->headers);
 
 
@@ -89,9 +104,10 @@ class GroupApprovalNotification extends Notification
     
     public function send_notification( $recipient )
     {
-        $this->body = sprintf("Your group,  %s, has been approved", $this->group->name());
-        $this->actionlink = esc_url(site_url('wccgroups'));
+        $this->body = sprintf("You have been invited to join  %s.", $this->group->name());
+        $this->actionlink = esc_url(site_url('tab-my-group-requests'));
 
         parent::send_notification($recipient);
+
     }
 }

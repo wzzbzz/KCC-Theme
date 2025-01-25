@@ -51,7 +51,7 @@ $contactList = array_unique($contactList);
                 <div class="main-card">
                     <?php 
                     $member_id=  $userInfo->ID;
-                    $memberdetails = "https://knowledge.communication.worldcares.org/member-profile/?id=$member_id";?>
+                    $memberdetails = site_url() . "/member-profile/?id=$member_id";?>
 
                     <a href="<?php echo $memberdetails;?>" title="<?php echo esc_attr($userInfo->display_name); ?>">
                         <div class="image">

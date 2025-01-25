@@ -11,17 +11,31 @@ class Groups extends \jwc\Wordpress\WPCollection
     }
     public function init()
     {
+
+        # approve and decline
         add_action('publish_groups', array($this, 'approve'));
         add_action('trash_groups', array($this, 'decline'));
 
+        # join open group
         add_action('wp_ajax_join_open_group', array($this, 'ajaxUserJoinOpenGroup'));
         add_action('wp_ajax_nopriv_join_open_group', array($this, 'ajaxUserJoinOpenGroup'));
 
+        #Request To Join Close Group
         add_action('wp_ajax_send_group_request', array($this, 'ajaxJoinClosedGroupRequest'));    // If called from admin panel
         add_action('wp_ajax_nopriv_send_group_request', array($this, 'ajaxJoinClosedGroupRequest'));    // If called from front end
 
+        #accept Group application
         add_action('wp_ajax_accept_group_request', array($this, 'ajaxAcceptGroupJoinRequest'));
         add_action('wp_ajax_nopriv_accept_group_request', array($this, 'ajaxAcceptGroupJoinRequest'));
+
+        # Send Invitation To Join closed group
+        add_action('wp_ajax_invite_group_request', array($this, 'ajaxSendInvitation'));    // If called from admin panel
+        add_action('wp_ajax_nopriv_invite_group_request', 'ajaxSendInvitation');    // If called from front end
+
+        #accept Group invitation
+        add_action('wp_ajax_accept_group_invite', array($this, 'ajaxAcceptGroupInvite'));
+        add_action('wp_ajax_nopriv_accept_group_invite', array($this, 'ajaxAcceptGroupInvite'));
+
 
 
         $this->possiblyCreateGroup();
@@ -270,12 +284,89 @@ class Groups extends \jwc\Wordpress\WPCollection
         $args = ['group_id' => $group_id, 'user_id' => $member_id];
         $notification = new \KCC\Notifications\GroupJoinRequestAcceptedNotification($args);
         $notification->send();
-        
+
         $myArr['responseData'] = $responseData;
         $myArr['msg'] = "Accepted";
         $myJSON = json_encode($myArr);
         echo $myJSON;
 
         die();
+    }
+
+    public function ajaxSendInvitation()
+    {
+        global $wpdb;
+
+        $responseData = array();
+
+        $group_id = sanitize_text_field($_POST['group_id']);
+
+        $group = new Group($group_id);
+
+
+        $member_id = sanitize_text_field($_POST['mid']);
+        $invitee = new User($member_id);
+        $inviter = $group->getLeader();
+
+
+        if($this->inviteHasBeenSent($group_id, $member_id, $inviter->id())){
+            $responseData['msg'] = "Already Requested";
+            $responseJson = json_encode($responseData);
+            echo $responseJson;
+            die();
+        }
+
+        $args = array(
+            'invited_to' => $member_id,
+            'invited_from' => $inviter->id(),
+            'status' => 'pending',
+            'group_id' => $group_id,
+        );
+
+        $wpdb->insert('group_invite', $args);
+
+        $responseData['responseData'] = $responseData;
+        $responseData['msg'] = "Invited";
+        $responseData['success'] = "User Invited Successfully.";
+        $responseJson = json_encode($responseData);
+
+        /* M002: Group Member Invitation Notification to Invited User */
+        $notification = new \KCC\Notifications\GroupInvitationNotification(['group_id' => $group_id, 'user_id' => $member_id]);
+
+        $notification->send();
+
+        $user = get_user_by('id', $member_id);
+        $userEmail = $user->user_email;
+        $subject = "Group Member Invitation  Notification";
+        $headers = 'From: ' . get_bloginfo('name') . ' <no_reply@worldcares.org>' . "\r\n";
+        $message = "
+                Hi " . $user->display_name . ",\n
+                You are invited in the group $group_title. Please accept/reject invitation from My Contacts in My Dashboard section. \n
+                View Invitation: " . site_url('my-dashboard') . "\n
+                Thank You, Admin";
+        $params = array(
+            'subject' => $subject,
+            'body' => $message,
+            'to' => $userEmail,
+            'action_link' => site_url('my-dashboard'),
+            'user_id' => $user->ID
+        );
+        // Call the emailHandler function to send email notifications
+        emailHandler($params);
+        // wp_mail($userEmail, $subject, $message, $headers);
+        /*send email too invited user*/
+        echo $responseJson;
+        die();
+    }
+
+    private function inviteHasBeenSent($group_id, $member_id, $inviter_id)
+    {
+        global $wpdb;
+
+        $sql = "SELECT * FROM group_invite WHERE group_id = '" . $group_id . "' AND invited_to = '" . $member_id . "' AND invited_from ='" . $inviter_id . "' ";
+
+        $check = $wpdb->get_results($sql, ARRAY_A);
+
+        return count($check) > 0;
     }
 }

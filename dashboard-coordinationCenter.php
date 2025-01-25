@@ -63,7 +63,7 @@ get_header('new'); ?>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-md-6 mb-3 ">
                         <div class="main_box_btm purple_box coordination_icon">
-                            <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/trackings_ico.png">
+                            <img src="<?= get_template_directory_uri();?>/assets/images/trackings_ico.png">
                         <h5 class="purple">Trackings</h5>
                             <p>View a listing of your reports, groups, accepted roles, and blogs</p>
                             <a href="https://knowledge.communication.worldcares.org/tracking/">View Trackings</a>

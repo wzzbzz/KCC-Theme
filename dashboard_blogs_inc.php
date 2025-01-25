@@ -12,7 +12,7 @@
         <div class="">
             <div class="donate_btn_right">        
                 <button class="btn now_donate" data-toggle="modal" data-target="#createBlog" title="Create Blog">
-                <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/plus_icon.png"> Create Blog</button>
+                <img src="<?= get_template_directory_uri();?>/assets/images/plus_icon.png"> Create Blog</button>
             </div>
         </div>
     </div>

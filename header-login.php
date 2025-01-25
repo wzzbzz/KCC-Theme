@@ -15,5 +15,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<link href="<?php echo get_template_directory_uri(); ?>/assets/css/wcc_custom_style.css" rel="stylesheet">  
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/media.css" rel="stylesheet"> 
-    <link rel="icon" type="image/x-icon" href="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/08/wcc_favicon.png">
+    <link rel="icon" type="image/x-icon" href="<?= wp_upload_dir();?>/2023/08/wcc_favicon.png">
 </head>

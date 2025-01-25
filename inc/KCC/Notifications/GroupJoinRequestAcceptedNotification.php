@@ -13,8 +13,6 @@ class GroupJoinRequestAcceptedNotification extends Notification
     protected $user_id;
     protected $user;
 
-    private $emailLogId;
-
     public function __construct($args)
     {
 
@@ -99,27 +97,11 @@ class GroupJoinRequestAcceptedNotification extends Notification
     
     public function send_notification( $recipient )
     {
-        global $wpdb;
-       
+
         $this->body = sprintf("You are now a member of %s.", $this->group->name());
         $this->actionlink = esc_url(site_url('tab-my-groups'));
 
-        // insert into kcc_notifications
-        $insert_result = $wpdb->insert(
-            'kcc_notifications',
-            array(
-                'datecreated' => current_time('mysql'),
-                'userId' => $recipient->id(),
-
-                'originSystemPostId' => $this->group_id,
-                'icontodisplay' => 'fas fa-calendar-alt',
-                'title' => $this->subject,
-                'shorttext' => $this->body,
-                'linkTo' => $this->actionlink,
-                'emailLogId' => $this->emailLogId
-            ),
-            array('%s', '%s', '%d', '%s', '%s', '%s', '%s', '%d')
-        );
+        parent::send_notification($recipient);
 
     }
 }

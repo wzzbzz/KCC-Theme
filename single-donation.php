@@ -414,7 +414,7 @@ get_footer('new'); } else {
 
     $post_slug = $post->post_name; 
 
-    wp_redirect( 'https://knowledge.communication.worldcares.org/login?url=https://knowledge.communication.worldcares.org/donation/'.$post_slug);
+    wp_redirect( site_url() . '/login?url=' . site_url('donation') . '/'.$post_slug);
 
  //wp_redirect( 'login' );
 

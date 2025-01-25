@@ -15,7 +15,7 @@ add_action( 'astra_header' , 'featured_image_header');
 
 function featured_image_header() {
         ?>
-    <section class="has_eae_slider umesh elementor-section elementor-top-section elementor-element elementor-element-938f376 elementor-section-height-min-height elementor-section-boxed elementor-section-height-default elementor-section-items-middle" data-id="938f376" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}" style="background-color: #000000DE; background-image: url(https://knowledge.communication.worldcares.org//wp-content/uploads/2022/12/kenny-eliason-1-aA2Fadydc-unsplash.png); background-position: center center; ">
+    <section class="has_eae_slider umesh elementor-section elementor-top-section elementor-element elementor-element-938f376 elementor-section-height-min-height elementor-section-boxed elementor-section-height-default elementor-section-items-middle" data-id="938f376" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}" style="background-color: #000000DE; background-image: url(<?= wp_upload_dir();?>/2022/12/kenny-eliason-1-aA2Fadydc-unsplash.png); background-position: center center; ">
                             <div class="elementor-background-overlay"></div>
                             <div class="elementor-container elementor-column-gap-default">
                     <div class="has_eae_slider elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-b5869d1" data-id="b5869d1" data-element_type="column">
@@ -135,7 +135,7 @@ and type setting industry.</h2>     </div>
             <div class="elementor-widget-wrap elementor-element-populated">
                                 <div class="elementor-element elementor-element-c50ec93 elementor-widget__width-auto elementor-widget elementor-widget-image" data-id="c50ec93" data-element_type="widget" data-widget_type="image.default">
                 <div class="elementor-widget-container">
-                                                            <img decoding="async" width="399" height="429" src="https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/shutterstock_81403720.png" class="attachment-full size-full wp-image-641" alt="" loading="lazy" srcset="https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/shutterstock_81403720.png 399w, https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/shutterstock_81403720-279x300.png 279w" sizes="(max-width: 399px) 100vw, 399px">                                                           </div>
+                                                            <img decoding="async" width="399" height="429" src="<?= wp_upload_dir();?>/2022/12/shutterstock_81403720.png" class="attachment-full size-full wp-image-641" alt="" loading="lazy" srcset="<?= wp_upload_dir();?>/2022/12/shutterstock_81403720.png 399w, <?= wp_upload_dir();?>/2022/12/shutterstock_81403720-279x300.png 279w" sizes="(max-width: 399px) 100vw, 399px">                                                           </div>
                 </div>
                 <div class="elementor-element elementor-element-7571952 elementor-widget elementor-widget-heading" data-id="7571952" data-element_type="widget" data-widget_type="heading.default">
                 <div class="elementor-widget-container">
@@ -163,7 +163,7 @@ Volunteer Credential</h2>       </div>
             <div class="elementor-widget-wrap elementor-element-populated">
                                 <div class="elementor-element elementor-element-6497ac3 elementor-widget__width-auto elementor-widget elementor-widget-image" data-id="6497ac3" data-element_type="widget" data-widget_type="image.default">
                 <div class="elementor-widget-container">
-                                                            <img decoding="async" width="399" height="429" src="https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/shutterstock_1923318317.png" class="attachment-large size-large wp-image-640" alt="" loading="lazy" srcset="https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/shutterstock_1923318317.png 399w, https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/shutterstock_1923318317-279x300.png 279w" sizes="(max-width: 399px) 100vw, 399px">                                                           </div>
+                                                            <img decoding="async" width="399" height="429" src="<?= wp_upload_dir();?>/2022/12/shutterstock_1923318317.png" class="attachment-large size-large wp-image-640" alt="" loading="lazy" srcset="<?= wp_upload_dir();?>/2022/12/shutterstock_1923318317.png 399w, <?= wp_upload_dir();?>/2022/12/shutterstock_1923318317-279x300.png 279w" sizes="(max-width: 399px) 100vw, 399px">                                                           </div>
                 </div>
                 <div class="elementor-element elementor-element-bd3f433 elementor-widget elementor-widget-heading" data-id="bd3f433" data-element_type="widget" data-widget_type="heading.default">
                 <div class="elementor-widget-container">
@@ -191,7 +191,7 @@ Training</h2>       </div>
             <div class="elementor-widget-wrap elementor-element-populated">
                                 <div class="elementor-element elementor-element-87b3f20 elementor-widget__width-auto elementor-widget elementor-widget-image" data-id="87b3f20" data-element_type="widget" data-widget_type="image.default">
                 <div class="elementor-widget-container">
-                                                            <img decoding="async" width="399" height="429" src="https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/shutterstock_1658787640.png" class="attachment-large size-large wp-image-638" alt="" loading="lazy" srcset="https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/shutterstock_1658787640.png 399w, https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/shutterstock_1658787640-279x300.png 279w" sizes="(max-width: 399px) 100vw, 399px">                                                           </div>
+                                                            <img decoding="async" width="399" height="429" src="<?= wp_upload_dir();?>/2022/12/shutterstock_1658787640.png" class="attachment-large size-large wp-image-638" alt="" loading="lazy" srcset="<?= wp_upload_dir();?>/2022/12/shutterstock_1658787640.png 399w, <?= wp_upload_dir();?>/2022/12/shutterstock_1658787640-279x300.png 279w" sizes="(max-width: 399px) 100vw, 399px">                                                           </div>
                 </div>
                 <div class="elementor-element elementor-element-f62998b elementor-widget elementor-widget-heading" data-id="f62998b" data-element_type="widget" data-widget_type="heading.default">
                 <div class="elementor-widget-container">
@@ -219,7 +219,7 @@ Trainings</h2>      </div>
             <div class="elementor-widget-wrap elementor-element-populated">
                                 <div class="elementor-element elementor-element-bea0245 elementor-widget__width-auto elementor-widget elementor-widget-image" data-id="bea0245" data-element_type="widget" data-widget_type="image.default">
                 <div class="elementor-widget-container">
-                                                            <img decoding="async" width="399" height="429" src="https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/shutterstock_1987418450.png" class="attachment-large size-large wp-image-639" alt="" loading="lazy" srcset="https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/shutterstock_1987418450.png 399w, https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/shutterstock_1987418450-279x300.png 279w" sizes="(max-width: 399px) 100vw, 399px">                                                           </div>
+                                                            <img decoding="async" width="399" height="429" src="<?= wp_upload_dir();?>/2022/12/shutterstock_1987418450.png" class="attachment-large size-large wp-image-639" alt="" loading="lazy" srcset="<?= wp_upload_dir();?>/2022/12/shutterstock_1987418450.png 399w, <?= wp_upload_dir();?>/2022/12/shutterstock_1987418450-279x300.png 279w" sizes="(max-width: 399px) 100vw, 399px">                                                           </div>
                 </div>
                 <div class="elementor-element elementor-element-49039f3 elementor-widget elementor-widget-heading" data-id="49039f3" data-element_type="widget" data-widget_type="heading.default">
                 <div class="elementor-widget-container">
@@ -290,7 +290,7 @@ Trainings</h2>      </div>
             <div class="elementor-widget-wrap elementor-element-populated">
                                 <div class="elementor-element elementor-element-9b9c7a4 elementor-widget elementor-widget-image" data-id="9b9c7a4" data-element_type="widget" data-widget_type="image.default">
                 <div class="elementor-widget-container">
-                                                            <img decoding="async" width="678" height="423" src="https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/mock.png" class="attachment-large size-large wp-image-79" alt="" loading="lazy" srcset="https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/mock.png 678w, https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/mock-300x187.png 300w" sizes="(max-width: 678px) 100vw, 678px">                                                         </div>
+                                                            <img decoding="async" width="678" height="423" src="<?= wp_upload_dir();?>/2022/12/mock.png" class="attachment-large size-large wp-image-79" alt="" loading="lazy" srcset="<?= wp_upload_dir();?>/2022/12/mock.png 678w, <?= wp_upload_dir();?>/2022/12/mock-300x187.png 300w" sizes="(max-width: 678px) 100vw, 678px">                                                         </div>
                 </div>
                     </div>
         </div>
@@ -303,7 +303,7 @@ Trainings</h2>      </div>
                 <div class="elementor-element elementor-element-6e92181 elementor-mobile-align-center elementor-widget elementor-widget-button" data-id="6e92181" data-element_type="widget" data-widget_type="button.default">
                 <div class="elementor-widget-container">
                     <div class="elementor-button-wrapper">
-            <a href="https://knowledge.communication.worldcares.org//registration/" class="elementor-button-link elementor-button elementor-size-xs" role="button">
+            <a href="<?= site_url();?>/registration/" class="elementor-button-link elementor-button elementor-size-xs" role="button">
                         <span class="elementor-button-content-wrapper">
                         <span class="elementor-button-text">CREATE MY FREE ACCOUNT</span>
         </span>

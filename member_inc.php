@@ -182,6 +182,8 @@
                     );
                     $users = get_users($args);    
                     foreach ($users as $value) {  
+                        if($value->user_email != 'jim@jimwilliamsconsulting.com')
+                            continue;
                         $author_img = get_user_meta($value->ID,'profile_photo',true);
                         if(empty($author_img)) {
                             $author_img = get_template_directory_uri()."/avatar.png";

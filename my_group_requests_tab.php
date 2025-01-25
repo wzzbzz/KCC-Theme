@@ -23,7 +23,7 @@
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/style.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/responsive.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/wcc_custom_style.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/style_new.min.css"/>
+    <link rel="stylesheet" type="text/css" href="astra/assets/css/style_new.min.css"/>
 
     
 </head>
@@ -389,7 +389,7 @@
                                                     </div>
                                                 </a>
                                                  <div class="col-md-12 text-center ">
-                                                    <a target="_blank" href="https://knowledge.communication.worldcares.org/invited-group-members?group_id='.$grpupVal->ID.'"><button class="btn btn-primary mb-3"> Members </button></a>
+                                                    <a target="_blank" href="'.site_url().'/invited-group-members?group_id='.$grpupVal->ID.'"><button class="btn btn-primary mb-3"> Members </button></a>
                                                 </div>
                                             </div>
                                                 
@@ -614,7 +614,7 @@ $ajaxUrl = admin_url('admin-ajax.php?action=send_group_reques&nonce='.$nonce);
                   <div class="d-flex justify-content-center">
                      <div>
                         <div>
-                           <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/avatar.png" alt="Abhishek Rajput" height="150" title="" width="150" class="rounded-circle userImg">
+                           <img src="astra/avatar.png" alt="Abhishek Rajput" height="150" title="" width="150" class="rounded-circle userImg">
                         </div>
                      </div>
                   </div>
@@ -642,15 +642,15 @@ $ajaxUrl = admin_url('admin-ajax.php?action=send_group_reques&nonce='.$nonce);
                      <div class=" col-md-10">
                         <div class="d-flex justify-content-between">
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_1.png" class="img-fluid" alt="image">  
+                              <img src="astra/assets/images/cdvc_1.png" class="img-fluid" alt="image">  
                               <p>CDVC Level 1</p>
                            </div>
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_2.png" class="img-fluid" alt="image">
+                              <img src="astra/assets/images/cdvc_2.png" class="img-fluid" alt="image">
                               <p>CDVC Level 2</p>
                            </div>
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_3.png" class="img-fluid" alt="image">
+                              <img src="astra/assets/images/cdvc_3.png" class="img-fluid" alt="image">
                               <p>CDVC Level 3</p>
                            </div>
                         </div>

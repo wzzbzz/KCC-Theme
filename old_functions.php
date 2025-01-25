@@ -11732,7 +11732,7 @@ add_filter('avatar_defaults', 'wpb_new_gravatar');
 function wpb_new_gravatar($avatar_defaults)
 {
 
-    $myavatar = 'https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/opn_menu_logo.png';
+    $myavatar = get_template_directory_uri() . '/assets/images/opn_menu_logo.png';
 
     $avatar_defaults[$myavatar] = "Default Gravatar";
 

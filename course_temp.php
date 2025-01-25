@@ -787,7 +787,7 @@ ul#pills-tab li.active h3 {
 
                                         <div>
 
-                                            <img src="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/01/shutterstock_2147202215.png">
+                                            <img src="<?= wp_upload_dir();?>//2023/01/shutterstock_2147202215.png">
 
                                         </div>     
 

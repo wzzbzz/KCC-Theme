@@ -50,17 +50,17 @@ if ( is_user_logged_in() ) { ?>
                     <div class="linked_blog">
                         <ul class="nav nav-pills justify-content-center" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link " href="https://knowledge.communication.worldcares.org/all-resources/">
+                                <a class="nav-link " href="<?= site_url();?>/all-resources/">
                                     <i class="now-ui-icons objects_umbrella-13"></i> All
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="https://knowledge.communication.worldcares.org/resources-created-by-me/">
+                                <a class="nav-link" href="<?= site_url();?>/resources-created-by-me/">
                                     <i class="now-ui-icons shopping_cart-simple"></i> Created By Me
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                 <a class="nav-link active" href="https://knowledge.communication.worldcares.org/media-documents/">
+                                 <a class="nav-link active" href="<?= site_url();?>/media-documents/">
                                 
                                     <i class="now-ui-icons shopping_shop"></i> Media or Document
                                 </a>

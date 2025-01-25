@@ -12,7 +12,7 @@ get_header('new'); ?>
     <title>My Resources</title>
 
     <!-- Favicon -->    
-    <link rel="shortcut icon" type="image/jpg" href="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/images/favicon.png"> 
+    <link rel="shortcut icon" type="image/jpg" href="<?= get_template_directory_uri();?>/assets/images/favicon.png"> 
 
     <!-- css links -->
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/all.min.css" rel="stylesheet">

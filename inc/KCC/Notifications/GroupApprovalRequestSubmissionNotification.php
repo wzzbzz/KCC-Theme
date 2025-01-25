@@ -9,9 +9,7 @@ class GroupApprovalRequestSubmissionNotification extends Notification
 
     protected $group_id;
     protected $group;
-
-    private $emailLogId;
-
+    
     public function __construct($args)
     {
 
@@ -91,29 +89,11 @@ class GroupApprovalRequestSubmissionNotification extends Notification
     
     public function send_notification( $recipient )
     {
-        global $wpdb;
-
-
         $this->subject = "Group Submitted for Approval";
         $this->body = sprintf("Your group,  %s, has been submitted for approval.", $this->group->name());
         $this->actionlink = esc_url(site_url('wp-admin/edit.php?post_type=groups'));
 
-        // insert into kcc_notifications
-        $insert_result = $wpdb->insert(
-            'kcc_notifications',
-            array(
-                'datecreated' => current_time('mysql'),
-                'userId' => $recipient->id(),
-
-                'originSystemPostId' => $this->group_id,
-                'icontodisplay' => 'fas fa-calendar-alt',
-                'title' => $this->subject,
-                'shorttext' => $this->body,
-                'linkTo' => $this->actionlink,
-                'emailLogId' => $this->emailLogId
-            ),
-            array('%s', '%s', '%d', '%s', '%s', '%s', '%s', '%d')
-        );
+        parent::send_notification($recipient);
 
     }
 }

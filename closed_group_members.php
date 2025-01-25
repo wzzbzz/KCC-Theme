@@ -28,11 +28,11 @@
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/style.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/responsive.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/wcc_custom_style.css" rel="stylesheet">
-    <link rel='stylesheet' id='elementor-icons-css' href='https://knowledge.communication.worldcares.org/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=5.25.0' type='text/css' media='all' />
-    <link rel='stylesheet' id='elementor-icons-shared-0-css' href='https://knowledge.communication.worldcares.org/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.min.css?ver=5.15.3' type='text/css' media='all' />
-    <link rel='stylesheet' id='elementor-icons-fa-solid-css' href='https://knowledge.communication.worldcares.org/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.min.css?ver=5.15.3' type='text/css' media='all' />
-    <script src="https://knowledge.communication.worldcares.org/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/js/iconHelper.js?ver=1.0" id="eae-iconHelper-js"></script>
-    <link rel="stylesheet" type="text/css" href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/style_new.min.css"/>
+    <link rel='stylesheet' id='elementor-icons-css' href='<?= wp_plugin_dir();?>/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=5.25.0' type='text/css' media='all' />
+    <link rel='stylesheet' id='elementor-icons-shared-0-css' href='<?= wp_plugin_dir();?>/elementor/assets/lib/font-awesome/css/fontawesome.min.css?ver=5.15.3' type='text/css' media='all' />
+    <link rel='stylesheet' id='elementor-icons-fa-solid-css' href='<?= wp_plugin_dir();?>/elementor/assets/lib/font-awesome/css/solid.min.css?ver=5.15.3' type='text/css' media='all' />
+    <script src="<?= wp_plugin_dir();?>/addon-elements-for-elementor-page-builder/assets/js/iconHelper.js?ver=1.0" id="eae-iconHelper-js"></script>
+    <link rel="stylesheet" type="text/css" href="<?= get_template_directory_url();?>/assets/css/style_new.min.css"/>
 </head>
 <body class="main_all_bg_Sec">
     <style type="text/css">
@@ -413,7 +413,7 @@ $ajaxUrl = admin_url('admin-ajax.php?action=send_group_reques&nonce='.$nonce);
                   <div class="d-flex justify-content-center">
                      <div>
                         <div>
-                           <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/avatar.png" alt="Abhishek Rajput" height="150" title="" width="150" class="rounded-circle userImg">
+                           <img src="<?= get_template_directory_url();?>/avatar.png" alt="Abhishek Rajput" height="150" title="" width="150" class="rounded-circle userImg">
                         </div>
                      </div>
                   </div>
@@ -441,15 +441,15 @@ $ajaxUrl = admin_url('admin-ajax.php?action=send_group_reques&nonce='.$nonce);
                      <div class=" col-md-10">
                         <div class="d-flex justify-content-between">
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_1.png" class="img-fluid" alt="image">  
+                              <img src="<?= get_template_directory_url();?>/assets/images/cdvc_1.png" class="img-fluid" alt="image">  
                               <p>CDVC Level 1</p>
                            </div>
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_2.png" class="img-fluid" alt="image">
+                              <img src="<?= get_template_directory_url();?>/assets/images/cdvc_2.png" class="img-fluid" alt="image">
                               <p>CDVC Level 2</p>
                            </div>
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_3.png" class="img-fluid" alt="image">
+                              <img src="<?= get_template_directory_url();?>/assets/images/cdvc_3.png" class="img-fluid" alt="image">
                               <p>CDVC Level 3</p>
                            </div>
                         </div>

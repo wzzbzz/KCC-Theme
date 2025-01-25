@@ -432,11 +432,11 @@ if(isset($_REQUEST['submit'])){
 
                      <div class="linked_page_left nav flex-column nav-pills" id="v-pills-tab" role="tablist"  aria-orientation="vertical">
 
-                        <a class="nav-link active" id="pills-profile-tab"  href="https://knowledge.communication.worldcares.org/user-profile-setting/">Profile Setting</a>
+                        <a class="nav-link active" id="pills-profile-tab"  href="<?= site_url();?>/user-profile-setting/">Profile Setting</a>
 
-                        <a class="nav-link" id="pills-profile-tab" href="https://knowledge.communication.worldcares.org/reset-password/">Change Password</a>
+                        <a class="nav-link" id="pills-profile-tab" href="<?= site_url();?>/reset-password/">Change Password</a>
 
-                        <a class="nav-link" id="pills-profile-tab" href="https://knowledge.communication.worldcares.org/faq/">Help &amp; Support</a>
+                        <a class="nav-link" id="pills-profile-tab" href="<?= site_url();?>/faq/">Help &amp; Support</a>
 
                      </div>
 
@@ -530,7 +530,7 @@ if(isset($_REQUEST['submit'])){
 
                                          
 
-                                          <div id="imagePreview" class="imagePreview1" style="background-image: url(https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/range_1.png);"></div>
+                                          <div id="imagePreview" class="imagePreview1" style="background-image: url(<?= get_template_directory_uri();?>/assets/images/range_1.png);"></div>
 
                                          <?php } ?>
 

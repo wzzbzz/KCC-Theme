@@ -129,7 +129,7 @@ get_header('new'); ?>
                                                     
                                                   // echo "<pre>"; 
                                                   //print_r($userInfo); 
-                                                 echo "<a href ='https://knowledge.communication.worldcares.org/message/?user_id=$userInfo->ID'>";
+                                                 echo "<a href ='".site_url()."/message/?user_id=$userInfo->ID'>";
                                                     echo  "<div class='user_serch_messsage d-flex align-items-center'>";
                                                     echo   "<img src='$author_img;' class='img-fluid'>";
                                                     echo    "<div class='user_sserch ml-2'>";

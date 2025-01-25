@@ -17,7 +17,7 @@
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/font.css" rel="stylesheet"/>
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/style.css" rel="stylesheet"/>
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/responsive.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/style_new.min.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= get_template_directory_uri();?>/assets/css/style_new.min.css"/>
   </head>
   <style>
     .message_Serch_user{

@@ -213,9 +213,9 @@ if(isset($_REQUEST['submit'])){
                      <h4><?php echo  $current_user->first_name?> <?php echo  $current_user->last_name?></h4>
                      <span><a title="<?php echo  $current_user->user_email?>" href="mailto:<?php echo  $current_user->user_email?>"><?php echo  $current_user->user_email?></a></span>
                      <div class="linked_page_left nav flex-column nav-pills" id="v-pills-tab" role="tablist"  aria-orientation="vertical">
-                        <a class="nav-link" id="pills-profile-tab"  href="https://knowledge.communication.worldcares.org/user-profile-setting/">Profile Setting</a>
-                        <a class="nav-link" id="pills-profile-tab" href="https://knowledge.communication.worldcares.org/reset-password/">Change Password</a>
-                        <a class="nav-link active" id="pills-profile-tab" href="https://knowledge.communication.worldcares.org/faq/">Help &amp; Support</a>
+                        <a class="nav-link" id="pills-profile-tab"  href="<?= site_url();?>/user-profile-setting/">Profile Setting</a>
+                        <a class="nav-link" id="pills-profile-tab" href="<?= site_url();?>/reset-password/">Change Password</a>
+                        <a class="nav-link active" id="pills-profile-tab" href="<?= site_url();?>/faq/">Help &amp; Support</a>
                      </div>
                   </div>
                </div>

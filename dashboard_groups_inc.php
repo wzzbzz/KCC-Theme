@@ -147,11 +147,11 @@
                
                 <div class="col-md-12 text-center ">
                     <?php if($group_type == "Open"){ ?>
-                     <a target="_blank" href="https://knowledge.communication.worldcares.org/all-joined-members?group_id=<?php echo $grpupVal->ID?>"><button class="btn btn-primary mb-3"> Members </button></a>
+                     <a target="_blank" href="<?= site_url();?>/all-joined-members?group_id=<?php echo $grpupVal->ID?>"><button class="btn btn-primary mb-3"> Members </button></a>
                     <?php }  elseif($group_type == "Closed") {?>
-                        <a target="_blank" href="https://knowledge.communication.worldcares.org/group-members?group_id=<?php echo $grpupVal->ID?>"><button class="btn btn-primary mb-3"> Members </button></a>
+                        <a target="_blank" href="<?= site_url();?>/group-members?group_id=<?php echo $grpupVal->ID?>"><button class="btn btn-primary mb-3"> Members </button></a>
                   <?php } else { ?>
-                       <a target="_blank" href="https://knowledge.communication.worldcares.org/group-members?group_id=<?php echo $grpupVal->ID?>"><button class="btn btn-primary mb-3"> Members </button></a>
+                       <a target="_blank" href="<?= site_url();?>/group-members?group_id=<?php echo $grpupVal->ID?>"><button class="btn btn-primary mb-3"> Members </button></a>
                   <?php  } ?>
                      
                 </div>
@@ -260,7 +260,7 @@
                                 </div>
                             </a>
                               <div class="col-md-12 text-center ">
-                            <a target="_blank" href="https://knowledge.communication.worldcares.org/group-joined-members?group_id='.$grpupVal->ID.'"><button class="btn btn-primary mb-3"> Members </button></a>
+                            <a target="_blank" href="<?= site_url();?>/group-joined-members?group_id='.$grpupVal->ID.'"><button class="btn btn-primary mb-3"> Members </button></a>
                         </div>
                         
                                 
@@ -390,7 +390,7 @@
                             </div>
                         </a>
                          <div class="col-md-12 text-center ">
-                            <a target="_blank" href="https://knowledge.communication.worldcares.org/group-members?group_id='.$grpupVal->ID.'"><button class="btn btn-primary mb-3"> Members </button></a>
+                            <a target="_blank" href="<?= site_url();?>/group-members?group_id='.$grpupVal->ID.'"><button class="btn btn-primary mb-3"> Members </button></a>
                         </div>
                         
                         
@@ -530,7 +530,7 @@
                             </div>
                         </a>
                          <div class="col-md-12 text-center ">
-                            <a target="_blank" href="https://knowledge.communication.worldcares.org/invited-group-members?group_id='.$grpupVal->ID.'"><button class="btn btn-primary mb-3"> Members </button></a>
+                            <a target="_blank" href="<?= site_url();?>/invited-group-members?group_id='.$grpupVal->ID.'"><button class="btn btn-primary mb-3"> Members </button></a>
                         </div>
                     </div>
                         
@@ -571,7 +571,7 @@
                   <div class="d-flex justify-content-center">
                      <div>
                         <div>
-                           <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/avatar.png" alt="Abhishek Rajput" height="150" title="" width="150" class="rounded-circle userImg">
+                           <img src="<?= site_url();?>/wp-content/themes/astra/avatar.png" alt="Abhishek Rajput" height="150" title="" width="150" class="rounded-circle userImg">
                         </div>
                      </div>
                   </div>
@@ -599,15 +599,15 @@
                      <div class=" col-md-10">
                         <div class="d-flex justify-content-between">
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_1.png" class="img-fluid" alt="image">  
+                              <img src="<?= site_url();?>/wp-content/themes/astra/assets/images/cdvc_1.png" class="img-fluid" alt="image">  
                               <p>CDVC Level 1</p>
                            </div>
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_2.png" class="img-fluid" alt="image">
+                              <img src="<?= site_url();?>/wp-content/themes/astra/assets/images/cdvc_2.png" class="img-fluid" alt="image">
                               <p>CDVC Level 2</p>
                            </div>
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_3.png" class="img-fluid" alt="image">
+                              <img src="<?= site_url();?>/wp-content/themes/astra/assets/images/cdvc_3.png" class="img-fluid" alt="image">
                               <p>CDVC Level 3</p>
                            </div>
                         </div>

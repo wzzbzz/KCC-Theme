@@ -6,7 +6,7 @@
       }
       .elementor-element-2157a0068{
          background-color: #000000DE;
-         background-image: url("https://knowledge.communication.worldcares.org//wp-content/uploads/2022/12/thought-catalog-505eectW54k-unsplash.png");
+         background-image: url("<?= wp_upload_dir();?>/2022/12/thought-catalog-505eectW54k-unsplash.png");
          background-position: center center;
          min-height: 678px;
          margin-top: -10%;

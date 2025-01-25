@@ -481,9 +481,9 @@ if (is_user_logged_in()) {
       <?php get_footer('new');
 } ?>
    <script
-      src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/js/popper.min.js"></script>
+      src="<?= get_template_directory_uri();?>/assets/js/popper.min.js"></script>
    <script
-      src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/js/bootstrap.min.js"></script>
+      src="<?= get_template_directory_uri();?>/assets/js/bootstrap.min.js"></script>
 
    <script>
       document.getElementById('severe_type').addEventListener('change', function () {

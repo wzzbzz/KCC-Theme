@@ -46,7 +46,7 @@
 
       <link href="<?php echo get_template_directory_uri(); ?>/assets/css/wcc_custom_style.css" rel="stylesheet">
 
-      <link rel="stylesheet" type="text/css" href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/style_new.min.css"/>
+      <link rel="stylesheet" type="text/css" href="<?= get_template_directory_uri();?>/assets/css/style_new.min.css"/>
 
    </head>
 
@@ -318,7 +318,7 @@
 
                               <a href="javascript:void(0)" class="mr-4" data-toggle="modal" data-target="#createBlog">
 
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/plus_icon.png" class="img-fluid mr-2">
+                              <img src="<?= get_template_directory_uri();?>/assets/images/plus_icon.png" class="img-fluid mr-2">
 
                               Create a New
 
@@ -326,7 +326,7 @@
 
                               <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModalCenter">
 
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/group_icon.png" class="img-fluid mr-2">
+                              <img src="<?= get_template_directory_uri();?>/assets/images/group_icon.png" class="img-fluid mr-2">
 
                               Filter By
 

@@ -340,10 +340,10 @@
 
    
 
-<script src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/js/jquery.min.js"></script>
-    <script src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/js/popper.min.js"></script>
-    <script src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/js/bootstrap.min.js"></script>   
-    <script src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/js/owl.carousel.min.js"></script>
+<script src="<?= site_url();?>/wp-content/themes/astra/assets/js/jquery.min.js"></script>
+    <script src="<?= site_url();?>/wp-content/themes/astra/assets/js/popper.min.js"></script>
+    <script src="<?= site_url();?>/wp-content/themes/astra/assets/js/bootstrap.min.js"></script>   
+    <script src="<?= site_url();?>/wp-content/themes/astra/assets/js/owl.carousel.min.js"></script>
 
     <script>      
 

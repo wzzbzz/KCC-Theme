@@ -261,7 +261,7 @@ function openCity(evt, cityName) {
 			<span style="color: #000"><p>'.$cat->name.'<p></span>		</div>
 				</div>
 				<div class="elementor-button-wrapper">
-			<a href="https://knowledge.communication.worldcares.org/course/?tag_ID='.$cat->term_id.'&amp;type=course" class="elementor-button-link elementor-button elementor-size-md btn btn-primary" style="background:#F96703">
+			<a href="' . site_url() . 'course/?tag_ID='.$cat->term_id.'&amp;type=course" class="elementor-button-link elementor-button elementor-size-md btn btn-primary" style="background:#F96703">
 						<span class="elementor-button-content-wrapper">
 						<span class="elementor-button-text">View Courses</span>
 		</span>

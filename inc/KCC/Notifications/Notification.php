@@ -25,6 +25,7 @@ class Notification{
     protected $bcc;
     protected $calledFrom;
     protected $post_id;
+    protected $emailLogId;
 
     // this constructor will pull all arguments, whether the notification needs them or not.
     public function __construct($args){
@@ -54,6 +55,26 @@ class Notification{
 
     public function send_emails(){
         die("sending emails");
+    }
+
+    public function send_notification($recipient){
+        global $wpdb;
+        // insert into kcc_notifications
+        $insert_result = $wpdb->insert(
+            'kcc_notifications',
+            array(
+                'datecreated' => current_time('mysql'),
+                'userId' => $recipient->id(),
+
+                'originSystemPostId' => $this->group_id,
+                'icontodisplay' => 'fas fa-calendar-alt',
+                'title' => $this->subject,
+                'shorttext' => $this->body,
+                'linkTo' => $this->actionlink,
+                'emailLogId' => $this->emailLogId
+            ),
+            array('%s', '%s', '%d', '%s', '%s', '%s', '%s', '%d')
+        );
     }
 
     public function send_email( $recipient ){

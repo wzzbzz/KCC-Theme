@@ -97,7 +97,7 @@ display_file_path();
 </head>
 <section class="login-header-page">
     <div class="container-fluid">
-        <div class="images d-none d-lg-block d-md-block d-xl-block" style="background: url('https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/Group-78157-2-1.png');">
+        <div class="images d-none d-lg-block d-md-block d-xl-block" style="background: url('<?= wp_upload_dir();?>/2022/12/Group-78157-2-1.png');">
             <div class="right-section">
                 <div class="banner-content">
                     <h3>Develop Critical Skills, Get Credentialed, And Connect With The People You Need</h3>
@@ -114,7 +114,7 @@ display_file_path();
                          
                         <div class="image">
                             <a href="<?php echo get_site_url(); ?>/">
-                            <img src="https://knowledge.communication.worldcares.org/wp-content/uploads/elementor/thumbs/logo-q56sxant9dmy3yqysgcyvcdmog1qaj1qbxoqv2nm70.png" alt="" title="WCC" height="" width="">
+                            <img src="<?= wp_upload_dir();?>/elementor/thumbs/logo-q56sxant9dmy3yqysgcyvcdmog1qaj1qbxoqv2nm70.png" alt="" title="WCC" height="" width="">
                             </a>
                             <div class="logo-title">
                                 <span>World Cares</span>
@@ -193,35 +193,35 @@ display_file_path();
                                                     <div class="col-xl-2 col-2">
                                                         <a href="javascript:void(0);" class="d-block">
                                                             <div class="icon">
-                                                                <img src="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/04/google.png">
+                                                                <img src="<?= wp_upload_dir();?>/2023/04/google.png">
                                                             </div>
                                                         </a>
                                                     </div>
                                                     <div class="col-xl-2 col-2">
                                                         <a href="javascript:void(0);" class="d-block">
                                                             <div class="icon">
-                                                                <img src="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/04/facebook.png">
+                                                                <img src="<?= wp_upload_dir();?>/2023/04/facebook.png">
                                                             </div>
                                                         </a>
                                                     </div>
                                                     <div class="col-xl-2 col-2">
                                                         <a href="javascript:void(0);" class="d-block">
                                                             <div class="icon">
-                                                                <img src="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/04/instagram.png">
+                                                                <img src="<?= wp_upload_dir();?>/2023/04/instagram.png">
                                                             </div>
                                                         </a>
                                                     </div>
                                                     <div class="col-xl-2 col-2">
                                                         <a href="javascript:void(0);" class="d-block">
                                                             <div class="icon">
-                                                                 <img src="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/04/linkdin.png">
+                                                                 <img src="<?= wp_upload_dir();?>/2023/04/linkdin.png">
                                                             </div>
                                                         </a>
                                                     </div>
                                                     <div class="col-xl-2 col-2">
                                                         <a href="javascript:void(0);" class="d-block">
                                                             <div class="icon">
-                                                                 <img src="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/04/twitter.png">
+                                                                 <img src="<?= wp_upload_dir();?>/2023/04/twitter.png">
                                                             </div>
                                                         </a>
                                                     </div>

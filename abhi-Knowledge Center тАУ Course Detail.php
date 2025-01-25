@@ -160,7 +160,7 @@
 
                   <div class="course_details_img">
 
-                    <img src="https://knowledge.communication.worldcares.org/wp-content/uploads/2022/12/covid.jpg" class="img-fluid">
+                    <img src="<?= wp_upload_dir();?>/2022/12/covid.jpg" class="img-fluid">
 
                   </div>
 
@@ -732,13 +732,13 @@
 
 
 
-<script src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/js/jquery.min.js"></script>
+<script src="<?= get_template_directory_uri();?>/assets/js/jquery.min.js"></script>
 
-    <script src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/js/popper.min.js"></script>
+    <script src="<?= get_template_directory_uri();?>/assets/js/popper.min.js"></script>
 
-    <script src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/js/bootstrap.min.js"></script>   
+    <script src="<?= get_template_directory_uri();?>/assets/js/bootstrap.min.js"></script>   
 
-    <script src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/js/owl.carousel.min.js"></script>
+    <script src="<?= get_template_directory_uri();?>/assets/js/owl.carousel.min.js"></script>
 
 
 

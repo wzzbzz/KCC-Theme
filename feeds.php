@@ -566,7 +566,7 @@ li.my_feeds a.nav-link{ width:160px; padding:15px 0px;}
 
 						 
 
-                                <button class="btn now_donate" data-toggle="modal" data-target="#createFeed" ><img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/plus_icon.png"> Create Feed </button>
+                                <button class="btn now_donate" data-toggle="modal" data-target="#createFeed" ><img src="<?= get_template_directory_uri();?>/assets/images/plus_icon.png"> Create Feed </button>
 
                             </div>
 

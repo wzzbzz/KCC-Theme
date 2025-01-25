@@ -17,7 +17,7 @@ if ( is_user_logged_in() ) { ?>
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/evolution.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/responsive.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/style.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://knowledge.communication.worldcares.org/wp-content/plugins/ultimate-member/assets/css/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= wp_plugin_dir();?>/ultimate-member/assets/css/select2/select2.min.css">
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/wcc_custom_style.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/media.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/jpg" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.png">
@@ -467,7 +467,7 @@ $ajaxUrlaccept = admin_url('admin-ajax.php?action=accept_group_request&nonce='.$
 $feedAjaxUrl = admin_url('admin-ajax.php?nonce='.$nonce);
 
 ?>
-    <script src='https://knowledge.communication.worldcares.org/wp-content/plugins/ultimate-member/assets/js/select2/select2.full.min.js?ver=4.0.13' id='select2-js'></script>
+    <script src='<?= wp_plugin_dir();?>/ultimate-member/assets/js/select2/select2.full.min.js?ver=4.0.13' id='select2-js'></script>
     <script>
         
              var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";

@@ -1,6 +1,6 @@
 <div style="width: 800px; margin: 0 auto; height: 800px;">
 	<div style="width: 27%; float: left; margin:0; padding: 0: height: 600px;">
-		<img style="width: 100%; height: 600px;" src="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/05/certifcatedownload2.jpg"/>
+		<img style="width: 100%; height: 600px;" src="<?= wp_upload_dir();?>/2023/05/certifcatedownload2.jpg"/>
 	</div>
 	<div style="width: 67%; height: 600px;float: left;">
 		<div style="margin: 0 auto; text-align: center; padding: 30px 20px;">
@@ -23,7 +23,7 @@
 				</div>
 				<div style=" padding-top: 80px;">
 					<div>
-						<img style="padding-bottom: 10px;" src="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/05/sign.png" alt="" width="" height="" />
+						<img style="padding-bottom: 10px;" src="<?= wp_upload_dir();?>/2023/05/sign.png" alt="" width="" height="" />
 						<p style="text-transform: uppercase; font-size: 22px; color: #000; padding: 0px; margin: 0px;">Founder &amp; president</p>
 					</div>
 					<div style="display: flex; align-items: center;">

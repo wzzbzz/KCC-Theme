@@ -46,7 +46,7 @@ if (is_user_logged_in()) {
                         <div class="input_main1">
                             <div class="input_hed nav nav-pills nav-pills1 mb-3 blog_u justify-content-between">
                                 <div class="align-items-center pro_img">
-                                    <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/profile_settting.png">
+                                    <img src="<?= get_template_directory_uri();?>/assets/images/profile_settting.png">
                                     <span>Skills</span>
                                 </div>
                             </div>
@@ -820,5 +820,5 @@ $(document).ready(function() {
 
 });
 </script>
- <script src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/js/popper.min.js"></script>
- <script src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/js/bootstrap.min.js"></script>
+ <script src="<?= get_template_directory_uri();?>/assets/js/popper.min.js"></script>
+ <script src="<?= get_template_directory_uri();?>/assets/js/bootstrap.min.js"></script>

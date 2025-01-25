@@ -13,7 +13,7 @@
   <div class="d-flex justify-content-end">
       <div class="donate_btn_right">
             <button class="btn now_donate" data-toggle="modal" data-target="#createFeed" >
-            <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/plus_icon.png"> Create Feed </button>
+            <img src="<?= get_template_directory_uri();?>/assets/images/plus_icon.png"> Create Feed </button>
         </div>
   </div>
 

@@ -15,7 +15,7 @@
    }
    .elementor-element-2157a0068{
    background-color: #000000DE;
-   background-image: url("https://knowledge.communication.worldcares.org//wp-content/uploads/2022/12/thought-catalog-505eectW54k-unsplash.png");
+   background-image: url("<?= wp_upload_dir();?>/2022/12/thought-catalog-505eectW54k-unsplash.png");
    background-position: center center;
    min-height: 678px;
    margin-top: -10%;
@@ -332,7 +332,7 @@
    color: #fff!important;
    }
 </style>
-<link rel="stylesheet" type="text/css" href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/style.css">
+<link rel="stylesheet" type="text/css" href="<?= get_template_directory_uri();?>/assets/css/style.css">
 <body>
    <div id="page" class="hfeed site">
       <main id="main" class="site-main blog11" role="main">

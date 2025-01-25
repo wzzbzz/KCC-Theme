@@ -7,17 +7,17 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Standalone Tranning</title>
    <!-- Favicon -->    
-   <link rel="shortcut icon" type="image/jpg" href="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/images/favicon.png">
+   <link rel="shortcut icon" type="image/jpg" href="<?= get_template_directory_uri();?>/assets/images/favicon.png">
    <!-- css links -->
-   <link href="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/css/all.min.css" rel="stylesheet">
-   <link href="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/css/bootstrap.min.css" rel="stylesheet">
-   <link href="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/css/owl.carousel.min.css" rel="stylesheet">
-   <link href="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/css/owl.theme.default.min.css" rel="stylesheet">
+   <link href="<?= get_template_directory_uri();?>/assets/css/all.min.css" rel="stylesheet">
+   <link href="<?= get_template_directory_uri();?>/assets/css/bootstrap.min.css" rel="stylesheet">
+   <link href="<?= get_template_directory_uri();?>/assets/css/owl.carousel.min.css" rel="stylesheet">
+   <link href="<?= get_template_directory_uri();?>/assets/css/owl.theme.default.min.css" rel="stylesheet">
    <link rel="stylesheet"  href="http://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-   <link href="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/css/font.css" rel="stylesheet">
-   <link href="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/css/style.css" rel="stylesheet">
-   <link href="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/css/responsive.css" rel="stylesheet">
-   <link href="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/css/wcc_custom_style.css" rel="stylesheet">
+   <link href="<?= get_template_directory_uri();?>/assets/css/font.css" rel="stylesheet">
+   <link href="<?= get_template_directory_uri();?>/assets/css/style.css" rel="stylesheet">
+   <link href="<?= get_template_directory_uri();?>/assets/css/responsive.css" rel="stylesheet">
+   <link href="<?= get_template_directory_uri();?>/assets/css/wcc_custom_style.css" rel="stylesheet">
    <style>
       .elementor-section.elementor-section-boxed > .elementor-container {
       max-width: unset!important
@@ -25,7 +25,7 @@
       .ast-page-builder-template .site-content > .ast-container {
       max-width: 1140px!important
       }
-      .elementor-10 .elementor-element-a40690b {min-height:678px; background-color:#000000DE; background-image:url("https://knowledge.communication.worldcares.org//wp-content/uploads/2022/12/jason-goodman-Oalh2MojUuk-unsplash.png");
+      .elementor-10 .elementor-element-a40690b {min-height:678px; background-color:#000000DE; background-image:url("<?= wp_upload_dir();?>/2022/12/jason-goodman-Oalh2MojUuk-unsplash.png");
       background-position:center center;}
       .standalone_tran{ min-height:400px;}
       /* abhi css */
@@ -174,7 +174,7 @@
       -o-transition: .4s;
       transition: .4s;
       }
-      .Main_standalone_header {min-height:678px; background-color:#000000DE; background-image:url("https://knowledge.communication.worldcares.org//wp-content/uploads/2022/12/jason-goodman-Oalh2MojUuk-unsplash.png");
+      .Main_standalone_header {min-height:678px; background-color:#000000DE; background-image:url("<?= wp_upload_dir();?>/2022/12/jason-goodman-Oalh2MojUuk-unsplash.png");
       background-position:28% center;}
       .demohead { padding:0% 3% 0% 3%}
       .elementor-element.elementor-element-3f25bd0 .elementor-menu-toggle {
@@ -474,7 +474,7 @@
                      .elementor-widget-image{text-align:center}.elementor-widget-image a{display:inline-block}.elementor-widget-image a img[src$=".svg"]{width:48px}.elementor-widget-image img{vertical-align:middle;display:inline-block; max-width:100%; height:auto;}
                   </style>
                   <a href="https://worldcares.org/">
-                  <img width="520" height="135" src="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/cropped-cropped-wcc-logo.png" class="attachment-full size-full wp-image-6028" alt="" loading="lazy" srcset="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/cropped-cropped-wcc-logo.png 520w, https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/cropped-cropped-wcc-logo-300x78.png 300w" sizes="(max-width: 520px) 100vw, 520px"></a>
+                  <img width="520" height="135" src="<?= wp_upload_dir();?>/2023/03/cropped-cropped-wcc-logo.png" class="attachment-full size-full wp-image-6028" alt="" loading="lazy" srcset="<?= wp_upload_dir();?>/2023/03/cropped-cropped-wcc-logo.png 520w, <?= wp_upload_dir();?>/2023/03/cropped-cropped-wcc-logo-300x78.png 300w" sizes="(max-width: 520px) 100vw, 520px"></a>
                </div>
             </div>
          </div>
@@ -483,37 +483,37 @@
          <div class="elementor-widget-wrap elementor-element-populated">
             <div class="elementor-element elementor-element-3f25bd0 elementor-nav-menu--stretch elementor-nav-menu__text-align-center elementor-absolute elementor-nav-menu__align-center headerMenu_wcc elementor-nav-menu--dropdown-tablet elementor-nav-menu--toggle elementor-nav-menu--burger elementor-widget elementor-widget-nav-menu" data-id="3f25bd0" data-element_type="widget" data-settings="{&quot;full_width&quot;:&quot;stretch&quot;,&quot;_position&quot;:&quot;absolute&quot;,&quot;layout&quot;:&quot;horizontal&quot;,&quot;submenu_icon&quot;:{&quot;value&quot;:&quot;<i class=\&quot;fas fa-caret-down\&quot;><\/i>&quot;,&quot;library&quot;:&quot;fa-solid&quot;},&quot;toggle&quot;:&quot;burger&quot;}" data-widget_type="nav-menu.default">
                <div class="elementor-widget-container">
-                  <link rel="stylesheet" href="https://knowledge.communication.worldcares.org/wp-content/plugins/elementor-pro_OLD/assets/css/widget-nav-menu.min.css">
+                  <link rel="stylesheet" href="<?= wp_plugin_dir();?>/elementor-pro_OLD/assets/css/widget-nav-menu.min.css">
                   <nav migration_allowed="1" migrated="0" role="navigation" class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-underline e--animation-fade">
                      <ul id="menu-1-3f25bd0" class="elementor-nav-menu" data-smartmenus-id="1680335304563758">
-                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-984"><a href="https://knowledge.communication.worldcares.org/" class="elementor-item menu-link">HOME</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-984"><a href="<?= site_url();?>/" class="elementor-item menu-link">HOME</a></li>
                         <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-1448">
-                           <a href="https://knowledge.communication.worldcares.org/what-we-do/" class="elementor-item menu-link has-submenu" id="sm-1680335304563758-1" aria-haspopup="true" aria-controls="sm-1680335304563758-2" aria-expanded="false">WHAT WE DO<span role="presentation" class="dropdown-menu-toggle"></span><span class="sub-arrow"><i class="fas fa-caret-down"></i></span></a>
+                           <a href="<?= site_url();?>/what-we-do/" class="elementor-item menu-link has-submenu" id="sm-1680335304563758-1" aria-haspopup="true" aria-controls="sm-1680335304563758-2" aria-expanded="false">WHAT WE DO<span role="presentation" class="dropdown-menu-toggle"></span><span class="sub-arrow"><i class="fas fa-caret-down"></i></span></a>
                            <ul class="sub-menu elementor-nav-menu--dropdown sm-nowrap" id="sm-1680344063416683-2" role="group" aria-hidden="true" aria-labelledby="sm-1680344063416683-1" aria-expanded="false" style="width: auto;display: none;top: auto;left: 0px;margin-left: 0px;margin-top: 0px;min-width: 10em;max-width: 1000px;">
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1215"><a href="https://knowledge.communication.worldcares.org/about-ready-responders-network/" class="elementor-sub-item menu-link">About Ready Responders Network</a></li>
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10419"><a href="https://knowledge.communication.worldcares.org/about-disaster-volunteerism-academy/" class="elementor-sub-item menu-link">About Disaster Volunteerism Academy</a></li>
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-985"><a href="https://knowledge.communication.worldcares.org/donation-drive/" class="elementor-sub-item menu-link">Donation Drive</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1215"><a href="<?= site_url();?>/about-ready-responders-network/" class="elementor-sub-item menu-link">About Ready Responders Network</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10419"><a href="<?= site_url();?>/about-disaster-volunteerism-academy/" class="elementor-sub-item menu-link">About Disaster Volunteerism Academy</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-985"><a href="<?= site_url();?>/donation-drive/" class="elementor-sub-item menu-link">Donation Drive</a></li>
                            </ul>
                         </li>
-                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-979"><a href="https://knowledge.communication.worldcares.org/world-cares-center/" class="elementor-item menu-link">WORLD CARES CENTER</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-979"><a href="<?= site_url();?>/world-cares-center/" class="elementor-item menu-link">WORLD CARES CENTER</a></li>
                         <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-1518">
-                           <a href="https://knowledge.communication.worldcares.org/training/" class="elementor-item menu-link has-submenu" id="sm-1680335304563758-3" aria-haspopup="true" aria-controls="sm-1680335304563758-4" aria-expanded="false">TRAINING<span role="presentation" class="dropdown-menu-toggle"></span><span class="sub-arrow"><i class="fas fa-caret-down"></i></span></a>
+                           <a href="<?= site_url();?>/training/" class="elementor-item menu-link has-submenu" id="sm-1680335304563758-3" aria-haspopup="true" aria-controls="sm-1680335304563758-4" aria-expanded="false">TRAINING<span role="presentation" class="dropdown-menu-toggle"></span><span class="sub-arrow"><i class="fas fa-caret-down"></i></span></a>
                            <ul class="sub-menu elementor-nav-menu--dropdown" id="sm-1680335304563758-4" role="group" aria-hidden="true" aria-labelledby="sm-1680335304563758-3" aria-expanded="false">
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1227"><a href="https://knowledge.communication.worldcares.org/disaster-volunteer-credentials1/" class="elementor-sub-item menu-link">Disaster Volunteer Credentials</a></li>
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1226"><a href="https://knowledge.communication.worldcares.org/standalone-training/" class="elementor-sub-item menu-link">Standalone Training</a></li>
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1225"><a href="https://knowledge.communication.worldcares.org/covid-training/" class="elementor-sub-item menu-link">Covid Training</a></li>
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1224"><a href="https://knowledge.communication.worldcares.org/course/other-languages/" class="elementor-sub-item menu-link">Other Languages</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1227"><a href="<?= site_url();?>/disaster-volunteer-credentials1/" class="elementor-sub-item menu-link">Disaster Volunteer Credentials</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1226"><a href="<?= site_url();?>/standalone-training/" class="elementor-sub-item menu-link">Standalone Training</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1225"><a href="<?= site_url();?>/covid-training/" class="elementor-sub-item menu-link">Covid Training</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1224"><a href="<?= site_url();?>/course/other-languages/" class="elementor-sub-item menu-link">Other Languages</a></li>
                            </ul>
                         </li>
-                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1488"><a href="https://knowledge.communication.worldcares.org/cordination/" class="elementor-item menu-link">COORDINATION</a></li>
-                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-982"><a href="https://knowledge.communication.worldcares.org/blogs/" class="elementor-item menu-link">BLOG</a></li>
-                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-983"><a href="https://knowledge.communication.worldcares.org/contact-us/" class="elementor-item menu-link">CONTACT US</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1488"><a href="<?= site_url();?>/cordination/" class="elementor-item menu-link">COORDINATION</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-982"><a href="<?= site_url();?>/blogs/" class="elementor-item menu-link">BLOG</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-983"><a href="<?= site_url();?>/contact-us/" class="elementor-item menu-link">CONTACT US</a></li>
                         <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-9121">
-                           <a href="https://knowledge.communication.worldcares.org/donate/" class="elementor-item menu-link has-submenu" id="sm-1680335304563758-5" aria-haspopup="true" aria-controls="sm-1680335304563758-6" aria-expanded="false">DONATE<span role="presentation" class="dropdown-menu-toggle"></span><span class="sub-arrow"><i class="fas fa-caret-down"></i></span></a>
+                           <a href="<?= site_url();?>/donate/" class="elementor-item menu-link has-submenu" id="sm-1680335304563758-5" aria-haspopup="true" aria-controls="sm-1680335304563758-6" aria-expanded="false">DONATE<span role="presentation" class="dropdown-menu-toggle"></span><span class="sub-arrow"><i class="fas fa-caret-down"></i></span></a>
                            <ul class="sub-menu elementor-nav-menu--dropdown" id="sm-1680335304563758-6" role="group" aria-hidden="true" aria-labelledby="sm-1680335304563758-5" aria-expanded="false">
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6713"><a href="https://knowledge.communication.worldcares.org/ukraine/" class="elementor-sub-item menu-link">Ukraine</a></li>
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1236"><a href="https://knowledge.communication.worldcares.org/covid-19-response/" class="elementor-sub-item menu-link">Covid-19 Response</a></li>
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1235"><a href="https://knowledge.communication.worldcares.org/disaster/" class="elementor-sub-item menu-link">Disaster</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6713"><a href="<?= site_url();?>/ukraine/" class="elementor-sub-item menu-link">Ukraine</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1236"><a href="<?= site_url();?>/covid-19-response/" class="elementor-sub-item menu-link">Covid-19 Response</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1235"><a href="<?= site_url();?>/disaster/" class="elementor-sub-item menu-link">Disaster</a></li>
                            </ul>
                         </li>
                      </ul>
@@ -523,34 +523,34 @@
                   </div>
                   <nav class="elementor-nav-menu--dropdown elementor-nav-menu__container" role="navigation" aria-hidden="true" style="top: 51.8438px; width: 1349px; left: 0px;">
                      <ul id="menu-2-3f25bd0" class="elementor-nav-menu" data-smartmenus-id="16803353045813582">
-                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-984"><a href="https://knowledge.communication.worldcares.org/" class="elementor-item menu-link" tabindex="-1">HOME</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-984"><a href="<?= site_url();?>/" class="elementor-item menu-link" tabindex="-1">HOME</a></li>
                         <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-1448">
-                           <a href="https://knowledge.communication.worldcares.org/what-we-do/" class="elementor-item menu-link has-submenu" tabindex="-1" id="sm-16803353045813582-1" aria-haspopup="true" aria-controls="sm-16803353045813582-2" aria-expanded="false">WHAT WE DO<span role="presentation" class="dropdown-menu-toggle"></span><span class="sub-arrow"><i class="fas fa-caret-down"></i></span></a>
+                           <a href="<?= site_url();?>/what-we-do/" class="elementor-item menu-link has-submenu" tabindex="-1" id="sm-16803353045813582-1" aria-haspopup="true" aria-controls="sm-16803353045813582-2" aria-expanded="false">WHAT WE DO<span role="presentation" class="dropdown-menu-toggle"></span><span class="sub-arrow"><i class="fas fa-caret-down"></i></span></a>
                            <ul class="sub-menu elementor-nav-menu--dropdown" id="sm-16803353045813582-2" role="group" aria-hidden="true" aria-labelledby="sm-16803353045813582-1" aria-expanded="false">
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1215"><a href="https://knowledge.communication.worldcares.org/about-ready-responders-network/" class="elementor-sub-item menu-link" tabindex="-1">About Ready Responders Network</a></li>
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10419"><a href="https://knowledge.communication.worldcares.org/about-disaster-volunteerism-academy/" class="elementor-sub-item menu-link" tabindex="-1">About Disaster Volunteerism Academy</a></li>
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-985"><a href="https://knowledge.communication.worldcares.org/donation-drive/" class="elementor-sub-item menu-link" tabindex="-1">Donation Drive</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1215"><a href="<?= site_url();?>/about-ready-responders-network/" class="elementor-sub-item menu-link" tabindex="-1">About Ready Responders Network</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10419"><a href="<?= site_url();?>/about-disaster-volunteerism-academy/" class="elementor-sub-item menu-link" tabindex="-1">About Disaster Volunteerism Academy</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-985"><a href="<?= site_url();?>/donation-drive/" class="elementor-sub-item menu-link" tabindex="-1">Donation Drive</a></li>
                            </ul>
                         </li>
-                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-979"><a href="https://knowledge.communication.worldcares.org/world-cares-center/" class="elementor-item menu-link" tabindex="-1">WORLD CARES CENTER</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-979"><a href="<?= site_url();?>/world-cares-center/" class="elementor-item menu-link" tabindex="-1">WORLD CARES CENTER</a></li>
                         <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-1518">
-                           <a href="https://knowledge.communication.worldcares.org/training/" class="elementor-item menu-link has-submenu" tabindex="-1" id="sm-16803353045813582-3" aria-haspopup="true" aria-controls="sm-16803353045813582-4" aria-expanded="false">TRAINING<span role="presentation" class="dropdown-menu-toggle"></span><span class="sub-arrow"><i class="fas fa-caret-down"></i></span></a>
+                           <a href="<?= site_url();?>/training/" class="elementor-item menu-link has-submenu" tabindex="-1" id="sm-16803353045813582-3" aria-haspopup="true" aria-controls="sm-16803353045813582-4" aria-expanded="false">TRAINING<span role="presentation" class="dropdown-menu-toggle"></span><span class="sub-arrow"><i class="fas fa-caret-down"></i></span></a>
                            <ul class="sub-menu elementor-nav-menu--dropdown" id="sm-16803353045813582-4" role="group" aria-hidden="true" aria-labelledby="sm-16803353045813582-3" aria-expanded="false">
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1227"><a href="https://knowledge.communication.worldcares.org/disaster-volunteer-credentials1/" class="elementor-sub-item menu-link" tabindex="-1">Disaster Volunteer Credentials</a></li>
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1226"><a href="https://knowledge.communication.worldcares.org/standalone-tranning/" class="elementor-sub-item menu-link" tabindex="-1">Standalone Training</a></li>
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1225"><a href="https://knowledge.communication.worldcares.org/covid-training/" class="elementor-sub-item menu-link" tabindex="-1">Covid Training</a></li>
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1224"><a href="https://knowledge.communication.worldcares.org/course/other-languages/" class="elementor-sub-item menu-link" tabindex="-1">Other Languages</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1227"><a href="<?= site_url();?>/disaster-volunteer-credentials1/" class="elementor-sub-item menu-link" tabindex="-1">Disaster Volunteer Credentials</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1226"><a href="<?= site_url();?>/standalone-tranning/" class="elementor-sub-item menu-link" tabindex="-1">Standalone Training</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1225"><a href="<?= site_url();?>/covid-training/" class="elementor-sub-item menu-link" tabindex="-1">Covid Training</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1224"><a href="<?= site_url();?>/course/other-languages/" class="elementor-sub-item menu-link" tabindex="-1">Other Languages</a></li>
                            </ul>
                         </li>
-                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1488"><a href="https://knowledge.communication.worldcares.org/cordination/" class="elementor-item menu-link" tabindex="-1">COORDINATION</a></li>
-                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-982"><a href="https://knowledge.communication.worldcares.org/blogs/" class="elementor-item menu-link" tabindex="-1">BLOG</a></li>
-                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-983"><a href="https://knowledge.communication.worldcares.org/contact-us/" class="elementor-item menu-link" tabindex="-1">CONTACT US</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1488"><a href="<?= site_url();?>/cordination/" class="elementor-item menu-link" tabindex="-1">COORDINATION</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-982"><a href="<?= site_url();?>/blogs/" class="elementor-item menu-link" tabindex="-1">BLOG</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-983"><a href="<?= site_url();?>/contact-us/" class="elementor-item menu-link" tabindex="-1">CONTACT US</a></li>
                         <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-9121">
-                           <a href="https://knowledge.communication.worldcares.org/donate/" class="elementor-item menu-link has-submenu" tabindex="-1" id="sm-16803353045813582-5" aria-haspopup="true" aria-controls="sm-16803353045813582-6" aria-expanded="false">DONATE<span role="presentation" class="dropdown-menu-toggle"></span><span class="sub-arrow"><i class="fas fa-caret-down"></i></span></a>
+                           <a href="<?= site_url();?>/donate/" class="elementor-item menu-link has-submenu" tabindex="-1" id="sm-16803353045813582-5" aria-haspopup="true" aria-controls="sm-16803353045813582-6" aria-expanded="false">DONATE<span role="presentation" class="dropdown-menu-toggle"></span><span class="sub-arrow"><i class="fas fa-caret-down"></i></span></a>
                            <ul class="sub-menu elementor-nav-menu--dropdown" id="sm-16803353045813582-6" role="group" aria-hidden="true" aria-labelledby="sm-16803353045813582-5" aria-expanded="false">
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6713"><a href="https://knowledge.communication.worldcares.org/ukraine/" class="elementor-sub-item menu-link" tabindex="-1">Ukraine</a></li>
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1236"><a href="https://knowledge.communication.worldcares.org/covid-19-response/" class="elementor-sub-item menu-link" tabindex="-1">Covid-19 Response</a></li>
-                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1235"><a href="https://knowledge.communication.worldcares.org/disaster/" class="elementor-sub-item menu-link" tabindex="-1">Disaster</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6713"><a href="<?= site_url();?>/ukraine/" class="elementor-sub-item menu-link" tabindex="-1">Ukraine</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1236"><a href="<?= site_url();?>/covid-19-response/" class="elementor-sub-item menu-link" tabindex="-1">Covid-19 Response</a></li>
+                              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1235"><a href="<?= site_url();?>/disaster/" class="elementor-sub-item menu-link" tabindex="-1">Disaster</a></li>
                            </ul>
                         </li>
                      </ul>
@@ -568,7 +568,7 @@
                         <div class="elementor-element elementor-element-7b6c5cc elementor-widget elementor-widget-button" data-id="7b6c5cc" data-element_type="widget" data-widget_type="button.default">
                            <div class="elementor-widget-container">
                               <div class="elementor-button-wrapper">
-                                 <a href="https://knowledge.communication.worldcares.org//login" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+                                 <a href="<?= site_url();?>/login" class="elementor-button-link elementor-button elementor-size-sm" role="button">
                                  <span class="elementor-button-content-wrapper">
                                  <span class="elementor-button-text">Login</span>
                                  </span>
@@ -583,7 +583,7 @@
                         <div class="elementor-element elementor-element-eb3f1ec elementor-widget elementor-widget-button" data-id="eb3f1ec" data-element_type="widget" data-widget_type="button.default">
                            <div class="elementor-widget-container">
                               <div class="elementor-button-wrapper">
-                                 <a href="https://knowledge.communication.worldcares.org/signup/" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+                                 <a href="<?= site_url();?>/signup/" class="elementor-button-link elementor-button elementor-size-sm" role="button">
                                  <span class="elementor-button-content-wrapper">
                                  <span class="elementor-button-text">Signup</span>
                                  </span>
@@ -637,7 +637,7 @@
          <div class="elementor-widget-wrap elementor-element-populated">
             <div class="elementor-element elementor-element-48c0bbf elementor-widget__width-auto elementor-widget elementor-widget-image" data-id="48c0bbf" data-element_type="widget" data-widget_type="image.default">
                <div class="elementor-widget-container">
-                  <img decoding="async" width="275" height="300" src="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1923318317-1-275x300.png" class="attachment-medium size-medium wp-image-7277" alt="" loading="lazy" srcset="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1923318317-1-275x300.png 275w, https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1923318317-1.png 337w" sizes="(max-width: 275px) 100vw, 275px">                                                            
+                  <img decoding="async" width="275" height="300" src="<?= wp_upload_dir();?>/2023/03/shutterstock_1923318317-1-275x300.png" class="attachment-medium size-medium wp-image-7277" alt="" loading="lazy" srcset="<?= wp_upload_dir();?>/2023/03/shutterstock_1923318317-1-275x300.png 275w, <?= wp_upload_dir();?>/2023/03/shutterstock_1923318317-1.png 337w" sizes="(max-width: 275px) 100vw, 275px">                                                            
                </div>
             </div>
             <div class="elementor-element elementor-element-4d75bd9 elementor-widget elementor-widget-heading" data-id="4d75bd9" data-element_type="widget" data-widget_type="heading.default">
@@ -668,7 +668,7 @@
          <div class="elementor-widget-wrap elementor-element-populated">
             <div class="elementor-element elementor-element-9602bc8 elementor-widget__width-auto elementor-widget elementor-widget-image" data-id="9602bc8" data-element_type="widget" data-widget_type="image.default">
                <div class="elementor-widget-container">
-                  <img decoding="async" width="275" height="300" src="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1658787640-1-275x300.png" class="attachment-medium size-medium wp-image-7278" alt="" loading="lazy" srcset="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1658787640-1-275x300.png 275w, https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1658787640-1.png 337w" sizes="(max-width: 275px) 100vw, 275px">                                                        
+                  <img decoding="async" width="275" height="300" src="<?= wp_upload_dir();?>/2023/03/shutterstock_1658787640-1-275x300.png" class="attachment-medium size-medium wp-image-7278" alt="" loading="lazy" srcset="<?= wp_upload_dir();?>/2023/03/shutterstock_1658787640-1-275x300.png 275w, <?= wp_upload_dir();?>/2023/03/shutterstock_1658787640-1.png 337w" sizes="(max-width: 275px) 100vw, 275px">                                                        
                </div>
             </div>
             <div class="elementor-element elementor-element-8b0bb6c elementor-widget elementor-widget-heading" data-id="8b0bb6c" data-element_type="widget" data-widget_type="heading.default">
@@ -699,7 +699,7 @@
          <div class="elementor-widget-wrap elementor-element-populated">
             <div class="elementor-element elementor-element-ed6b142 elementor-widget__width-auto elementor-widget elementor-widget-image" data-id="ed6b142" data-element_type="widget" data-widget_type="image.default">
                <div class="elementor-widget-container">
-                  <img decoding="async" width="275" height="300" src="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1923318317-1-275x300.png" class="attachment-medium size-medium wp-image-7277" alt="" loading="lazy" srcset="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1923318317-1-275x300.png 275w, https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1923318317-1.png 337w" sizes="(max-width: 275px) 100vw, 275px">                                                            
+                  <img decoding="async" width="275" height="300" src="<?= wp_upload_dir();?>/2023/03/shutterstock_1923318317-1-275x300.png" class="attachment-medium size-medium wp-image-7277" alt="" loading="lazy" srcset="<?= wp_upload_dir();?>/2023/03/shutterstock_1923318317-1-275x300.png 275w, <?= wp_upload_dir();?>/2023/03/shutterstock_1923318317-1.png 337w" sizes="(max-width: 275px) 100vw, 275px">                                                            
                </div>
             </div>
             <div class="elementor-element elementor-element-2f790b3 elementor-widget elementor-widget-heading" data-id="2f790b3" data-element_type="widget" data-widget_type="heading.default">
@@ -732,7 +732,7 @@
          <div class="elementor-widget-wrap elementor-element-populated">
             <div class="elementor-element elementor-element-48c0bbf elementor-widget__width-auto elementor-widget elementor-widget-image" data-id="48c0bbf" data-element_type="widget" data-widget_type="image.default">
                <div class="elementor-widget-container">
-                  <img decoding="async" width="275" height="300" src="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1923318317-1-275x300.png" class="attachment-medium size-medium wp-image-7277" alt="" loading="lazy" srcset="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1923318317-1-275x300.png 275w, https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1923318317-1.png 337w" sizes="(max-width: 275px) 100vw, 275px">                                                            
+                  <img decoding="async" width="275" height="300" src="<?= wp_upload_dir();?>/2023/03/shutterstock_1923318317-1-275x300.png" class="attachment-medium size-medium wp-image-7277" alt="" loading="lazy" srcset="<?= wp_upload_dir();?>/2023/03/shutterstock_1923318317-1-275x300.png 275w, <?= wp_upload_dir();?>/2023/03/shutterstock_1923318317-1.png 337w" sizes="(max-width: 275px) 100vw, 275px">                                                            
                </div>
             </div>
             <div class="elementor-element elementor-element-4d75bd9 elementor-widget elementor-widget-heading" data-id="4d75bd9" data-element_type="widget" data-widget_type="heading.default">
@@ -763,7 +763,7 @@
          <div class="elementor-widget-wrap elementor-element-populated">
             <div class="elementor-element elementor-element-9602bc8 elementor-widget__width-auto elementor-widget elementor-widget-image" data-id="9602bc8" data-element_type="widget" data-widget_type="image.default">
                <div class="elementor-widget-container">
-                  <img decoding="async" width="275" height="300" src="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1658787640-1-275x300.png" class="attachment-medium size-medium wp-image-7278" alt="" loading="lazy" srcset="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1658787640-1-275x300.png 275w, https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1658787640-1.png 337w" sizes="(max-width: 275px) 100vw, 275px">                                                            
+                  <img decoding="async" width="275" height="300" src="<?= wp_upload_dir();?>/2023/03/shutterstock_1658787640-1-275x300.png" class="attachment-medium size-medium wp-image-7278" alt="" loading="lazy" srcset="<?= wp_upload_dir();?>/2023/03/shutterstock_1658787640-1-275x300.png 275w, <?= wp_upload_dir();?>/2023/03/shutterstock_1658787640-1.png 337w" sizes="(max-width: 275px) 100vw, 275px">                                                            
                </div>
             </div>
             <div class="elementor-element elementor-element-8b0bb6c elementor-widget elementor-widget-heading" data-id="8b0bb6c" data-element_type="widget" data-widget_type="heading.default">
@@ -794,7 +794,7 @@
          <div class="elementor-widget-wrap elementor-element-populated">
             <div class="elementor-element elementor-element-ed6b142 elementor-widget__width-auto elementor-widget elementor-widget-image" data-id="ed6b142" data-element_type="widget" data-widget_type="image.default">
                <div class="elementor-widget-container">
-                  <img decoding="async" width="275" height="300" src="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1923318317-1-275x300.png" class="attachment-medium size-medium wp-image-7277" alt="" loading="lazy" srcset="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1923318317-1-275x300.png 275w, https://knowledge.communication.worldcares.org/wp-content/uploads/2023/03/shutterstock_1923318317-1.png 337w" sizes="(max-width: 275px) 100vw, 275px">                                                            
+                  <img decoding="async" width="275" height="300" src="<?= wp_upload_dir();?>/2023/03/shutterstock_1923318317-1-275x300.png" class="attachment-medium size-medium wp-image-7277" alt="" loading="lazy" srcset="<?= wp_upload_dir();?>/2023/03/shutterstock_1923318317-1-275x300.png 275w, <?= wp_upload_dir();?>/2023/03/shutterstock_1923318317-1.png 337w" sizes="(max-width: 275px) 100vw, 275px">                                                            
                </div>
             </div>
             <div class="elementor-element elementor-element-2f790b3 elementor-widget elementor-widget-heading" data-id="2f790b3" data-element_type="widget" data-widget_type="heading.default">
@@ -826,16 +826,16 @@
 <div class="col-xl-11 col-lg-11 col-md-10 col-10 main_footer_sec d-flex align-items-center mt-0 flex-wrap">
    <div class="col-xl-3 col-lg-3 col-md-3 col-12">
       <div class="footer_logo">
-         <img src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/images/footer_logo.png" class="img-fluid">
+         <img src="<?= get_template_directory_uri();?>/assets/images/footer_logo.png" class="img-fluid">
       </div>
    </div>
    <div class="col-xl-8 col-lg-9 col-md-9 col-12 footer_min">
       <div class="side_right_footer ">
          <div class="social_icon_sec">
-            <a href="#"><img src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/images/footer_linkdin.png" class="img-fluid"></a>
-            <a href="#"><img src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/images/footer_fb.png" class="img-fluid"></a>
-            <a href="#"><img src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/images/footer_twitter.png" class="img-fluid"></a>
-            <a href="#"><img src="https://knowledge.communication.worldcares.org//wp-content/themes/astra/assets/images/footer_instra.png" class="img-fluid"></a>
+            <a href="#"><img src="<?= get_template_directory_uri();?>/assets/images/footer_linkdin.png" class="img-fluid"></a>
+            <a href="#"><img src="<?= get_template_directory_uri();?>/assets/images/footer_fb.png" class="img-fluid"></a>
+            <a href="#"><img src="<?= get_template_directory_uri();?>/assets/images/footer_twitter.png" class="img-fluid"></a>
+            <a href="#"><img src="<?= get_template_directory_uri();?>/assets/images/footer_instra.png" class="img-fluid"></a>
          </div>
          <div class="linked_pages">
             <a href="#">HOME</a>

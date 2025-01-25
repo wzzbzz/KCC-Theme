@@ -332,7 +332,7 @@ $ajaxUrl = admin_url('admin-ajax.php?action=send_group_reques&nonce='.$nonce);
                   <div class="d-flex justify-content-center">
                      <div>
                         <div>
-                           <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/avatar.png" alt="Abhishek Rajput" height="150" title="" width="150" class="rounded-circle userImg">
+                           <img src="<?= get_template_directory_uri();?>/avatar.png" alt="Abhishek Rajput" height="150" title="" width="150" class="rounded-circle userImg">
                         </div>
                      </div>
                   </div>
@@ -360,15 +360,15 @@ $ajaxUrl = admin_url('admin-ajax.php?action=send_group_reques&nonce='.$nonce);
                      <div class=" col-md-10">
                         <div class="d-flex justify-content-between">
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_1.png" class="img-fluid" alt="image">  
+                              <img src="<?= get_template_directory_uri();?>/assets/images/cdvc_1.png" class="img-fluid" alt="image">  
                               <p>CDVC Level 1</p>
                            </div>
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_2.png" class="img-fluid" alt="image">
+                              <img src="<?= get_template_directory_uri();?>/assets/images/cdvc_2.png" class="img-fluid" alt="image">
                               <p>CDVC Level 2</p>
                            </div>
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_3.png" class="img-fluid" alt="image">
+                              <img src="<?= get_template_directory_uri();?>/assets/images/cdvc_3.png" class="img-fluid" alt="image">
                               <p>CDVC Level 3</p>
                            </div>
                         </div>

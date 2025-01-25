@@ -13,8 +13,6 @@ class ClosedGroupJoinRequestNotification extends Notification
     protected $user_id;
     protected $user;
 
-    private $emailLogId;
-
     public function __construct($args)
     {
 
@@ -105,27 +103,11 @@ class ClosedGroupJoinRequestNotification extends Notification
     
     public function send_notification( $recipient )
     {
-        global $wpdb;
 
         $this->body = sprintf("%s has requested to join your group %s.",$this->user->name(), $this->group->name());
         $this->actionlink = esc_url(site_url('tab-my-group-requests'));
 
-        // insert into kcc_notifications
-        $insert_result = $wpdb->insert(
-            'kcc_notifications',
-            array(
-                'datecreated' => current_time('mysql'),
-                'userId' => $recipient->id(),
-
-                'originSystemPostId' => $this->group_id,
-                'icontodisplay' => 'fas fa-calendar-alt',
-                'title' => $this->subject,
-                'shorttext' => $this->body,
-                'linkTo' => $this->actionlink,
-                'emailLogId' => $this->emailLogId
-            ),
-            array('%s', '%s', '%d', '%s', '%s', '%s', '%s', '%d')
-        );
+        parent::send_notification($recipient);
 
     }
 }

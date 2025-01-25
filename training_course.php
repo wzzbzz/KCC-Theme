@@ -9,7 +9,7 @@ get_header();?>
 	max-width: 1140px!important
 }
 	
-	.elementor-10 .elementor-element-a40690b {min-height:678px; background-color:#000000DE; background-image:url("https://knowledge.communication.worldcares.org//wp-content/uploads/2022/12/kenny-eliason-zFSo6bnZJTw-unsplash.png");
+	.elementor-10 .elementor-element-a40690b {min-height:678px; background-color:#000000DE; background-image:url("<?= site_url();?>/wp-content/uploads/2022/12/kenny-eliason-zFSo6bnZJTw-unsplash.png");
 	background-position:center center;}
 	
 

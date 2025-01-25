@@ -189,7 +189,7 @@ if(empty($author_img)){
                             <div class="main-group-image single-group">
                                 <?php if(count($ldUsersList)>0){?>
                                <div class="mem-image">
-                                    <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/avatar.png" alt="" height="" title="" width="">
+                                    <img src="<?= site_url();?>/avatar.png" alt="" height="" title="" width="">
                                 </div>
                             <?php } ?>
                                

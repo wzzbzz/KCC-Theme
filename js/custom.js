@@ -12,7 +12,7 @@
 
 function getCertificate(course_id) {
     jQuery.ajax({
-        url: 'https://knowledge.communication.worldcares.org/wp-admin/admin-ajax.php', // WordPress AJAX URL
+        url: '/wp-admin/admin-ajax.php', // WordPress AJAX URL
         type: 'POST',
         data: {
             action: 'get_certificate_link',

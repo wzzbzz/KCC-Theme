@@ -80,8 +80,8 @@
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/bootstrap.min.js"></script> 
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/owl.carousel.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
-<!-- <script src='https://knowledge.communication.worldcares.org/wp-content/plugins/ultimate-member/assets/js/select2/select2.full.min.js?ver=4.0.13' id='select2-js'></script> -->
-<script src="https://knowledge.communication.worldcares.org/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/js/iconHelper.js?ver=1.0" id="eae-iconHelper-js"></script>
+<!-- <script src='<?= wp_plugin_dir();?>/ultimate-member/assets/js/select2/select2.full.min.js?ver=4.0.13' id='select2-js'></script> -->
+<script src="<?= wp_plugin_dir();?>/addon-elements-for-elementor-page-builder/assets/js/iconHelper.js?ver=1.0" id="eae-iconHelper-js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/select2/select2.full.js"></script>
 

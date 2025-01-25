@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 
-<link rel="icon" type="image/x-icon" href="https://knowledge.communication.worldcares.org/wp-content/uploads/2023/08/wcc_favicon.png">
+<link rel="icon" type="image/x-icon" href="<?= wp_upload_dir();?>/2023/08/wcc_favicon.png">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -84,7 +84,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 
-<link href="https://knowledge.communication.worldcares.org/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css" rel="stylesheet">
+<link href="<?= wp_plugin_dir();?>/elementor-pro/assets/css/widget-nav-menu.min.css" rel="stylesheet">
 
 <style type="text/css">
 

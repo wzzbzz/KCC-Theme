@@ -9,7 +9,7 @@ $email = $current_user->user_email;
 $post_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 global $wpdb;
 // Recreate action link for security
-$actionlink = "https://knowledge.communication.worldcares.org/event-approval/?id=$post_id";
+$actionlink = site_url() . "/event-approval/?id=$post_id";
 
 // Check if user is logged in and post ID is valid
 if (is_user_logged_in() && $post_id) {
