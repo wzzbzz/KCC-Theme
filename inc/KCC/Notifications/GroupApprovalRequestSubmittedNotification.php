@@ -3,15 +3,12 @@
 namespace KCC\Notifications;
 
 use KCC\Group;
-use KCC\User;
 
-class ClosedGroupJoinRequestNotification extends Notification
+class GroupApprovalRequestSubmittedNotification extends Notification
 {
 
     protected $group_id;
     protected $group;
-    protected $user_id;
-    protected $user;
 
     private $emailLogId;
 
@@ -28,15 +25,6 @@ class ClosedGroupJoinRequestNotification extends Notification
             return;
         }
 
-        $this->user_id = $args['user_id'] ?? '';
-
-        if(empty($this->user_id)){
-            die("no");
-            return;
-        }
-
-        $this->user = new User($this->user_id);
-
         // the recipient will be the groupLeader
         $this->group = new Group($this->group_id);
         $groupLeader = $this->group->getLeader();
@@ -45,7 +33,7 @@ class ClosedGroupJoinRequestNotification extends Notification
         $this->recipients['to'] = [$groupLeader];
 
         // set the subject here for now
-        $this->subject = "User Join Notification";
+        $this->subject = "Group Approval Request Submitted";
     }
 
     public function send()
@@ -74,14 +62,15 @@ class ClosedGroupJoinRequestNotification extends Notification
         // for logging
         global $wpdb;
 
-        foreach ($this->recipients['to'] as $recipient) {
-    
-            $this->body = sprintf(" Hi %s,\n
-                        %s has requested to join your group %s. Please accept/reject user invitation from your My Dashboard section.\n
-                        View Invitation: " . site_url('tab-my-group-requests') . "\n
-                        Thank You, Admin", $recipient->name(), $this->user->name(), $this->group->name());
-            $result = wp_mail($recipient->email(), $this->subject, $this->body, $this->headers);
 
+        foreach ($this->recipients['to'] as $recipient) {
+            $this->body = sprintf("Hi %s,<br>" .
+                "Your group <strong>%s</strong> has been submitted for approval.  You will be notified when the admin takes action.<br>
+                No action is required at this time.<br>
+                With love,<br>
+                The KCC Notifications Droid", $recipient->name(), $this->group->name());
+            $result = wp_mail($recipient->email(), $this->subject, $this->body, $this->headers);
+            
 
             $this->to = $recipient->email();
 
@@ -107,8 +96,10 @@ class ClosedGroupJoinRequestNotification extends Notification
     {
         global $wpdb;
 
-        $this->body = sprintf("%s has requested to join your group %s.",$this->user->name(), $this->group->name());
-        $this->actionlink = esc_url(site_url('tab-my-group-requests'));
+
+        $this->subject = "Group Submitted for Approval";
+        $this->body = sprintf("Your group,  %s, has been submitted for approval.", $this->group->name());
+        $this->actionlink = esc_url(site_url('wp-admin/edit.php?post_type=groups'));
 
         // insert into kcc_notifications
         $insert_result = $wpdb->insert(

@@ -216,9 +216,6 @@ if (defined('SHOW_FILE_PATH') && SHOW_FILE_PATH) {
 
 function custom_post_type()
 {
-
-
-
     // Set UI labels for Custom Post Type
 
     $labels = array(
@@ -241,9 +238,6 @@ function custom_post_type()
 
 
     // Set other options for Custom Post Type
-
-
-
     $args = array(
         'label'               => __('Announcement', 'twentythirteen'),
         'description'         => __('Announcement', 'twentythirteen'),
@@ -1241,7 +1235,7 @@ function myplugin_register_user($request)
 
     global $wpdb;
 
-    session_start();
+    if(!session_id()) session_start();
 
     $params = $request->get_params();
 
@@ -1258,9 +1252,6 @@ function myplugin_register_user($request)
     //$password = md5($params['user_password']);
 
     $password =  $params['user_password'];
-
-
-
 
 
     // Assuming you have the $otp and $email variables already
@@ -1338,7 +1329,8 @@ add_action('rest_api_init', function () {
 function myplugin_verify_otp($request)
 {
 
-    session_start();
+    if(!session_id())
+        session_start();
 
     global $wpdb;
 
@@ -1427,7 +1419,8 @@ function resend_OTP($query)
 
     global $wpdb;
 
-    session_start();
+    if(!session_id())
+        session_start();
 
     if (!empty($_POST['resend_OTP'])) {
 
@@ -1648,9 +1641,7 @@ add_shortcode('get_dashboard', 'get_dashboard');
 
 
 
-wp_enqueue_style('custom_css_file', get_template_directory_uri() . '/css/custom.css', false, '1.1', 'all');
 
-wp_enqueue_style('custom_css_file', get_template_directory_uri() . '/css/wcc_custom_style.css', false, 'all');
 
 
 
@@ -1660,11 +1651,7 @@ wp_enqueue_style('custom_css_file', get_template_directory_uri() . '/css/wcc_cus
 
 function wpCustomStyleSheet()
 {
-
-
-
     wp_register_style('adminCustomStyle', get_template_directory_uri() . '/assets/css/bootstrap.min.css', false, '1.0.0');
-
     wp_enqueue_style('adminCustomStyle');
 }
 
@@ -1766,7 +1753,7 @@ function ums_update_group()
             set_post_thumbnail($group_id, $attach_id);
         }
 
-        header('Location: ' . site_url('wccgroups'));
+        header('Location: ' . site_url('groups'));
 
         exit;
     }
@@ -2138,7 +2125,7 @@ function create_reportsforms()
 
         if (empty($group_id)) {
 
-            header('Location: ' . site_url('wccgroups'));
+            header('Location: ' . site_url('groups'));
         }
 
 
@@ -2375,7 +2362,7 @@ function create_disasterReportsforms()
 
         /*if(empty($group_id)){
 
-            header('Location: '.site_url('wccgroups'));
+            header('Location: '.site_url('groups'));
 
         }*/
 
@@ -2593,17 +2580,15 @@ function orgnaizationReport_alert()
 
     global $wpdb;
 
+    $group_id = isset($_POST['group_id']) ? sanitize_text_field($_POST['group_id']) : "";
 
+    $report_alert_id = isset($_POST['rid']) ? sanitize_text_field($_POST['rid']) : "";
 
-    $group_id = ($_POST['group_id']) ? sanitize_text_field($_POST['group_id']) : "";
+    $post_author = isset($_POST['post_author']) ? sanitize_text_field($_POST['post_author']) : "";
 
-    $report_alert_id = ($_POST['rid']) ? sanitize_text_field($_POST['rid']) : "";
+    $page_url = isset($_POST['page_url']) ? sanitize_text_field($_POST['page_url']) : "";
 
-    $post_author = ($_POST['post_author']) ? sanitize_text_field($_POST['post_author']) : "";
-
-    $page_url = ($_POST['page_url']) ? sanitize_text_field($_POST['page_url']) : "";
-
-    $uniqueReportID = ($_POST['uniqueReportID']) ? sanitize_text_field($_POST['uniqueReportID']) : "";
+    $uniqueReportID = isset($_POST['uniqueReportID']) ? sanitize_text_field($_POST['uniqueReportID']) : "";
 
     $current_user_id = get_current_user_id();
 
@@ -2757,7 +2742,7 @@ function orgnaizationReport_alert()
     }
 }
 
-add_action('init', 'orgnaizationReport_alert');
+//add_action('init', 'orgnaizationReport_alert');
 
 
 
@@ -2840,7 +2825,7 @@ function approve_organizationRequest()
     }
 }
 
-add_action('init', 'approve_organizationRequest');
+//add_action('init', 'approve_organizationRequest');
 
 
 
@@ -2925,7 +2910,7 @@ function reject_organizationRequest()
     }
 }
 
-add_action('init', 'reject_organizationRequest');
+//add_action('init', 'reject_organizationRequest');
 
 
 
@@ -2934,31 +2919,30 @@ add_action('init', 'reject_organizationRequest');
 function survivorNeedIntakeReport_alert()
 {
 
+
     // print_r($_POST);
 
     global $wpdb;
 
 
-
-    $group_id = ($_POST['group_id']) ? sanitize_text_field($_POST['group_id']) : "";
-
-    $report_alert_id = ($_POST['rid']) ? sanitize_text_field($_POST['rid']) : "";
-
-    $post_author = ($_POST['post_author']) ? sanitize_text_field($_POST['post_author']) : "";
-
-    $page_url = ($_POST['page_url']) ? sanitize_text_field($_POST['page_url']) : "";
-
-    $uniqueReportID = ($_POST['uniqueReportID']) ? sanitize_text_field($_POST['uniqueReportID']) : "";
-
-    $current_user_id = get_current_user_id();
-
-    $current_date   =  date('Y/m/d');
-
-
-
     if (!empty($_POST['survivorNeedIntakeReport_alert'])) {
 
 
+        $group_id = ($_POST['group_id']) ? sanitize_text_field($_POST['group_id']) : "";
+
+        $report_alert_id = ($_POST['rid']) ? sanitize_text_field($_POST['rid']) : "";
+    
+        $post_author = ($_POST['post_author']) ? sanitize_text_field($_POST['post_author']) : "";
+    
+        $page_url = ($_POST['page_url']) ? sanitize_text_field($_POST['page_url']) : "";
+    
+        $uniqueReportID = ($_POST['uniqueReportID']) ? sanitize_text_field($_POST['uniqueReportID']) : "";
+    
+        $current_user_id = get_current_user_id();
+    
+        $current_date   =  date('Y/m/d');
+    
+    
 
 
 
@@ -3335,7 +3319,7 @@ function update_reportsforms()
 
         /* if(empty($group_id)){
 
-            header('Location: '.site_url('wccgroups'));
+            header('Location: '.site_url('groups'));
 
         }*/
 
@@ -3480,7 +3464,7 @@ function update_ActionReport()
 
         /* if(empty($group_id)){
 
-            header('Location: '.site_url('wccgroups'));
+            header('Location: '.site_url('groups'));
 
         }*/
 
@@ -3597,7 +3581,7 @@ function create_volunteerReq()
 
         // Redirect to groups page if the group ID is missing
         if (empty($group_id)) {
-            header('Location: ' . site_url('wccgroups'));
+            header('Location: ' . site_url('groups'));
             exit;
         }
 
@@ -3810,7 +3794,7 @@ function update_volunteerReq()
 
         if (empty($group_id)) {
 
-            header('Location: ' . site_url('wccgroups'));
+            header('Location: ' . site_url('groups'));
         }
 
         $rf_id = ($_POST['rf_id']) ? sanitize_text_field($_POST['rf_id']) : "";
@@ -4236,7 +4220,7 @@ function create_needIntakeForm()
 
         if (empty($group_id)) {
 
-            header('Location: ' . site_url('wccgroups'));
+            header('Location: ' . site_url('groups'));
         }
 
         $rf_id = ($_POST['rf_id']) ? sanitize_text_field($_POST['rf_id']) : "";
@@ -4880,7 +4864,7 @@ function after_ActionReport()
 
         if (empty($group_id)) {
 
-            header('Location: ' . site_url('wccgroups'));
+            header('Location: ' . site_url('groups'));
         }
 
         $rf_id = ($_POST['rf_id']) ? sanitize_text_field($_POST['rf_id']) : "";
@@ -5320,7 +5304,7 @@ function delete_afterActionReport($query)
 
         //$pp = get_post_permalink($report_id);
 
-        header('Location: ' . site_url('wccgroups'));
+        header('Location: ' . site_url('groups'));
     }
 }
 
@@ -5368,7 +5352,7 @@ function delete_disasterReport($query)
 
         add_action('form_message', "Disaster  Action Report Deleted Successfully.");
 
-        header('Location: ' . site_url('wccgroups'));
+        header('Location: ' . site_url('groups'));
 
         // exit;
 
@@ -6848,7 +6832,7 @@ function create_blog()
 
                 alert('Blog created successfully and sent to admin for approval !');
 
-                window.location.href='" . site_url() . "/wccgroups';
+                window.location.href='" . site_url() . "/groups';
 
                 </script>";
 
@@ -12523,11 +12507,57 @@ function shhow_user_additional_info($user)
 
 // Start KCC Function
 
-function theme_js_script()
+function kcc_enqueue_scripts()
 {
+    $jsversion = '0.2';
+    $cssversion = '0.';
+
+    // enque scripts from common_footer.php
+
+    wp_enqueue_script('moment', get_template_directory_uri() . '/js/moment.min.js', array('jquery'), $jsversion, true);
+    wp_enqueue_script('fullcalendar', get_template_directory_uri() . '/js/fullcalendarxx.min.js', array('jquery'), $jsversion, true);
+    wp_enqueue_script('list', get_template_directory_uri() . '/packages/list/main.js', array('jquery'), $jsversion, true);
+    wp_enqueue_script('popper', get_template_directory_uri() . '/assets/js/popper.min.js', array('jquery'), $jsversion, true);
+    wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.min.js', array('jquery'), $jsversion, true);
+    wp_enqueue_script('owl-carousel', get_template_directory_uri() . '/assets/js/owl.carousel.min.js', array('jquery'), $jsversion, true);
+    wp_enqueue_script('ckeditor', 'https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js', array('jquery'), $jsversion, true);
+    wp_enqueue_script('eae-iconHelper', site_url() . '/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/js/iconHelper.js?ver=1.0', array('jquery'), $jsversion, true);
+    wp_enqueue_script('ckeditor5', 'https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js', array('jquery'), $jsversion, true);
+    wp_enqueue_script('select2', get_template_directory_uri() . '/assets/js/select2/select2.full.js', array('jquery'), $jsversion, true);
+
+    /* js */
+    // previous work 
     wp_enqueue_script('theme-script', get_template_directory_uri() . '/js/custom.js');
+
+    // jim williams clean start
+    // all of these scripts may or may not be in use.
+    wp_enqueue_script('jw-script', get_template_directory_uri() . '/js/jw.js',[
+        'jquery', 'moment', 'fullcalendar', 'list', 'popper', 'bootstrap', 'owl-carousel', 'ckeditor','ckeditor5','select2'
+    ], $jsversion, true);
+    
+
+    // localize variables
+    $translation_array = array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'current_user_id' => get_current_user_id(),
+        'current_page' =>  basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)),
+        'post_id' => get_the_ID(),
+        'nonce'    => wp_create_nonce('send_group__nonce'),
+    );
+    wp_localize_script('jw-script', 'localvars', $translation_array);
+
+    /* css */
+    // previous work
+    wp_enqueue_style('custom_css_file', get_template_directory_uri() . '/css/custom.css', false, $cssversion, 'all');
+    wp_enqueue_style('custom_css_file', get_template_directory_uri() . '/css/wcc_custom_style.css', $cssversion, 'all');
+
+    // jim williams clean start 
+    wp_enqueue_style('jw-css', get_template_directory_uri() . '/css/jw.css', false, $cssversion, 'all');
+
+
+
 }
-add_action('wp_enqueue_scripts', 'theme_js_script');
+add_action('wp_enqueue_scripts', 'kcc_enqueue_scripts');
 
 // In your theme's functions.php
 add_action('wp_ajax_get_certificate_link', 'ajax_get_certificate_link');

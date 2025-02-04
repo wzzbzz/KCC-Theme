@@ -4,7 +4,8 @@ if (!is_user_logged_in() ){
     wp_redirect( 'login' );
 }
  else{
-get_header('new'); 
+get_header('dashboard');
+} 
 global $post;
 $group_id=$post->ID;
 $author_id=$post->post_author;
@@ -28,7 +29,7 @@ if(empty($author_img)){
 
  if(!in_array($current_user_id,$ldUsersList) && $author_id!=$current_user_id){
     $_SESSION['flash_msg'] = "You are not allowed to access this group.";
-    header('Location: '.site_url('wccgroups'));
+    header('Location: '.site_url('groups'));
         exit;
  }
 

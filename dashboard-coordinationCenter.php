@@ -1,23 +1,9 @@
 <?php 
 /* Template Name: Coordination center */
 if ( is_user_logged_in() ) {
-get_header('new'); ?>
-<style type="text/css">
-    .main_box_btm p {
-    margin-bottom: 10px;
-
-}
- .coordination_icon img{
-    width: auto!important;
- }
-</style>
+get_header('dashboard'); ?>
 <div class="col-xl-12">
-        <div class="row justify-content-end mt-3">
-        <div class="col-xl-11 col-lg-11 col-md-11 col-10 d-flex align-items-center flex-wrap">
-               <?php include('user_topbar.php')?>
-                
-            </div>
-        </div>        
+        <div class="row justify-content-end mt-3">   
 
         <div class="row justify-content-end mt-3 Coordination_row">
 
@@ -43,7 +29,7 @@ get_header('new'); ?>
                         <div class="main_box_btm coordination_icon">
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/groups_ico.png">
                             <?php echo get_field('groups_description'); ?>
-                            <a href="<?php echo get_site_url(); ?>/wccgroups/">View Groups</a>
+                            <a href="<?php echo get_site_url(); ?>/groups/">View Groups</a>
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-md-6 mb-3">
@@ -63,10 +49,10 @@ get_header('new'); ?>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-md-6 mb-3 ">
                         <div class="main_box_btm purple_box coordination_icon">
-                            <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/trackings_ico.png">
+                            <img src="<?= get_template_directory_uri();?>/assets/images/trackings_ico.png">
                         <h5 class="purple">Trackings</h5>
                             <p>View a listing of your reports, groups, accepted roles, and blogs</p>
-                            <a href="https://knowledge.communication.worldcares.org/tracking/">View Trackings</a>
+                            <a href="<?= get_template_directory_uri();?>/tracking/">View Trackings</a>
                         </div>
                         
                         
@@ -79,7 +65,6 @@ get_header('new'); ?>
                  
                 </div>
             </div>
-          <?php include('common_user_footer.php')?>
 
             
-<?php get_footer('new'); }?>
+<?php get_footer(); }?>

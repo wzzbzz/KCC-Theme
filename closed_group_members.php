@@ -1,60 +1,28 @@
 <?php 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 /* Template Name: Closed Group Members */ 
  global $wpdb; 
 
  $current_user_id = get_current_user_id();
- $groupId =  $_GET['group_id'];  
- $allMemnbersID = learndash_get_groups_user_ids($groupId);
- //$userList = learndash_get_groups_user_ids($grpupVal->ID);
- ?>
- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Closed Group Members</title>
-    <!-- Favicon -->    
-    <link rel="shortcut icon" type="image/jpg" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.png"> 
+ if(!is_user_logged_in()){
+     wp_redirect(site_url());
+ }
 
-    <!-- css links -->
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/all.min.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/owl.carousel.min.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/owl.theme.default.min.css" rel="stylesheet">
-    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/font.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/style.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/responsive.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/wcc_custom_style.css" rel="stylesheet">
-    <link rel='stylesheet' id='elementor-icons-css' href='https://knowledge.communication.worldcares.org/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=5.25.0' type='text/css' media='all' />
-    <link rel='stylesheet' id='elementor-icons-shared-0-css' href='https://knowledge.communication.worldcares.org/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.min.css?ver=5.15.3' type='text/css' media='all' />
-    <link rel='stylesheet' id='elementor-icons-fa-solid-css' href='https://knowledge.communication.worldcares.org/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.min.css?ver=5.15.3' type='text/css' media='all' />
-    <script src="https://knowledge.communication.worldcares.org/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/js/iconHelper.js?ver=1.0" id="eae-iconHelper-js"></script>
-    <link rel="stylesheet" type="text/css" href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/style_new.min.css"/>
-</head>
-<body class="main_all_bg_Sec">
-    <style type="text/css">
-    .title_group 
-    {
-    font-size: 25px;
-    }
-    .close-group img{
-        width: 150px;
-        height: 150px;
-        border-radius: 100%;
-    }
-    
-    </style>
-    <?php include('usermenucommon.php')?>
+ 
+ $groupId =  $_GET['group_id'];  
+ $group = new \KCC\Group($_GET['group_id']);
+ $allMemnbersID = learndash_get_groups_user_ids($groupId);
+ 
+ //$userList = learndash_get_groups_user_ids($grpupVal->ID);
+ get_header('dashboard');
+ ?>
 
     <div class="col-xl-12 ">
         <div class="row justify-content-end mt-3">
 
-            <div class="col-xl-11 col-lg-11 col-md-11 col-10 d-flex align-items-center flex-wrap">
-                <?php include('user_topbar.php')?>                
-            </div>
             <div class="col-xl-11 col-lg-11 col-md-11 col-10  mt-4 px-0">
             <div class="col-xl-12 col-lg-11 col-md-11 col-12  my-4">           
                  <?php do_action('flash_msg');
@@ -76,7 +44,7 @@
                             </ul>
                         </div>
                     <div class="back_btn">
-                        <a href="<?php echo site_url('wccgroups')?>">Back</a>
+                        <a href="<?php echo site_url('groups')?>">Back</a>
                     </div>
                     </div>
                 <div class="groups_tabs">
@@ -413,7 +381,7 @@ $ajaxUrl = admin_url('admin-ajax.php?action=send_group_reques&nonce='.$nonce);
                   <div class="d-flex justify-content-center">
                      <div>
                         <div>
-                           <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/avatar.png" alt="Abhishek Rajput" height="150" title="" width="150" class="rounded-circle userImg">
+                           <img src="<?= get_template_directory_uri();?>/avatar.png" alt="Abhishek Rajput" height="150" title="" width="150" class="rounded-circle userImg">
                         </div>
                      </div>
                   </div>
@@ -441,15 +409,15 @@ $ajaxUrl = admin_url('admin-ajax.php?action=send_group_reques&nonce='.$nonce);
                      <div class=" col-md-10">
                         <div class="d-flex justify-content-between">
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_1.png" class="img-fluid" alt="image">  
+                              <img src="<?= get_template_directory_uri();?>/assets/images/cdvc_1.png" class="img-fluid" alt="image">  
                               <p>CDVC Level 1</p>
                            </div>
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_2.png" class="img-fluid" alt="image">
+                              <img src="<?= get_template_directory_uri();?>/assets/images/cdvc_2.png" class="img-fluid" alt="image">
                               <p>CDVC Level 2</p>
                            </div>
                            <div class="text-center">
-                              <img src="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/images/cdvc_3.png" class="img-fluid" alt="image">
+                              <img src="<?= get_template_directory_uri();?>/assets/images/cdvc_3.png" class="img-fluid" alt="image">
                               <p>CDVC Level 3</p>
                            </div>
                         </div>
@@ -475,71 +443,4 @@ $ajaxUrl = admin_url('admin-ajax.php?action=send_group_reques&nonce='.$nonce);
    </div>
 </div>
 
-<script>     
-     var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
-     
-    $(document).ready(function() {
-        
-        $(".GroupeModalCenter").click(function() {
-            var mthtml = $(this).html();
-            var gid = $(this).attr('data-gid');
-            $('#requestaccess').attr('data-gid',gid);
-            $('.umsjee').html(mthtml);
-            $('#GroupeModalCenter').modal('show');
-        });        
-
-        $("#requestaccess").click( function(e) {
-          e.preventDefault(); 
-          var group_id = $(this).data("gid");
-          var nonce = $(this).attr("data-nonce");
-          $.ajax({
-             type : "post",
-             dataType : "json",
-             url :ajaxurl,
-             data : {"action": "send_group_request", "group_id" : group_id, "nonce": nonce},
-             success: function(response) {  
-                  console.log(response);          
-                  alert(response.msg);
-                 $('#GroupeModalCenter').modal('hide');
-                
-             }
-          });
-       });
-        ////
-        $(".joinGroupeModal").click(function() {
-            var mthtml = $(this).html();
-            var gid = $(this).attr('data-gid');
-            $('#joinGroupeAccess').attr('data-gid',gid);
-            $('.umsjee').html(mthtml);
-            $('#joinGroupeModal').modal('show');
-        });
-        
-         $(".ownerModal").click(function() {
-            var mthtml = $(this).html();
-            var gid = $(this).attr('data-gid');
-            $('#ownerModal').attr('data-gid',gid);
-            $('.umsjee').html(mthtml);
-            $('#ownerModal').modal('show');
-        });
-
-          $("#joinGroupeAccess").click( function(e) {
-          e.preventDefault(); 
-          var group_id = $(this).data("gid");
-          var nonce = $(this).attr("data-nonce");
-          $.ajax({
-             type : "post",
-             dataType : "json",
-             url :ajaxurl,
-             data : {"action": "join_open_group", "group_id" : group_id, "nonce": nonce},
-             success: function(response) {  
-                 $('#joinGroupeModal').modal('hide');      
-                 window.location =   response.group_url;                
-             }
-          });
-       });
-
-});
-</script>
-
-</body>
-</html>
+<?php get_footer(); ?>

@@ -7,35 +7,35 @@ class User extends \jwc\Wordpress\WPUser{
         parent::__construct($id);
     }
 
-    public function send_notification( $args ){
-
-        $subject = $args['subject'] ?? '';
-        $body = $args['body'] ?? '';
-        $actionlink = $args['action_link'] ?? '';
-        $post_id = $args['post_id'] ?? '';
-        $emailLogId = $args['emailLogId'] ?? '';
-        
-
+    public function getGroupIds(){
         global $wpdb;
-        $insert_result = $wpdb->insert(
-            'kcc_notifications',
-            array(
-                'datecreated' => current_time('mysql'),
-                'userId' => $this->id(),
-                'originSystemPostId' => $post_id, // Set this as needed
-                'icontodisplay' => 'fas fa-calendar-alt', // FontAwesome calendar icon
-                'title' => $subject,
-                'shorttext' => substr($body, 0, 50),
-                'linkTo' => $actionlink,
-                'emailLogId' => $emailLogId
-            ),
-            array('%s', '%s', '%d', '%s', '%s', '%s', '%s', '%d')
-        );
-   
-        if ($insert_result === false) {
-            echo 'Error inserting into kcc_notifications: ' . $wpdb->last_error;
-        }
+        $table_name = 'users_groups';
+        $sql = "SELECT group_id FROM {$table_name} WHERE user_id = %d";
+        $sql = $wpdb->prepare($sql, $this->id());
+        return $wpdb->get_col($sql);
+        
+    }
 
+    public function getGroups(){
+        $group_ids = $this->getGroupIds();
+        $groups = [];
+        foreach($group_ids as $group_id){
+            $groups[] = new Group($group_id);
+        }
+        return $groups;
+    }
+
+    public function addToGroup($group_id){
+
+        $group = new Group($group_id);
+        $group->addMember($this->id());
+
+        return true;
+
+    }
+
+    public function userIsGroupMember($group_id){
+        return in_array($group_id, $this->getGroupIds());
     }
     
 }

@@ -553,7 +553,7 @@
                       </a>
                       </div>
                       <div class="col-lg-4">
-                       <a href="<?php echo site_url('wccgroups')?>" target="_blank">
+                       <a href="<?php echo site_url('groups')?>" target="_blank">
                             <?php
                                     $current_user_id = get_current_user_id();
                                      $reportCount = "SELECT COUNT(ID) FROM wp_posts WHERE post_type = 'groups'  AND post_status = 'publish'  AND post_author = $current_user_id "  ;

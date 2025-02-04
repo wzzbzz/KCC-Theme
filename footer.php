@@ -144,11 +144,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php 
 	astra_body_bottom();    
 	wp_footer(); 
-	
-	
-
-	
 ?>
+
+
 <script type="text/javascript">
 	function openCity(evt, cityName) {
   var i, tabcontent, tablinks;

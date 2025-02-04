@@ -23,6 +23,10 @@ class WPPost extends WPEntity{
         return $this->post_id;
     }
 
+    public function type(){
+        return get_post_type($this->post_id);
+    }
+
     public function title(){
         return get_the_title($this->post_id);
     }
@@ -59,6 +63,13 @@ class WPPost extends WPEntity{
         return get_post_meta($this->post_id, $key, $single);
     }
 
+    public function get_meta($key, $single = true){
+        return get_post_meta($this->post_id, $key, $single);
+    }
+
+    public function add_meta($key, $value, $unique = false){
+        return add_post_meta($this->post_id, $key, $value, $unique);
+    }
     public function set_meta($key, $value){
         return update_post_meta($this->post_id, $key, $value);
     }

@@ -1,0 +1,663 @@
+/* from dashboard home.php */
+
+.main_dsh_text h6 {
+
+    margin: 1rem 0;
+
+}
+
+.main_dsh_text p {
+
+    font-size: 12px;
+
+}
+
+.side_main_img img {
+
+    max-width: 410px;
+
+}
+
+.view-notification {
+    background: none;
+    border: none;
+    color: #429FFF;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.view-notification:hover {
+    text-decoration: none;
+    color: #0056b3;
+    background-color: transparent;
+}
+
+button.view-notification:focus {
+    background: transparent;
+    color: #0056b3;
+}
+
+/*  Responsive */
+
+@media (max-width:1440px) {
+
+    .side_main_img img {
+
+        max-width: 410px;
+
+    }
+
+}
+
+.main_dash_1 {
+    max-width: 100%;
+}
+
+.main_dash_1 .mian_box_btm {
+    max-height: 250px;
+    padding: 1rem;
+}
+
+.main_dash_1 .mian_box_btm.bg_yellow {
+    max-height: 250px;
+    padding: 1rem;
+}
+
+.main_dash_1 .mian_box_btm.bg_green {
+    max-height: 250px;
+    padding: 1rem;
+}
+
+.dash_home {
+    max-width: 100%;
+}
+
+.main_home2 {
+    max-width: 100%;
+}
+
+.knowlage_img {
+    max-height: 80px;
+}
+
+
+
+/* From user-dashboard.php */
+.emergency_textbox {
+    display: none
+}
+
+.general_textbox {
+    display: none
+}
+
+.repair_textbox {
+    display: none
+}
+
+.property_textbox {
+    display: none
+}
+
+.health_inputbox {
+    display: none
+}
+
+.food_textbox {
+    display: none
+}
+
+.volunteer_textbox {
+    display: none
+}
+
+.severe_checkbox {
+    display: none
+}
+
+.structural_checkbox {
+    display: none
+}
+
+.terrorist_checkbox {
+    display: none
+}
+
+.disaster_textbox {
+    display: none
+}
+
+.modal {
+
+    visibility: unset;
+
+}
+
+.profile_medal .profile_count_main img {
+
+    width: auto;
+
+    height: auto;
+
+    min-height: 60px;
+
+}
+
+.profile_count_title {
+
+    font-size: 10px;
+
+}
+
+.profile_medal .col-md-3 {
+
+    padding: 0px 7.5px;
+
+}
+
+/*.profile_count_main{
+
+   min-height: 100px;
+
+}*/
+
+.skills_add_b {
+    border: 1px dashed #D3D3D3;
+    background: none;
+    width: 100px;
+    justify-content: center;
+    border-radius: 15px;
+}
+
+.skills_add_b a {
+    background: none;
+    padding: 10px;
+    font-size: 16px;
+    color: #242424;
+}
+
+
+
+.skill_add1 .skill-box {
+    background: none !important;
+}
+
+
+
+.input_main1 .skill-box {
+    height: 45px;
+    text-align: center;
+    align-items: center;
+}
+
+
+
+.skills_add_b button:hover {
+
+    color: #242424;
+
+    background: transparent;
+
+}
+
+
+
+.check-boxess .btn-primary {
+
+    background: #F96703 0% 0% no-repeat padding-box;
+
+    box-shadow: 0px 10px 20px #00000029;
+
+    border-radius: 9px;
+
+    opacity: 1;
+
+    width: 200px;
+
+    height: 60px;
+
+    border: 0;
+
+
+
+}
+
+.check-boxess h4 {
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+}
+
+/* from dashboard-coordinationCenter.php */
+.main_box_btm p {
+    margin-bottom: 10px;
+
+}
+
+.coordination_icon img {
+    width: auto !important;
+}
+
+/* from group-ums.php */
+.dashboard .title_group {
+    font-size: 25px;
+}
+
+.dashboard .btn-primary {
+    background: #F9671D 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 99px #ccd6ff3e;
+    border-radius: 9px;
+    font-size: 13px;
+    color: #FFFFFF;
+    height: 50px;
+    padding: 12px 12px;
+    border: 1px solid#F9671D;
+}
+
+.dashboard .btn-primary:hover {
+    background: #F9671D 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 99px #ccd6ff3e;
+    border-radius: 9px;
+    font-size: 13px;
+    color: #FFFFFF;
+    height: 50px;
+    padding: 12px 12px;
+    border: 1px solid#F9671D;
+}
+
+
+/* from tab my requests */
+.title_group {
+    font-size: 25px;
+}
+
+.close-group img {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+}
+
+/* from group create */
+@media screen and (max-width: 768px) {
+    .donation_tab_pills {
+        margin-left: 30px;
+    }
+}
+
+.image-upload>input {
+    display: none;
+}
+
+.image-upload img {
+    width: 80px;
+    cursor: pointer;
+}
+
+.group-edit-page .avatar-edit input+label:after {
+    min-height: 0px !important;
+    top: 20px !important;
+    left: 0px;
+}
+
+.main_profile_form label {
+    font-size: 16px;
+}
+
+span.extension-name {
+    font-size: 13px;
+}
+
+span.browse {
+    color: #429FFF;
+}
+
+.group-edit-page .avatar-edit input+label:after {
+    content: "\f093";
+    color: #0E559F;
+    font-size: 40px;
+}
+
+
+/* from single-groups.php */
+.blog_u {
+    height: 30px;
+}
+
+.blog_u li a img {
+    margin-right: 5px;
+}
+
+.blog_u .dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.dropdown-menu {
+
+    position: absolute;
+
+    top: 100%;
+
+    left: 0;
+
+    z-index: 1000;
+
+    display: none;
+
+    float: left;
+
+    min-width: 10rem;
+
+    padding: .5rem 0;
+
+    margin: .125rem 0 0;
+
+    font-size: 1rem;
+
+    color: #212529;
+
+    text-align: left;
+
+    list-style: none;
+
+    background-color: #fff;
+
+    background-clip: padding-box;
+
+    border: 1px solid rgba(0, 0, 0, .15);
+
+    border-radius: .25rem;
+
+}
+
+.ck-editor__editable_inline {
+
+    min-height: 200px;
+
+}
+
+
+
+
+
+.donate_detais_main .imgHeightWidth {
+
+    height: 200px;
+
+    width: 100%;
+
+    background: transparent url('img/shutterstock_1143859865.png') 0% 0% no-repeat padding-box;
+
+    border-radius: 13px;
+
+    opacity: 1;
+
+    object-fit: contain;
+
+}
+
+
+
+
+
+/*End code */
+
+.bor {
+
+    border: 1px solid red;
+
+}
+
+.modal {
+
+    visibility: unset;
+
+}
+
+.image-upload>input {
+
+    display: none;
+
+}
+
+
+
+.image-upload img {
+
+    width: 80px;
+
+    cursor: pointer;
+
+}
+
+
+
+.dropdown-item:focus,
+.dropdown-item:hover {
+
+    color: #16181b;
+
+    text-decoration: none;
+
+    background-color: unset;
+
+}
+
+.add-mem-list .col-lg-4 {
+
+    padding-left: 3.5px;
+
+    padding-right: 3.5px;
+
+    margin-bottom: 7px;
+
+}
+
+.modal .modal-dialog {
+
+    width: 100% !important;
+
+}
+
+.blog_grid .col-xl-4.col-lg-4.col-md-4 {
+
+    padding-left: 3.5px;
+
+    padding-right: 3.5px;
+
+
+
+}
+
+.blog_grid .col-xl-12.col-lg-12.col-md-12 {
+
+    padding-left: 3.5px;
+
+    padding-right: 3.5px;
+
+}
+
+.now_donate img {
+
+    height: 15px;
+
+}
+
+
+
+
+
+.disaster_p {
+    padding: 15px 0px;
+}
+
+.disaster_p .row {
+    padding: 0px 40px;
+}
+
+.situation_title {
+    margin-bottom: 30px;
+}
+
+.situation_contant {
+    margin-bottom: 50px;
+}
+
+.situation_report .modal-content {
+    max-width: 714px;
+}
+
+.situation_contant p {
+    font-size: 15px;
+    color: #242424;
+    font-family: 'Poppins';
+    margin: 0px 54px;
+    text-align: center;
+}
+
+
+/* from group-edit.php */
+
+@media screen and (max-width: 768px) {
+
+    .donation_tab_pills {
+
+
+
+        margin-left: 30px;
+
+    }
+
+
+
+}
+
+
+
+.image-upload>input {
+
+    display: none;
+
+}
+
+
+
+.image-upload img {
+
+    width: 80px;
+
+    cursor: pointer;
+
+}
+
+.group-edit-page .avatar-edit input+label:after {
+
+    min-height: 0px !important;
+
+    top: 20px !important;
+
+    left: 0px;
+
+}
+
+.main_profile_form label {
+
+    font-size: 16px;
+
+}
+
+span.extension-name {
+
+    font-size: 13px;
+
+}
+
+span.browse {
+
+    color: #429FFF;
+
+}
+
+@media screen and (max-width: 768px) {
+
+    .donation_tab_pills {
+
+        margin-left: 30px;
+
+    }
+
+}
+
+.image-upload>input {
+
+    display: none;
+
+}
+
+
+
+.image-upload img {
+
+    width: 80px;
+
+    cursor: pointer;
+
+}
+
+.group-edit-page .avatar-edit input+label:after {
+
+    min-height: 0px !important;
+
+    top: 20px !important;
+
+    left: 0px;
+
+}
+
+.main_profile_form label {
+
+    font-size: 16px;
+
+}
+
+span.extension-name {
+
+    font-size: 13px;
+
+}
+
+span.browse {
+
+    color: #429FFF;
+
+}
+
+
+
+.group-edit-page .avatar-edit input+label:after {
+
+    content: "\f093";
+
+    color: #0E559F;
+
+    font-size: 40px;
+
+}
+
+
+/* flash notifications */
+.flash-message {
+    padding: 1rem;
+}
+
+
+/* group card */
+.custom-card{
+    padding:20px;
+}

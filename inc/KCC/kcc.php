@@ -29,5 +29,6 @@ spl_autoload_register(function ($class) {
     }
 });
 
-$groups = new KCC\Groups();
-$roles = new KCC\Roles();
+new KCC\Groups();
+new KCC\Roles();
+new KCC\FlashMessages\FlashMessages();

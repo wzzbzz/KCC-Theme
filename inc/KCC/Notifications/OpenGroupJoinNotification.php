@@ -3,20 +3,21 @@
 namespace KCC\Notifications;
 
 use KCC\Group;
+use KCC\User;
 
-class GroupDeclinedNotification extends Notification
+class OpenGroupJoinNotification extends Notification
 {
 
     protected $group_id;
     protected $group;
+    protected $user_id;
+    protected $user;
 
     private $emailLogId;
 
     public function __construct($args)
     {
-
         parent::__construct($args);
-
 
         $this->group_id = $args['group_id'] ?? '';
 
@@ -25,6 +26,15 @@ class GroupDeclinedNotification extends Notification
             return;
         }
 
+        $this->user_id = $args['user_id'] ?? '';
+
+        if(empty($this->user_id)){
+            die("no");
+            return;
+        }
+
+        $this->user = new User($this->user_id);
+
         // the recipient will be the groupLeader
         $this->group = new Group($this->group_id);
         $groupLeader = $this->group->getLeader();
@@ -32,8 +42,9 @@ class GroupDeclinedNotification extends Notification
         
         $this->recipients['to'] = [$groupLeader];
 
+
         // set the subject here for now
-        $this->subject = "Your Group Has Been Declined";
+        $this->subject = "User Join Notification";
     }
 
     public function send()
@@ -63,12 +74,13 @@ class GroupDeclinedNotification extends Notification
         global $wpdb;
 
         foreach ($this->recipients['to'] as $recipient) {
-            $this->body = sprintf("Hi %s,<br>" .
-                "We regretfully inform you that your group <strong>%s</strong> has been declined by the admin.<br>".
-                "Currently you have no recourse.<br>" .
-                "With love,<br>" .
-                "The KCC Notifications Droid",
-                $recipient->name(), $this->group->name());
+    
+            $this->body = sprintf(" Hi %s,<br>
+                        %s has joined your open group <strong>%s</strong>. <br>
+                        Say hello here: <a href=\"%s\">%s</a> <br>
+                        Lead them well, <br>The KCC Notifications Droid", $recipient->name(), $this->user->name(), $this->group->name(), $this->group->permalink(), $this->group->permalink());
+
+
             $result = wp_mail($recipient->email(), $this->subject, $this->body, $this->headers);
 
 
@@ -96,8 +108,8 @@ class GroupDeclinedNotification extends Notification
     {
         global $wpdb;
 
-        $this->body = sprintf("Your group,  %s, has been declined", $this->group->name());
-        $this->actionlink = esc_url(site_url('wp-admin/edit.php?post_type=groups'));
+        $this->body = sprintf("%s has joined  your group <strong>%s</strong>.",$this->user->name(), $this->group->name());
+        $this->actionlink = $this->group->permalink();
 
         // insert into kcc_notifications
         $insert_result = $wpdb->insert(

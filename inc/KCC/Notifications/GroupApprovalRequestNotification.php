@@ -13,6 +13,7 @@ class GroupApprovalRequestNotification extends Notification
     protected $group;
 
     private $emailLogId;
+    private $actionLink;
 
     public function __construct($args)
     {
@@ -20,6 +21,7 @@ class GroupApprovalRequestNotification extends Notification
 
         parent::__construct($args);
 
+        $this->actionLink = esc_url(site_url('wp-admin/edit.php?post_type=groups'));
 
         $this->group_id = $args['group_id'] ?? '';
         $this->group = new Group($this->group_id);
@@ -58,14 +60,21 @@ class GroupApprovalRequestNotification extends Notification
 
     public function send_email($recipient)
     {
-        // for logging
+       // for logging
         global $wpdb;
         
-        $this->body = sprintf("Hi %s,\n" .
-            "A user has created the group with the title: %s. Please approve it from your admin dashboard.\n" .
-            "You can approve the group directly here: %s\n" .
-            "To approve it, you need to select 'Edit' and from the Edit page, select 'Publish'. A Published group means it was approved.\n" .
-            "Thank You, Admin", $recipient->name(), $this->group->name(), $this->actionlink);
+        $this->body = sprintf("Hi %s,<br>" .
+            "A user has created the group with the title: %s. <br>Please approve it from your admin dashboard.<br>" .
+            "<br>You can approve the group directly here: <a href=\"%s\" target=\"_blank\">%s</a><br>" .
+            "To approve it, you need to select 'Edit' and from the Edit page, select 'Publish'. A Published group means it was approved.<br>" .
+            "Thank you,<br>" .
+            "KCC Notifications Droid",
+            $recipient->name(),
+            $this->group->name(),
+            $this->actionLink,
+            $this->actionLink
+        );  
+
         $result = wp_mail($recipient->email(), $this->subject, $this->body, $this->headers);
 
 

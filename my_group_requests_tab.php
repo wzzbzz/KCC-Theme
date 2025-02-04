@@ -1,61 +1,14 @@
 <?php 
 /* Template Name: Tab My Group Requests */ 
+
+if(!is_user_logged_in()){
+    wp_redirect( 'login' );
+    exit();
+}
  $current_user_id = get_current_user_id();
+get_header('dashboard'); ?>
  ?>
  
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Groups</title>
-    <!-- Favicon -->    
-    <link rel="shortcut icon" type="image/jpg" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.png"> 
-
-    <!-- css links -->
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/all.min.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/owl.carousel.min.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/owl.theme.default.min.css" rel="stylesheet">
-    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/font.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/style.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/responsive.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/wcc_custom_style.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/style_new.min.css"/>
-
-    
-</head>
-<body class="main_all_bg_Sec">
-    <style type="text/css">
-    .title_group 
-    {
-    font-size: 25px;
-    }
-    .btn-primary {
-    background: #F9671D 0% 0% no-repeat padding-box;
-    box-shadow: 0px 3px 99px #ccd6ff3e;
-    border-radius: 9px;
-    font-size: 13px;
-    color: #FFFFFF;
-    height:50px;
-    padding:12px 12px;
-    border:1px solid#F9671D;
-}
-.btn-primary:hover {
-    background: #F9671D 0% 0% no-repeat padding-box;
-    box-shadow: 0px 3px 99px #ccd6ff3e;
-    border-radius: 9px;
-    font-size: 13px;
-    color: #FFFFFF;
-    height:50px;
-    padding:12px 12px;
-    border:1px solid#F9671D;
-}
-
-    
-    </style>
     <?php include('user-sidebar.php')?>
 
     <div class="col-xl-12 ">
@@ -75,7 +28,7 @@
                         <div class="g_group_box_new">
                             <ul class="nav nav-pills mb-3 linked_blog" id="pills-tab" role="tablist">
                                 <li class="nav-item group_btn">
-                                <a href="<?php echo site_url()?>/wccgroups/" class="nav-link ">All</a>
+                                <a href="<?php echo site_url()?>/groups/" class="nav-link ">All</a>
                                 </li>
                                 <li class="nav-item group_btn">
                                 <a href= "<?php echo site_url()?>/tab-my-groups/"  class="nav-link">My Groups</a>
@@ -90,7 +43,7 @@
                         </div>
                         
                         <div class="back_btn">
-                            <a href="<?php echo site_url('wccgroups')?>">Back</a>
+                            <a href="<?php echo site_url('groups')?>">Back</a>
                         </div>
                     </div>
 
@@ -675,88 +628,5 @@ $ajaxUrl = admin_url('admin-ajax.php?action=send_group_reques&nonce='.$nonce);
       </div>
    </div>
 </div>
-
-<script>     
-     var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
-     
-    $(document).ready(function() {
-        <?php
-        if(!isset($_GET['tab_type'])){
-        ?>
-        $('#pills-home-tab').addClass('active');
-        <?php }?>
-        $(".GroupeModalCenter").click(function() {
-            var mthtml = $(this).html();
-            var gid = $(this).attr('data-gid');
-            $('#requestaccess').attr('data-gid',gid);
-            $('.umsjee').html(mthtml);
-            $('#GroupeModalCenter').modal('show');
-        });        
-
-        $("#requestaccess").click( function(e) {
-          e.preventDefault(); 
-          var group_id = $(this).data("gid");
-          var nonce = $(this).attr("data-nonce");
-          $.ajax({
-             type : "post",
-             dataType : "json",
-             url :ajaxurl,
-             data : {"action": "send_group_request", "group_id" : group_id, "nonce": nonce},
-             success: function(response) {  
-                  console.log(response);          
-                  alert(response.msg);
-                 $('#GroupeModalCenter').modal('hide');
-                
-             }
-          });
-       });
-        ////
-        $(".joinGroupeModal").click(function() {
-            var mthtml = $(this).html();
-            var gid = $(this).attr('data-gid');
-            $('#joinGroupeAccess').attr('data-gid',gid);
-            $('.umsjee').html(mthtml);
-            $('#joinGroupeModal').modal('show');
-        });
-        
-         $(".ownerModal").click(function() {
-            var mthtml = $(this).html();
-            var gid = $(this).attr('data-gid');
-            $('#ownerModal').attr('data-gid',gid);
-            $('.umsjee').html(mthtml);
-            $('#ownerModal').modal('show');
-        });
-
-          $("#joinGroupeAccess").click( function(e) {
-          e.preventDefault(); 
-          var group_id = $(this).data("gid");
-          var nonce = $(this).attr("data-nonce");
-          $.ajax({
-             type : "post",
-             dataType : "json",
-             url :ajaxurl,
-             data : {"action": "join_open_group", "group_id" : group_id, "nonce": nonce},
-             success: function(response) {  
-                 $('#joinGroupeModal').modal('hide');      
-                 window.location =   response.group_url;                
-             }
-          });
-       });
-
-});
-</script>
-
-   <script> 
-        function allGroup(){
-           $('#tab_type').val('allGroup');
-        }
-         function myGroup(){
-           $('#tab_type').val('MyGroup');
-        }
-         function myGroupRequests(){
-           $('#tab_type').val('MyGroupRequests');
-        }
-   </script>
    
-</body>
-</html>
+<?php get_footer(); ?>

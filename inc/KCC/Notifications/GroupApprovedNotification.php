@@ -4,7 +4,7 @@ namespace KCC\Notifications;
 
 use KCC\Group;
 
-class GroupApprovalRequestSubmissionNotification extends Notification
+class GroupApprovedNotification extends Notification
 {
 
     protected $group_id;
@@ -14,7 +14,6 @@ class GroupApprovalRequestSubmissionNotification extends Notification
 
     public function __construct($args)
     {
-
 
         parent::__construct($args);
 
@@ -34,7 +33,7 @@ class GroupApprovalRequestSubmissionNotification extends Notification
         $this->recipients['to'] = [$groupLeader];
 
         // set the subject here for now
-        $this->subject = "Group Approval Requeust Submitted";
+        $this->subject = "Your Group Has Been Approved";
     }
 
     public function send()
@@ -64,8 +63,11 @@ class GroupApprovalRequestSubmissionNotification extends Notification
         global $wpdb;
 
         foreach ($this->recipients['to'] as $recipient) {
-            $this->body = sprintf("Hi %s,\n" .
-                "Your group %s has been submitted for approval.  You will be notified when the admin takes action.\n", $recipient->name(), $this->group->name());
+            $this->body = sprintf("Hi %s,<br>" .
+                "Your group <strong>%s</strong> has been approved.
+                 <br>Visit it here: <a href=\"%s\" target=\"_blank\">%s</a><br>
+                 With Love,<br>
+                 The KCC Notifications Droid", $recipient->name(), $this->group->name(), $this->group->permalink(), $this->group->permalink(), $this->group->permalink());
             $result = wp_mail($recipient->email(), $this->subject, $this->body, $this->headers);
 
 
@@ -93,9 +95,7 @@ class GroupApprovalRequestSubmissionNotification extends Notification
     {
         global $wpdb;
 
-
-        $this->subject = "Group Submitted for Approval";
-        $this->body = sprintf("Your group,  %s, has been submitted for approval.", $this->group->name());
+        $this->body = sprintf("Your group,  %s, has been approved", $this->group->name());
         $this->actionlink = esc_url(site_url('wp-admin/edit.php?post_type=groups'));
 
         // insert into kcc_notifications

@@ -3,12 +3,15 @@
 namespace KCC\Notifications;
 
 use KCC\Group;
+use KCC\User;
 
-class GroupDeclinedNotification extends Notification
+class ClosedGroupJoinRequestSentNotification extends Notification
 {
 
     protected $group_id;
     protected $group;
+    protected $user_id;
+    protected $user;
 
     private $emailLogId;
 
@@ -16,8 +19,7 @@ class GroupDeclinedNotification extends Notification
     {
 
         parent::__construct($args);
-
-
+        
         $this->group_id = $args['group_id'] ?? '';
 
         if (empty($this->group_id)) {
@@ -25,15 +27,22 @@ class GroupDeclinedNotification extends Notification
             return;
         }
 
-        // the recipient will be the groupLeader
-        $this->group = new Group($this->group_id);
-        $groupLeader = $this->group->getLeader();
+        $this->user_id = $args['user_id'] ?? '';
+
+        if(empty($this->user_id)){
+            die("no");
+            return;
+        }
+
+        $this->user = new User($this->user_id);
+
 
         
-        $this->recipients['to'] = [$groupLeader];
+        $this->recipients['to'] = [$this->user];
+
 
         // set the subject here for now
-        $this->subject = "Your Group Has Been Declined";
+        $this->subject = "Your Request has been sent";
     }
 
     public function send()
@@ -52,25 +61,25 @@ class GroupDeclinedNotification extends Notification
         $this->headers = 'From: ' . get_bloginfo('name') . ' <no_reply@worldcares.org>' . "\r\n";
         $this->headers .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
 
-        foreach ($this->recipients['to'] as $admin) {
-            $this->send_email($admin);
+        foreach ($this->recipients['to'] as $recipient) {
+            $this->send_email($recipient);
         }
     }
 
     public function send_email($recipient)
     {
+
         // for logging
         global $wpdb;
 
         foreach ($this->recipients['to'] as $recipient) {
-            $this->body = sprintf("Hi %s,<br>" .
-                "We regretfully inform you that your group <strong>%s</strong> has been declined by the admin.<br>".
-                "Currently you have no recourse.<br>" .
-                "With love,<br>" .
-                "The KCC Notifications Droid",
-                $recipient->name(), $this->group->name());
-            $result = wp_mail($recipient->email(), $this->subject, $this->body, $this->headers);
+    
+            $this->body = sprintf("Hi %s,<br>
+                        Your request to join  <strong>%s</strong> has been approved. <br>
+                        Thank You,<br>
+                        The KCC Notifications Droid", $recipient->name(), $this->group->name());
 
+            $result = wp_mail($recipient->email(), $this->subject, $this->body, $this->headers);
 
             $this->to = $recipient->email();
 
@@ -86,7 +95,6 @@ class GroupDeclinedNotification extends Notification
                 array('%s', '%s', '%s', '%s', '%s')
             );
             $this->emailLogId = $wpdb->insert_id;
-
             $this->send_notification($recipient);
         }
     }
@@ -96,8 +104,8 @@ class GroupDeclinedNotification extends Notification
     {
         global $wpdb;
 
-        $this->body = sprintf("Your group,  %s, has been declined", $this->group->name());
-        $this->actionlink = esc_url(site_url('wp-admin/edit.php?post_type=groups'));
+        $this->body = sprintf("Your request to join <strong>%s</strong> has been approved.", $this->group->name());
+        $this->actionlink = "";
 
         // insert into kcc_notifications
         $insert_result = $wpdb->insert(

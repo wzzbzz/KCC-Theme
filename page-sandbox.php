@@ -6,11 +6,12 @@ error_reporting(E_ALL);
 
 echo "the sandbox<br>";
 // get a user id
-$group_id = 33777;
-$user_id = 849;
 
-$group_submission = new \KCC\Notifications\GroupApprovalRequestNotification(['group_id' => $group_id]);
-$group_submission->send();
 
-$group_submission_requested = new \KCC\Notifications\GroupApprovalRequestSubmissionNotification(['group_id' => $group_id]);
-$group_submission_requested->send();
+$_POST['action']='join_closed_group';
+$_POST['group_id']=33868;
+$_POST['nonce']=wp_create_nonce('join_closed_group_request');
+
+ $groups = new KCC\Groups();
+ $groups->ajaxJoinOpenGroup();
+

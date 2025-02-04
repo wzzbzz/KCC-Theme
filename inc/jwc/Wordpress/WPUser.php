@@ -22,6 +22,14 @@ class WPUser extends WPEntity{
         return get_user_meta($this->user_id, $field_name, true);
     }
 
+    public function update_meta($field_name, $value){
+        return update_user_meta($this->user_id, $field_name, $value);
+    }
+
+    public function delete_meta($field_name){
+        return delete_user_meta($this->user_id, $field_name);
+    }
+
     public function name(){
         return get_the_author_meta('display_name', $this->user_id);
     }
@@ -39,7 +47,7 @@ class WPUser extends WPEntity{
     }
 
     public function email(){
-        return $this->meta('user_email');
+        return $this->user_email();
     }
     
     public function user_email(){

@@ -29,7 +29,7 @@
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/style.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/responsive.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/wcc_custom_style.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/style_new.min.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= get_template_directory_uri();?>/assets/css/style_new.min.css"/>
 
 </head>
 <body class="main_all_bg_Sec">
@@ -80,7 +80,7 @@
                             </ul>
                         </div>
                     <div class="back_btn">
-                        <a href="<?php echo site_url('wccgroups')?>">Back</a>
+                        <a href="<?php echo site_url('groups')?>">Back</a>
                     </div>
                     </div>
                 <div class="groups_tabs">

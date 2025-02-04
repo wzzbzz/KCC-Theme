@@ -33,7 +33,7 @@
     <link rel='stylesheet' id='elementor-icons-shared-0-css' href='https://knowledge.communication.worldcares.org/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.min.css?ver=5.15.3' type='text/css' media='all' />
     <link rel='stylesheet' id='elementor-icons-fa-solid-css' href='https://knowledge.communication.worldcares.org/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.min.css?ver=5.15.3' type='text/css' media='all' />
     <script src="https://knowledge.communication.worldcares.org/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/js/iconHelper.js?ver=1.0" id="eae-iconHelper-js"></script>
-     <link rel="stylesheet" type="text/css" href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/style_new.min.css"/>
+     <link rel="stylesheet" type="text/css" href="<?= get_template_directory_uri();?>/assets/css/style_new.min.css"/>
 </head>
 <body class="main_all_bg_Sec">
     <style type="text/css">
@@ -83,7 +83,7 @@
                             </ul>
                         </div>
                     <div class="back_btn">
-                        <a href="<?php echo site_url('wccgroups')?>">Back</a>
+                        <a href="<?php echo site_url('groups')?>">Back</a>
                     </div>
                     </div>
                 <div class="groups_tabs">

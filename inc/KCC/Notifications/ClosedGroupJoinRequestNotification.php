@@ -76,10 +76,11 @@ class ClosedGroupJoinRequestNotification extends Notification
 
         foreach ($this->recipients['to'] as $recipient) {
     
-            $this->body = sprintf(" Hi %s,\n
-                        %s has requested to join your group %s. Please accept/reject user invitation from your My Dashboard section.\n
-                        View Invitation: " . site_url('tab-my-group-requests') . "\n
-                        Thank You, Admin", $recipient->name(), $this->user->name(), $this->group->name());
+            $this->body = sprintf("Hi %s,<br>
+                        %s has requested to join your group %s. Please accept/reject user invitation from your My Dashboard section.<br>
+                        View Invitation: " . site_url('groups') . "<br>
+                        Thank You,<br>
+                        The KCC Notifications Droid", $recipient->name(), $this->user->name(), $this->group->name());
             $result = wp_mail($recipient->email(), $this->subject, $this->body, $this->headers);
 
 
@@ -108,7 +109,7 @@ class ClosedGroupJoinRequestNotification extends Notification
         global $wpdb;
 
         $this->body = sprintf("%s has requested to join your group %s.",$this->user->name(), $this->group->name());
-        $this->actionlink = esc_url(site_url('tab-my-group-requests'));
+        $this->actionlink = "";
 
         // insert into kcc_notifications
         $insert_result = $wpdb->insert(

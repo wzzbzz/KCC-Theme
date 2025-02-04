@@ -3,12 +3,15 @@
 namespace KCC\Notifications;
 
 use KCC\Group;
+use KCC\User;
 
-class GroupApprovalNotification extends Notification
+class GroupMemberLeftNotification extends Notification
 {
 
     protected $group_id;
     protected $group;
+    protected $user_id;
+    protected $user;
 
     private $emailLogId;
 
@@ -25,6 +28,15 @@ class GroupApprovalNotification extends Notification
             return;
         }
 
+        $this->user_id = $args['user_id'] ?? '';
+
+        if(empty($this->user_id)){
+            die("no");
+            return;
+        }
+
+        $this->user = new User($this->user_id);
+
         // the recipient will be the groupLeader
         $this->group = new Group($this->group_id);
         $groupLeader = $this->group->getLeader();
@@ -33,7 +45,7 @@ class GroupApprovalNotification extends Notification
         $this->recipients['to'] = [$groupLeader];
 
         // set the subject here for now
-        $this->subject = "Your Group Has Been Approved";
+        $this->subject = "User Left Notification";
     }
 
     public function send()
@@ -63,8 +75,12 @@ class GroupApprovalNotification extends Notification
         global $wpdb;
 
         foreach ($this->recipients['to'] as $recipient) {
-            $this->body = sprintf("Hi %s,\n" .
-                "Your group %s has been approved.\n", $recipient->name(), $this->group->name());
+    
+            $this->body = sprintf("Hi %s,<br>
+                        %s has left group <strong>%s</strong>. There is nothing for you to do at this time.<br>
+                        View Invitation: " . site_url('groups') . "<br>
+                        Thank You,<br>
+                        The KCC Notifications Droid", $recipient->name(), $this->user->name(), $this->group->name());
             $result = wp_mail($recipient->email(), $this->subject, $this->body, $this->headers);
 
 
@@ -92,8 +108,8 @@ class GroupApprovalNotification extends Notification
     {
         global $wpdb;
 
-        $this->body = sprintf("Your group,  %s, has been approved", $this->group->name());
-        $this->actionlink = esc_url(site_url('wp-admin/edit.php?post_type=groups'));
+        $this->body = sprintf("%s has left join your group <strong>%s</strong>.",$this->user->name(), $this->group->name());
+        $this->actionlink = "";
 
         // insert into kcc_notifications
         $insert_result = $wpdb->insert(
