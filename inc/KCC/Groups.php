@@ -11,31 +11,71 @@ class Groups extends \jwc\Wordpress\WPCollection
     public function __construct()
     {
         parent::__construct('groups');
+
+        add_filter('query_vars', array($this, 'add_query_vars'));
     }
     public function init()
     {
         add_action('publish_groups', array($this, 'sendApprovalNotification'));
-        add_action('trash_groups', array($this, 'sendDeclineNotification'));
+        add_action('trash_groups', array($this, 'trashGroup'));
 
+        // user joins open group
         add_action('wp_ajax_join_open_group', array($this, 'ajaxJoinOpenGroup'));
         //add_action('wp_ajax_nopriv_join_open_group', array($this, 'ajaxJoinOpenGroup'));
 
+        // user requests to join a closed group
         add_action('wp_ajax_join_closed_group_request', array($this, 'ajaxJoinClosedGroupRequest'));
         //add_action('wp_ajax_nopriv_join_closed_group_request', array($this, 'ajaxJoinClosedGroupRequest'));
 
+        // user cancels join group request 
         add_action('wp_ajax_cancel_join_group_request', array($this, 'ajaxCancelGroupJoinRequest'));
         //add_action('wp_ajax_nopriv_join_closed_group_request', array($this, 'ajaxJoinClosedGroupRequest'));
 
+        // Leader accepts user request to join a group.  
+        add_action('wp_ajax_accept_group_join_request', array($this, 'ajaxAcceptGroupJoinRequest'));
+        //add_action('wp_ajax_nopriv_accept_group_request', array($this, 'ajaxAcceptGroupJoinRequest'));        
+
+        // leader declines user request to join a group
+        add_action('wp_ajax_decline_group_join_request', array($this, 'ajaxDeclineGroupJoinRequest'));
+        
+
+        // leader sends invite to member 
         add_action('wp_ajax_send_closed_group_invite', array($this, 'ajaxSendClosedGroupInvite'));
         //add_action('wp_ajax_nopriv_send_closed_group_invite', array($this, 'ajaxSendClosedGroupInvite'));
 
-        add_action('wp_ajax_accept_group_request', array($this, 'ajaxAcceptGroupJoinRequest'));
+        // leader cancels group invite
+        add_action('wp_ajax_cancel_group_invite', array($this, 'ajaxCancelGroupInvite'));
         //add_action('wp_ajax_nopriv_accept_group_request', array($this, 'ajaxAcceptGroupJoinRequest'));
 
+        // user accepts invitation
+        add_action('wp_ajax_accept_group_invite', array($this, 'ajaxAcceptGroupInvite'));
+        //add_action('wp_ajax_nopriv_accept_group_invite', array($this, 'ajaxAcceptGroupInvite'));
+
+        // user declines invitation
+        add_action('wp_ajax_decline_group_invite', array($this, 'ajaxDeclineGroupInvite'));
+    
+        // user leaves group
         add_action('wp_ajax_leave_group', array($this, 'ajaxLeaveGroup'));
+
+        // leader removes member
+        add_action('wp_ajax_remove_group_member', array($this, 'ajaxRemoveGroupMember'));
+
+
+        // add rewrite rule for manage-groups page 
+        $this->add_rewrite_rules();
 
         $this->possiblyCreateGroup();
 
+    }
+
+    public function add_rewrite_rules(){
+        add_rewrite_rule('^groups/([^/]*)/manage-requests/?$', 'index.php?pagename=group-members&group_slug=$matches[1]', 'top');
+    }
+
+    public function add_query_vars($vars)
+    {
+        $vars[] = 'group_slug';
+        return $vars;
     }
 
     public function sendApprovalNotification($group_id)
@@ -43,6 +83,31 @@ class Groups extends \jwc\Wordpress\WPCollection
         $args = ['group_id' => $group_id];
         $notification = new \KCC\Notifications\GroupApprovedNotification($args);
         $notification->send();
+    }
+
+
+    public function trashGroup($group_id)
+    {
+        // In WordPress, when a post is trashed, you can check the previous state using the '_wp_trash_meta_status' post meta.
+        $previous_status = get_post_meta($group_id, '_wp_trash_meta_status', true);
+
+        switch($previous_status){
+            case 'publish':
+                $this->sendGroupRemovedNotification($group_id);
+                break;
+            case 'pending':
+                $this->sendDeclineNotification($group_id);
+                break;
+        }
+
+    }   
+
+    public function sendGroupRemovedNotification($group_id){
+
+        $args = ['group_id' => $group_id];
+        $notification = new \KCC\Notifications\GroupRemovedNotification($args);
+        $notification->send();
+
     }
 
     public function sendDeclineNotification($id)
@@ -168,6 +233,11 @@ class Groups extends \jwc\Wordpress\WPCollection
         }
 
         $group = new Group($group_id);
+
+        // check to see if it's an Open Group
+        if ($group->isClosed()) {
+            wp_send_json_error('This is a closed group');
+        }
         $result = $group->addMember($current_user_id);
 
         $responseData = array();
@@ -217,15 +287,11 @@ class Groups extends \jwc\Wordpress\WPCollection
             wp_send_json_error('You have already requested to join this group');
         }
 
-        $result = $group->sendUserJoinRequest($current_user_id);
+        // all invites are done in here.
+        $result = $group->joinRequest($current_user_id);
         
-        //CLEANUP POINT B
-
-        /* M001: User Join Notification to Group Owner */
-
-        $args = ['group_id' => $group_id, 'user_id' => $current_user_id];
-        $notification = new \KCC\Notifications\ClosedGroupJoinRequestNotification($args);
-        $notification->send();
+        FlashMessages::add('Request sent successfully', 'success');
+        
         $myArr['result'] = $result;
         $myArr['msg'] = "Request sent successfully";
         
@@ -245,36 +311,45 @@ class Groups extends \jwc\Wordpress\WPCollection
 
 
         $myArr['result'] = $responseData;
-        $myArr['msg'] = "Accepted";
+        $myArr['msg'] = "Cancelled";
         wp_send_json_success($myArr);
     }
 
     public function ajaxAcceptGroupJoinRequest()
     {
-
-        global $wpdb;
-
         $group_id = $_POST['group_id'];
-        $member_id = $_POST['uid'];
+        $request_id = $_POST['request_id'];
+        $member_id = $_POST['user_id'];
+        
 
         $group = new Group($group_id);
-        $responseData = $group->acceptRequest($member_id);
-        $id = $_POST['id'];
+        $responseData = $group->acceptUserRequest($request_id);
         $myArr = array();
-        $responseData = $wpdb->update('group_invite', array('status' => 'accepted'), array('id' => $id, 'group_id' => $group_id));
-        if (isset($member_id)) {
-            if (! empty($group_id)) {
-                ld_update_group_access($member_id, $group_id);
-            }
-        }
 
-        // send notification to user 
-        $args = ['group_id' => $group_id, 'user_id' => $member_id];
-        $notification = new \KCC\Notifications\GroupJoinRequestAcceptedNotification($args);
-        $notification->send();
-        
         $myArr['responseData'] = $responseData;
         $myArr['msg'] = "Accepted";
+        $myJSON = json_encode($myArr);
+        echo $myJSON;
+
+        die();
+    }
+
+    public function ajaxDeclineGroupJoinRequest(){
+
+        $group_id = $_POST['group_id'];
+        $request_id = $_POST['request_id'];
+        $member_id = $_POST['user_id'];
+
+        $group = new Group($group_id);
+        $responseData = $group->declineUserRequest($request_id);
+
+        $args = ['group_id' => $group_id, 'user_id' => $member_id];
+        $notification = new \KCC\Notifications\JoinRequestDeclinedNotification($args);
+        $notification->send();
+
+        $myArr = array();
+        $myArr['responseData'] = $responseData;
+        $myArr['msg'] = "Declined";
         $myJSON = json_encode($myArr);
         echo $myJSON;
 
@@ -287,10 +362,11 @@ class Groups extends \jwc\Wordpress\WPCollection
         global $wpdb;
 
         $group_id = $_POST['group_id'];
-        $member_id = $_POST['uid'];
+        $member_id = $_POST['mid'];
+
         $myArr = array();
 
-        $sql = "SELECT * FROM group_invite WHERE group_id = '" . $group_id . "' AND invited_to = '" . $member_id . "' AND invited_from ='" . get_current_user_id() . "' ";
+        $sql = "SELECT * FROM group_invite WHERE group_id = '" . $group_id . "' AND user_id='" . $member_id . "' AND status='pending'";
 
         $check = $wpdb->get_results($sql, ARRAY_A);
 
@@ -302,33 +378,114 @@ class Groups extends \jwc\Wordpress\WPCollection
         }
 
         $tablename =  'group_invite';
-        $current_user_id = get_current_user_id();
         $group_id = ($_POST['group_id']) ? $group_id : "";
 
-        $insertData = array(
-            'invited_to' => $member_id,
-            'invited_from' => $current_user_id,
+        $data = array(
+            'group_id' => $group_id,
+            'user_id' => $member_id,
             'status' => 'pending',
-            'request_type' => 'invite',
-            'group_id' => $group_id
+            'request_type'=> 'invitation',
+            'notification_sent' => 0
         );
 
-        $dd = $wpdb->insert('group_invite', $insertData);
+        $wpdb->insert($tablename, $data);
 
+    
         //CLEANUP POINT B
 
         /* M001: User Join Notification to Group Owner */
 
         $args = ['group_id' => $group_id, 'user_id' => $member_id];
-        $notification = new \KCC\Notifications\ClosedGroupInviteNotification($args);
+        $notification = new \KCC\Notifications\InvitationNotification($args);
         $notification->send();
 
-        $myArr['sql'] = $dd;
+        // update the notification sent 
+        $wpdb->update('group_invite', array('notification_sent' => 1), array('user_id' => $member_id, 'group_id' => $group_id));
         $myArr['msg'] = "Invited successfully";
         $myJSON = json_encode($myArr);
         echo $myJSON;
 
         die();
+    }
+
+    public function ajaxCancelGroupInvite(){
+
+        global $wpdb;
+
+        $group_id = $_POST['group_id'];
+        $member_id = $_POST['user_id'];
+
+        if(empty($group_id) || empty($member_id)){
+            wp_send_json_error('Group ID and Member ID are required');
+        }
+
+        $group = new Group($group_id);
+        $result = $group->removeMember($member_id);
+
+        // delete the invite 
+        $wpdb->delete('group_invite', array('group_id' => $group_id, 'user_id' => $member_id));
+
+        $myArr = array();
+        $myArr['result'] = $result;
+        $myArr['msg'] = "Cancelled";
+
+        // send notification to group owner
+        $args = ['group_id' => $group_id, 'user_id' => $member_id];
+        $notification = new \KCC\Notifications\InvitationCancelledNotification($args);
+        $notification->send();
+
+        wp_send_json_success($myArr);
+    }
+
+    public function ajaxAcceptGroupInvite()
+    {
+        global $wpdb;
+
+        $group_id = $_POST['group_id'];
+        $member_id = get_current_user_id();
+
+        $group = new Group($group_id);
+        $result = $group->addMember($member_id);
+
+        // delete the invite
+        $wpdb->delete('group_invite', array('group_id' => $group_id, 'user_id' => $member_id));
+
+        $myArr = array();
+        $myArr['result'] = $result;
+        $myArr['msg'] = "Accepted";
+
+        // send notification to group owner
+        $args = ['group_id' => $group_id, 'user_id' => $member_id];
+      
+        $notification = new \KCC\Notifications\InvitationAcceptedNotification($args);
+        $notification->send();
+
+        wp_send_json_success($myArr);
+    }
+
+    public function ajaxDeclineGroupInvite(){
+        global $wpdb;
+
+        $group_id = $_POST['group_id'];
+        $member_id = get_current_user_id();
+
+        // delete the invite
+        $wpdb->delete('group_invite', array('group_id' => $group_id, 'user_id' => $member_id));
+
+        if($wpdb->last_error){
+            wp_send_json_error($wpdb->last_error);
+        }
+
+        $myArr = array();
+        $myArr['result'] = $result;
+        $myArr['msg'] = "Declined";
+
+        // send notification to group owner
+        $args = ['group_id' => $group_id, 'user_id' => $member_id];
+        $notification = new \KCC\Notifications\InvitationDeclinedNotification($args);
+        $notification->send();
+
+        wp_send_json_success($myArr);
     }
 
     public function ajaxLeaveGroup()
@@ -342,7 +499,8 @@ class Groups extends \jwc\Wordpress\WPCollection
         $group = new Group($group_id);
         $result = $group->removeMember($member_id);
 
-        $notification = new \KCC\Notifications\GroupMemberLeftNotification($group_id, $member_id);
+        $notification = new \KCC\Notifications\GroupMemberLeftNotification(["group_id"=>$group_id, "user_id"=>$member_id]);
+        $notification->send();
 
         $myArr['msg'] = "Left";
         $myArr['result'] = $result;
@@ -350,5 +508,58 @@ class Groups extends \jwc\Wordpress\WPCollection
 
         wp_send_json_success($myArr);
 
+    }
+
+    public function ajaxRemoveGroupMember(){
+        
+        $group_id = $_POST['group_id'];
+        $member_id = $_POST['member_id'];
+
+        if(empty($group_id) || empty($member_id)){
+            wp_send_json_error('Group ID and Member ID are required');
+        }
+
+        $group = new Group($group_id);
+
+        if($group==false){
+            wp_send_json_error('Group not found');
+        }
+
+        if(!$group->currentUserIsLeader()){
+            wp_send_json_error('You are not the leader of this group');
+        }
+
+        if(!$group->userIsMember($member_id)){
+            wp_send_json_error('User is not a member of this group');
+        }
+
+
+        $result = $group->removeMember($member_id);
+
+        $notification = new \KCC\Notifications\GroupMemberRemovedNotification(["group_id"=>$group_id, "user_id"=>$member_id]);
+        $notification->send();
+
+        $myArr['msg'] = "Removed";
+        $myArr['result'] = $result;
+
+        wp_send_json_success($myArr);
+    }
+
+    public static function getGroupBySlug($slug)
+    {
+        $args = array(
+            'name'        => $slug,
+            'post_type'   => 'groups',
+            'post_status' => 'publish',
+            'numberposts' => 1
+        );
+
+        $posts = get_posts($args);
+
+        if (count($posts) > 0) {
+            return new Group($posts[0]->ID);
+        }
+
+        return null;
     }
 }

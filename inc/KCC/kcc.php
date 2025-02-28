@@ -29,6 +29,21 @@ spl_autoload_register(function ($class) {
     }
 });
 
+/* function for comments */
+//add_filter( 'comment_form_defaults', 'leave_a_comment_title_tag' );
+function leave_a_comment_title_tag( $defaults ){
+  $user = new KCC\User( get_current_user_id() );
+  $defaults['title_reply_before'] = '<p id="reply-title" class="comment-reply-title">';
+  $defaults['title_reply_after'] = '</p>';
+  return $defaults;
+}
+
 new KCC\Groups();
 new KCC\Roles();
+new KCC\Communications\Announcements();
+new KCC\Communications\BlogPosts();
 new KCC\FlashMessages\FlashMessages();
+
+// right now Reports must precede Forms....
+new KCC\Reports\Reports();
+new KCC\Forms\Forms();

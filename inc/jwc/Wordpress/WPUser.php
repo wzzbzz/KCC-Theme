@@ -26,12 +26,16 @@ class WPUser extends WPEntity{
         return update_user_meta($this->user_id, $field_name, $value);
     }
 
-    public function delete_meta($field_name){
-        return delete_user_meta($this->user_id, $field_name);
-    }
-
     public function name(){
         return get_the_author_meta('display_name', $this->user_id);
+    }
+
+    public function first_name(){
+        return get_the_author_meta('first_name', $this->user_id);
+    }
+
+    public function last_name(){
+        return get_the_author_meta('last_name', $this->user_id);
     }
 
     public function user_id(){

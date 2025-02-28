@@ -273,47 +273,6 @@ $(document).ready(function () {
     });
 
 
-
-
-
-    $(".acceptUser").click(function (e) {
-
-        e.preventDefault();
-
-        var group_id = "<?php echo $post->ID?>";
-
-        var uid = $(this).data("uid");
-
-        var id = $(this).data("id");
-
-        var nonce = $(this).attr("data-nonce");
-
-        $.ajax({
-
-            type: "post",
-
-            dataType: "json",
-
-            url: ajaxUrlaccept,
-
-            data: { "action": "accept_group_request", "uid": uid, "group_id": group_id, "id": id, "nonce": nonce },
-
-            success: function (response) {
-
-                $('.ums_btn' + id).text(response.msg);
-
-                $('.ums_' + id).remove();
-
-
-
-            }
-
-        })
-
-    });
-
-
-
     $(".rejectUser").click(function (e) {
 
         e.preventDefault();

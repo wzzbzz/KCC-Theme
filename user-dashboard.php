@@ -5,7 +5,7 @@
 if (is_user_logged_in()) {
 
    $current_page = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
-  // $id = $_GET['id'];
+   // $id = $_GET['id'];
 
    global $wpdb;
 
@@ -124,6 +124,9 @@ if (is_user_logged_in()) {
 
    $skillList = $wpdb->get_results("SELECT * FROM user_skills WHERE user_id = '" . $current_user->ID . "' ", ARRAY_A);
 
+   $kcc_user = new KCC\User(get_current_user_id());
+
+
    get_header('dashboard');
 ?>
 
@@ -135,102 +138,73 @@ if (is_user_logged_in()) {
 
          <div class="col-xl-11 col-lg-11 col-md-11 col-10 ">
 
-            <div class="donation_tab_pills">
+            <div class="donation_tab_pills profile-information-background">
 
-               <div class="donate_detais_main profile_img">
+               <div class="donate_detais_main profile-information-container">
 
-                  <!-- <img src="<?php //echo get_template_directory_uri(); 
-                                 ?>/assets/images/detail_click.png" class="img-fluid membergroup-img pro_img1" alt="image"> -->
-
-                  <?php
-
-                  $cover_img = get_user_meta($current_user->ID, 'cover_photo', true);
-
-                  if (empty($cover_img)) {
-
-                     $cover_img = "https://via.placeholder.com/1920x318";
-                  }
-
-                  ?>
-
-                  <div class="avatar-preview">
-
-                     <div id="imagePreview" class="profile-cover-image" style="background-image: url('<?php echo $cover_img; ?>');">
-
+                  <div class="profile-information-column">
+                     <!-- first the user avatar -->
+                     <div class="profile_image_div  d-flex justify-content-center">
+                        <img class="profile_image" src="<?php echo $kcc_user->user_avatar_url(); ?>">
                      </div>
-
-                  </div>
-
-                  <!--<div class="avatar-edit">
-
-                      <form id="imageuploadform" action="" method="post"  enctype="multipart/form-data">
-
-                         <input type="hidden" name="action" value="dashboard_image_upload">
-
-                         <input type='file' id="imageUpload" name="imageUpload" accept=".png, .jpg, .jpeg" />
-
-                         <label for="imageUpload"></label>
-
-                      </form>
-
-                   </div>-->
-
-                  <div class="d-lg-flex align-items-center profile_user_details justify-content-between">
-
-                     <div class="profile_user_details1 ml-4">
-
-                        <span class="display_pic"><img class="image1" src="<?php echo $avatar_url; ?>"> </span>
-
+                     <div class="display_name d-flex justify-content-center">
+                        <?php echo  $current_user->first_name ?> <?php echo  $current_user->last_name ?></div>
+                     <div class="display_email d-flex justify-content-center">
+                        <a href="mailto:<?= $current_user->user_email ?>"><?= $current_user->user_email; ?></a>
                      </div>
-
-                     <div class="profile_user_details2 align-self-end">
-
-                        <span class="display_name d-block"><?php echo  $current_user->first_name ?> <?php echo  $current_user->last_name ?></span>
-
-                        <span class="display_email d-block"><?php echo  $current_user->user_email ?></span>
-
+                     <div class="display_location d-flex justify-content-center">
+                        <span>New York, New York</span>
                      </div>
-
-                     <div class=" profile_count d-lg-flex d-md-flex align-self-end">
-
-                        <div class="profile_count_main d-lg-flex d-md-flex justify-content-between px-2 align-items-center">
-
-                           <div class="profile_count1 d-flex justify-content-start align-items-center">
-
-                              <div class="px-2"><span><?php echo myFollowing() ?></span></div>
-
-                              <div class="">
-
-                                 <p>Connects</p>
-
+                     <!-- then the location and number of connects -->
+                     <div class="display_groups_connects  d-flex justify-content-center">
+                        <div class="profile_count d-lg-flex d-md-flex align-self-end">
+                           <div class="profile_count_main d-lg-flex d-md-flex justify-content-between px-2 align-items-center">
+                              <div class="profile_count1 d-flex justify-content-start align-items-center">
+                                 <div class="px-2"><span><?php echo myFollowing() ?></span></div>
+                                 <div class="">
+                                    <p>Connects</p>
+                                 </div>
                               </div>
-
-                           </div>
-
-                           <div class=" profile_count2 d-flex justify-content-start align-items-center">
-
-                              <div class="px-3"><span><?php echo count_user_posts($current_user->ID, 'groups') ?></span></div>
-
-                              <div class="">
-
-                                 <p>Groups</p>
-
+                              <div class=" profile_count2 d-flex justify-content-start align-items-center">
+                                 <div class="px-3"><span><?php echo count_user_posts($current_user->ID, 'groups') ?></span></div>
+                                 <div class="">
+                                    <p>Groups</p>
+                                 </div>
                               </div>
-
                            </div>
-
-                        </div>
-
-                     </div>
-
-                     <div class="profile_medal d-lg-flex align-self-end ml-3 mr-3">
-                        <div class="row profile_count_main">
-                           <?php echo do_shortcode('[user_badges]'); ?>
                         </div>
                      </div>
-
+                     <!-- then the badges -->
+                     <div class="profile_medal1 d-flex justify-content-center ml-3 mr-3">
+                        <div class="d-flex justify-content-center">
+                              <!-- begin badges paste -->
+                              <div class="col-md-3 col-3">
+                                 <div class="text-center pt-1 pb-2">
+                                    <a href="/courses/the-collaborative-disaster-volunteer-credential-level-one/">
+                                       <img src="/wp-content/themes/astra/assets/images/cdvc_1b.png" width="50" class="img-fluid membergroup-img1 pro_img1" alt="image">
+                                    </a>
+                                 </div>
+                              </div>
+                              <div class="col-md-3 col-3">
+                                 <div class="text-center pt-1 pb-2">
+                                    <a href="/courses/the-collaborative-disaster-volunteer-credential-level-two/">
+                                       <img src="/wp-content/themes/astra/assets/images/cdvc_2b.png" width="50" class="img-fluid membergroup-img1 pro_img2" alt="image">
+                                    </a>
+                                 </div>
+                              </div>
+                              <div class="col-md-3 col-3">
+                                 <div class="text-center pt-1 pb-2">
+                                    <a href="/courses/the-collaborative-disaster-volunteer-credential-level-three/">
+                                       <img src="/wp-content/themes/astra/assets/images/cdvc_3b.png" width="50" class="img-fluid membergroup-img1 pro_img3" alt="image">
+                                    </a>
+                                 </div>
+                              </div>
+                           <!-- end badges paste -->
+                           <?php //echo do_shortcode('[user_badges]'); 
+                           ?>
+                        </div>
+                     </div>
                   </div>
-
                </div>
 
             </div>
@@ -289,8 +263,6 @@ if (is_user_logged_in()) {
 
                <div class="tab-content" id="pills-tabContent">
 
-
-
                   <div class="tab-pane fade show active" id="pills-dashboard" role="tabpanel" aria-labelledby="pills-dashboard-tab">
 
                      <?php include('dashboard_tab_inc.php') ?>
@@ -346,6 +318,7 @@ if (is_user_logged_in()) {
 
 
                   </div>
+
 
                   <div class="tab-pane fade" id="pills-annoucements" role="tabpanel" aria-labelledby="pills-annoucements-tab">
 
@@ -892,4 +865,4 @@ if (is_user_logged_in()) {
 
    </div>
 
-<?php get_footer(); ?>
+   <?php get_footer(); ?>

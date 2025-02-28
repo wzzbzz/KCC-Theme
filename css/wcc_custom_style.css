@@ -406,7 +406,7 @@ ul.super_box li img {
 	height: 40px;
 	width: 40px;
 	border-radius: 50%;
-	margin-left: -15px;
+	/* margin-left: -15px; */
 }
 .main_all_bg_Sec .custom-card .main-group-image .mem-image:first-child img{
 	margin-left: -45px;

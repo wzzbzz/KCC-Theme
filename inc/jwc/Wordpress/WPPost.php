@@ -15,6 +15,12 @@ class WPPost extends WPEntity{
             }
             
         }
+
+        // check to see if post exists
+        if(!get_post($post_id)){
+            return false;
+        }
+
         $this->post_id = $post_id;    
     }
 
@@ -39,8 +45,9 @@ class WPPost extends WPEntity{
         return apply_filters('the_excerpt', get_post_field('post_excerpt', $this->post_id));
     }
 
-    public function date(){
-        return get_the_date('F j, Y', $this->post_id);
+    public function date($fmt = 'F j, Y'){
+        $post = get_post($this->post_id);
+        return date($fmt, strtotime($post->post_date));
     }
 
     public function author_id(){
@@ -51,8 +58,11 @@ class WPPost extends WPEntity{
         return new \jwc\Wordpress\WPUser( $this->author_id() );
     }
 
-    public function thumbnail($size = 'thumbnail'){
-        return get_the_post_thumbnail($this->post_id, $size);
+    public function thumbnail($size = 'large'){
+        if(empty($this->thumbnail_url($size))){
+            return '';
+        }
+        return "<img src='{$this->thumbnail_url($size)}' alt='{$this->thumbnail_alt($size)}' title='{$this->thumbnail_title($size)}' />";
     }
 
     public function permalink(){

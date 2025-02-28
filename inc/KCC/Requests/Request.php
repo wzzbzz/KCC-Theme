@@ -37,6 +37,11 @@ class Request{
     public function status(){
         return $this->data->status;
     }
+    
+    public function set_status(){
+        global $wpdb;
+        $sql = "UPDATE group_requests SET status = 'approved' WHERE id = %d";
+    }
 
     public function request_type(){
         return $this->data->request_type;

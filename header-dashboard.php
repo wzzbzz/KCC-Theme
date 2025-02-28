@@ -25,7 +25,9 @@
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/evolution.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/style.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/responsive.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/wcc_custom_style.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/assets/css/media.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="<?= get_template_directory_uri(); ?>/assets/css/style_new.min.css" />

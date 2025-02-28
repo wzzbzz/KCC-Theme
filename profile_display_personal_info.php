@@ -39,7 +39,7 @@ $is_own_profile = ($current_user_id === $user_id);
         <?php if ($is_own_profile): ?>
             <div class="align-items-center pro_ico" id="profilepersonal">
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/images/Union 4.png">
-                <span><a href="/profile-edit-personal-info/">Edit Personal Info</a></span>
+                <span><a href="/profile/">Edit Personal Info</a></span>
             </div>
 
 

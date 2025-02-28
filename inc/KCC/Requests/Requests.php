@@ -21,5 +21,6 @@ class Requests{
         $sql = $wpdb->prepare($sql, $user_id);
         return $wpdb->get_results($sql);
     }
+    
 
 }

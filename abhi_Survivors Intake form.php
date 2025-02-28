@@ -114,7 +114,7 @@
 
                     <div class="notification_Sec_main">
 
-                        <h5>Survivors Needs intack form</h5>                                                   
+                        <h5>Survivors Needs Intake form</h5>                                                   
 
                     </div>                    
 
@@ -151,18 +151,6 @@
             </div>
 
         </div>
-
-
-
-
-
-        
-
-
-
-
-
-
 
         <div class="row justify-content-end mt-3">
 

@@ -1,3 +1,4 @@
+
 <div class="d-lg-flex justify-content-lg-between w-100 align-items-lg-center">
 	<div class="text width-change">
 		<!--<p class="title-text">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>-->
@@ -11,6 +12,7 @@
 
 <div class="row blog-card-box">
 <?php 
+
 $current_user_id = get_current_user_id();
 
 if(! empty($_GET['pag']) && is_numeric($_GET['pag']) ){
@@ -25,7 +27,6 @@ $args = array(
   'posts_per_page' =>-1,
     'post_type' => 'announcement',
     'post_status'    => 'publish',
-    'author'        =>  $current_user_id,
     'tax_query' => array(
         array(
             'taxonomy' => 'ld_course_category', //double check your taxonomy name in you dd 
@@ -42,10 +43,9 @@ if($paged > $num_pages || $paged < 1){
 }
 
 
-$allAnnoncements = get_posts( array(
+$allAnnouncements = get_posts( array(
                             'post_type'      => 'announcement',
                             'post_status'    => 'publish',
-                            'author'        =>  $current_user_id,
                            'posts_per_page'   => $posts_per_page,
                             'paged'        => $paged,
                             'meta_query' =>   array(
@@ -58,17 +58,17 @@ $allAnnoncements = get_posts( array(
                                                     )
                                                                                     )
                             ) );		
-foreach($allAnnoncements as $value)
+foreach($allAnnouncements as $value)
 {
-$annoncementImg = wp_get_attachment_url( get_post_thumbnail_id($value->ID) );
-if(empty($annoncementImg)){                                                        
-    $annoncementImg= "https://via.placeholder.com/120x88";
+$announcementImg = wp_get_attachment_url( get_post_thumbnail_id($value->ID) );
+if(empty($announcementImg)){                                                        
+    $announcementImg= "https://via.placeholder.com/120x88";
 }
 
  ?>
 	<div class="col-lg-3 col-12">
         <div class="blog-card">
-            <div class="image">
+            <div class="image d-flex justify-content-center">
                 <a href="<?php echo get_permalink( $value->ID )?>">
                     
                 <?php echo get_the_post_thumbnail($value->ID)?>
@@ -84,7 +84,7 @@ if(empty($annoncementImg)){
                             data-id="<?php echo $value->ID; ?>"
                              data-title="<?php echo $value->post_title; ?>"
                               data-desc="<?php echo $value->post_content; ?>"
-                               data-img="<?php echo $annoncementImg; ?>"
+                               data-img="<?php echo $announcementImg; ?>"
 
 
                             >Edit</a>
@@ -202,7 +202,7 @@ if(empty($annoncementImg)){
                 <div class="row">
                     <div class="col-md-12">
                         <form method ="post"class="form-upload  resources-modal-page float" id="" enctype="multipart/form-data">
-                            <input type="hidden" name="ugroup_id" value="<?php echo $post->ID?>" />
+                            <input type="hidden" name="group_id" value="<?php echo $group->id()?>" />
                             <input type="hidden" name="create_announcement" value="create_announcement">
                              <input type="hidden" name="group_image_nonce" value="<?php echo wp_create_nonce('group_image_nonce'); ?>" />
 
@@ -273,7 +273,7 @@ if(empty($annoncementImg)){
                 <div class="row">
                     <div class="col-md-12">
                         <form method ="post"class="form-upload  resources-modal-page float" id="" enctype="multipart/form-data">
-                            <input type="hidden" name="ugroup_id" value="<?php echo $post->ID?>" />
+                            <input type="hidden" name="group_id" value="<?php echo $post->ID?>" />
                             <input type="hidden" id="edit_ann_id" name="edit_ann_id" value="" />
                             <input type="hidden" name="update_announcement" value="update_announcement">
                              <input type="hidden" name="group_image_nonce" value="<?php echo wp_create_nonce('group_image_nonce'); ?>" />

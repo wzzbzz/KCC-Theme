@@ -3,15 +3,18 @@
   $current_url =  home_url( $wp->request );
   $current_user_id = get_current_user_id();
 
+  $user = new KCC\User($current_user_id);
+  $group = new KCC\Group($post->ID);
+
 
   //echo $groupId =  $_GET['group_id'];
   //$group_type = get_post_meta($groupId,'group_type',true);
-// $allMemnbersID = learndash_get_groups_user_ids($groupId);
+// $all_member_ids = learndash_get_groups_user_ids($groupId);
 //$userList = learndash_get_groups_user_ids($grpupVal->ID);
 
-  $allMemnbersID = learndash_get_groups_user_ids($post->ID);
+  $all_member_ids = $group->getMemberIds();
 
-  //print_r($allMemnbersID);
+  //print_r($all_member_ids);
 ?>
 <div class="row">
 	<div class="col-lg-12">
@@ -45,10 +48,11 @@
                     </div>
 
                     <?php 
+
+                       $reports = $group->getReports();
                        $reportData = get_posts( array(
                                                  'post_type'      => 'reportsforms',
                                                  'post_status'    => 'publish',
-                                                 'post_author'    =>  $current_user_id,
                                                  'numberposts' => 1000,
                                                   'meta_query'    => array(
                                                             'relation'      => 'AND',
@@ -82,9 +86,9 @@
                                     foreach($reportData as $report){
                                             $rid = $report->ID;
                                             $postauthor = $report->post_author;
-                                            $allMemnbersID = learndash_get_groups_user_ids($post->ID);
+                                            $all_member_ids = learndash_get_groups_user_ids($post->ID);
                                             $postMeta = get_post_meta($rid);
-                                         if($current_user_id == $postauthor || in_array($current_user_id, $allMemnbersID)){
+                                         if($current_user_id == $postauthor || in_array($current_user_id, $all_member_ids)){
                                          ?>
                                     <tr class="bg-color">
                                         <td><?php echo get_post_meta($rid,'report_id',true)?></td>
@@ -198,9 +202,9 @@
                                         $rid = $report->ID;
                                         $postMeta = get_post_meta($rid);
                                         $postauthor = $report->post_author;
-                                        $allMemnbersID = learndash_get_groups_user_ids($post->ID);
+                                        $all_member_ids = learndash_get_groups_user_ids($post->ID);
                                         $reportID = get_post_meta($rid,'report_id',true);
-                                        if($current_user_id == $postauthor || in_array($current_user_id, $allMemnbersID)){
+                                        if($current_user_id == $postauthor || in_array($current_user_id, $all_member_ids)){
                                          ?>
                                     <tr class="bg-color">
                                         <td><?php echo get_post_meta($rid,'report_id',true)?></td>
@@ -354,9 +358,9 @@
                                         
                                         $postMeta = get_post_meta($rid);
                                         $postauthor = $report->post_author;
-                                        $allMemnbersID = learndash_get_groups_user_ids($post->ID);
+                                        $all_member_ids = learndash_get_groups_user_ids($post->ID);
                                         $reportID = get_post_meta($rid,'report_id',true);
-                                         if($current_user_id == $postauthor || in_array($current_user_id, $allMemnbersID)){
+                                         if($current_user_id == $postauthor || in_array($current_user_id, $all_member_ids)){
                                          ?>
 
 
@@ -472,9 +476,9 @@
                                     foreach($reportData as $report){
                                         $rid = $report->ID;
                                         $postauthor = $report->post_author;
-                                        $allMemnbersID = learndash_get_groups_user_ids($post->ID);
+                                        $all_member_ids = learndash_get_groups_user_ids($post->ID);
                                         $postMeta = get_post_meta($rid);
-                                        if($current_user_id == $postauthor || in_array($current_user_id, $allMemnbersID)){
+                                        if($current_user_id == $postauthor || in_array($current_user_id, $all_member_ids)){
                                          ?>
                                     <tr class="bg-color">
                                          <td><?php echo get_post_meta($rid,'report_id',true)?></td>

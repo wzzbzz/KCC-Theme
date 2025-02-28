@@ -1,0 +1,49 @@
+<?php
+
+namespace KCC\Reports;
+
+class DisasterSituationalReports extends Reports{
+    
+    private $category = "dsr";
+
+    public function init(){
+        parent::init();
+
+        $this->check_form_submission();
+    }
+
+    public function check_form_submission(){
+        if(isset($_POST['action']) && $_POST['action'] == 'kcc_form_submit'){
+            $this->process_form();
+        }
+    }
+
+    public function process_form(){
+        pre($_POST);
+        die;
+    }
+
+    private $disaster_types = [
+        ["id" => "hurricane", "name" => "Hurricane"],
+        ["id" => "flooding", "name" => "Flooding"],
+        ["id" => "earthquake", "name" => "Earthquake"],
+        ["id" => "landslide", "name" => "Landslide"],
+        ["id" => "severe_heat", "name" => "Severe Heat"],
+        ["id" => "snowstorm", "name" => "Snowstorm"],
+        ["id" => "tornado", "name" => "Tornado"],
+        ["id" => "fire_emergency", "name" => "Fire Emergency"],
+        ["id" => "hazardous_material", "name" => "Hazardous Material/Spill/ Chemical Release"],
+        ["id" => "medical_emergency", "name" => "Medical Emergency/Mass Casualty"],
+        ["id" => "missing_persons", "name" => "Missing Persons"],
+        ["id" => "utility_outage", "name" => "Utility Outage"],
+        ["id" => "structural_disaster", "name" => "Structural Disaster"],
+        ["id" => "collapse", "name" => "Collapse"],
+        ["id" => "weakened_structures", "name" => "Weakened Structures"],
+        ["id" => "workplace_violence", "name" => "Workplace Violence or Threat of Violence"],
+        ["id" => "epidemic_pandemic", "name" => "Epidemic / Pandemic Outbreak"],
+        ["id" => "terrorist_attack", "name" => "Terrorist Attack"],
+        ["id" => "nuclear_power_disasters", "name" => "Nuclear Power Disasters"],
+        ["id" => "other", "name" => "Other"]
+    ];
+    
+}

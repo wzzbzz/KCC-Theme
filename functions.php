@@ -13,6 +13,9 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 /**
  * Define Constants
  */
@@ -209,66 +212,6 @@ if (defined('SHOW_FILE_PATH') && SHOW_FILE_PATH) {
 }
 
 
-
-
-
-
-
-function custom_post_type()
-{
-    // Set UI labels for Custom Post Type
-
-    $labels = array(
-
-        'name'                => _x('Announcement', 'Post Type General Name', 'twentythirteen'),
-        'singular_name'       => _x('Announcement', 'Post Type Singular Name', 'twentythirteen'),
-        'menu_name'           => __('Announcement', 'twentythirteen'),
-        'parent_item_colon'   => __('Parent Announcement', 'twentythirteen'),
-        'all_items'           => __('All Announcement', 'twentythirteen'),
-        'view_item'           => __('View Announcement', 'twentythirteen'),
-        'add_new_item'        => __('Add New Announcement', 'twentythirteen'),
-        'add_new'             => __('Add New', 'twentythirteen'),
-        'edit_item'           => __('Edit Announcement', 'twentythirteen'),
-        'update_item'         => __('Update Announcement', 'twentythirteen'),
-        'search_items'        => __('Search Announcement', 'twentythirteen'),
-        'not_found'           => __('Not Found', 'twentythirteen'),
-        'not_found_in_trash'  => __('Not found in Trash', 'twentythirteen'),
-    );
-
-
-
-    // Set other options for Custom Post Type
-    $args = array(
-        'label'               => __('Announcement', 'twentythirteen'),
-        'description'         => __('Announcement', 'twentythirteen'),
-        'labels'              => $labels,
-        'supports'            => array('title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields',),
-        'hierarchical'        => false,
-        'public'              => true,
-        'show_ui'             => true,
-        'show_in_menu'        => true,
-        'show_in_nav_menus'   => true,
-        'show_in_admin_bar'   => true,
-        'menu_position'       => 5,
-        'can_export'          => true,
-        'has_archive'         => true,
-        'exclude_from_search' => false,
-        'publicly_queryable'  => true,
-        'capability_type'     => 'page',
-        'show_in_rest'        => true,
-        // This is where we add taxonomies to our CPT
-
-        'taxonomies'          => array('category'),
-
-    );
-
-    // Registering your Custom Post Type
-
-    register_post_type('Announcement', $args);
-}
-
-
-
 /* Hook into the 'init' action so that the function
 
 * Containing our post type registration is not
@@ -277,7 +220,7 @@ function custom_post_type()
 
 */
 
-add_action('init', 'custom_post_type', 0);
+//add_action('init', 'custom_post_type', 0);
 
 // add_action( 'um_registration_complete', 'um_registration_complete_custom', 10, 2 );
 
@@ -579,9 +522,9 @@ function invite_group_request_callback_function()
     die();
 }
 
-add_action('wp_ajax_invite_group_request', 'invite_group_request_callback_function');
+// add_action('wp_ajax_invite_group_request', 'invite_group_request_callback_function');
 
-add_action('wp_ajax_nopriv_invite_group_request', 'invite_group_request_callback_function');
+// add_action('wp_ajax_nopriv_invite_group_request', 'invite_group_request_callback_function');
 
 
 
@@ -2106,16 +2049,8 @@ add_action('init', 'update_feed');
 
 
 
-
-
-
-
-
-
 function create_reportsforms()
 {
-
-
 
     if (!empty($_POST['create_reportsforms'])) {
 
@@ -2128,66 +2063,33 @@ function create_reportsforms()
             header('Location: ' . site_url('groups'));
         }
 
-
-
-
-
         $rf_id = ($_POST['rf_id']) ? sanitize_text_field($_POST['rf_id']) : "";
-
         $rf_publish = ($_POST['rf_publish']) ? sanitize_text_field($_POST['rf_publish']) : "";
-
         $rf_private = ($_POST['rf_private']) ? sanitize_text_field($_POST['rf_private']) : "";
-
         $report_id = ($_POST['report_id']) ? sanitize_text_field($_POST['report_id']) : "";
-
         $post_title = ($_POST['post_title']) ? sanitize_text_field($_POST['post_title']) : "";
-
         $post_content = ($_POST['post_content']) ? sanitize_text_field($_POST['post_content']) : "";
-
         $current_user_id = get_current_user_id();
-
         $group_title  = get_the_title($group_id);
 
 
-
-
-
         // M009: Disaster Situational Report Notification
-
         if (empty($rf_id)) {
-
             $reportsformsData = array(
-
                 'post_title' => $post_title,
-
                 'post_content' => $post_content,
-
                 'post_status' => 'publish',
-
                 'post_author' => $current_user_id,
-
                 'post_type' => 'reportsforms',
-
             );
-
-
-
-
 
             $rf_id = wp_insert_post($reportsformsData);
 
-
-
             if ($rf_private == 'keep_private') {
-
                 add_post_meta($rf_id, 'rf_publish', @$_POST['rf_publish']);
             } elseif ($rf_publish == 'all_rrn_users') {
 
-                //$groupDetail = get_posts( $group_id );
-
                 $all_users = get_users();
-
-
 
                 foreach ($all_users as $value) {
 
@@ -2337,16 +2239,179 @@ add_action('init', 'create_reportsforms');
 
 
 
+function create_disaster()
+{
+
+
+    if (!empty($_POST['create_disaster'])) {
+        die("hi");
+        $group_id = ($_POST['group_id']) ? sanitize_text_field($_POST['group_id']) : "";
+
+        if (empty($group_id)) {
+
+            header('Location: ' . site_url('groups'));
+        }
+
+
+        $rf_id = ($_POST['rf_id']) ? sanitize_text_field($_POST['rf_id']) : "";
+        $rf_publish = ($_POST['rf_publish']) ? sanitize_text_field($_POST['rf_publish']) : "";
+        $rf_private = ($_POST['rf_private']) ? sanitize_text_field($_POST['rf_private']) : "";
+        $report_id = ($_POST['report_id']) ? sanitize_text_field($_POST['report_id']) : "";
+        $post_title = ($_POST['post_title']) ? sanitize_text_field($_POST['post_title']) : "";
+        $post_content = ($_POST['post_content']) ? sanitize_text_field($_POST['post_content']) : "";
+        $current_user_id = get_current_user_id();
+        $group_title  = get_the_title($group_id);
+
+
+        // M009: Disaster Situational Report Notification
+
+        if (empty($rf_id)) {
+
+            $disasterData = array(
+
+                'post_title' => $post_title,
+                'post_content' => $post_content,
+                'post_status' => 'publish',
+                'post_author' => $current_user_id,
+                'post_type' => 'disaster',
+
+            );
+
+
+            $rf_id = wp_insert_post($disasterData);
 
 
 
+            if ($rf_private == 'keep_private') {
+
+                add_post_meta($rf_id, 'rf_publish', @$_POST['rf_publish']);
+            } elseif ($rf_publish == 'all_rrn_users') {
+
+                //$groupDetail = get_posts( $group_id );
+
+                $all_users = get_users();
 
 
 
+                foreach ($all_users as $value) {
+
+                    $group_title  = get_the_title($group_id);
+
+                    $subject = "Disaster Report Notification";
+
+                    $headers = 'From: ' . get_bloginfo('name') . ' <no-reply@worldcares.org>' . "\r\n";
+
+                    $message = "
+                    Hi " . $value->display_name . ",\n
+                    A new Disaster Situational Report  $post_title has just been published to the group $group_title.\n
+                    Thank You, Admin";
+                    $params = array(
+                        'subject' => $subject,
+                        'body' => $message,
+                        'to' => $value->user_email,
+                        'action_link' => site_url('disaster-situational-report/?id=' . $rf_id),
+                        'user_id' => $value->ID,
+                        'post_id' => $rf_id
+                    );
+                    // Call the emailHandler function to send email notifications
+                    emailHandler($params);
+                    // wp_mail($value->user_email, $subject, $message, $headers);
+                }
+
+                add_post_meta($rf_id, 'rf_publish', @$_POST['$rf_publish']);
+            } else {
+
+                $allGroupUserID  = learndash_get_groups_user_ids($rf_publish);
+
+                foreach ($allGroupUserID as $USERID) {
+
+                    $user = get_user_by('id', $USERID);
+
+                    $groupUserEmail = $user->user_email;
+                    $subject = "Disaster Situational Report Request Notification";
+                    $headers = 'From: ' . get_bloginfo('name') . ' <no_reply@worldcares.org>' . "\r\n";
+
+                    $message = "
+                    Hi " . $user->display_name . ",\n
+                    A new Disaster Situational Report  $post_title has just been published to the group $group_title.\n
+                    View Report: " . site_url('disaster-situational-report/?id=' . $rf_id) . "\n
+                    Thank You, Admin";
+                    $params = array(
+                        'subject' => $subject,
+                        'body' => $message,
+                        'to' => $groupUserEmail,
+                        'action_link' => site_url('disaster-situational-report/?id=' . $rf_id),
+                        'user_id' => $user->ID,
+                        'post_id' => $rf_id
+                    );
+                    emailHandler($params);
+                    // wp_mail($groupUserEmail, $subject, $message, $headers);
+                }
+
+                add_post_meta($rf_id, 'rf_publish', @$_POST['$rf_publish']);
+            }
+
+
+            foreach ($_POST as $key => $value) {
+
+                if (!empty($value)) {
+
+                    add_post_meta($rf_id, $key, sanitize_text_field($value));
+                }
+            }
+
+            // Store Multiple disaster type in database
+            $multiapply = isset($_POST['rf_apply']) && is_array($_POST['rf_apply']) ? $_POST['rf_apply'] : [];
+
+            $vpn1 = implode(',', $multiapply);
+
+            update_post_meta($rf_id, 'rf_apply', $vpn1);
+
+        } else {
+
+            $disasterData = array(
+                'ID' => $rf_id,
+                'post_title' => $post_title,
+                'post_content' => $post_content,
+                'post_status' => 'publish',
+                'post_author' => $current_user_id,
+                'post_type' => 'disaster'
+            );
+
+            $rf_id = wp_insert_post($disasterData);
+            unset($_POST['post_title'], $_POST['create_disaster'], $_POST['disaster_nonce'], $_POST['save'], $_POST['finish']);
+
+            foreach ($_POST as $key => $value) {
+
+                if (!empty($value)) {
+                    update_post_meta($rf_id, $key, sanitize_text_field($value));
+                }
+            }
+
+            $multiapply = isset($_POST['rf_apply']) && is_array($_POST['rf_apply']) ? $_POST['rf_apply'] : [];
+            $vpn1 = implode(',', $multiapply);
+            update_post_meta($rf_id, 'rf_apply', $vpn1);
+        }
 
 
 
+        if ($submitType = "save") {
 
+            /* header('Location: '.site_url('create-new-report')."?gid=".$group_id."&rf_id=".$rf_id);  */
+
+            header('Location: ' . site_url('create-new-report') . "?gid=" . $group_id . "");
+        } else {
+
+            $pp = get_post_permalink($group_id);
+
+            header('Location: ' . $pp);
+        }
+
+        exit;
+    }
+}
+
+add_action('init', 'create_disaster');
 
 
 function create_disasterReportsforms()
@@ -2386,7 +2451,7 @@ function create_disasterReportsforms()
 
         if (empty($rf_id)) {
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'post_title' => $post_title,
 
@@ -2396,7 +2461,7 @@ function create_disasterReportsforms()
 
                 'post_author' => $current_user_id,
 
-                'post_type' => 'reportsforms',
+                'post_type' => 'disaster',
 
             );
 
@@ -2404,7 +2469,7 @@ function create_disasterReportsforms()
 
 
 
-            $rf_id = wp_insert_post($reportsformsData);
+            $rf_id = wp_insert_post($disasterData);
 
 
 
@@ -2485,7 +2550,7 @@ function create_disasterReportsforms()
 
 
 
-            // unset($_POST['post_title'],$_POST['create_reportsforms'],$_POST['reportsforms_nonce'],$_POST['save'],$_POST['finish']);
+            // unset($_POST['post_title'],$_POST['create_disaster'],$_POST['disaster_nonce'],$_POST['save'],$_POST['finish']);
 
 
 
@@ -2510,7 +2575,7 @@ function create_disasterReportsforms()
 
 
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'ID' => $rf_id,
 
@@ -2522,7 +2587,7 @@ function create_disasterReportsforms()
 
                 'post_author' => $current_user_id,
 
-                'post_type' => 'reportsforms'
+                'post_type' => 'disaster'
 
             );
 
@@ -2530,9 +2595,9 @@ function create_disasterReportsforms()
 
 
 
-            $rf_id = wp_insert_post($reportsformsData);
+            $rf_id = wp_insert_post($disasterData);
 
-            unset($_POST['post_title'], $_POST['create_reportsforms'], $_POST['reportsforms_nonce'], $_POST['save'], $_POST['finish']);
+            unset($_POST['post_title'], $_POST['create_disaster'], $_POST['disaster_nonce'], $_POST['save'], $_POST['finish']);
 
 
 
@@ -2602,7 +2667,7 @@ function orgnaizationReport_alert()
 
         if (empty($report_alert_id)) {
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'report_alert_id'    => $report_alert_id,
 
@@ -2655,7 +2720,7 @@ function orgnaizationReport_alert()
 
 
 
-            foreach ($reportsformsData as $key => $value) {
+            foreach ($disasterData as $key => $value) {
 
                 if (!empty($value)) {
 
@@ -2664,7 +2729,7 @@ function orgnaizationReport_alert()
             }
         } else {
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'report_alert_id'    => $report_alert_id,
 
@@ -2717,7 +2782,7 @@ function orgnaizationReport_alert()
             // wp_mail($user->user_email, $subject, $message, $headers);
 
             /*Send email to author */
-            foreach ($reportsformsData as $key => $value) {
+            foreach ($disasterData as $key => $value) {
 
                 if (!empty($value)) {
 
@@ -2948,7 +3013,7 @@ function survivorNeedIntakeReport_alert()
 
         if (empty($report_alert_id)) {
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'report_alert_id'    => $report_alert_id,
 
@@ -2997,7 +3062,7 @@ function survivorNeedIntakeReport_alert()
 
             /*Send email to author */
 
-            foreach ($reportsformsData as $key => $value) {
+            foreach ($disasterData as $key => $value) {
 
                 if (!empty($value)) {
 
@@ -3006,7 +3071,7 @@ function survivorNeedIntakeReport_alert()
             }
         } else {
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'report_alert_id'    => $report_alert_id,
 
@@ -3060,7 +3125,7 @@ function survivorNeedIntakeReport_alert()
 
             /*Send email to author */
 
-            foreach ($reportsformsData as $key => $value) {
+            foreach ($disasterData as $key => $value) {
 
                 if (!empty($value)) {
 
@@ -3106,7 +3171,7 @@ function intakeFormReport_alert()
 
 
         if (empty($report_alert_id)) {
-            $reportsformsData = array(
+            $disasterData = array(
                 'report_alert_id'    => $report_alert_id,
                 'report_post_author'  => $post_author,
                 'report_applied_by_' . $current_user_id   => $current_user_id,
@@ -3115,7 +3180,7 @@ function intakeFormReport_alert()
                 'report_applied_date_' . $current_user_id  => $current_date
             );
 
-            foreach ($reportsformsData as $key => $value) {
+            foreach ($disasterData as $key => $value) {
                 if (!empty($value)) {
                     update_post_meta($report_alert_id, $key, sanitize_text_field($value));
                 }
@@ -3124,7 +3189,7 @@ function intakeFormReport_alert()
 
         } else {
 
-            $reportsformsData = array(
+            $disasterData = array(
                 'report_alert_id'    => $report_alert_id,
                 'report_post_author'  => $post_author,
                 'report_applied_by_' . $current_user_id   => $current_user_id,
@@ -3134,7 +3199,7 @@ function intakeFormReport_alert()
                 'report_applied_date_' . $current_user_id  => $current_date
             );
 
-            foreach ($reportsformsData as $key => $value) {
+            foreach ($disasterData as $key => $value) {
                 if (!empty($value)) {
                     update_post_meta($report_alert_id, $key, sanitize_text_field($value));
                 }
@@ -3188,7 +3253,7 @@ function customerview_admin_page()
 
 
 
-        $reportData = $wpdb->get_results("SELECT * FROM wp_posts WHERE post_type = 'reportsforms' ORDER BY ID DESC;");
+        $reportData = $wpdb->get_results("SELECT * FROM wp_posts WHERE post_type = 'disaster' ORDER BY ID DESC;");
 
         //	echo "<pre>";
 
@@ -3298,18 +3363,18 @@ function my_admin_menu()
 
 
 
-function update_reportsforms()
+function update_disaster()
 {
 
 
 
-    //print_r($_POST['update_reportsforms']);
+    //print_r($_POST['update_disaster']);
 
     //die;
 
 
 
-    if (!empty($_POST['update_reportsforms'])) {
+    if (!empty($_POST['update_disaster'])) {
 
 
 
@@ -3337,7 +3402,7 @@ function update_reportsforms()
 
 
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'post_title' => $post_title,
 
@@ -3347,19 +3412,19 @@ function update_reportsforms()
 
                 'post_author' => $current_user_id,
 
-                'post_type' => 'reportsforms'
+                'post_type' => 'disaster'
 
             );
 
 
 
-            //$rf_id =     wp_insert_post( $reportsformsData );
+            //$rf_id =     wp_insert_post( $disasterData );
 
-            $rf_id =     wp_update_post($reportsformsData);
+            $rf_id =     wp_update_post($disasterData);
 
 
 
-            unset($_POST['post_title'], $_POST['update_reportsforms'], $_POST['reportsforms_nonce'], $_POST['save'], $_POST['finish']);
+            unset($_POST['post_title'], $_POST['update_disaster'], $_POST['disaster_nonce'], $_POST['save'], $_POST['finish']);
 
 
 
@@ -3384,7 +3449,7 @@ function update_reportsforms()
 
 
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'ID' => $rf_id,
 
@@ -3396,15 +3461,15 @@ function update_reportsforms()
 
                 'post_author' => $current_user_id,
 
-                'post_type' => 'reportsforms'
+                'post_type' => 'disaster'
 
             );
 
 
 
-            $rf_id =     wp_update_post($reportsformsData);
+            $rf_id =     wp_update_post($disasterData);
 
-            unset($_POST['post_title'], $_POST['update_reportsforms'], $_POST['reportsforms_nonce'], $_POST['save'], $_POST['finish']);
+            unset($_POST['post_title'], $_POST['update_disaster'], $_POST['disaster_nonce'], $_POST['save'], $_POST['finish']);
 
 
 
@@ -3439,7 +3504,7 @@ function update_reportsforms()
     }
 }
 
-add_action('init', 'update_reportsforms');
+add_action('init', 'update_disaster');
 
 
 
@@ -3480,7 +3545,7 @@ function update_ActionReport()
 
         if (empty($rf_id)) {
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'post_title' => $post_title,
 
@@ -3496,11 +3561,11 @@ function update_ActionReport()
 
 
 
-            //$rf_id =     wp_insert_post( $reportsformsData );
+            //$rf_id =     wp_insert_post( $disasterData );
 
-            $rf_id =     wp_update_post($reportsformsData);
+            $rf_id =     wp_update_post($disasterData);
 
-            unset($_POST['post_title'], $_POST['update_ActionReport'], $_POST['reportsforms_nonce'], $_POST['save'], $_POST['finish']);
+            unset($_POST['post_title'], $_POST['update_ActionReport'], $_POST['disaster_nonce'], $_POST['save'], $_POST['finish']);
 
 
 
@@ -3515,7 +3580,7 @@ function update_ActionReport()
 
 
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'ID' => $rf_id,
 
@@ -3533,9 +3598,9 @@ function update_ActionReport()
 
 
 
-            $rf_id =     wp_update_post($reportsformsData);
+            $rf_id =     wp_update_post($disasterData);
 
-            unset($_POST['post_title'], $_POST['update_ActionReport'], $_POST['reportsforms_nonce'], $_POST['save'], $_POST['finish']);
+            unset($_POST['post_title'], $_POST['update_ActionReport'], $_POST['disaster_nonce'], $_POST['save'], $_POST['finish']);
 
 
 
@@ -3593,7 +3658,7 @@ function create_volunteerReq()
 
         // If no report ID exists, create a new volunteer request post
         if (empty($rf_id)) {
-            $reportsformsData = array(
+            $disasterData = array(
                 'post_title' => $post_title,
                 'post_content' => $post_content,
                 'post_status' => 'publish',
@@ -3602,7 +3667,7 @@ function create_volunteerReq()
             );
 
             // Insert the new post and retrieve its ID
-            $rf_id = wp_insert_post($reportsformsData);
+            $rf_id = wp_insert_post($disasterData);
 
             // Handle email notifications based on the publish option
 
@@ -3730,7 +3795,7 @@ function create_volunteerReq()
         // Update an existing report if $rf_id is already set
         else {
             debugLog("Update new post for volunteer request.");
-            $reportsformsData = array(
+            $disasterData = array(
                 'ID' => $rf_id,
                 'post_title' => $post_title,
                 'post_content' => $post_content,
@@ -3740,7 +3805,7 @@ function create_volunteerReq()
             );
 
             // Update the existing post
-            wp_insert_post($reportsformsData);
+            wp_insert_post($disasterData);
 
             // Update post meta with form data
             foreach ($_POST as $key => $value) {
@@ -3811,7 +3876,7 @@ function update_volunteerReq()
 
         if (empty($rf_id)) {
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'post_title' => $post_title,
 
@@ -3827,15 +3892,15 @@ function update_volunteerReq()
 
 
 
-            /*$rf_id = wp_insert_post( $reportsformsData );*/
+            /*$rf_id = wp_insert_post( $disasterData );*/
 
-            $rf_id = wp_update_post($reportsformsData);
-
-
+            $rf_id = wp_update_post($disasterData);
 
 
 
-            //unset($_POST['post_title'],$_POST['create_volunteerReq'],$_POST['reportsforms_nonce'],$_POST['save'],$_POST['finish']);
+
+
+            //unset($_POST['post_title'],$_POST['create_volunteerReq'],$_POST['disaster_nonce'],$_POST['save'],$_POST['finish']);
 
 
 
@@ -3920,7 +3985,7 @@ function update_volunteerReq()
             update_post_meta($rf_id, 'rf_apply', $all_disasters);
         } else {
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'ID' => $rf_id,
 
@@ -3936,11 +4001,11 @@ function update_volunteerReq()
 
             );
 
-            /*$rf_id =     wp_insert_post( $reportsformsData );*/
+            /*$rf_id =     wp_insert_post( $disasterData );*/
 
-            $rf_id =     wp_update_post($reportsformsData);
+            $rf_id =     wp_update_post($disasterData);
 
-            //  unset($_POST['post_title'],$_POST['create_volunteerReq'],$_POST['reportsforms_nonce'],$_POST['save'],$_POST['finish']);
+            //  unset($_POST['post_title'],$_POST['create_volunteerReq'],$_POST['disaster_nonce'],$_POST['save'],$_POST['finish']);
 
 
 
@@ -4016,7 +4081,7 @@ function create_organizationVolunteerReq()
 
         if (empty($rf_id)) {
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'post_title' => $post_title,
 
@@ -4032,13 +4097,13 @@ function create_organizationVolunteerReq()
 
 
 
-            $rf_id = wp_insert_post($reportsformsData);
+            $rf_id = wp_insert_post($disasterData);
 
 
 
 
 
-            //unset($_POST['post_title'],$_POST['create_volunteerReq'],$_POST['reportsforms_nonce'],$_POST['save'],$_POST['finish']);
+            //unset($_POST['post_title'],$_POST['create_volunteerReq'],$_POST['disaster_nonce'],$_POST['save'],$_POST['finish']);
 
             // M014: Organization Volunteer Request Notification
 
@@ -4136,7 +4201,7 @@ function create_organizationVolunteerReq()
             update_post_meta($rf_id, 'rf_apply', $all_disasters);
         } else {
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'ID' => $rf_id,
 
@@ -4152,9 +4217,9 @@ function create_organizationVolunteerReq()
 
             );
 
-            $rf_id =     wp_insert_post($reportsformsData);
+            $rf_id =     wp_insert_post($disasterData);
 
-            //  unset($_POST['post_title'],$_POST['create_volunteerReq'],$_POST['reportsforms_nonce'],$_POST['save'],$_POST['finish']);
+            //  unset($_POST['post_title'],$_POST['create_volunteerReq'],$_POST['disaster_nonce'],$_POST['save'],$_POST['finish']);
 
 
 
@@ -4237,7 +4302,7 @@ function create_needIntakeForm()
 
         if (empty($rf_id)) {
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'post_title' => 'supplier_need_intake_form',
 
@@ -4253,9 +4318,9 @@ function create_needIntakeForm()
 
 
 
-            $rf_id =  wp_insert_post($reportsformsData);
+            $rf_id =  wp_insert_post($disasterData);
 
-            // unset($_POST['post_title'],$_POST['create_needIntakeForm'],$_POST['reportsforms_nonce'],$_POST['save'],$_POST['finish']);
+            // unset($_POST['post_title'],$_POST['create_needIntakeForm'],$_POST['disaster_nonce'],$_POST['save'],$_POST['finish']);
 
 
 
@@ -4359,7 +4424,7 @@ function create_needIntakeForm()
 
 
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'ID' => $rf_id,
 
@@ -4377,9 +4442,9 @@ function create_needIntakeForm()
 
 
 
-            $rf_id =     wp_insert_post($reportsformsData);
+            $rf_id =     wp_insert_post($disasterData);
 
-            unset($_POST['post_title'], $_POST['create_needIntakeForm'], $_POST['reportsforms_nonce'], $_POST['save'], $_POST['finish']);
+            unset($_POST['post_title'], $_POST['create_needIntakeForm'], $_POST['disaster_nonce'], $_POST['save'], $_POST['finish']);
 
 
 
@@ -4457,7 +4522,7 @@ function create_SurvivorNeedIntakeForm()
 
         if (empty($rf_id)) {
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'post_title' => 'supplier_need_intake_form',
 
@@ -4473,9 +4538,9 @@ function create_SurvivorNeedIntakeForm()
 
 
 
-            $rf_id =  wp_insert_post($reportsformsData);
+            $rf_id =  wp_insert_post($disasterData);
 
-            // unset($_POST['post_title'],$_POST['create_needIntakeForm'],$_POST['reportsforms_nonce'],$_POST['save'],$_POST['finish']);
+            // unset($_POST['post_title'],$_POST['create_needIntakeForm'],$_POST['disaster_nonce'],$_POST['save'],$_POST['finish']);
 
 
 
@@ -4574,7 +4639,7 @@ function create_SurvivorNeedIntakeForm()
 
 
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'ID' => $rf_id,
 
@@ -4592,9 +4657,9 @@ function create_SurvivorNeedIntakeForm()
 
 
 
-            $rf_id =     wp_insert_post($reportsformsData);
+            $rf_id =     wp_insert_post($disasterData);
 
-            unset($_POST['post_title'], $_POST['create_needIntakeForm'], $_POST['reportsforms_nonce'], $_POST['save'], $_POST['finish']);
+            unset($_POST['post_title'], $_POST['create_needIntakeForm'], $_POST['disaster_nonce'], $_POST['save'], $_POST['finish']);
 
 
 
@@ -4664,7 +4729,7 @@ function update_SurvivorNeedIntakeForm()
 
         if (empty($rf_id)) {
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'post_title' => 'supplier_need_intake_form',
 
@@ -4680,9 +4745,9 @@ function update_SurvivorNeedIntakeForm()
 
 
 
-            $rf_id =  wp_update_post($reportsformsData);
+            $rf_id =  wp_update_post($disasterData);
 
-            // unset($_POST['post_title'],$_POST['create_needIntakeForm'],$_POST['reportsforms_nonce'],$_POST['save'],$_POST['finish']);
+            // unset($_POST['post_title'],$_POST['create_needIntakeForm'],$_POST['disaster_nonce'],$_POST['save'],$_POST['finish']);
 
 
 
@@ -4789,7 +4854,7 @@ function update_SurvivorNeedIntakeForm()
 
 
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'ID' => $rf_id,
 
@@ -4807,9 +4872,9 @@ function update_SurvivorNeedIntakeForm()
 
 
 
-            $rf_id =     wp_update_post($reportsformsData);
+            $rf_id =     wp_update_post($disasterData);
 
-            unset($_POST['post_title'], $_POST['create_needIntakeForm'], $_POST['reportsforms_nonce'], $_POST['save'], $_POST['finish']);
+            unset($_POST['post_title'], $_POST['create_needIntakeForm'], $_POST['disaster_nonce'], $_POST['save'], $_POST['finish']);
 
 
 
@@ -4883,7 +4948,7 @@ function after_ActionReport()
 
         if (empty($rf_id)) {
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'post_title'   =>  $post_title,
 
@@ -4899,7 +4964,7 @@ function after_ActionReport()
 
 
 
-            $rf_id =     wp_insert_post($reportsformsData);
+            $rf_id =     wp_insert_post($disasterData);
 
             if ($rf_publish == 'keep_private') {
 
@@ -5004,7 +5069,7 @@ function after_ActionReport()
 
 
 
-            unset($_POST['post_title'], $_POST['after_ActionReport'], $_POST['reportsforms_nonce'], $_POST['save'], $_POST['finish']);
+            unset($_POST['post_title'], $_POST['after_ActionReport'], $_POST['disaster_nonce'], $_POST['save'], $_POST['finish']);
 
 
 
@@ -5021,7 +5086,7 @@ function after_ActionReport()
 
 
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'ID' => $rf_id,
 
@@ -5039,9 +5104,9 @@ function after_ActionReport()
 
 
 
-            $rf_id =     wp_insert_post($reportsformsData);
+            $rf_id =     wp_insert_post($disasterData);
 
-            unset($_POST['post_title'], $_POST['after_ActionReport'], $_POST['reportsforms_nonce'], $_POST['save'], $_POST['finish']);
+            unset($_POST['post_title'], $_POST['after_ActionReport'], $_POST['disaster_nonce'], $_POST['save'], $_POST['finish']);
 
 
 
@@ -5113,7 +5178,7 @@ function after_ActionReportForms()
 
             debugLog("In after_ActionReportForms njot empty");
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'post_title' => $post_title,
 
@@ -5129,7 +5194,7 @@ function after_ActionReportForms()
 
 
 
-            $rf_id =     wp_insert_post($reportsformsData);
+            $rf_id =     wp_insert_post($disasterData);
 
             //M015: After Action Report Notification
 
@@ -5221,7 +5286,7 @@ function after_ActionReportForms()
                 add_post_meta($rf_publish, 'rf_publish', @$_POST['$rf_publish']);
             }
 
-            //unset($_POST['post_title'],$_POST['after_ActionReport'],$_POST['reportsforms_nonce'],$_POST['save'],$_POST['finish']);
+            //unset($_POST['post_title'],$_POST['after_ActionReport'],$_POST['disaster_nonce'],$_POST['save'],$_POST['finish']);
 
             foreach ($_POST as $key => $value) {
 
@@ -5232,7 +5297,7 @@ function after_ActionReportForms()
             }
         } else {
 
-            $reportsformsData = array(
+            $disasterData = array(
 
                 'ID' => $rf_id,
 
@@ -5250,9 +5315,9 @@ function after_ActionReportForms()
 
 
 
-            $rf_id =     wp_insert_post($reportsformsData);
+            $rf_id =     wp_insert_post($disasterData);
 
-            unset($_POST['post_title'], $_POST['after_ActionReport'], $_POST['reportsforms_nonce'], $_POST['save'], $_POST['finish']);
+            unset($_POST['post_title'], $_POST['after_ActionReport'], $_POST['disaster_nonce'], $_POST['save'], $_POST['finish']);
 
 
 
@@ -6411,229 +6476,13 @@ add_action('wp_ajax_save_resource_media', 'save_resource_media');
 add_action('wp_ajax_nopriv_save_resource_media', 'save_resource_media');
 
 
-
-
-
-
-
-
-
-
-
-
-
-function create_announcement()
-{
-
-
-
-    if (!empty($_POST['create_announcement'])) {
-
-        $post_title = ($_POST['post_title']) ? sanitize_text_field($_POST['post_title']) : "";
-
-        $post_content = ($_POST['post_content']) ? sanitize_text_field($_POST['post_content']) : "";
-
-        $current_user_id = get_current_user_id();
-
-        $wordpress_post = array(
-
-            'post_title' => $post_title,
-
-            'post_content' => $post_content,
-
-            'post_status' => 'publish',
-
-            'post_author' => $current_user_id,
-
-            'post_type' => 'announcement'
-
-        );
-
-
-
-        $announcement_id =     wp_insert_post($wordpress_post);
-
-        add_post_meta($announcement_id, 'announcement_group_id', @$_POST['ugroup_id']);
-
-
-
-
-
-        //Set thumbnail image
-
-
-
-        $uploaddir = wp_upload_dir();
-
-        $file = $_FILES["group_image"]["name"];
-
-        $uploadfile = $uploaddir['path'] . '/' . basename($file);
-
-
-
-        if (move_uploaded_file($_FILES["group_image"]["tmp_name"], $uploadfile)) {
-
-            $filename = basename($uploadfile);
-
-            $wp_filetype = wp_check_filetype(basename($filename), null);
-
-            $attachment = array(
-
-                'post_mime_type' => $wp_filetype['type'],
-
-                'post_title' => preg_replace('/\.[^.]+$/', '', $filename),
-
-                'post_content' => '',
-
-                'post_status' => 'inherit',
-
-                'menu_order' => $_i + 1000
-
-            );
-
-            $attach_id = wp_insert_attachment($attachment, $uploadfile);
-
-            set_post_thumbnail($announcement_id, $attach_id);
-        }
-
-
-
-        header('Location: ' . $_SERVER["HTTP_REFERER"]);
-
-        exit;
-    }
-}
-
-add_action('init', 'create_announcement');
-
-
-
-
-
-function update_announcement()
-{
-
-
-
-    if (!empty($_POST['update_announcement'])) {
-
-        $announcement_id = ($_POST['edit_ann_id']) ? sanitize_text_field($_POST['edit_ann_id']) : "";
-
-        $post_title = ($_POST['post_title']) ? sanitize_text_field($_POST['post_title']) : "";
-
-        $post_content = ($_POST['post_content']) ? sanitize_text_field($_POST['post_content']) : "";
-
-        $current_user_id = get_current_user_id();
-
-        $updatePostData = array(
-
-            'ID' => $announcement_id,
-
-            'post_title' => $post_title,
-
-            'post_content' => $post_content,
-
-            'post_status' => 'publish',
-
-            'post_author' => $current_user_id,
-
-            'post_type' => 'announcement'
-
-        );
-
-        wp_update_post($updatePostData);
-
-        update_post_meta($announcement_id, 'announcement_group_id', @$_POST['ugroup_id']);
-
-
-
-        //Set thumbnail image
-
-
-
-        $uploaddir = wp_upload_dir();
-
-        $file = $_FILES["group_image"]["name"];
-
-        $uploadfile = $uploaddir['path'] . '/' . basename($file);
-
-
-
-        if (move_uploaded_file($_FILES["group_image"]["tmp_name"], $uploadfile)) {
-
-            $filename = basename($uploadfile);
-
-            $wp_filetype = wp_check_filetype(basename($filename), null);
-
-            $attachment = array(
-
-                'post_mime_type' => $wp_filetype['type'],
-
-                'post_title' => preg_replace('/\.[^.]+$/', '', $filename),
-
-                'post_content' => '',
-
-                'post_status' => 'inherit',
-
-                'menu_order' => $_i + 1000
-
-            );
-
-            $delete = wp_delete_attachment($announcement_id, true);
-
-            $attach_id = wp_insert_attachment($attachment, $uploadfile);
-
-            set_post_thumbnail($announcement_id, $attach_id);
-        }
-
-
-
-        header('Location: ' . $_SERVER["HTTP_REFERER"]);
-
-        exit;
-    }
-}
-
-add_action('init', 'update_announcement');
-
-
-
-
-
-
-
-function delete_announcement($query)
-{
-
-    if (!empty($_POST['delete_announcement'])) {
-
-        $post_id  =  $_POST['ann_id'];
-
-        wp_delete_post($post_id);
-
-        add_action('form_message', "Announcement Deleted Successfully");
-    }
-}
-
-add_action('init', 'delete_announcement');
-
-
-
-
-
-
-
 function create_blog()
 {
 
-
+die("hi");
 
     if (!empty($_POST['create_blog'])) {
-
-
-
         $post_title = ($_POST['post_title']) ? sanitize_text_field($_POST['post_title']) : "";
-
         $post_content = ($_POST['post_content']) ? sanitize_text_field($_POST['post_content']) : "";
 
         $blog_group_id = ($_POST['blog_group_id']) ? sanitize_text_field($_POST['blog_group_id']) : "";
@@ -6840,7 +6689,7 @@ function create_blog()
     }
 }
 
-add_action('init', 'create_blog');
+//add_action('init', 'create_blog');
 
 
 
@@ -11647,7 +11496,7 @@ function search_DisasterReport()
 
         $Q_date = ($_POST['q_date']) ? sanitize_text_field($_POST['q_date']) : "";
 
-        $sql = "SELECT * FROM wp_posts WHERE post_title LIKE '%$Q_name%' AND post_date LIKE '%$Q_date%' AND post_type LIKE '%reportsforms%'";
+        $sql = "SELECT * FROM wp_posts WHERE post_title LIKE '%$Q_name%' AND post_date LIKE '%$Q_date%' AND post_type LIKE '%disaster%'";
 
         $reportData = $wpdb->get_results($sql);
 
@@ -11681,7 +11530,7 @@ add_action('init', 'search_DisasterReport');
 
           $Q_date = ($_POST['q_date'])?sanitize_text_field($_POST['q_date']):"";
 
-          $sql = "SELECT * FROM wp_posts WHERE post_title LIKE '%$Q_name%' AND post_date LIKE '%$Q_date%' AND post_type LIKE '%reportsforms%'";
+          $sql = "SELECT * FROM wp_posts WHERE post_title LIKE '%$Q_name%' AND post_date LIKE '%$Q_date%' AND post_type LIKE '%disaster%'";
 
           $results = $wpdb->get_results($sql);
 
@@ -12176,6 +12025,7 @@ function get_user_badges($user_id)
     $query = $wpdb->prepare("SELECT getBadges(%d) AS badges", $user_id);
     $result = $wpdb->get_var($query);
 
+
     // Check if the result is not empty and return it
     if ($result !== null) {
         return $result;
@@ -12330,7 +12180,7 @@ function get_acknowledged_notifications()
 function shhow_user_additional_info($user)
 {
     global $wpdb;
-    $DisasterReportCount = "SELECT COUNT(ID) FROM wp_posts WHERE post_type = 'reportsforms' AND post_status ='publish' AND post_author = $user->ID ";
+    $DisasterReportCount = "SELECT COUNT(ID) FROM wp_posts WHERE post_type = 'disaster' AND post_status ='publish' AND post_author = $user->ID ";
     $Disasternum = $wpdb->get_var($DisasterReportCount);
     $VolunteerCount = "SELECT COUNT(ID) FROM wp_posts WHERE post_type = 'volunteer_request' AND post_status ='publish' AND post_author = $user->ID ";
 
@@ -12509,8 +12359,8 @@ function shhow_user_additional_info($user)
 
 function kcc_enqueue_scripts()
 {
-    $jsversion = '0.2';
-    $cssversion = '0.';
+    $jsversion = '0.3';
+    $cssversion = '0.2';
 
     // enque scripts from common_footer.php
 
@@ -12534,10 +12384,9 @@ function kcc_enqueue_scripts()
     wp_enqueue_script('jw-script', get_template_directory_uri() . '/js/jw.js',[
         'jquery', 'moment', 'fullcalendar', 'list', 'popper', 'bootstrap', 'owl-carousel', 'ckeditor','ckeditor5','select2'
     ], $jsversion, true);
-    
 
-    // localize variables
-    $translation_array = array(
+      // `localize` variables
+      $translation_array = array(
         'ajax_url' => admin_url('admin-ajax.php'),
         'current_user_id' => get_current_user_id(),
         'current_page' =>  basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)),
@@ -12545,6 +12394,26 @@ function kcc_enqueue_scripts()
         'nonce'    => wp_create_nonce('send_group__nonce'),
     );
     wp_localize_script('jw-script', 'localvars', $translation_array);
+
+    // enqueue the forms script, it's in forms.js 
+    wp_enqueue_script('kcc-forms', get_template_directory_uri() . '/js/forms.js', ['jw-script'], $jsversion, true);
+
+// locaalize forms with required 
+    $translation_array = array();
+
+    if( isset( $_GET['rf_id']) && !empty( $_GET['rf_id'] ) ){
+        $translation_array['rf_id'] = $_GET['rf_id'];
+    }
+
+    $translation_array['all_states'] = \KCC\Forms\Forms::allStates();
+    $translation_array['all_countries'] = \KCC\Forms\Forms::allCountries();
+    $translation_array['all_cities'] = \KCC\Forms\Forms::allCities();
+
+    wp_localize_script('kcc-forms', 'formvars', $translation_array);
+
+    
+
+  
 
     /* css */
     // previous work

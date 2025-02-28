@@ -116,154 +116,6 @@ $(document).ready(function () {
         $('#ownerModal').modal('show');
     });
 
-    $('.action-button').on('click', '.btn-cancel-join-group-request', function (e) {
-
-        e.preventDefault();
-
-        var data = {
-            action: 'cancel_join_group_request',
-            group_id: $(this).data("gid"),
-            nonce: $(this).data("nonce")
-        }
-        if ($(this).data("uid")) {
-            data.user_id = $(this).data("uid");
-        }
-        $obj = $(this);
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: localvars.ajax_url,
-            data: data,
-            success: function (response) {
-                console.log(response);
-                console.log($obj);
-                if (response.data.result == true) {
-                    $obj.closest('.group-cell').removeClass('my-group-request-cell');
-                    $obj.removeClass('btn-cancel-join-group-request');
-                    $obj.addClass('btn-join-closed-group');
-                    $obj.text('Request Access');
-                }
-            }
-        });
-
-    });
-    // right now we have a different click for each button type.  I feel like this can be consolidated.
-    $(".action-button").on("click",".btn-join-closed-group",function (e) {
-        
-        e.preventDefault();
-
-        var data = {
-            action: 'join_closed_group_request',
-            group_id:$(this).data("gid"),
-            nonce: $(this).data("nonce")
-        }
-        if( $(this).data("uid") ) {
-            data.user_id = $(this).data("uid");
-        }
-
-        $obj = $(this);
-        var nonce = $(this).attr("data-nonce");
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: localvars.ajax_url,
-            data: data,
-            success: function (response) {
-                console.log(response.data);
-                if(response.data.result == true){
-
-                    $obj.removeClass('btn-join-closed-group');
-                    $obj.addClass('btn-cancel-join-group-request');
-                    // disable the button
-                    $obj.text('Cancel Request');
-                }
-            }
-        });
-    });
-
-
-    $(".action-button").on('click','.btn-join-open-group',function (e) {
-        
-        e.preventDefault();
-
-        var data = {
-            action: 'join_open_group',
-            group_id:$(this).data("gid"),
-            nonce: $(this).data("nonce")
-        }
-        if( $(this).data("uid") ) {
-            data.user_id = $(this).data("uid");
-        }
-
-        var nonce = $(this).attr("data-nonce");
-
-        $obj = $(this);
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: localvars.ajax_url,
-            data: data,
-            success: function (response) {
-                console.log(response);
-                console.log($obj);
-                
-                if(response.data.result == true){
-                    // change the button to leave group
-                    $obj.removeClass('btn-join-open-group');
-                    $obj.addClass('btn-leave-group');
-                    $obj.text('Leave Group');
-
-                    $obj.closest('.group-cell').addClass('my-joined-group-cell');
-
-                    // click the active button in the header nav
-                    $('.group_btn a.active').trigger('click');
-
-
-                }
-                //$('#joinGroupeModal').modal('hide');
-                //window.location = response.group_url;
-            }
-        });
-    });
-
-    $(".action-button").on('click', '.btn-leave-group', function (e) {
-        
-        e.preventDefault();
-
-        var data = {
-            action: 'leave_group',
-            group_id:$(this).data("gid"),
-            nonce: $(this).data("nonce")
-        }
-        if( $(this).data("uid") ) {
-            data.user_id = $(this).data("uid");
-        }
-        $obj = $(this);
-
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: localvars.ajax_url,
-            data: data,
-            success: function (response) {
-                console.log(response);
-                if(response.data.result == true){
-                    // change the button to join group
-                    $obj.removeClass('btn-leave-group');
-                    $obj.addClass('btn-join-open-group');
-                    $obj.text('Join Group');
-
-                    $obj.closest('.group-cell').removeClass('my-joined-group-cell');
-
-                    // click the active button in the header nav
-                    $('.group_btn a.active').trigger('click');
-
-                }
-                //$('#joinGroupeModal').modal('hide');
-                //window.location = response.group_url;
-            }
-        });
-    });
 
 
 });
@@ -298,8 +150,6 @@ $("#imageUpload").change(function () {
 });
 
 /* from single-groups.php */
-var ajaxUrlaccept = localvars.ajax_url + "?action=accept_group_request&nonce=" + localvars.nonce;
-
 $('.dropdown-toggle').dropdown();
 
 jQuery(document).ready(function () {
@@ -345,34 +195,17 @@ $(document).ready(function () {
         });
     });
 
-    $(".acceptUser").click(function (e) {
-        e.preventDefault();
-        var group_id =localvars.post_id;
-        var uid = $(this).data("uid");
-        var id = $(this).data("id");
-        var nonce = $(this).attr("data-nonce");
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: ajaxUrlaccept,
-            data: { "action": "accept_group_request", "uid": uid, "group_id": group_id, "id": id, "nonce": nonce },
-            success: function (response) {
-                $('.ums_btn' + id).text(response.msg);
-                $('.ums_' + id).remove();
-            }
-        });
-    });
 
     $(".rejectUser").click(function (e) {
         e.preventDefault();
-        var group_id =localvars.post_id;
+        var group_id = localvars.post_id;
         var uid = $(this).data("uid");
         var id = $(this).data("id");
         var nonce = $(this).attr("data-nonce");
         $.ajax({
             type: "post",
             dataType: "json",
-            url: ajaxUrlaccept,
+            url: localvars.ajax_url,
             data: { "action": "reject_group_request", "uid": uid, "group_id": group_id, "id": id, "nonce": nonce },
             success: function (response) {
                 $('.ums_btn' + id).text(response.msg);
@@ -381,33 +214,15 @@ $(document).ready(function () {
         });
     });
 
-    $(".inviteMember").click(function (e) {
-        e.preventDefault();
-        var group_id =localvars.post_id;
-        var mid = $(this).data("mid");
-        var nonce = $(this).attr("data-nonce");
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: ajaxUrlaccept,
-            data: { "action": "invite_group_request", "mid": mid, "group_id": group_id, "nonce": nonce },
-            success: function (response) {
-                $('.inviteMemberBtn_' + mid).text(response.msg);
-                alert("User Invited Successfully!");
-                $('.inviteMember_' + mid).remove();
-            }
-        });
-    });
-
     $(".followMember").click(function (e) {
         e.preventDefault();
-        var group_id =localvars.post_id;
+        var group_id = localvars.post_id;
         var mid = $(this).data("mid");
         var nonce = $(this).attr("data-nonce");
         $.ajax({
             type: "post",
             dataType: "json",
-            url: ajaxUrlaccept,
+            url: localvars.ajax_url,
             data: { "action": "follow_member", "mid": mid, "group_id": group_id, "nonce": nonce },
             success: function (response) {
                 $('.followMemberBtn_' + mid).text(response.msg);
@@ -417,14 +232,25 @@ $(document).ready(function () {
 
     $(".removeMember").click(function (e) {
         e.preventDefault();
-        var group_id =localvars.post_id;
+
+        // yes no alert box for confirmation
+        var r = confirm("Are you sure you want to remove this member?");
+        console.log(r);
+        if (r == false) {
+            return false;
+        }
+        var group_id = localvars.post_id;
+        console.log(group_id);
         var mid = $(this).data("mid");
+        console.log(mid);
         var nonce = $(this).attr("data-nonce");
+
+
         $.ajax({
             type: "post",
             dataType: "json",
-            url: ajaxUrlaccept,
-            data: { "action": "remove_member", "mid": mid, "group_id": group_id, "nonce": nonce },
+            url: localvars.ajax_url,
+            data: { "action": "remove_group_member", "member_id": mid, "group_id": group_id, "nonce": nonce },
             success: function (response) {
                 $('.followMemberBtn_' + mid).text(response.msg);
                 $('.followMember_' + mid).remove();
@@ -518,7 +344,7 @@ $(document).ready(function () {
         $('#' + current).hide();
     });
 
-    
+
 
 });
 
@@ -528,9 +354,9 @@ var imgUpload = document.getElementById('upload_imgs'),
     imgUploadForm = document.getElementById('img-upload-form'),
     totalFiles, previewTitle, previewTitleText, img;
 
-    if( imgUpload !== null){ 
-        imgUpload.addEventListener('change', previewImgs, false);
-    }
+if (imgUpload !== null) {
+    imgUpload.addEventListener('change', previewImgs, false);
+}
 
 function previewImgs(event) {
     totalFiles = imgUpload.files.length;
@@ -671,7 +497,7 @@ jQuery(document).ready(function ($) {
     $("#fileUpload").change(function () {
         blogfileuploadCreate(this);
     });
-    
+
     $(".fIcon").click(function (e) {
         e.preventDefault();
         var mid = $('#feed_detail_id').val();
@@ -687,7 +513,7 @@ jQuery(document).ready(function ($) {
             }
         });
     });
-    
+
     $(".addFeedCommentBtn").click(function (e) {
         $("#sub_btn").attr('disabled', true);
         e.preventDefault();
@@ -712,11 +538,11 @@ jQuery(document).ready(function ($) {
             }
         });
     });
-    
+
     $(".saveMedia").click(function (e) {
         e.preventDefault();
         var rmid = $(this).data('id');
-        var group_id =localvars.post_id;
+        var group_id = localvars.post_id;
         $.ajax({
             type: "post",
             dataType: "json",
@@ -734,8 +560,8 @@ jQuery(document).ready(function ($) {
         blogfileupload(this);
     });
 
-    
-    
+
+
 });
 
 function blogfileupload(input) {
@@ -786,6 +612,7 @@ function deleteAnnouncement(id) {
 
 
 /* from user-dashboard.php */
+
 var curtab = window.location.href; // Get the url
 curtab = curtab.split("#"); // Split the url at #
 curtab = "#" + curtab[1]; // Put the info after the # in a variable
@@ -844,6 +671,10 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 
+    /****
+     * Member following
+     */
+
     $(".follwMember").click(function (e) {
         e.preventDefault();
         var mid = $(this).data("uid");
@@ -878,61 +709,348 @@ $(document).ready(function () {
         });
     });
 
-    $(".acceptUser").click(function (e) {
-        e.preventDefault();
-        var group_id = $(this).data("groupid");
-        var uid = $(this).data("uid");
-        var id = $(this).data("id");
-        var nonce = $(this).attr("data-nonce");
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: localvars.ajax_url,
-            data: { "action": "accept_group_request", "uid": uid, "group_id": group_id, "id": id, "nonce": nonce },
-            success: function (response) {
-                $('.ums_btn' + id).text(response.msg);
-                $('.ums_' + id).remove();
-            }
-        });
-    });
 
-    $(".rejectUser").click(function (e) {
-        e.preventDefault();
-        var group_id = $(this).data("groupid");
-        var uid = $(this).data("uid");
-        var id = $(this).data("id");
-        var nonce = $(this).attr("data-nonce");
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: localvars.ajax_url,
-            data: { "action": "reject_group_request", "uid": uid, "group_id": group_id, "id": id, "nonce": nonce },
-            success: function (response) {
-                $('.ums_btn' + id).text(response.msg);
-                $('.ums_' + id).remove();
-            }
-        });
-    });
+    /**
+     * Group interactions
+     */
 
-    $(".acceptInvitation").click(function (e) {
+    $('.action-button').on('click', '.btn-cancel-join-group-request', function (e) {
+        // disable this for now
+        return;
+
         e.preventDefault();
-        var group_id = $(this).data("gid");
-        var invited_to = $(this).attr('data-invited_to');
-        var invited_from = $(this).attr('data-invited_from');
-        var nonce = $(this).attr("data-nonce");
+
+        var data = {
+            action: 'cancel_join_group_request',
+            group_id: $(this).data("gid"),
+            nonce: $(this).data("nonce")
+        }
+        if ($(this).data("uid")) {
+            data.user_id = $(this).data("uid");
+        }
+        $obj = $(this);
         $.ajax({
             type: "post",
             dataType: "json",
             url: localvars.ajax_url,
-            data: { "action": "lmuser_add_in_group", "group_id": group_id, "invited_to": invited_to, "invited_from": invited_from, "nonce": localvars.nonce },
+            data: data,
             success: function (response) {
                 console.log(response);
-                $('#GroupeModalCenter').modal('show');
+                console.log($obj);
+                if (response.data.result == true) {
+                    $obj.closest('.group-cell').removeClass('my-group-request-cell');
+                    $obj.removeClass('btn-cancel-join-group-request');
+                    $obj.addClass('btn-join-closed-group');
+                    $obj.text('Request Access');
+                }
+            }
+        });
+
+    });
+    // right now we have a different click for each button type.  I feel like this can be consolidated.
+    $(".action-button").on("click", ".btn-join-closed-group", function (e) {
+
+        e.preventDefault();
+
+        var data = {
+            action: 'join_closed_group_request',
+            group_id: $(this).data("gid"),
+            nonce: $(this).data("nonce")
+        }
+        if ($(this).data("uid")) {
+            data.user_id = $(this).data("uid");
+        }
+
+        $obj = $(this);
+        var nonce = $(this).attr("data-nonce");
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: localvars.ajax_url,
+            data: data,
+            success: function (response) {
+                console.log(response.data);
+                if (response.data.result == true) {
+
+                    //$obj.removeClass('btn-join-closed-group');
+                    //$obj.addClass('btn-cancel-join-group-request');
+                    // disable the button
+                    $obj.text('Request Sent');
+
+                    // refresh the page
+                    location.reload();
+                }
             }
         });
     });
 
+
+    $(".action-button").on('click', '.btn-join-open-group', function (e) {
+
+        e.preventDefault();
+
+        var data = {
+            action: 'join_open_group',
+            group_id: $(this).data("gid"),
+            nonce: $(this).data("nonce")
+        }
+        if ($(this).data("uid")) {
+            data.user_id = $(this).data("uid");
+        }
+
+        var nonce = $(this).attr("data-nonce");
+
+        $obj = $(this);
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: localvars.ajax_url,
+            data: data,
+            success: function (response) {
+                console.log(response);
+                console.log($obj);
+
+                if (response.data.result == true) {
+                    // change the button to leave group
+                    $obj.removeClass('btn-join-open-group');
+                    $obj.addClass('btn-leave-group');
+                    $obj.text('Leave Group');
+
+                    $obj.closest('.group-cell').addClass('my-joined-group-cell');
+
+                    // click the active button in the header nav
+                    $('.group_btn a.active').trigger('click');
+
+
+                }
+                //$('#joinGroupeModal').modal('hide');
+                //window.location = response.group_url;
+            }
+        });
+    });
+
+    $(".action-button").on('click', '.btn-leave-group', function (e) {
+
+        e.preventDefault();
+
+        var data = {
+            action: 'leave_group',
+            group_id: $(this).data("gid"),
+            nonce: $(this).data("nonce")
+        }
+        if ($(this).data("uid")) {
+            data.user_id = $(this).data("uid");
+        }
+        $obj = $(this);
+
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: localvars.ajax_url,
+            data: data,
+            success: function (response) {
+                console.log(response);
+                if (response.data.result == true) {
+                    // change the button to join group
+                    $obj.removeClass('btn-leave-group');
+                    $obj.addClass('btn-join-open-group');
+                    $obj.text('Join Group');
+
+                    $obj.closest('.group-cell').removeClass('my-joined-group-cell');
+
+                    // click the active button in the header nav
+                    $('.group_btn a.active').trigger('click');
+
+                }
+                //$('#joinGroupeModal').modal('hide');
+                //window.location = response.group_url;
+            }
+        });
+    });
+
+
+    $(".acceptMemberRequest").click(function (e) {
+        e.preventDefault();
+        var group_id = $(this).data("groupid");
+        var uid = $(this).data("uid");
+        var id = $(this).data("rid");
+        var nonce = $(this).attr("data-nonce");
+        var data = {
+            "action": "accept_group_join_request",
+            "user_id": uid,
+            "group_id": group_id,
+            "request_id": id,
+            "nonce": nonce
+        }
+
+        $obj = $(this);
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: localvars.ajax_url,
+            data: data,
+            success: function (response) {
+                $obj.text("Accepted");
+                $obj.attr('disabled', true);
+                $obj.parent().find('.declineMemberRequest').remove();
+            }
+        });
+    });
+
+    $(".declineMemberRequest").click(function (e) {
+        e.preventDefault();
+        var group_id = $(this).data("groupid");
+        var uid = $(this).data("uid");
+        var id = $(this).data("rid");
+        var nonce = $(this).attr("data-nonce");
+        $obj = $(this);
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: localvars.ajax_url,
+            data: { "action": "decline_group_join_request", "user_id": uid, "group_id": group_id, "request_id": id, "nonce": nonce },
+            success: function (response) {
+                $obj.text("Declined");
+                $obj.attr('disabled', true);
+                $obj.parent().find('.acceptMemberRequest').remove();
+            }
+        });
+    });
+
+    // invite a member
+    $(".action-button").on('click', ".inviteMember", function (e) {
+        e.preventDefault();
+        var group_id = localvars.post_id;
+        var mid = $(this).data("mid");
+        var nonce = $(this).attr("data-nonce");
+        $obj = $(this);
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: localvars.ajax_url,
+            data: { "action": "send_closed_group_invite", "mid": mid, "group_id": group_id, "nonce": nonce },
+            success: function (response) {
+                $obj.text(response.msg);
+                // set the buttom to "cancel invite"
+                $obj.removeClass('inviteMember');
+                $obj.addClass('cancelInvite');
+                $obj.text('Cancel Invitation');
+            }
+        });
+    });
+
+    // cancel an invitation
+    $(".action-button").on('click', ".cancelInvite", function (e) {
+        e.preventDefault();
+        var group_id = localvars.post_id;
+        
+        var user_id = $(this).data("mid");
+
+        console.log(user_id);
+
+        var nonce = $(this).attr("data-nonce");
+        $obj = $(this);
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: localvars.ajax_url,
+            data: { "action": "cancel_group_invite", "group_id": group_id, "user_id": user_id, "nonce": localvars.nonce },
+            success: function (response) {
+                console.log(response);
+                $obj.text(response.msg);
+                // set the buttom to "cancel invite"
+                $obj.removeClass('cancelInvite');
+                $obj.addClass('inviteMember');
+                $obj.text('Invite Member');
+            }
+        });
+    });
+
+    // accept an invitation
+    $(".action-button").on('click', ".acceptInvitation", function (e) {
+
+        e.preventDefault();
+        var group_id = $(this).data("gid");
+        var nonce = $(this).attr("data-nonce");
+        $obj = $(this);
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: localvars.ajax_url,
+            data: { "action": "accept_group_invite", "group_id": group_id, "nonce": localvars.nonce },
+            success: function (response) {
+                console.log(response);
+                $obj.text(response.msg);
+                // set the buttom to "cancel invite"
+                $obj.removeClass(' ');
+                // disable the button
+                // remove the ".declineInvitation" button 
+                $obj.parent().find('.declineInvitation').remove();
+                $obj.parent().find('button').attr('disabled', true);
+                $obj.text('Invitation Accepted');
+
+
+            }
+        });
+    });
+
+    // decline an invitation
+    $(".action-button").on('click', ".declineInvitation", function (e) {
+        e.preventDefault();
+        var group_id = $(this).data("gid");
+        var nonce = $(this).attr("data-nonce");
+        $obj = $(this);
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: localvars.ajax_url,
+            data: { "action": "decline_group_invite", "group_id": group_id, "nonce": localvars.nonce },
+            success: function (response) {
+                console.log(response);
+                $obj.text(response.msg);
+                // set the buttom to "cancel invite"
+                $obj.removeClass('inviteMember');
+                $obj.attr('disabled', true);
+                // disable the button
+                $obj.parent().find('.acceptInvitation').remove();
+                $obj.text('Invitation Declined');
+
+
+
+
+            }
+        });
+    });
+
+    // cancel an invitation
+    $(".action-button").on('click', ".cancelInvitation", function (e) {
+        e.preventDefault();
+        var group_id = localvars.post_id;
+        var nonce = $(this).attr("data-nonce");
+        $obj = $(this);
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: localvars.ajax_url,
+            data: { "action": "cancel_group_invite", "group_id": group_id, "nonce": localvars.nonce },
+            success: function (response) {
+
+                console.log(response);
+                $obj.text(response.msg);
+                // set the buttom to "cancel invite"
+                $obj.removeClass('inviteMember');
+                // disable the button
+                $obj.attr('disabled', true);
+                $obj.text('Invitation Cancelled');
+
+
+            }
+        });
+    });
+
+
     $("#requestAccept").click(function (e) {
+        alert("check this one");
         e.preventDefault();
         var group_id = $(this).data("gid");
         var invited_to = $(this).attr('data-invited_to');
@@ -973,11 +1091,11 @@ $(document).ready(function () {
     $("#imageUpload").change(function () {
         var form = $('imageuploadform')[0]; // You need to use standard javascript object here
         var formData = new FormData(form);
-    
-    
-    
+
+
+
         readURLprofile(this);
-    
+
         $.ajax({
             url: localvars.ajax_url,
             type: "POST",
@@ -994,7 +1112,7 @@ $(document).ready(function () {
             }
         });
     });
-    
+
 });
 
 
@@ -1055,23 +1173,24 @@ function getParameterByName(name) {
 
 // JW Doc Ready Pile 
 $(document).ready(function () {
-    $(".kcc-form").on('submit', function(e) {
+
+    $(".kcc-form").on('submit', function (e) {
         // disconnect the click event from the submit button inside it.
         $(this).find('button[type="submit"]').prop('disabled', true);
-        
+
     });
 
 
     // Groups nav menu filters
-    $(".group_btn a").on('click', function(e) {
+    $(".group_btn a").on('click', function (e) {
         // disconnect the click event from the submit button inside it.
         e.preventDefault();
         // find all the divs with the class of group-cell and hide them
         console.log($(this).data('filter'));
-        switch($(this).data('filter')) {
+        switch ($(this).data('filter')) {
             case 'all':
                 $('.group-cell').show();
-                
+
                 break;
             case 'mine':
                 $('.group-cell').hide();
@@ -1080,12 +1199,52 @@ $(document).ready(function () {
             case 'joined':
                 $('.group-cell').hide();
                 $('.my-joined-group-cell').show();
+            case 'requests':
+                $('.group-cell').hide();
+                $('.my-group-has-pending-requests').show();
+                $('.invited-to-join').show();
+                
                 break;
         }
 
         $('.nav-item a').removeClass('active');
-                $(this).addClass('active');
+        $(this).addClass('active');
     });
-            
+
+
+    // check for a query variable called "tab" and if it exists, click the tab with that id
+    var tab = getParameterByName('tab');
+    if (tab) {
+        $('#' + tab).click();
+    }
+    
+
+    // Intercept touch event for menu_icon images in mobile views
+    $('.main_side_bar_left a').on('touchstart', function (e) {
+        e.preventDefault();
         
+        // set body class .ast-mouse-clicked
+        $('body').addClass('ast-mouse-clicked');
+    });
+
+});
+
+
+/* announcements */
+$(".editAnnouncement").click(function () {
+
+    let title = $(this).data('title');
+
+    let img = $(this).data('img');
+
+    let desc = $(this).data('desc');
+
+     let edit_ann_id = $(this).data('id');
+
+    $('#post_title1').val(title);               
+
+    $('#post_content1').html(desc);
+
+    $('#edit_ann_id').val(edit_ann_id);               
+
 });

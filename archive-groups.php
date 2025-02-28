@@ -1,10 +1,8 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 /* Template Name: Group ums */
 $current_user_id = get_current_user_id();
+$user = new KCC\User($current_user_id);
 
 if (!is_user_logged_in()) {
     header('Location: ' . site_url('login'));
@@ -20,23 +18,23 @@ get_header('dashboard'); ?>
                 <div class="g_group_box_new">
                     <ul class="groups-nav nav nav-pills mb-3 linked_blog" id="pills-tab" role="tablist">
                         <li class="nav-item group_btn">
-                            <a href="#" data-filter='all' class="nav-link active">All</a>
+                            <a href="#" data-filter='all' id="all" class="nav-link active">All</a>
                         </li>
                         <li class="nav-item group_btn">
-                            <a href="#" data-filter='mine' class="nav-link ">My Groups</a>
+                            <a href="#" data-filter='mine' id="my-groups" class="nav-link ">My Groups</a>
                         </li>
                         <li class="nav-item group_btn">
-                            <a href="#" data-filter='joined'class="nav-link">Groups Joined</a>
+                            <a href="#" data-filter='joined' id="joined" class="nav-link">Groups Joined</a>
                         </li>
                         <li class="nav-item group_btn">
-                            <a href="#" data-filter='wtf' class="nav-link" id="pills-Request-tab">My Groups Requests</a>
+                            <a href="#" data-filter='requests' class="nav-link <?php echo ($user->hasAnyInvitationsOrRequests())?" has-request ":"";?>" id="requests">Invitations / Requests</a>
                         </li>
                     </ul>
                 </div>
 
-                <div class="back_btn">
+                <!--<div class="back_btn">
                     <a href="<?php echo site_url('groups') ?>">Back</a>
-                </div>
+                </div>-->
             </div>
 
             <div class="btn_list_blog my-lg-5 my-3">
@@ -44,10 +42,10 @@ get_header('dashboard'); ?>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/plus_icon.png" class="img-fluid mr-2">
                     Create New
                 </a>
-                <a href="#" data-toggle="modal" data-target="#exampleModalCenter">
+                <!--<a href="#" data-toggle="modal" data-target="#exampleModalCenter">
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/group_icon.png" class="img-fluid mr-2">
                     Filter By
-                </a>
+                </a>-->
 
             </div>
 
@@ -119,152 +117,8 @@ get_header('dashboard'); ?>
 
                         $group = new KCC\Group($grpupVal->ID);
                         $group->render_cell();
-                        continue;
-
-                        $postAuthor = $grpupVal->post_author;
-                        $groupImg = wp_get_attachment_url(get_post_thumbnail_id($grpupVal->ID));
-                        if (empty($groupImg)) {
-                            $groupImg = get_template_directory_uri() . "/assets/images/range_1.png";
-                        }
-                        $author_id = $grpupVal->post_author;
-                        $author_img = get_avatar_url($author_id);
-                        if (empty($author_img)) {
-                            $author_img = get_template_directory_uri() . "/avatar.png";
-                        }
-
-                        $userList = learndash_get_groups_user_ids($grpupVal->ID);
-                        $group_type = get_post_meta($grpupVal->ID, 'group_type', true);
-
-                ?>
-
-                        <div class="col-lg-3">
-                            <div class="custom-card">
-
-                                <?php
-                                $joinGrp = learndash_get_users_group_ids($current_user_id);
-
-                                if ($group_type == 'Open') {
-
-                                    if (in_array($grpupVal->ID, $joinGrp) || $postAuthor == $current_user_id) {
-                                        echo "you're in this group"; ?>
-
-                                        <a href="<?php echo get_permalink($grpupVal->ID) ?>">
-                                        <?php } else { ?>
-
-                                            <a href="javascript:void(0);" class="joinGroupeModal" data-gid="<?php echo $grpupVal->ID; ?>">
-
-                                            <?php }
-                                    } else { // Closed Group
-                                            ?>
-                                            <a href="javascript:void(0);" class="GroupeModalCenter" data-gid="<?php echo $grpupVal->ID; ?>">
-                                            <?php } ?>
-
-                                            <div class="image">
-                                                <img src="<?php echo $groupImg ?>" alt="" height="" title="" width="">
-                                                <div class="">
-                                                    <?php if ($postAuthor == $current_user_id) { ?>
-                                                        <div class="public-text2">
-                                                            <p>Self </p>
-                                                        </div>
-                                                    <?php } else { ?>
-                                                    <?php } ?>
-                                                    <div class="public-text">
-                                                        <p>
-                                                            <?php if ($group_type == 'Close') { ?>
-                                                                <?php echo 'Closed'; ?>
-                                                            <?php } else {  ?>
-                                                                <?php echo $group_type; ?>
-                                                            <?php } ?>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <div class="group-title">
-                                                    <h4><?php echo $grpupVal->post_title ?></h4>
-                                                    <h6 class="mt-2" style="font-size:12px;">
-
-                                                        <?php echo date("m-d-Y", strtotime($grpupVal->post_date)); ?>
-                                                    </h6>
-                                                </div>
-                                                <div class="total-member">
-                                                    <p>
-                                                        <?php if (count($userList) > 1) { ?>
-                                                            <?php echo count($userList); ?> Members
-                                                        <?php } else { ?>
-                                                            <?php echo count($userList) ?> Member
-                                                        <?php } ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex main-content  align-items-center">
-                                                <div class="left-text">
-                                                    Manager
-                                                </div>
-                                                <div class="member-image">
-                                                    <img src="<?php echo $author_img; ?>" alt="<? //php echo the_author_meta( 'display_name' , $author_id ); 
-                                                                                                ?>" height="" title="" width="">
-                                                </div>
-                                                <div class="right-text">
-                                                    <?php echo the_author_meta('user_nicename', $author_id) ?>
-                                                </div>
-                                            </div>
-                                            </a>
-                                            <div class="d-flex">
-                                                <div class="main-group-image">
-
-                                                    <?php if (!empty($userList)) { ?>
-
-                                                    <?php
-                                                        $i = 1;
-                                                        foreach ($userList as $key => $member_id) {
-                                                            $member_img = get_avatar_url($member_id);
-                                                            if (empty($member_img)) {
-                                                                $member_img = get_template_directory_uri() . "/avatar.png";
-                                                            }
-
-                                                            if ($i > 3) {
-                                                                echo "+" . (count($userList) - 3);
-                                                                break;
-                                                            } else {
-
-                                                                echo '<a target= "_blank"  href ="' . site_url() . '/view-user-profile?userID=' . $member_id . ' ">
-                                                                        <div class="mem-image">
-                                                                          <img src="' . $member_img . '" alt="" height="" title="" width="">
-                                                                        </div>
-                                                                    </a>';
-                                                            }
-                                                            $i++;
-                                                        }
-                                                    } ?>
-
-                                                </div>
-                                                <!--  <div class="blue-circle">
-                                                        <div class="circle-text">
-                                                            <p>+23K</p>
-                                                        </div>
-                                                    </div> -->
-                                            </div>
-                                            <div class="card-text">
-                                                <p><?php echo  substr($grpupVal->post_content, 0, 100) ?>...</p>
-                                            </div>
-                                            <div class="col-md-12 text-center ">
-                                                <?php if ($group_type == 'Private') { ?>
-                                                    <a target="_blank" href="<?php site_url(); ?>/all-joined-members?group_id=<?php echo $grpupVal->ID ?>"><button class="btn btn-primary mb-3"> Members </button></a>
-                                                <?php } elseif ($group_type == 'Closed') { ?>
-
-                                                    <a target="_blank" href="<?php site_url(); ?>/all-joined-members?group_id=<?php echo $grpupVal->ID ?>"><button class="btn btn-primary mb-3"> Members </button></a>
-
-                                                <?php } else { ?>
-
-                                                    <a target="_blank" href="<?php site_url(); ?>/all-joined-members?group_id=<?php echo $grpupVal->ID ?>"><button class="btn btn-primary mb-3"> Members </button></a>
-
-                                                <?php } ?>
-                                            </div>
-
-                            </div>
-                        </div>
-                <?php  }
+                
+                  }
                 } ?>
 
                 <div class="col-lg-12 mt-3">
@@ -352,7 +206,7 @@ get_header('dashboard'); ?>
         </div>
     </div>
 </div>
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered create_tickit" role="document">
         <div class="modal-content">
             <div class="modal-header ">
@@ -402,7 +256,7 @@ get_header('dashboard'); ?>
             </form>
         </div>
     </div>
-</div>
+</div> -->
 <div class="modal fade group-modal fade bd-example-modal-lg user_information " id="GroupeModalCenter99" style=" padding-right: 5px;" aria-modal="true">
     <div class="modal-dialog">
         <div class="modal-content">
