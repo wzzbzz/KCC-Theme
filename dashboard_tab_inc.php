@@ -128,7 +128,7 @@
             </div>
             <div class="right-box">
                <div class="view">
-                  <a title="View All" href="<?php echo site_url('dashboard-coordination-center') ?>" target="_blank"><span>View All</span></a>
+                  <a title="View All" href="<?php echo site_url('dashboard-coordination-center') ?>"><span>View All</span></a>
                </div>
             </div>
          </div>

@@ -64,11 +64,11 @@
                                                                   ?>
                                                             <tr class="bg-color">
                                                                  <td><?php echo get_post_meta($rid,'rf_date',true)?></td>
-                                                                <td><?php echo get_post_meta($rid,'rf_org',true)?></td>
+                                                                <td><?php echo get_post_meta($rid,'organization',true)?></td>
                                                                 <td><?php echo get_post_meta($rid,'rf_city',true)?></td>
                                                                 <td><?php echo get_post_meta($rid,'rf_statue',true)?></td>
                                                                 <td><?php echo get_post_meta($rid,'rf_country',true)?></td>
-                                                                <td><?php echo get_post_meta($rid,'rf_contact_person',true)?></td>
+                                                                <td><?php echo get_post_meta($rid,'contact_person',true)?></td>
                                                                 <td>
                                                                        <div class="organization">
                                                                             <a href="javascript:void(0);" title="<?php echo get_post_meta($rid,'rf_email',true)?>"><?php echo get_post_meta($rid,'rf_email',true)?></a>

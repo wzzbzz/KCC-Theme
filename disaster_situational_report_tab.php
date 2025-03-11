@@ -88,14 +88,14 @@
                                     <tr class="bg-color">
                                         <td><?php echo get_post_meta($rid,'report_id',true)?></td>
                                         <td><?php echo get_post_meta($rid,'rf_date',true)?></td>
-                                        <td><?php echo get_post_meta($rid,'rf_org',true)?></td>
+                                        <td><?php echo get_post_meta($rid,'organization',true)?></td>
                                         <td><?php echo get_user_meta($postauthor,'country',true)?></td>
                                         <td><?php echo get_user_meta($postauthor,'state',true)?></td>
                                         <td><?php echo get_user_meta($postauthor,'city',true)?></td>
-                                        <td><?php echo get_post_meta($rid,'rf_contact_person',true)?></td>
+                                        <td><?php echo get_post_meta($rid,'contact_person',true)?></td>
                                         <td>
                                            <div class="organization">
-                                               <?php echo get_post_meta($rid,'rf_org',true)?>
+                                               <?php echo get_post_meta($rid,'organization',true)?>
                                             </div>
                                         </td>
                                         <!--<td style="width:15%;">

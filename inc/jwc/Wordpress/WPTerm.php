@@ -15,6 +15,10 @@ class WPTerm{
     public function term(){
         return get_term($this->term_id, $this->taxonomy);
     }
+
+    public function slug(){
+        return get_term($this->term_id, $this->taxonomy)->slug;
+    }
     
     public function term_name(){
         return get_term($this->term_id, $this->taxonomy)->name;
@@ -42,5 +46,9 @@ class WPTerm{
     
     public function term_ancestors(){
         return get_ancestors($this->term_id, $this->taxonomy);
+    }
+
+    public function term_plural_name(){
+        return get_taxonomy($this->taxonomy)->labels->name;
     }
 }

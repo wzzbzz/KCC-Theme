@@ -2,6 +2,8 @@
 
 namespace KCC\Forms;
 
+use KCC\User;
+
 class Form
 {
 
@@ -14,16 +16,36 @@ class Form
     protected $abbreviation;
     protected $report_class;
 
+    protected $term;
+
+    protected $report_type_slug;
+    protected $report_type;
+
     protected $autofill = false;
 
     public function __construct($report_id = null)
     {
+        $args = array();
+
         $this->report_id = $report_id;
-        if($report_id){
-            $report_class = 'KCC\Reports\\' . $this->report_class;
+        if ($report_id) {
+
+            $report_class =  get_class($this);
+            // remove "Form" from the end of the class name
+            $report_class = substr($report_class, 0, -4);
+
+            // change Form to Report 
+            $report_class = str_replace('Forms', 'Reports', $report_class);
+
             $this->report = new $report_class($report_id);
+            $this->group_id = $this->report->group_id();
+            $this->group = new \KCC\Group($this->group_id);
         }
+
+        $this->report_type = \KCC\Reports\ReportType::fromSlug($this->report_type_slug);
     }
+
+
 
     public function set_group($group_id)
     {
@@ -43,6 +65,18 @@ class Form
         return $this->schema;
     }
 
+    public function back_link()
+    {
+        if ($this->report_post_id()) {
+            return $this->report->permalink();
+        }
+        if (!empty($this->group)) {
+            return $this->group->permalink();
+        }
+        return site_url('reports/' . $this->report_type_slug);
+    }
+
+
     public function group_permalink()
     {
         if ($this->group_id) {
@@ -52,41 +86,53 @@ class Form
         }
     }
 
-    public function group_post_id(){
-        if($this->group_id){
+    public function group_post_id()
+    {
+        if ($this->group_id) {
             return $this->group_id;
-        }else{
+        } else {
             return '';
         }
     }
 
-    public function report_post_id(){
-        if($this->report_id){
+    public function abbreviation()
+    {
+        if ($this->abbreviation) {
+            return $this->abbreviation;
+        } else {
+            return 'kcc';
+        }
+    }
+
+    public function report_post_id()
+    {
+        if ($this->report_id) {
             return $this->report_id;
-        }else{
+        } else {
             return '';
         }
     }
 
-    public function report_title(){
-        if($this->report_id){
-            return $this->report->post_title;
-        }else
-        if($this->autofill==true){
+    public function report_title()
+    {
+        if ($this->report_id) {
+            return $this->report->title();
+        } else
+        if ($this->autofill == true) {
             return "Test Report";
-        }
-        else {
+        } else {
             return '';
         }
     }
 
-    public function report_id(){
+    public function report_slug()
+    {
         // this will be the post name if report_id is set, otherwise it will be the abbreviation-group_post_id-current_user_id-timestamp
-        if($this->report_id){
+        if ($this->report_id) {
             // return the post_name of the post with report_id
-            return $this->report->post_name;
-        }else{
-            return $this->abbreviation . '-' . $this->group_post_id() . '-' . get_current_user_id() . '-' . time();
+            return $this->report->slug();
+        } else {
+            return $this->abbreviation() . '-' . $this->group_post_id() . '-' . get_current_user_id() . '-' . time();
         }
     }
 
@@ -101,23 +147,23 @@ class Form
 
                 <div class="title">
 
-                    <h2>Create New Report</h2>
+                    <h2><?= $this->report_type->name();?></h2>
 
                 </div>
 
                 <div>
 
-                    <a href="<?= $this->group_permalink(); ?>" id="back-1" class="btn btn-outline-primary" title="Back">Back</a>
+                    <?php foreach($this->schema['form']['steps'] as $i => $step): 
+                    if($i==0){
+                        $href = $this->back_link();
+                    }else{
+                        $href = 'javascript:void(0);';
+                    }
+                    ?>
+                        <a href="<?= $href; ?>" id="back-<?= $i+1; ?>" class="btn btn-outline-primary <?= $i==0 ? '' : 'd-none'; ?>" title="Back">Back</a>
+                    <?php endforeach; ?>
 
-                    <a href="javascript:void(0);" id="back-2" class="btn btn-outline-primary d-none" title="Back">Back</a>
-
-                    <a href="javascript:void(0);" id="back-3" class="btn btn-outline-primary d-none" title="Back">Back</a>
-
-                    <a href="javascript:void(0);" id="back-4" class="btn btn-outline-primary d-none" title="Back">Back</a>
-
-                    <a href="javascript:void(0);" id="back-5" class="btn btn-outline-primary d-none" title="Back">Back</a>
-
-                    <a href="javascript:void(0);" id="back-6" class="btn btn-outline-primary d-none" title="Back">Back</a>
+                    <a href="<?= $this->back_link(); ?>" id="back-1" class="btn btn-outline-primary" title="Back">Back</a>
 
                 </div>
 
@@ -128,7 +174,6 @@ class Form
     }
     public function render()
     {
-        $this->render_title();
     ?>
         <div class="form-box">
 
@@ -209,23 +254,23 @@ class Form
                                             </div>
                                             <div class="row">
 
-                                                         <!-- <div class="col-lg-5 d-flex justify-content-end">
+                                                <!-- <div class="col-lg-5 d-flex justify-content-end">
 
                                                              <button class="btn btn-outline-primary" title="Save Draft">Save Draft</button>
 
                                                         </div> -->
 
-                                                        <div class="col-lg-12 d-flex justify-content-center">
+                                                <div class="col-lg-12 d-flex justify-content-center">
 
-                                                            <a href="javascript:void(0);" class="btn btn-primary btn-disabled" title="Next" id="<?= $next_btn_id;?>">Next</a>
+                                                    <a href="javascript:void(0);" class="btn btn-primary btn-disabled" title="Next" id="<?= $next_btn_id; ?>">Next</a>
 
-                                                        </div>
+                                                </div>
 
-                                                    </div>
+                                            </div>
 
                                         </div>
 
-                                
+
                                     </div>
 
                                 <?php endforeach; ?>
@@ -267,8 +312,36 @@ class Form
         </div>
 
         </div>
-    <?php }
+        <?php }
 
+
+    public function render_hidden_fields()
+    {
+
+        if (!empty($this->group_post_id())) {
+        ?>
+            <input type="hidden" name="group_id" id="group_id" value="<?php echo $this->group->id(); ?>">
+        <?php
+        }
+
+        if (!empty($this->report_post_id())) {
+        ?>
+            <input type="hidden" name="report_post_id" id="report_post_id" value="<?= $this->report_post_id(); ?>">
+            <input type="hidden" name="report_id" id="report_id" value="<?php echo $this->report->id(); ?>">
+        <?php
+
+        }
+        ?>
+
+        <input type="hidden" name="report_slug" id="report_slug" value="<?= $this->report_slug(); ?>">
+        <input type="hidden" name="action" value="submit_form" />
+        <input type="hidden" name="report_type" value="<?= $this->report_type_slug; ?>" />
+        <input type="hidden" name="reportsforms_nonce" value="<?php echo wp_create_nonce('reportsforms_nonce'); ?>" />
+
+        <!-- Hidden field to hold the selected group ID -->
+        <input type="hidden" name="selected_groupid" id="selected_groupid" value="">
+    <?php
+    }
 
     public function render_field($field)
     {
@@ -294,9 +367,9 @@ class Form
             <div class="form-group">
                 <label for="<?= $field['name']; ?>"><?= $field['label']; ?></label>
                 <input class="form-control" type="text" name="<?= $field['name']; ?>" id="<?= $field['name']; ?>">
-            </div>  
+            </div>
         </div>
-        
+
     <?php
     }
 
@@ -340,40 +413,241 @@ class Form
                 <h3><?= $field['title']; ?></h3>
             </div>
         </div>
-<?php
+        <?php
         foreach ($field['fields'] as $field) {
             $this->render_field($field);
         }
     }
 
-    public function render_radio($field){
+    public function render_radio($field)
+    {
         pre($field);
         die;
         return;
     }
 
-    public function render_date($field){
+    public function render_date($field)
+    {
         return;
     }
 
-    public function render_time($field){
+    public function render_time($field)
+    {
         return;
     }
 
-    public function render_checkbox($field){
+    public function render_checkbox($field)
+    {
         return;
     }
 
-    public function render_email($field){
+    public function render_email($field)
+    {
         return;
     }
 
-    public function render_number($field){
+    public function render_number($field)
+    {
         return;
     }
 
-    public function render_submit($field){
+    public function render_submit($field)
+    {
         return;
+    }
+
+    public function get_user_audiences()
+    {
+        $user = new \KCC\User(get_current_user_id());
+        $groups = $user->allMyGroups();
+        $audiences = array();
+        foreach ($groups as $group) {
+            $audiences[$group->id()] = $group->name();
+        }
+
+        return $audiences;
+    }
+
+
+    public function render_audience_section()
+    {
+
+        if ($this->report_post_id()) {
+            $audience = $this->report->audience();
+        } else {
+            if (isset($this->group_id)) {
+                $audience = $this->group_id;
+            } else {
+                $audience = 'all-rnn-users';
+            }
+        }
+
+        if(isset($this->group_id)){
+            $group_id= $this->group_id;
+        }
+        else{
+            $group_id = '';
+        }
+
+        ?>
+        <div class="col-lg-12 mb-3 audience-section">
+
+            <div class="form-title">
+
+                <h3>Publish Form to</h3>
+
+                <div class="marker" id="publish_error">
+
+                </div>
+
+
+
+            </div>
+
+            <div class="col-lg-12 mb-3">
+
+                <div class="row">
+
+                    <div class="audience-section-all col-12 col-lg-4 mb-3">
+
+                        <div class="form-check d-flex align-items-center">
+
+                            <label class="form-check-label">
+                                <input id='audience-all' type="radio" class="form-check-input all_rrn rf_publish" name="audience" value="all-rnn-users" <?= ($audience=='all-rnn-users')?'checked':''?>>All RRN Users
+                            </label>
+
+                        </div>
+
+                    </div>
+                    <div class="audience-section-group col-12 col-lg-4 mb-3">
+
+                        <div class="form-check d-flex align-items-center">
+
+                            <label class="form-check-label">
+
+                                <input id='audience-group' type="radio" class="form-check-input joined" value='group' name="audience" <?= (is_numeric($audience))?"checked":"" ?>>Publish to a group
+
+                            </label>
+
+                        </div>
+
+                        <div class="form-check d-flex align-items-center">
+
+                            <?php
+                            $user = new User(get_current_user_id());
+                            $myGroups = $user->allMyGroups();
+
+                            ?>
+
+                            <div id="" class="group-select-wrap" <?= ($audience=='all-rnn-users') ?'style="display:none;"' : '' ?>>
+
+                                <select class="form-control mt-3 border" id="audience_group" name="group_id">
+
+                                    <option value="" >Select any group </option>
+
+                                    <?php foreach ($myGroups as $group) {
+
+                                    ?>
+                                        <option value="<?= $group->id(); ?>" <?= ($audience==$group_id)?'selected':''?>><?= $group->name(); ?></option>
+                                    <?php } ?>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+    <?php
+    }
+
+    
+
+    public function render_progress_bar()
+    {
+    ?>
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-xl-10">
+
+                <div class="reports-top d-flex justify-content-center">
+
+                    <div class="d-flex w-100">
+
+                        <?php
+                        foreach ($this->schema['form']['steps'] as $index => $step) {
+                            if ($index == 0) {
+                                $active = 'active';
+                            } else {
+                                $active = '';
+                            }
+
+                        ?>
+
+                            <div class="main-box w-100">
+
+                                <div class="report-process <?= $active; ?> text-center d-flex justify-content-center" data-index="<?= $index; ?>">
+
+                                    <div class="circle" id="red-1"></div>
+
+                                </div>
+
+                                <div class="circle-content text-center pt-lg-4 pt-3">
+
+                                    <?= $step['title']; ?>
+
+                                </div>
+
+                            </div>
+                        <?php } ?>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+<?php
+    }
+
+    public function selectIfReportValueMatches($method, $value)
+    {
+        if ($this->report_post_id()) {
+            if (!method_exists($this->report, $method)) {
+                return '';
+            }
+            $meta = $this->report->$method();
+            if ($meta == $value) {
+                return 'selected';
+            }
+        }
+        return '';
+    }
+
+    public function checkIfReportValueMatches($method, $value)
+    {
+        if ($this->report_post_id()) {
+            if (!method_exists($this->report, $method)) {
+                return '';
+            }
+            $meta = $this->report->$method();
+            // split on comma 
+            $meta = explode(',', $meta);
+
+            if (in_array($value, $meta)) {
+                return 'checked';
+            }
+        }
+        return '';
     }
 }
-

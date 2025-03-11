@@ -40,8 +40,8 @@ class GroupApprovedNotification extends Notification
         $this->body = sprintf("Hi %s,<br>" .
             "Your group <strong>%s</strong> has been approved.
                  <br>Visit it here: <a href=\"%s\" target=\"_blank\">%s</a><br>
-                 With Love,<br>
-                 The KCC Notifications Droid", $recipient->name(), $this->group->name(), $this->group->permalink(), $this->group->permalink(), $this->group->permalink());
+                 Thank you,<br>
+                 Tech Support at World Cares Center", $recipient->name(), $this->group->name(), $this->group->permalink(), $this->group->permalink(), $this->group->permalink());
         parent::send_email($recipient);
     }
 

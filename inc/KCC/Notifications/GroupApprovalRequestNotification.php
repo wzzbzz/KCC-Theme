@@ -50,7 +50,7 @@ class GroupApprovalRequestNotification extends Notification
             "<br>You can approve the group directly here: <a href=\"%s\" target=\"_blank\">%s</a><br>" .
             "To approve it, you need to select 'Edit' and from the Edit page, select 'Publish'. A Published group means it was approved.<br>" .
             "Thank you,<br>" .
-            "KCC Notifications Droid",
+            "Tech Support at World Cares Center",
             $recipient->name(),
             $this->group->name(),
             $this->actionLink,

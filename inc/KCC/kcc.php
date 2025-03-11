@@ -1,6 +1,10 @@
 <?php
 
-
+if( isset($_GET['debug']) && $_GET['debug'] == 'true' ){
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+}
 
 // make an autoload function for the /jwc/Wordpress directory
 spl_autoload_register(function ($class) {

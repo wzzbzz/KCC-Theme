@@ -51,9 +51,9 @@ class GroupMemberLeftNotification extends Notification
 
         // set body
         $this->body = sprintf("Hi %s,<br>
-                        %s has left group <strong>%s</strong>. There is nothing for you to do at this time.<br>
+                        %s has left group <strong>%s</strong><br>
                         Thank You,<br>
-                        The KCC Notifications Droid", $recipient->name(), $this->user->name(), $this->group->name());
+                        Tech Support at World Cares Center", $recipient->name(), $this->user->name(), $this->group->name());
                         
         $this->actionlink = "";
         // send email;  parent will send notification afterwards.

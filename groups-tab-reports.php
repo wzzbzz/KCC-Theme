@@ -1,4 +1,5 @@
 <?php 
+
   $current_slug = add_query_arg( array(), $wp->request );
   $current_url =  home_url( $wp->request );
   $current_user_id = get_current_user_id();
@@ -49,20 +50,8 @@
 
                     <?php 
 
-                       $reports = $group->getReports();
-                       $reportData = get_posts( array(
-                                                 'post_type'      => 'reportsforms',
-                                                 'post_status'    => 'publish',
-                                                 'numberposts' => 1000,
-                                                  'meta_query'    => array(
-                                                            'relation'      => 'AND',
-                                                            array(
-                                                            'key' => 'group_id',
-                                                            'value'   => $post->ID,
-                                                            'compare' => '='
-                                                            )
-                                                            )
-                                            ) );
+                     $reports = $group->reports("disaster-situational-report");
+                    
 
                     ?>
 			  		<div class="global-table">
@@ -82,36 +71,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php if(!empty($reportData)){
-                                    foreach($reportData as $report){
-                                            $rid = $report->ID;
-                                            $postauthor = $report->post_author;
-                                            $all_member_ids = learndash_get_groups_user_ids($post->ID);
-                                            $postMeta = get_post_meta($rid);
-                                         if($current_user_id == $postauthor || in_array($current_user_id, $all_member_ids)){
+                                <?php if(!empty($reports)){
+                                    foreach($reports as $report){
+
+                                      
+                                         if(1){//$current_user_id == $postauthor || in_array($current_user_id, $all_member_ids)){
                                          ?>
                                     <tr class="bg-color">
-                                        <td><?php echo get_post_meta($rid,'report_id',true)?></td>
-                                        <td><?php echo date("m-d-Y",strtotime($report->post_date)); ?></td>
-                                        <td><?php echo get_post_meta($rid,'rf_org',true)?></td>
-                                        <td><?php echo get_user_meta($postauthor,'country',true)?></td>
-                                        <td><?php echo get_user_meta($postauthor,'state',true)?></td>
-                                        <td><?php echo get_user_meta($postauthor,'city',true)?></td>
-                                        <td><?php echo get_post_meta($rid,'rf_contact_person',true)?></td>
+                                        <td><?= $report->report_id();?></td>
+                                        <td><?= $report->event_date(); ?></td>
+                                        <td><?= $report->event();?></td>
+                                        <td><?= $report->incident_country();?></td>
+                                        <td><?= $report->incident_state();?></td>
+                                        <td><?= $report->incident_city();?></td>
+                                        <td><?= $report->contact_person();?></td>
                                         <td>
                                            <div class="organization">
-                                               <?php echo get_post_meta($rid,'rf_org',true)?>
+                                               <?= $report->organization();?>
                                             </div>
                                         </td>
-                                        <!--<td style="width:15%;">
-                                            <div class="mail-section">
-                                                <div>
-                                                    <a href="tel:<?php echo get_post_meta($rid,'rf_phone',true)?>" title="<?php echo get_post_meta($rid,'rf_phone',true)?>"><?php echo get_post_meta($rid,'rf_phone',true)?></a>
-                                                </div>
-                                            </div>
-                                        </td>-->
                                         <td style="width:12%;">
-                                            <a href="<?php echo site_url('disaster-situational-report')."?id=".$rid; ?>" class="d-block">
+                                            <a href="<?= $report->permalink();?>" class="d-block">
                                                 <div class="orange-box report-btn">
                                                     <p>View</p>
                                                 </div>
@@ -142,40 +122,7 @@
 			  		<!-- Tab  2  -->
 
                     <?php 
-                         $current_user_id = get_current_user_id();
-                         
-                         /*get post for current user*/
-                            $reportData = get_posts( array(
-                                                         'post_type'      => 'volunteer_request',
-                                                         'post_status'    => 'publish',
-                                                         //'author'         =>  $current_user_id,
-                                                         //'post__not_in'   => array($currentID),
-                                                         'numberposts' => 1000,
-                                                        'meta_query'    => array(
-                                                                    'relation'      => 'AND',
-                                                                    array(
-                                                                    'key' => 'group_id',
-                                                                    'value'   => $post->ID,
-                                                                    'compare' => '='
-                                                                    )
-                                                                    )
-
-                                                    ) ); 
-                                        /*$post_ids = array();
-                                        foreach($currentUserPosts as $data1) {
-                                         $post_ids[] = $data1->ID;
-                                        }*/
-                                     
-                         /*get post for current user*/
-                         
-                         // now exclude current user's post from all posts
-                           /* $reportData = get_posts( array(
-                                                         'post_type'      => 'volunteer_request',
-                                                         'post_status'    => 'publish',
-                                                         //'post_author'   =>  $current_user_id,
-                                                         'post__not_in'   => $post_ids,
-                                                          'numberposts' => 1000
-                                                    ) );*/
+                          $reports = $group->reports("organization-volunteer-request");
                     ?>
 			  		<div class="global-table">
                         <div class="table-responsive">
@@ -197,28 +144,25 @@
                                 
                                  <?php 
                                  $current_user_id = get_current_user_id();
-                                 if(!empty($reportData)){
-                                    foreach($reportData as $report){
-                                        $rid = $report->ID;
-                                        $postMeta = get_post_meta($rid);
-                                        $postauthor = $report->post_author;
-                                        $all_member_ids = learndash_get_groups_user_ids($post->ID);
-                                        $reportID = get_post_meta($rid,'report_id',true);
-                                        if($current_user_id == $postauthor || in_array($current_user_id, $all_member_ids)){
+                                 if(!empty($reports)){
+
+                                    foreach($reports as $report){
+                                        
+                                        if(1){//$current_user_id == $postauthor || in_array($current_user_id, $all_member_ids)){
                                          ?>
                                     <tr class="bg-color">
-                                        <td><?php echo get_post_meta($rid,'report_id',true)?></td>
-                                         <td><?php echo date("m-d-Y",strtotime($report->post_date)); ?></td>
+                                        <td><?= $report->slug();?></td>
+                                         <td><?= $report->date();?></td>
                                         
-                                        <td><?php echo $report->post_title;?></td>
-                                        <td><?php echo get_user_meta($postauthor,'country',true)?></td>
-                                        <td><?php echo get_user_meta($postauthor,'state',true)?></td>
-                                        <td><?php echo get_user_meta($postauthor,'city',true)?></td>
-                                         <td><?php echo get_post_meta($rid,'vol_person',true)?></td>
-                                         <td><?php echo get_post_meta($rid,'vol_org',true)?></td>
-                                         <?php if($current_user_id != $report->post_author){ ?>
+                                        <td><?= $report->title();?></td>
+                                        <td><?= $report->event_org_contact_country();?></td>
+                                        <td><?= $report->event_org_contact_state();?></td>
+                                        <td><?= $report->event_org_contact_city();?></td>
+                                         <td><?= $report->event_org_contact_name();?></td>
+                                         <td><?= $report->event_organizer();?></td>
+                                         <?php if($current_user_id != $report->author()->id()){ ?>
                                            <td>
-                                            <a href="<?php echo site_url('view-organization-request-form')."?id=".$rid; ?>" class="d-block" target="_blank">
+                                            <a href="<?= $report->permalink(); ?>" class="d-block">
                                                 <div class="orange-box report-btn">
                                                     <p>View</p>
                                                 </div>
@@ -253,8 +197,8 @@
                                                echo   "<div class='orange-box report-btn'>";
                                                echo   "<input type='hidden' name ='page_url'  value= '$current_url'>";
                                                echo   "<input type='hidden' name='orgnaizationReport_alert' value='orgnaizationReport_alert'/>";
-                                               echo   "<input type ='hidden' name ='post_author' value ='$report->post_author'>";
-                                               echo   "<input type= 'hidden' name = 'uniqueReportID' value= '$reportID'>";
+                                               echo   "<input type ='hidden' name ='post_author' value ='{$report->author()->id()}'>";
+                                               echo   "<input type= 'hidden' name = 'uniqueReportID' value= '{$report->report_id()}'>";
                                                echo   "<input type ='hidden' name ='rid' value ='$rid'>";
                                                 echo  '<button type ="submit" class="orange-box"><p>Apply</p></button>';
                                                 echo  '</div>'; 
@@ -265,7 +209,7 @@
                                        </td>
                                        <?php } else{ ?>
                                             <td>
-                                            <a href="<?php echo site_url('view-organization-request-form')."?id=".$rid; ?>" class="d-block" target="_blank">
+                                            <a href="<?= $report->permalink(); ?>" class="d-block">
                                                 <div class="orange-box report-btn">
                                                     <p>View</p>
                                                 </div>

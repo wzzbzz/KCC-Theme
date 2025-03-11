@@ -57,7 +57,8 @@ class JoinRequestCancelledNotification extends Notification
         $this->body = sprintf("Hi %s,<br>
                         %s has cancelled their request to join your group <strong>%s</strong>. <br>
                         Thank You,<br>
-                        The KCC Notifications Droid", $recipient->name(), $this->user->name(), $this->group->name());
+                        Tech Support at World Cares Center
+", $recipient->name(), $this->user->name(), $this->group->name());
 
         parent::send_email($recipient);
     }

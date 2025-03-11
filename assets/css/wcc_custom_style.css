@@ -2509,23 +2509,25 @@ label {
 
 
 
-.create-report .form-box .report-next-tab .reports-top .report-process .circle-orange{
-	width: 26px;
-	height: 26px;
-	border-radius: 50%;
+.create-report .form-box .report-next-tab .reports-top .report-process.complete .circle{
 	background: #F9671D;
 	position: relative;
 	z-index: 9;
 }
 
-.create-report .form-box .report-next-tab .reports-top .report-process .circle-red{
-	width: 26px;
-	height: 26px;
-	border-radius: 50%;
+.create-report .form-box .report-next-tab .reports-top .report-process.active .circle{
 	border: 6px solid #F9671D;
 	background: #fff;
 	position: relative;
 	z-index: 9;
+}
+
+.step-button{
+	margin: 0 10px;
+}
+
+.form-error{
+	display:none;
 }
 
 
@@ -2545,8 +2547,13 @@ label {
 	background: #F9671D;
 }
 
+.create-report .form-box .report-next-tab .reports-top .report-process.complete:after{
+	border: 2px solid #F9671D;
+	background: #F9671D;
+}
+
 .create-report .form-box .report-next-tab .reports-top .main-box:first-child .report-process:after{
-	left: 58%;
+	left: 50%;
     width: 99%;
 }
 .create-report .form-box .report-next-tab .reports-top .main-box:last-child .report-process:after{
@@ -2746,6 +2753,14 @@ input[type="radio"] {
 .create-report .form-box .report-next-tab .all-form .main-form-section .form-group .text-info{
 	top: 10px;
 	color: #131418!important;
+}
+
+.form-section{
+	display:none;
+}
+
+.form-section.active{
+	display:block;
 }
 
 .modal .modal-dialog .cal_pag{

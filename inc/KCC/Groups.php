@@ -135,6 +135,16 @@ class Groups extends \jwc\Wordpress\WPCollection
         return count($results) > 0;
     }
 
+    public static function groupIdExists( $group_id ){
+        global $wpdb;
+
+        $sql = $wpdb->prepare("SELECT * FROM $wpdb->posts WHERE ID = %d AND post_type = 'groups'", $group_id);
+
+        $results = $wpdb->get_results($sql);
+
+        return count($results) > 0;
+    }
+
     public function createGroup($post_title, $post_content, $meta_group_type, $user_id, $attachment_id)
     {
         $args = array(
@@ -260,8 +270,6 @@ class Groups extends \jwc\Wordpress\WPCollection
 
     public function ajaxJoinClosedGroupRequest()
     {
-
-        global $wpdb;
 
         $group_id = $_POST['group_id'];
         if (empty($group_id)) {

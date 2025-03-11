@@ -4,17 +4,9 @@
 
 if ( is_user_logged_in() ) {
 
-    get_header('new'); ?>
+    get_header('dashboard'); ?>
 
 <div class=" ">
-
-        <div class="row justify-content-end mt-3">
-
-            <?php include('user_topbar.php')?>
-
-        </div>        
-
-
 
         <div class="row justify-content-end mt-3">
 
@@ -70,7 +62,7 @@ if ( is_user_logged_in() ) {
 
                             <p>These reports detail the location, type, and severity of disasters as well as critical logistics and transportation information.</p>                            
 
-                            <a href="<?php echo get_site_url(); ?>/disaster-situational-reports/">View Report</a>
+                            <a href="<?= site_url('reports/disaster-situational-report'); ?>">View Report</a>
 
                         </div>
 
@@ -86,7 +78,7 @@ if ( is_user_logged_in() ) {
 
                             <p>This form is for registered organizations delivering services free of charge to disaster affected communities. Please be prepared to safely and effectively track and manage the volunteers that you are requesting.</p>                            
 
-                            <a href="<?php echo get_site_url(); ?>/organization-volunteer-requests/">View Request</a>
+                            <a href="<?= site_url('reports/organization-volunteer-request'); ?>">View Request</a>
 
                         </div>
 
@@ -206,9 +198,11 @@ if ( is_user_logged_in() ) {
 
         </div>
 
-     
-
-      <?php include('common_user_footer.php');} ?>
+    <?php } ?>
 
     </div>
+    <?php
+
+    get_footer();
+
 

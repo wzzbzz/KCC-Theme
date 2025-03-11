@@ -13,9 +13,9 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 /**
  * Define Constants
  */
@@ -3313,7 +3313,7 @@ function customerview_admin_page()
 
 
 
-                echo "<td>" . get_post_meta($rid, 'rf_org', true) . "</td>";
+                echo "<td>" . get_post_meta($rid, 'organization', true) . "</td>";
 
                 echo "<td>" . get_post_meta($rid, 'rf_city', true) . "</td>";
 
@@ -3321,7 +3321,7 @@ function customerview_admin_page()
 
                 echo "<td>" . get_post_meta($rid, 'rf_country', true) . "</td>";
 
-                echo "<td>" . get_post_meta($rid, 'rf_contact_person', true) . "</td>";
+                echo "<td>" . get_post_meta($rid, 'contact_person', true) . "</td>";
 
                 echo "<td>" . get_post_meta($rid, 'rf_email', true) . "</td>";
 
@@ -5399,13 +5399,6 @@ function delete_my_account($query)
 add_action('init', 'delete_my_account');
 
 
-
-
-
-
-
-
-
 function delete_disasterReport($query)
 {
 
@@ -5424,7 +5417,7 @@ function delete_disasterReport($query)
     }
 }
 
-add_action('init', 'delete_disasterReport');
+//add_action('init', 'delete_disasterReport');
 
 
 
@@ -12359,8 +12352,8 @@ function shhow_user_additional_info($user)
 
 function kcc_enqueue_scripts()
 {
-    $jsversion = '0.3';
-    $cssversion = '0.2';
+    $jsversion = '0.4';
+    $cssversion = '0.4';
 
     // enque scripts from common_footer.php
 

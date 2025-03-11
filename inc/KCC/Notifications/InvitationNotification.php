@@ -57,7 +57,7 @@ class InvitationNotification extends Notification
                         %s has invited you to join their group %s. Please accept/reject user invitation from your dashboard.<br>
                         View Invitation: " . site_url('groups') . "?tab=requests<br>
                         Thank You,<br>
-                        The KCC Notifications Droid", $recipient->name(), $this->group->getLeader()->name(), $this->group->name());
+                        Tech Support at World Cares Center", $recipient->name(), $this->group->getLeader()->name(), $this->group->name());
 
         parent::send_email($recipient);
     }

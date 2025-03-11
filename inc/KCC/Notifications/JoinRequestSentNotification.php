@@ -56,7 +56,8 @@ class JoinRequestSentNotification extends Notification
                         Your request to join  <strong>%s</strong> has been sent. <br>
                         There is nothing more you need to do at this time. <br>
                         Thank You,<br>
-                        The KCC Notifications Droid", $recipient->name(), $this->group->name());
+                        Tech Support at World Cares Center
+", $recipient->name(), $this->group->name());
 
         parent::send_email($recipient);
     }

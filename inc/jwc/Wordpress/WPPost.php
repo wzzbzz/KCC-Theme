@@ -37,6 +37,10 @@ class WPPost extends WPEntity{
         return get_the_title($this->post_id);
     }
 
+    public function slug(){
+        return get_post_field('post_name', $this->post_id);
+    }
+
     public function content(){
         return apply_filters('the_content', get_post_field('post_content', $this->post_id));
     }
@@ -181,6 +185,10 @@ class WPPost extends WPEntity{
         $thumbnail_id = get_post_thumbnail_id($this->post_id);
         $metadata = wp_get_attachment_metadata($thumbnail_id);
         return $metadata['image'];
+    }
+
+    public function dump_meta(){
+        return get_post_meta($this->post_id);
     }
 
 }

@@ -14,33 +14,24 @@ if (is_user_logged_in()) {
 
     <?php
 
-    $rf_id = empty($_GET['rf_id'])?'':$_GET['rf_id'];
-    $gid = empty($_GET['gid'])?'':$_GET['gid'];
+   
 
-    if (empty($gid)) {
-        wp_redirect(site_url('groups'));
+    // get report_type from query var
+    $report_type = get_query_var('kcc_report_type');
+
+
+
+    $form = \KCC\Forms\Forms::form_factory($report_type);
+
+    if(isset($_GET['gid']) && !empty($_GET['gid'])){
+        $gid = $_GET['gid'];
+        if(! \KCC\Groups::groupIdExists($gid)){
+            \KCC\FlashMessages\FlashMessages::add('Group does not exist', 'error');
+            header('Location: ' . site_url('dashboard-reports-and-forms'));
+            exit;
+        }
+        $form->set_group($_GET['gid']);
     }
-
-
-
-    $group = new \KCC\Group($gid);
-    
-
-    if (empty($group)) {
-        wp_redirect(site_url('groups'));
-    }
-
-    $form = new \KCC\Forms\DisasterSituationalReportForm($rf_id);
-    
-    $form->set_group($gid);
-
-
-    $randomnumber = mt_rand(10000, 99999);
-
-    $allCountry = \KCC\Forms\Forms::allCountries();
-
-    $user = new \KCC\User( get_current_user_id() );
-
     
 
     ?>

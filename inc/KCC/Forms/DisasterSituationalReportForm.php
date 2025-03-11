@@ -8,9 +8,9 @@ use \KCC\Group;
 class DisasterSituationalReportForm extends Form
 {
 
-    protected $autofill = true;
+    protected $autofill = false;
 
-    protected $report_type='disaster-situational-report';
+    protected $report_type_slug = 'disaster-situational-report';
 
 
     protected $schema =
@@ -100,7 +100,7 @@ class DisasterSituationalReportForm extends Form
                             "fields" => [
                                 [
                                     "type" => "radio",
-                                    "name" => "rf_status",
+                                    "name" => "report_status",
                                     "label" => "Status",
                                     "required" => true,
                                     "class" => "col-lg-12 mb-4",
@@ -127,7 +127,7 @@ class DisasterSituationalReportForm extends Form
                                         ],
                                         [
                                             "type" => "time",
-                                            "name" => "rf_time",
+                                            "name" => "incident_time",
                                             "label" => "Time",
                                             "required" => true
                                         ]
@@ -143,13 +143,13 @@ class DisasterSituationalReportForm extends Form
                     "fields" => [
                         [
                             "type" => "text",
-                            "name" => "rf_org",
+                            "name" => "organization",
                             "label" => "Name of Organization",
                             "required" => true
                         ],
                         [
                             "type" => "text",
-                            "name" => "rf_contact_person",
+                            "name" => "contact_person",
                             "label" => "Contact Person",
                             "required" => true
                         ],
@@ -214,12 +214,12 @@ class DisasterSituationalReportForm extends Form
                             "fields" => [
                                 [
                                     "type" => "text",
-                                    "name" => "_rf_org",
+                                    "name" => "_organization",
                                     "label" => "Name of Organization"
                                 ],
                                 [
                                     "type" => "text",
-                                    "name" => "rf_contact_person2",
+                                    "name" => "contact_person2",
                                     "label" => "Contact Person"
                                 ],
                                 [
@@ -247,7 +247,7 @@ class DisasterSituationalReportForm extends Form
                     "fields" => [
                         [
                             "type" => "checkbox",
-                            "name" => "rf_disaster_type[]",
+                            "name" => "disaster_type[]",
                             "label" => "Select all that Apply",
                             "required" => true,
                             "options" => [
@@ -274,12 +274,12 @@ class DisasterSituationalReportForm extends Form
                         ],
                         [
                             "type" => "checkbox",
-                            "name" => "rf_disaster_type_other",
+                            "name" => "disaster_type_other",
                             "label" => "Other",
                             "triggers" => [
                                 "field" => [
                                     "type" => "text",
-                                    "name" => "rf_disaster_type_other",
+                                    "name" => "disaster_type_other",
                                     "label" => "Enter Comments",
                                     "condition" => "checked"
                                 ]
@@ -293,7 +293,7 @@ class DisasterSituationalReportForm extends Form
                     "fields" => [
                         [
                             "type" => "radio",
-                            "name" => "rf_disaster_type1",
+                            "name" => "disaster_type1",
                             "label" => "Logistic Type",
                             "options" => [
                                 ["value" => "Tunnels", "label" => "Tunnels", "default" => true],
@@ -342,7 +342,7 @@ class DisasterSituationalReportForm extends Form
                         ],
                         [
                             "type" => "select",
-                            "name" => "rf_utilities",
+                            "name" => "utilities",
                             "label" => "Utilities",
                             "multiple" => true,
                             "options" => [
@@ -355,12 +355,12 @@ class DisasterSituationalReportForm extends Form
                         ],
                         [
                             "type" => "text",
-                            "name" => "rf_recommended_point_of_entry",
+                            "name" => "recommended_point_of_entry",
                             "label" => "Recommended airport or other points of entry"
                         ],
                         [
                             "type" => "text",
-                            "name" => "rf_comment",
+                            "name" => "additional_comment",
                             "label" => "Additional Comments"
                         ],
                         [
@@ -488,10 +488,68 @@ class DisasterSituationalReportForm extends Form
         ["value" => "No Electricity", "label" => "No Electricity"]
     ];
 
+    public function __construct($report_id = null)
+    {
+        parent::__construct($report_id);
+
+        if (get_current_user_id() == 847) {
+            $this->autofill = true;
+        }
+    }
+
+
     public function render()
     {
         $this->render_title();
         $this->render_form_box();
+    }
+
+    public function selectDefaultCountry()
+    {
+        if ($this->report_post_id()) {
+            $country = $this->report->incident_country();
+        }
+        else{
+            // get the current user's country
+            $user = new User(get_current_user_id());
+            $country = $user->country();
+        }
+
+        return $this->selectIfReportValueMatches($country, 'incident_country');
+
+    }
+
+    public function incident_country()
+    {
+        if ($this->report_post_id()) {
+            return $this->report->incident_country();
+        }
+        if ($this->autofill) {
+            return 'United States';
+        }
+        return '';
+    }
+
+    public function incident_state()
+    {
+        if ($this->report_post_id()) {
+            return $this->report->incident_state();
+        }
+        if ($this->autofill) {
+            return 'New York';
+        }
+        return '';
+    }
+
+    public function incident_city()
+    {
+        if ($this->report_post_id()) {
+            return $this->report->incident_city();
+        }
+        if ($this->autofill) {
+            return 'New York';
+        }
+        return '';
     }
 
     public function incident_location()
@@ -499,8 +557,19 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->incident_location();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return "123 Main Street";
+        }
+        return '';
+    }
+
+    public function incident_zipcode()
+    {
+        if ($this->report_post_id()) {
+            return $this->report->incident_zip();
+        }
+        if ($this->autofill) {
+            return '10001';
         }
         return '';
     }
@@ -510,7 +579,7 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->incident_date();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return date('Y-m-d');
         }
         return '';
@@ -521,7 +590,7 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->incident_time();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return date('H:i');
         }
         return '';
@@ -532,7 +601,7 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->status();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return 'Initial Assessment';
         }
         return '';
@@ -544,7 +613,7 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->organization();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return 'Red Cross';
         }
         return '';
@@ -553,7 +622,7 @@ class DisasterSituationalReportForm extends Form
     public function contact_name()
     {
         if ($this->report_post_id()) {
-            return $this->report->contact_name();
+            return $this->report->contact_person();
         }
 
         $user = new \KCC\User(get_current_user_id());
@@ -565,7 +634,7 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->contact_title();
         }
-        if( $this->autofill){
+        if ($this->autofill) {
             return 'Manager';
         }
         return '';
@@ -585,7 +654,7 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->contact_phone();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return '1234567890';
         }
         return '';
@@ -596,7 +665,7 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->contact_address();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return '123 Main Street';
         }
         return '';
@@ -607,7 +676,7 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->contact_city();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return 'New York';
         }
         return '';
@@ -618,7 +687,7 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->contact_state();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return 'New York';
         }
         return '';
@@ -629,7 +698,7 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->contact_country();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return 'United States';
         }
         return '';
@@ -640,7 +709,7 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->contact_zipcode();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return '10001';
         }
         return '';
@@ -651,7 +720,7 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->contact_website();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return 'https://www.redcross.org';
         }
         return '';
@@ -662,18 +731,18 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->alternate_contact_organization();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return 'FEMA';
         }
         return '';
     }
 
-    public function alternate_contact_name()
+    public function alternate_contact_person()
     {
         if ($this->report_post_id()) {
-            return $this->report->alternate_contact_name();
+            return $this->report->alternate_contact_person();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return 'John Doe';
         }
         return '';
@@ -684,7 +753,7 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->alternate_contact_title();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return 'Manager';
         }
         return '';
@@ -695,7 +764,7 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->alternate_contact_email();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return 'john@johndoe.com';
         }
         return '';
@@ -706,7 +775,7 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->alternate_contact_phone();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return '1234567890';
         }
         return '';
@@ -734,7 +803,7 @@ class DisasterSituationalReportForm extends Form
     public function disaster_type_description()
     {
         if ($this->report_post_id()) {
-            return $this->report->disaster_type_descrption();
+            return $this->report->disaster_type_description();
         }
         return '';
     }
@@ -743,7 +812,8 @@ class DisasterSituationalReportForm extends Form
     {
         if ($this->report_post_id()) {
             $logistic_type = $this->report->logistic_type();
-            if ($logistic_type == $type) {
+            
+            if (in_array($type, $logistic_type)) {
                 return 'checked';
             }
         }
@@ -775,7 +845,7 @@ class DisasterSituationalReportForm extends Form
     public function sheltering_option_is_selected($type)
     {
         if ($this->report_post_id()) {
-            $sheltering = $this->report->sheltering_option();
+            $sheltering = $this->report->sheltering_options();
             if (in_array($type, $sheltering)) {
                 return 'selected';
             }
@@ -799,7 +869,7 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->recommended_point_of_entry();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return 'JFK Airport';
         }
         return '';
@@ -811,21 +881,12 @@ class DisasterSituationalReportForm extends Form
         if ($this->report_post_id()) {
             return $this->report->situational_report_comment();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return 'This is a test comment';
         }
         return '';
     }
 
-    public function checkIfAudienceIs($audience_type){
-        if($this->report_post_id()){
-            $audience = $this->report->audience();
-            if($audience == $audience_type){
-                return 'checked';
-            }
-        }
-        return '';
-    }
 
     public function render_title()
     {
@@ -836,23 +897,13 @@ class DisasterSituationalReportForm extends Form
 
                 <div class="title">
 
-                    <h2>Disaster Situational Report</h2>
+                    <h2><?= $this->report_type->name(); ?></h2>
 
                 </div>
 
                 <div>
 
-                    <a href="<?= $this->group_permalink(); ?>" id="back-1" class="btn btn-outline-primary" title="Back">Back</a>
-
-                    <a href="javascript:void(0);" id="back-2" class="btn btn-outline-primary d-none" title="Back">Back</a>
-
-                    <a href="javascript:void(0);" id="back-3" class="btn btn-outline-primary d-none" title="Back">Back</a>
-
-                    <a href="javascript:void(0);" id="back-4" class="btn btn-outline-primary d-none" title="Back">Back</a>
-
-                    <a href="javascript:void(0);" id="back-5" class="btn btn-outline-primary d-none" title="Back">Back</a>
-
-                    <a href="javascript:void(0);" id="back-6" class="btn btn-outline-primary d-none" title="Back">Back</a>
+                    <a href="<?= $this->group_permalink(); ?>" id="form-backbutton" class="btn btn-outline-primary" title="Back">Back</a>
 
                 </div>
 
@@ -864,122 +915,15 @@ class DisasterSituationalReportForm extends Form
 
     public function render_form_box()
     {
+        if (isset($_GET['dumpmeta'])) {
+            pre($this->report->dump_meta());
+        }
     ?>
-        <div class="form-box">
+        <div class="form-box dsr">
 
             <div class="report-next-tab">
 
-                <div class="row d-flex justify-content-center">
-
-                    <div class="col-xl-10">
-
-                        <div class="reports-top d-flex justify-content-center">
-
-                            <div class="d-flex w-100">
-
-                                <div class="main-box w-100">
-
-                                    <div class="report-process text-center d-flex justify-content-center" id="bd-1">
-
-                                        <div class="circle circle-red" id="red-1"></div>
-
-                                    </div>
-
-                                    <div class="circle-content text-center pt-lg-4 pt-3">
-
-                                        Disaster Details
-
-                                    </div>
-
-                                </div>
-
-                                <div class="main-box w-100">
-
-                                    <div class="report-process text-center d-flex justify-content-center" id="bd-2">
-
-                                        <div class="circle " id="red-2"></div>
-
-                                    </div>
-
-                                    <div class="circle-content text-center pt-lg-4 pt-3">
-
-                                        Status
-
-                                    </div>
-
-                                </div>
-
-                                <div class="main-box w-100">
-
-                                    <div class="report-process text-center d-flex justify-content-center" id="bd-3">
-
-                                        <div class="circle" id="red-3"></div>
-
-                                    </div>
-
-                                    <div class="circle-content text-center pt-lg-4 pt-3">
-
-                                        Contact Information
-
-                                    </div>
-
-                                </div>
-
-                                <div class="main-box w-100">
-
-                                    <div class="report-process text-center d-flex justify-content-center" id="bd-4">
-
-                                        <div class="circle" id="red-4"></div>
-
-                                    </div>
-
-                                    <div class="circle-content text-center pt-lg-4 pt-3">
-
-                                        Disaster Type
-
-                                    </div>
-
-                                </div>
-
-                                <div class="main-box w-100">
-
-                                    <div class="report-process text-center d-flex justify-content-center" id="bd-5">
-
-                                        <div class="circle" id="red-5"></div>
-
-                                    </div>
-
-                                    <div class="circle-content text-center pt-lg-4 pt-3">
-
-                                        Logistics & Security
-
-                                    </div>
-
-                                </div>
-
-                                <div class="main-box w-100">
-
-                                    <div class="report-process text-center d-flex justify-content-center" id="bd-6">
-
-                                        <div class="circle" id="red-6"></div>
-
-                                    </div>
-
-                                    <div class="circle-content text-center pt-lg-4 pt-3">
-
-                                        Complete
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                <?= $this->render_progress_bar(); ?>
 
                 <div class="row">
 
@@ -989,19 +933,9 @@ class DisasterSituationalReportForm extends Form
 
                             <form id="myForm" name="form" method="POST" action="" class="row mediadoc_form" id="disaster_media" enctype="multipart/form-data">
 
-                                <input type="hidden" name="group_id" id="group_id" value="<?= $this->group_post_id(); ?>">
+                                <?= $this->render_hidden_fields(); ?>
 
-                                <input type="hidden" name="rf_id" id="rf_id" value="<?= $this->report_post_id(); ?>">
-
-                                <input type="hidden" name="report_id" id="report_id" value="<?= $this->report_id() ?>">
-
-                                <input type="hidden" name="action" value="submit_form" />
-
-                                <input type="hidden" name="report_type" value="<?= $this->report_type;?>" />
-
-                                <input type="hidden" name="reportsforms_nonce" value="<?php echo wp_create_nonce('reportsforms_nonce'); ?>" />
-
-                                <div id="step-1" class="main-form-section w-100">
+                                <div id="step-1" class="main-form-section w-100 form-section active">
 
                                     <div>
 
@@ -1025,9 +959,9 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Name of the Disaster *</label>
 
-                                                    <input type="text" class="form-control dis_name" name="post_title" Placeholder="Enter report name" value="<?= $this->report_title(); ?>">
+                                                    <input type="text" class="form-control dis_name" name="post_title" Placeholder="Enter report name" value="<?= $this->report_title(); ?>" required>
 
-                                                    <div class="marker" id="post_title_error"></div>
+                                                    <div class="marker form-error" id="post_title_error"></div>
 
                                                 </div>
 
@@ -1047,13 +981,13 @@ class DisasterSituationalReportForm extends Form
 
                                                 <div class="form-group">
 
-                                                    <select class="form-control dis_country" name="rf_country" onchange="getCountries()" id="country">
+                                                    <select class="form-control dis_country" name="incident_country" onchange="getCountries()" id="country" required>
 
                                                         <option value="">Select Country*</option>
 
                                                         <?php foreach (Forms::allCountries() as $country) { ?>
 
-                                                            <option value="<?= $country->name; ?>" data-value="<?= $country->id; ?>"><?= $country->name; ?> </option>
+                                                            <option value="<?= $country->name; ?>" <?= $this->selectIfReportValueMatches('incident_country',$country->name); ?> data-value="<?= $country->id; ?>"><?= $country->name; ?></option>
 
                                                         <?php } ?>
 
@@ -1061,7 +995,7 @@ class DisasterSituationalReportForm extends Form
 
                                                 </div>
 
-                                                <div class="marker" id="country_error"></div>
+                                                <div class="marker form-error" id="incident_country_error">Please Select a Country</div>
 
                                             </div>
 
@@ -1071,15 +1005,22 @@ class DisasterSituationalReportForm extends Form
 
                                                     <!--<label>State *</label>-->
 
-                                                    <select class="form-control dis_state" name="rf_state" onchange="getCities()" id="state">
+                                                    <select class="form-control dis_state" name="incident_state" onchange="" id="state" required>
 
                                                         <option value="">Select State*</option>
+                                                        <?php if (!empty($this->incident_state())):
+
+                                                            $states = Forms::statesByCountryName($this->incident_country());
+                                                            foreach ($states as $state): ?>
+                                                                <option value="<?= $state->name; ?>" <?= $this->selectIfReportValueMatches("incident_state",$state->name); ?> data-value="<?= $state->id; ?>"><?= $state->name; ?></option>
+                                                            <?php endforeach; ?>
+                                                        <?php endif; ?>
 
                                                     </select>
 
                                                 </div>
 
-                                                <div class="marker" id="state_error"></div>
+                                                <div class="marker form-error" id="incident_state_error">Please select a State</div>
 
                                             </div>
 
@@ -1091,17 +1032,12 @@ class DisasterSituationalReportForm extends Form
 
                                                 <div class="form-group">
 
-                                                    <!-- <label>City *</label>-->
-
-                                                    <select class="form-control dis_city" name="rf_city" id="city">
-
-                                                        <option value="">Select City*</option>
-
-                                                    </select>
+                                                    <label>City *</label>
+                                                    <input type="text" class="form-control dis_city" name="incident_city" placeholder="City" value="<?= $this->incident_city(); ?>" required>
 
                                                 </div>
 
-                                                <div class="marker" id="city_error"></div>
+                                                <div class="marker form-error" id="incident_city_error">Please enter the city</div>
 
                                             </div>
 
@@ -1111,9 +1047,22 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Street Address *</label>
 
-                                                    <input type="text" class="form-control dis_address" name="incident_location" placeholder="Street Address" value="<?= $this->incident_location(); ?>">
+                                                    <input type="text" class="form-control dis_address" name="incident_location" placeholder="Street Address" value="<?= $this->incident_location(); ?>" required>
 
-                                                    <div class="marker" id="dis_address_error"></div>
+                                                    <div class="marker form-error" id="incident_address_error">Please enter the Address</div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="col-lg-6 mb-3">
+
+                                                <div class="form-group">
+
+                                                    <label>Zip Code *</label>
+
+                                                    <input type="text" class="form-control dis_address" name="incident_zip" placeholder="Zip Code" value="<?= $this->incident_zipcode(); ?>" required>
+
+                                                    <div class="marker form-error" id="incident_zip_error">Please enter a valid zipcode</div>
 
                                                 </div>
 
@@ -1130,9 +1079,7 @@ class DisasterSituationalReportForm extends Form
                                 </div> -->
 
                                             <div class="col-lg-12 d-flex justify-content-center">
-
-                                                <a href="javascript:void(0);" class="btn btn-primary btn-disabled" title="Next" id="step-btn-1">Next</a>
-
+                                                <a href="javascript:void(0);" class="btn btn-primary btn-disabled step-button form-next" title="Next" id="step-btn-1">Next</a>
                                             </div>
 
                                         </div>
@@ -1141,7 +1088,7 @@ class DisasterSituationalReportForm extends Form
 
                                 </div>
 
-                                <div id="step-2" class="main-form-section d-none w-100">
+                                <div id="step-2" class="main-form-section w-100 form-section">
 
                                     <div class="row">
 
@@ -1165,7 +1112,7 @@ class DisasterSituationalReportForm extends Form
 
                                                         <label class="form-check-label">
 
-                                                            <input type="radio" <?php echo ($this->report_status() == "Initial Assessment") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="rf_status" checked value="Initial Assessment">Initial Assessment
+                                                            <input type="radio" <?php echo ($this->report_status() == "Initial Assessment") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="report_status" checked value="Initial Assessment">Initial Assessment
 
                                                         </label>
 
@@ -1179,7 +1126,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label class="form-check-label">
 
-                                                        <input type="radio" <?php echo ($this->report_status() == "Report") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="rf_status" value="Report">Report
+                                                        <input type="radio" <?php echo ($this->report_status() == "Report") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="report_status" value="Report">Report
 
                                                     </label>
 
@@ -1189,7 +1136,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label class="form-check-label">
 
-                                                        <input type="radio" <?php echo ($this->report_status() == "Status Update") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="rf_status" value="Status Update">Status Update
+                                                        <input type="radio" <?php echo ($this->report_status() == "Status Update") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="report_status" value="Status Update">Status Update
 
                                                     </label>
 
@@ -1199,7 +1146,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label class="form-check-label">
 
-                                                        <input type="radio" <?php echo ($this->report_status() == "Close Out Report") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="rf_status" value="Close Out Report">Close Out Report
+                                                        <input type="radio" <?php echo ($this->report_status() == "Close Out Report") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="report_status" value="Close Out Report">Close Out Report
 
                                                     </label>
 
@@ -1228,11 +1175,11 @@ class DisasterSituationalReportForm extends Form
 
                                                 <label>Select Date *</label>
 
-                                                <input type="date" class="form-control dis_date" id="rf_date" name="rf_date" placeholder="Enter date" value="<?= $this->incident_date(); ?>">
+                                                <input type="date" class="form-control dis_date" id="incident_date" name="incident_date" placeholder="Enter date" value="<?= $this->incident_date(); ?>" required>
 
                                             </div>
 
-                                            <div class="marker" id="date_error"></div>
+                                            <div class="marker form-error" id="incident_date_error">Please enter the incident date</div>
 
                                         </div>
 
@@ -1242,11 +1189,11 @@ class DisasterSituationalReportForm extends Form
 
                                                 <label>Time *</label>
 
-                                                <input type="time" class="form-control dis_time" id="rf_time" name="rf_time" placeholder="Select time" value="<?= $this->incident_time(); ?>">
+                                                <input type="time" class="form-control dis_time" id="incident_time" name="incident_time" placeholder="Select time" value="<?= $this->incident_time(); ?>">
 
                                             </div>
 
-                                            <div class="marker" id="time_error"></div>
+                                            <div class="marker form-error" id="incident_time_error">Please enter the incident time</div>
 
                                         </div>
 
@@ -1261,8 +1208,8 @@ class DisasterSituationalReportForm extends Form
                             </div> -->
 
                                         <div class="col-lg-12 d-flex justify-content-center">
-
-                                            <a href="javascript:void(0);" class="btn btn-primary" title="Next" id="step-btn-2">Next</a>
+                                           <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
+                                            <a href="javascript:void(0);" class="btn btn-primary  step-button form-next" title="Next">Next</a>
 
                                         </div>
 
@@ -1270,7 +1217,7 @@ class DisasterSituationalReportForm extends Form
 
                                 </div>
 
-                                <div id="step-3" class="main-form-section d-none w-100">
+                                <div id="step-3" class="main-form-section w-100 form-section">
 
                                     <div>
 
@@ -1292,9 +1239,9 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Name of Organization *</label>
 
-                                                    <input type="text" name="rf_org" class="form-control dis_org" placeholder="Enter " value="<?= $this->organization(); ?>">
+                                                    <input type="text" name="organization" class="form-control dis_org" placeholder="Enter " value="<?= $this->organization(); ?>" required>
 
-                                                    <div class="marker" id="org_error"></div>
+                                                    <div class="marker form-error" id="org_error">Please enter the organization name</div>
 
                                                 </div>
 
@@ -1306,9 +1253,9 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Contact Person *</label>
 
-                                                    <input type="text" class="form-control dis_person" name="rf_contact_person" placeholder="Enter Name" value="<?= $this->contact_name(); ?>">
+                                                    <input type="text" class="form-control dis_person" name="contact_person" placeholder="Enter Name" value="<?= $this->contact_name(); ?>" required>
 
-
+                                                    <div class="marker form-error" id="person_error">Please enter the contact person name</div>
 
                                                 </div>
 
@@ -1320,9 +1267,9 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Title *</label>
 
-                                                    <input type="text" class="form-control dis_title" name="rf_title" placeholder="Enter title" value="<?= $this->contact_title(); ?>">
+                                                    <input type="text" class="form-control dis_title" name="contact_title" placeholder="Enter title" value="<?= $this->contact_title(); ?>">
 
-                                                    <div class="marker" id="tile_error"></div>
+                                                    <div class="marker form-error" id="title_error">Please enter the contact's title</div>
 
                                                 </div>
 
@@ -1336,7 +1283,8 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Email Address *</label>
 
-                                                    <input type="text" class="form-control" id="rf_email" name="rf_email" placeholder="Enter email" value="<?= $this->contact_email(); ?>">
+                                                    <input type="text" class="form-control" id="contact_email" name="contact_email" placeholder="Enter email" value="<?= $this->contact_email(); ?>">
+                                                    
 
                                                 </div>
 
@@ -1350,9 +1298,9 @@ class DisasterSituationalReportForm extends Form
 
 
 
-                                                    <input type="number" id="phone" class="form-control dis_phone" name="rf_phone" placeholder="Enter phone no." value="<?= $this->contact_phone(); ?>">
+                                                    <input type="number" id="phone" class="form-control dis_phone" name="contact_phone" placeholder="Enter phone no." value="<?= $this->contact_phone(); ?>">
 
-                                                    <div class="marker" id="phone_error"></div>
+                                                    <div class="marker form-error" id="phone_error">Please enter the contact's phone #</div>
 
                                                 </div>
 
@@ -1364,9 +1312,9 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Address *</label>
 
-                                                    <input type="text" class="form-control con_dis_address" name="rf_address" placeholder="Enter Address" value="<?= $this->contact_address(); ?>">
+                                                    <input type="text" class="form-control con_dis_address" name="contact_address" placeholder="Enter Address" value="<?= $this->contact_address(); ?>">
 
-                                                    <div class="marker" id="con_dis_address_error"></div>
+                                                    <div class="marker form-error" id="con_dis_address_error"></div>
 
                                                 </div>
 
@@ -1380,7 +1328,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Country</label>
 
-                                                    <input type="text" class="form-control dis_country" name="rf_contact_country" value="<?= $this->contact_country(); ?>">
+                                                    <input type="text" class="form-control dis_country" name="contact_country" value="<?= $this->contact_country(); ?>">
 
                                                 </div>
 
@@ -1394,7 +1342,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>State</label>
 
-                                                    <input type="text" class="form-control dis_state" name="rf_contact_state" value="<?= $this->contact_state(); ?>">
+                                                    <input type="text" class="form-control dis_state" name="contact_state" value="<?= $this->contact_state(); ?>">
 
                                                 </div>
 
@@ -1406,7 +1354,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>City</label>
 
-                                                    <input type="text" class="form-control dis_city" name="rf_contact_city" value="<?= $this->contact_city(); ?>">
+                                                    <input type="text" class="form-control dis_city" name="contact_city" value="<?= $this->contact_city(); ?>">
 
                                                 </div>
 
@@ -1420,7 +1368,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Zip Code *</label>
 
-                                                    <input type="number" class="form-control dis_zip" id="rf_contact_zipcode" name="contact_zipcode" placeholder="Enter " value="<?= $this->contact_zipcode(); ?>">
+                                                    <input type="number" class="form-control dis_zip" id="contact_zipcode" name="contact_zipcode" placeholder="Enter " value="<?= $this->contact_zipcode(); ?>">
 
                                                 </div>
 
@@ -1432,9 +1380,9 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Website</label>
 
-                                                    <input type="text" class="form-control dis_web" id="rf_website" name="rf_website" placeholder="Enter Website  Url " value="<?= $this->contact_website(); ?>">
+                                                    <input type="text" class="form-control dis_web" id="contact_website" name="contact_website" placeholder="Enter Website  Url " value="<?= $this->contact_website(); ?>">
 
-                                                    <div class="marker" id="web_error"></div>
+                                                    <div class="marker form-error" id="web_error"></div>
 
                                                 </div>
 
@@ -1456,9 +1404,9 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Name of Organization</label>
 
-                                                    <input type="text" class="form-control dis_conorg" id="rf_alt_org" name="rf_alt_org" value="<?= $this->alternate_contact_organization(); ?>">
+                                                    <input type="text" class="form-control dis_conorg" id="alt_org" name="alt_org" value="<?= $this->alternate_contact_organization(); ?>">
 
-                                                    <div class="marker" id="conorg_error"></div>
+                                                    <div class="marker form-error" id="conorg_error"></div>
 
                                                 </div>
 
@@ -1470,9 +1418,9 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Contact Person</label>
 
-                                                    <input type="text" class="form-control dis_conp" id="rf_alt_contact_person" name="rf_alt_contact_person" placeholder="Enter " value="<?= $this->alternate_contact_name(); ?>">
+                                                    <input type="text" class="form-control dis_conp" id="alt_contact_person" name="alt_contact_person" placeholder="Enter " value="<?= $this->alternate_contact_person(); ?>">
 
-                                                    <div class="marker" id="con_person_error"></div>
+                                                    <div class="marker form-error" id="con_person_error"></div>
 
                                                 </div>
 
@@ -1484,9 +1432,9 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Title</label>
 
-                                                    <input type="text" class="form-control dis_cont" id="rf_alt_contact_title" name="rf_alt_contact_title" placeholder="Enter title " value="<?= $this->alternate_contact_title(); ?>">
+                                                    <input type="text" class="form-control dis_cont" id="alt_contact_title" name="alt_contact_title" placeholder="Enter title " value="<?= $this->alternate_contact_title(); ?>">
 
-                                                    <div class="marker" id="con_title_error"></div>
+                                                    <div class="marker form-error" id="con_title_error"></div>
 
                                                 </div>
 
@@ -1498,9 +1446,9 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Email Address</label>
 
-                                                    <input type="text" class="form-control dis_conemail" id="rf_alt_contact_email" name="rf_alt_contact_email" placeholder="Enter email" value="<?= $this->alternate_contact_email(); ?>">
+                                                    <input type="text" class="form-control dis_conemail" id="alt_contact_email" name="alt_contact_email" placeholder="Enter email" value="<?= $this->alternate_contact_email(); ?>">
 
-                                                    <div class="marker" id="con_email_error"></div>
+                                                    <div class="marker form-error" id="con_email_error"></div>
 
                                                 </div>
 
@@ -1512,9 +1460,9 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Phone</label>
 
-                                                    <input type="number" id="phone" class="form-control dis_conphone" id="rf_alt_contact_phone" name="rf_alt_contact_phone" placeholder="Enter " value="<?= $this->alternate_contact_phone(); ?>">
+                                                    <input type="number" id="phone" class="form-control dis_conphone" id="alt_contact_phone" name="alt_contact_phone" placeholder="Enter " value="<?= $this->alternate_contact_phone(); ?>">
 
-                                                    <div class="marker" id="con_phone_error"></div>
+                                                    <div class="marker form-error" id="con_phone_error"></div>
 
                                                 </div>
 
@@ -1531,8 +1479,8 @@ class DisasterSituationalReportForm extends Form
                                 </div> -->
 
                                             <div class="col-lg-12 d-flex justify-content-center">
-
-                                                <a href="javascript:void(0);" class="btn btn-primary" title="Next" id="step-btn-3">Next</a>
+                                              <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
+                                                <a href="javascript:void(0);" class="btn btn-primary step-button form-next" title="Next">Next</a>
 
                                             </div>
 
@@ -1542,7 +1490,7 @@ class DisasterSituationalReportForm extends Form
 
                                 </div>
 
-                                <div id="step-4" class="main-form-section d-none w-100">
+                                <div id="step-4" class="main-form-section w-100 form-section">
 
                                     <div>
 
@@ -1558,24 +1506,6 @@ class DisasterSituationalReportForm extends Form
 
                                             </div>
 
-                                            <!--<div class="col-lg-12 mb-4">
-
-                                    <div class="col-12 col-lg-3 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" <? //php echo (get_post_meta($rf_id,'rf_weather',true)=="Severe Weather")?"CHECKED='CHECKED'":""
-                                                                    ?> class="form-check-input" name="rf_weather" id="rf_weather" value="Severe Weather">Severe Weather
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>-->
 
                                             <div class="col-lg-12 mb-3">
 
@@ -1585,7 +1515,7 @@ class DisasterSituationalReportForm extends Form
 
                                                 </div>
 
-                                                <div class="marker" id="rf_disaster_type_error"></div>
+                                                <div class="marker form-error" id="disaster_type_error"></div>
 
                                             </div>
 
@@ -1602,7 +1532,7 @@ class DisasterSituationalReportForm extends Form
 
                                                                 <label class="form-check-label">
 
-                                                                    <input type="checkbox" <?= $this->disaster_type_checked($disaster_type['value']); ?> class="form-check-input dis_apply" value="<?= $disaster_type['value']; ?>" name="rf_disaster_type[]"><?= $disaster_type['label']; ?>
+                                                                    <input type="checkbox" <?= $this->disaster_type_checked($disaster_type['value']); ?> class="form-check-input dis_apply" value="<?= $disaster_type['value']; ?>" name="disaster_type[]"><?= $disaster_type['label']; ?>
 
                                                                 </label>
 
@@ -1621,7 +1551,7 @@ class DisasterSituationalReportForm extends Form
 
                                                             <label class="form-check-label">
 
-                                                                <input type="checkbox" <?= $this->disaster_type_checked("Other"); ?> class="form-check-input" name="rf_disaster_type_other" value="Other" id="other_age126">Other
+                                                                <input type="checkbox" <?= $this->disaster_type_checked("Other"); ?> class="form-check-input" name="disaster_type_other" value="Other" id="other_age126">Other
 
                                                             </label>
 
@@ -1635,7 +1565,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <div class="form-group" id="div15" style="display:none;">
 
-                                                        <input type="text" class="form-control text-info" id="rf_disaster_type_other_description" name="rf_disaster_type_other_description" value="<?= $this->disaster_type_description(); ?>" placeholder="Disaster Description">
+                                                        <input type="text" class="form-control text-info" id="disaster_type_other_description" name="disaster_type_other_description" value="<?= $this->disaster_type_description(); ?>" placeholder="Disaster Description">
 
                                                     </div>
 
@@ -1651,15 +1581,9 @@ class DisasterSituationalReportForm extends Form
 
                                         <div class="row">
 
-                                            <!-- <div class="col-lg-6 d-flex justify-content-end">
-
-                                    <button class="btn btn-outline-primary" title="Save Draft">Save Draft</button>
-
-                                </div> -->
-
                                             <div class="col-lg-12 d-flex justify-content-center">
-
-                                                <a href="javascript:void(0);" class="btn btn-primary" title="Next" id="step-btn-4">Next</a>
+                                               <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
+                                               <a href="javascript:void(0);" class="btn btn-primary step-button form-next" title="Next" id="">Next</a>
 
                                             </div>
 
@@ -1669,7 +1593,7 @@ class DisasterSituationalReportForm extends Form
 
                                 </div>
 
-                                <div id="step-5" class="main-form-section d-none w-100">
+                                <div id="step-5" class="main-form-section w-100 form-section">
 
                                     <div>
 
@@ -1697,7 +1621,7 @@ class DisasterSituationalReportForm extends Form
 
                                                                 <label class="form-check-label">
 
-                                                                    <input type="radio" <?= $this->logistic_is_checked($logistic_type['value']) ?> class="form-check-input" name="rf_logistic_type" value="<?= $logistic_type['value']; ?>"><?= $logistic_type['label']; ?>
+                                                                    <input type="checkbox" <?= $this->logistic_is_checked($logistic_type['value']) ?> class="form-check-input" name="logistic_type[]" value="<?= $logistic_type['value']; ?>"><?= $logistic_type['label']; ?>
 
                                                                 </label>
 
@@ -1719,7 +1643,7 @@ class DisasterSituationalReportForm extends Form
 
                                                 </div>
 
-                                                <div class="marker" id="ground_error"></div>
+                                                <div class="marker form-error" id="ground_error"></div>
 
                                             </div>
 
@@ -1734,7 +1658,7 @@ class DisasterSituationalReportForm extends Form
 
                                                                 <label class="form-check-label">
 
-                                                                    <input type="radio" <?= $this->ground_situation_checked($ground_situation['value']); ?> class="form-check-input" name="ground_1" value="<?= $ground_situation['value']; ?>"><?= $ground_situation['label']; ?>
+                                                                    <input type="checkbox" <?= $this->ground_situation_checked($ground_situation['value']); ?> class="form-check-input" name="ground_situation_description[]" value="<?= $ground_situation['value']; ?>"><?= $ground_situation['label']; ?>
 
                                                                 </label>
 
@@ -1753,16 +1677,15 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Security</label>
 
-                                                    <select class="form-control set-postion security" name="rf_security">
+                                                    <select class="form-control set-postion security" name="security_concerns">
 
                                                         <?php foreach ($this->security_concerns as $security_concern) { ?>
-
-                                                            <option value="" <?= $this->security_concern_selected($security_concern['value']) ?>><?= $security_concern['label']; ?></option>
+                                                            <option value="<?= $security_concern['value']?>" <?= $this->security_concern_selected($security_concern['value']) ?>><?= $security_concern['label']; ?></option>
                                                         <?php } ?>
 
                                                     </select>
 
-                                                    <div class="marker" id="sec_error"></div>
+                                                    <div class="marker form-error" id="sec_error"></div>
 
                                                 </div>
 
@@ -1786,7 +1709,7 @@ class DisasterSituationalReportForm extends Form
 
 
 
-                                                    <select class="select2 js-example-placeholder-multiple-II set-postion" name="rf_sheltering_options" data-placeholder="Sheltering" multiple="multiple" style="width: 100%; box-shadow: unset; color: #000;">
+                                                    <select class="select2 js-example-placeholder-multiple-II set-postion" name="sheltering_options" data-placeholder="Sheltering" multiple="multiple" style="width: 100%; box-shadow: unset; color: #000;">
 
                                                         <?php
                                                         foreach ($this->sheltering_options as $sheltering_option) {
@@ -1799,7 +1722,7 @@ class DisasterSituationalReportForm extends Form
 
 
 
-                                                    <div class="marker" id="shelter_error"></div>
+                                                    <div class="marker form-error" id="shelter_error"></div>
 
 
 
@@ -1813,7 +1736,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Utilities</label>
 
-                                                    <select class="select2 js-example-placeholder-multiple-123 set-postion utility" name="rf_utilities" data-placeholder="Utilities" multiple="multiple" style="width: 100%; box-shadow: unset; color: #000;">
+                                                    <select class="select2 js-example-placeholder-multiple-123 set-postion utility" name="utilities" data-placeholder="Utilities" multiple="multiple" style="width: 100%; box-shadow: unset; color: #000;">
 
                                                         <?php
                                                         foreach ($this->utilities as $utility) {
@@ -1823,7 +1746,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     </select>
 
-                                                    <div class="marker" id="uti_error"></div>
+                                                    <div class="marker form-error" id="uti_error"></div>
 
                                                 </div>
 
@@ -1835,7 +1758,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Recommended airport or other points of entry:</label>
 
-                                                    <input type="text" class="form-control" id="rf_recommended_point_of_entry" name="rf_recommended_point_of_entry" placeholder="Enter " <?= $this->recommended_point_of_entry(); ?>>
+                                                    <input type="text" class="form-control" id="recommended_point_of_entry" name="recommended_point_of_entry" placeholder="Enter " value="<?= $this->recommended_point_of_entry(); ?>">
 
                                                 </div>
 
@@ -1847,7 +1770,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Additional Comments:</label>
 
-                                                    <input type="text" class="form-control" id="rf_comment" name="rf_comment" placeholder="Enter " <?= $this->situational_report_comment(); ?>>
+                                                    <input type="text" class="form-control" id="additional_comment" name="additional_comment" placeholder="Enter " value="<?= $this->situational_report_comment(); ?>">
 
                                                 </div>
 
@@ -1859,8 +1782,8 @@ class DisasterSituationalReportForm extends Form
                                         <div class="row">
 
                                             <div class="col-lg-12 d-flex justify-content-center">
-
-                                                <a href="javascript:void(0);" class="btn btn-primary" title="Next" id="step-btn-5">Next</a>
+                                               <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
+                                                <a href="javascript:void(0);" class="btn btn-primary step-button form-next" title="Next" id="">Next</a>
 
                                             </div>
 
@@ -1873,131 +1796,16 @@ class DisasterSituationalReportForm extends Form
 
 
 
-                                <div id="step-6" class="main-form-section d-none w-100">
+                                <div id="step-6" class="main-form-section w-100 form-section">
 
                                     <div>
 
                                         <div class="row">
 
-                                            <div class="col-lg-12 mb-3">
-
-                                                <div class="form-title">
-
-                                                    <h3>Publish Form to</h3>
-
-                                                    <div class="marker" id="publish_error">
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="col-lg-12 mb-3">
-
-                                                    <div class="row">
-
-                                                        <div class="col-12 col-lg-4 mb-3">
-
-                                                            <div class="form-check d-flex align-items-center">
-
-                                                                <label class="form-check-label">
-
-                                                                    <input onclick="show3();" id='vin_publish' type="radio" <?= $this->checkIfAudienceIs('my-joined-group');?> class="form-check-input joined" value='my-joined-group' name="rf_audience">Select From My Joined Group
-
-                                                                </label>
-
-                                                            </div>
-
-                                                            <div class="form-check d-flex align-items-center">
-
-                                                                <?php
-                                                                $user = new User(get_current_user_id());
-                                                                $myJoinedGroups = $user->myGroups();
-                                                                
-                                                        
-                                                                ?>
-
-                                                                <div id="div55" class="hides">
-
-                                                                    <select class="form-control mt-3 border rf_group_id" name="rf_group_id">
-
-                                                                        <option value="" selected>Select any group </option>
-
-                                                                        <?php foreach ($myJoinedGroups as $group) {
-
-                                                                        ?>
-                                                                        <option value="<?= $group->id(); ?>"><?= $group->name(); ?></option>        
-                                                                        <?php } ?>
-
-
-
-                                                                    </select>
-
-                                                                </div>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-12 col-lg-4 mb-3">
-
-                                                            <div class="form-check d-flex align-items-center">
-
-                                                                <label class="form-check-label">
-
-                                                                    <input onclick="show2();" type="radio" <?= $this->checkIfAudienceIs('my-group'); ?> class="form-check-input  my_group" name="rf_audience" value='my-group'>Select From My Group
-
-                                                                </label>
-
-                                                            </div>
-
-                                                            <div id="div44" class="hides">
-
-                                                                <select class="form-control mt-3 border my_group rf_group_id" name="rf_group_id">
-
-                                                                    <option value="" selected> Select any group</option>
-
-                                                                    <?php foreach ($user->groupsILead() as $group) { ?>
-
-                                                                        <option value="<?= $group->id();?>"><?= $group->name(); ?></option>
-
-                                                                    <?php } ?>
-
-                                                                </select>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-12 col-lg-4 mb-3">
-
-                                                            <div class="form-check d-flex align-items-center">
-
-                                                                <label class="form-check-label">
-
-                                                                    <input onclick="show1();" type="radio" <?= $this->checkIfAudienceIs('all-rnn-users');?> class="form-check-input all_rrn rf_publish" name="rf_audience" value="all-rnn-users">All RRN Users
-
-                                                                </label>
-
-
-
-                                                            </div>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-
-
-                                            </div>
-
+                                            <?= $this->render_audience_section(); ?>
                                             <div class="col-lg-12 d-flex justify-content-center">
-
-                                                Ready to submit.
-
+                                                <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
                                                 <button class="btn btn-outline-primary" value="save" name="save" title="Save Draft">Submit</button>
-
                                             </div>
 
                                         </div>

@@ -46,10 +46,10 @@ class GroupBlogPostNotification extends Notification{
         $this->subject = "[KCC] New Post in " . $this->group->name();
         // for logging
         $this->body = sprintf("Hi %s,<br>
-                        There's a new post in your Responder Group, you should check it out.<br>
+                        There's a new post in your group %s.<br>
                         Check it out here: <a href='" . $this->blog_post->permalink() . "'>". $this->blog_post->title()."</a><br>
                         Thank You,<br>
-                        The KCC Notifications Droid", $recipient->name(), $this->blog_post->author()->name(), $this->group->name(), $this->blog_post->title());
+                        Tech Support at World Cares Center", $recipient->name(),  $this->group->name(), $this->blog_post->title());
 
         parent::send_email($recipient);
     }
@@ -58,7 +58,7 @@ class GroupBlogPostNotification extends Notification{
     {
         $this->subject = "New Post in " . $this->group->name();
         $this->actionlink = $this->blog_post->permalink();
-        $this->body = "Check it out";
+        $this->body = "New post in " . $this->group->name() . ". Check it out";
         parent::send_notification($recipient);
     }
 

@@ -14,17 +14,37 @@ class DisasterSituationalReport extends Report{
         ]
     }";
     
-    public function __construct( $post_id=0 ) {
-        parent::__construct($post_id);
-    }
-
-   
-    public function date($fmt = 'F j, Y'){
-        return parent::date($fmt);
-    }
 
     public function incident_location(){
         return $this->meta('incident_location');
+    }
+
+    public function incident_country(){
+        return $this->meta('incident_country');
+    }
+    
+    public function country(){
+        return $this->incident_country();
+    }
+
+    public function incident_state(){
+        return $this->meta('incident_state');
+    }
+
+    public function state(){
+        return $this->incident_state();
+    }
+
+    public function incident_city(){
+        return $this->meta('incident_city');
+    }
+
+    public function city(){
+        return $this->incident_city();
+    }
+
+    public function incident_zip(){
+        return $this->meta('incident_zip');
     }
     
     public function incident_date($fmt = 'F j, Y'){
@@ -36,108 +56,141 @@ class DisasterSituationalReport extends Report{
     }
 
     public function report_status(){
-        return $this->meta('rf_status');
+        return $this->meta('report_status');
     }
 
     public function organization(){
-        return $this->meta('rf_org');
+        return $this->meta('organization');
     }
 
     public function contact_name(){
-        return $this->meta('rf_contact_name');
+        return $this->meta('contact_name');
+    }
+
+    public function contact_person(){
+        return $this->meta('contact_person');
     }
 
     public function contact_title(){
-        return $this->meta('rf_contact_title');
+        return $this->meta('contact_title');
     }
 
     public function contact_email(){
-        return $this->meta('rf_contact_email');
+        return $this->meta('contact_email');
     }
 
     public function contact_phone(){
-        return $this->meta('rf_contact_phone');
+        return $this->meta('contact_phone');
     }
 
     public function contact_address(){
-        return $this->meta('rf_address');
+        return $this->meta('contact_address');
     }
 
     public function contact_city(){
-        return $this->meta('rf_city');
+        return $this->meta('contact_city');
     }
 
     public function contact_state(){
-        return $this->meta('rf_state');
+        return $this->meta('contact_state');
     }
 
-    public function contact_zip(){
-        return $this->meta('rf_zip');
+    public function contact_zipcode(){
+        return $this->meta('contact_zipcode');
     }
 
     public function contact_country(){
-        return $this->meta('rf_country');
+        return $this->meta('contact_country');
     }
 
     public function contact_website(){
-        return $this->meta('rf_website');
+        return $this->meta('contact_website');
     }
 
     public function alternate_contact_organization(){
-        return $this->meta('rf_alt_org');
+        return $this->meta('alt_org');
     }
 
     public function alternate_contact_name(){
-        return $this->meta('rf_alt_contact_name');
+        return $this->meta('alt_contact_name');
+    }
+
+    public function alternate_contact_person(){
+        return $this->meta('alt_contact_person');
     }
 
     public function alternate_contact_title(){
-        return $this->meta('rf_alt_contact_title');
+        return $this->meta('alt_contact_title');
     }
 
     public function alternate_contact_email(){
-        return $this->meta('rf_alt_contact_email');
+        return $this->meta('alt_contact_email');
     }
 
     public function alternate_contact_phone(){
-        return $this->meta('rf_alt_contact_phone');
+        return $this->meta('alt_contact_phone');
     }
 
     public function disaster_type(){
-        return $this->meta('rf_disaster_type');
+        // should be an array
+        $disaster_type =  $this->meta('disaster_type');
+        // split it on the comma
+        $disaster_type = explode(',', $disaster_type);
+        // return the array
+        
+        return $disaster_type;
     }
 
     public function disaster_type_description(){
-        return $this->meta('rf_disaster_type_description');
+        return $this->meta('disaster_type_description');
     }
 
     public function logistic_type(){
-        return $this->meta('rf_logistic_type');
+        $logistic_type = $this->meta('logistic_type');
+        return explode(',', $logistic_type);
     }
 
     public function ground_situation_description(){
-        return $this->meta('rf_ground_situation_description');
+        return $this->meta('ground_situation_description');
     }
 
     public function sheltering_options(){
-        return $this->meta('rf_sheltering_options');
+        // split on comma and return as array
+        $options = $this->meta('sheltering_options');
+        return explode(',', $options);
     }
-    
 
     public function recommended_point_of_entry(){
-        return $this->meta('rf_recommended_point_of_entry');
+        return $this->meta('recommended_point_of_entry');
+    }
+
+    public function additional_comment(){
+        return $this->meta('additional_comment');
     }
 
     public function situational_report_comment(){
-        return $this->meta('rf_situation_report_comment');
+        return $this->additional_comment();
     }
 
     public function audience(){
-        return $this->meta('rf_audience');
+        return $this->meta('audience');
+    }
+
+    public function group_id(){
+        return $this->meta('group_id');
     }
 
     public function published_to_group(){
-        return $this->meta('rf_group_id');
+        return $this->meta('group_id');
+    }
+
+    public function security_concern(){
+        return $this->meta('security_concerns');
+    }
+
+    public function utilities(){
+        $utilities = $this->meta('utilities');
+        return explode(',', $utilities);
     }
 
 

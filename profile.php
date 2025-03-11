@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
 $path = preg_replace('/wp-content(?!.*wp-content).*/', '', __DIR__);
 require_once ($path . 'wp-load.php');
@@ -407,19 +407,9 @@ $job_title = get_user_meta($user->ID, 'job_title', true);
 
 <!-- City Dropdown -->
 <div class="col-xl-6 col-lg-6 col-md-6 col-12">
-    <div class="form-group select_sec">
+    <div class="form-group">
         <label for="exampleFormControlSelect1">* City</label>
-        <select class="form-control" name="city" id="city">
-                                                        <option value="" selected>Select City</option>
-
-
-                                                        <?php foreach ($allCitiesExist as $value) { ?>
-
-                                                            <option value="<?php echo $value->city ?>" <?php if ($current_user->city == $value->city) {
-                                                                                                            echo 'selected="selected"';
-                                                                                                        } ?>><?php echo $value->city ?></option>
-                                                        <?php } ?>
-                                                    </select>
+       <input type="text" name="city" class="form-control" value="<?php echo $city ?>">
     </div>
 </div>   
 

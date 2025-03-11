@@ -38,10 +38,10 @@ class GroupRemovedNotification extends Notification
         $this->subject = "Your Group Has Been Removed";    
 
             $this->body = sprintf("Hi %s,<br>" .
-                "We regretfully inform you that your group <strong>%s</strong> has been removed by the admin.<br>".
-                "Currently you have no recourse.<br>" .
-                "With love,<br>" .
-                "The KCC Notifications Droid",
+                "Your group <strong>%s</strong> has been removed by the admin.<br>".
+                "Thank you,<br>" .
+                "Tech Support at World Cares Center
+",
                 $recipient->name(), $this->group->name());
         parent::send_email($recipient);
         

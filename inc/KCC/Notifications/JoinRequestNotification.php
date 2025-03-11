@@ -58,7 +58,7 @@ class JoinRequestNotification extends Notification
                         %s has requested to join your group %s. Please accept/reject user invitation from your My Dashboard section.<br>
                         View Invitation: <a href='%s'>Click Here</a><br>
                         Thank You,<br>
-                        The KCC Notifications Droid", $recipient->name(), $this->user->name(), $this->group->name(), $this->actionlink);
+                        Tech Support at World Cares Center", $recipient->name(), $this->user->name(), $this->group->name(), $this->actionlink);
 
         parent::send_email($recipient);
     }

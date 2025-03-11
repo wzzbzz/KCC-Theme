@@ -54,8 +54,10 @@ class JoinRequestAcceptedNotification extends Notification
         $this->subject = "Request Approved";
             $this->body = sprintf("Hi %s,<br>" .
                 "Your request to join  <a href=\"%s\">%s</a> has been approved.<br>
-                Click the link to go there now.<b>
-                The KCC Notifications Droid", 
+                Click the link to go there now.<br>,
+                Thank You,<br>
+                Tech Support at World Cares Center
+", 
             $recipient->name(), $this->group->permalink(), $this->group->name());
         parent::send_email($recipient);
         

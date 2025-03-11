@@ -1,6 +1,10 @@
 <?php 
 
-/* Template Name: Disaster Situational Report*/
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+
+
 get_header('dashboard'); ?>
 
 
@@ -12,19 +16,12 @@ get_header('dashboard'); ?>
 
     $user = new \KCC\User($current_user_id);
 
-    // Check if any posts were found
-    if ( !empty($post_details) ) {
-        foreach ( $post_details as $post ) {
-            // echo 'Post Title: ' . $post->post_title . '<br>';
-            // echo 'Post Content: ' . $post->post_content . '<br>';
-            // echo 'Post Date: ' . $post->post_date . '<br>';
-            // echo '<hr>';
-        }
-    } else {
-        // echo 'No posts found for this user.';
+    
+    if(empty(get_query_var('kcc_report_type'))){
+        $report_type = \KCC\Reports\ReportType::fromSlug('disaster-situational-report');
+    }else{
+        $report_type = \KCC\Reports\ReportType::fromSlug(get_query_var('kcc_report_type'));
     }
-
-    $report_type = \KCC\Reports\ReportType::fromSlug('disaster-situational-report');
     
    
 
@@ -42,9 +39,6 @@ get_header('dashboard'); ?>
                 <div class="notification_Sec_main">
 
                     <h5><?= $report_type->plural_name();?></h5>
-
-                    
-
                     <p><?= $report_type->description();?></p>                            
 
                 </div>                    
@@ -69,7 +63,7 @@ get_header('dashboard'); ?>
 
             <div class="btn_list_blog ">
 
-                 <a id= "cgr" href="#" class="mr-4" data-toggle="modal" data-target="#selectGroupModal">
+                 <a href="<?=$report_type->create_url();?>" class="mr-4" data-toggle1="modal" data-target1="#selectGroupModal">
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/plus_icon.png" class="img-fluid mr-2">
                     Create New
                 </a> 
@@ -180,7 +174,11 @@ die;
 
                                                     <td><?php echo $report->title();?></td>
 
-                                                    <td><a href="<?= $report->group()->permalink();?>"><?= $report->group()->name();?></a></td>
+                                                    <td>
+                                                        <?php if($report->group()):?>
+                                                        <a href="<?= $report->group()->permalink();?>"><?= $report->group()->name();?></a>
+                                                        <?php endif;?>
+                                                    </td>
 
                                                     <td><?= $report->country()?></td>
 
@@ -287,7 +285,7 @@ if($group_count==0){ ?>
     </div>
 
     <div class="modal-body mt-2 mb-2">
-        <input type="hidden" name="report_type" id="report_type" value="disaster-situational-report"/>
+        <input type="hidden" name="report_type" id="report_type" value="<?= $report_type->slug();?>"/>
   <select class="form-control" name="group_id" id="myGroup" required>
       <?php
       

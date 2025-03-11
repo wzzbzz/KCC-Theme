@@ -54,8 +54,10 @@ class InvitationAcceptedNotification extends Notification
         $this->subject = "Invitation Accepted";
             $this->body = sprintf("Hi %s,<br>" .
                 "Your invitation to %s to join your group <a href=\"%s\">%s</a> has been accepted.<br>
-                Click the link to go there now.<b>
-                The KCC Notifications Droid", 
+                Click the link to go there now.<br><br>
+                Thanks you,<br>
+                Tech Support at World Cares Center
+", 
             $recipient->name(), $this->user->name(), $this->group->permalink(), $this->group->name());
 
         parent::send_email($recipient);

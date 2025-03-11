@@ -55,8 +55,9 @@ class InvitationDeclinedNotification extends Notification
         $this->subject = "Invitation Declined";
             $this->body = sprintf("Hi %s,<br>" .
                 " %s has declined your invition to join your group <a href=\"%s\">%s</a><br>
-                Better luck next time,<br>
-                The KCC Notifications Droid", 
+                Thank you,<br>
+                Tech Support at World Cares Center
+", 
             $recipient->name(), $this->user->name(), $this->group->permalink(), $this->group->name());
         parent::send_email($recipient);
         

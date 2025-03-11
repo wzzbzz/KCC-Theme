@@ -57,8 +57,8 @@ class InvitationCancelledNotification extends Notification
         $this->subject = "Invitation Cancelled";
         $this->body = sprintf("Hi %s,<br>
                         The invitation to join <strong>%s</strong> has been cancelled. <br>
-                        with heartfelt apologies<br>
-                        The KCC Notifications Droid", $recipient->name(), $this->group->name());
+                        Thank you,<br>
+                        Tech Support at World Cares Center", $recipient->name(), $this->group->name());
 
         parent::send_email($recipient);
     }

@@ -7,7 +7,9 @@
  * @package Astra
  * @since 1.0.0
  */
-
+pre(is_post_type_archive());
+pre(get_query_var('post_type'));
+die;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }

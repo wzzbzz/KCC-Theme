@@ -141,11 +141,11 @@ a.disabled {
                                      <td><?php echo get_post_meta($rid,'rf_date',true)?></td>
                                      <td><?php echo $report->post_title;?></td>
                                      <td><?php echo @$groupData->post_title;?></td>
-                                     <!--<td><//?php echo get_post_meta($rid,'rf_org',true)?></td>-->
+                                     <!--<td><//?php echo get_post_meta($rid,'organization',true)?></td>-->
                                      <td><?php echo get_user_meta($postAuthor,'country',true)?></td>
                                      <td><?php echo get_user_meta($postAuthor,'state',true)?></td>
                                      <td><?php echo get_user_meta($postAuthor,'city',true)?></td>
-                                     <td><?php echo get_post_meta($rid,'rf_contact_person',true)?></td>
+                                     <td><?php echo get_post_meta($rid,'contact_person',true)?></td>
                                       <td>
                                            <div class="organization">
                                                 <a href="javascript:void(0);" title="<?php echo get_post_meta($rid,'rf_email',true)?>"><?php echo get_post_meta($rid,'rf_email',true)?></a>

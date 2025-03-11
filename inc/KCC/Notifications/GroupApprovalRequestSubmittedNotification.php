@@ -45,7 +45,7 @@ class GroupApprovalRequestSubmittedNotification extends Notification
                 "Your group <strong>%s</strong> has been submitted for approval.  You will be notified when the admin takes action.<br>
                 No action is required at this time.<br>
                 With love,<br>
-                The KCC Notifications Droid", $recipient->name(), $this->group->name());
+                Tech Support at World Cares Center", $recipient->name(), $this->group->name());
 
             parent::send_email($recipient);
         }

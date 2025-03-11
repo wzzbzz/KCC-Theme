@@ -283,7 +283,7 @@ if (is_user_logged_in()) {
                                                                 <div class="form-check d-flex align-items-center">
                                                                     <div class="d-flex">
                                                                         <label class="form-check-label">
-                                                                            <input type="radio" <?php echo (get_post_meta($rf_id, 'rf_status', true) == "Initial Assessment") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="rf_status" value="Initial Assessment">Initial Assessment
+                                                                            <input type="radio" <?php echo (get_post_meta($rf_id, 'report_status', true) == "Initial Assessment") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="report_status" value="Initial Assessment">Initial Assessment
                                                                         </label>
                                                                     </div>
 
@@ -292,17 +292,17 @@ if (is_user_logged_in()) {
 
                                                                 <div class="form-check d-flex align-items-center">
                                                                     <label class="form-check-label">
-                                                                        <input type="radio" <?php echo (get_post_meta($rf_id, 'rf_status', true) == "Report") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="rf_status" value="Report">Report
+                                                                        <input type="radio" <?php echo (get_post_meta($rf_id, 'report_status', true) == "Report") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="report_status" value="Report">Report
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check d-flex align-items-center">
                                                                     <label class="form-check-label">
-                                                                        <input type="radio" <?php echo (get_post_meta($rf_id, 'rf_status', true) == "Status Update") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="rf_status" value="Status Update">Status Update
+                                                                        <input type="radio" <?php echo (get_post_meta($rf_id, 'report_status', true) == "Status Update") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="report_status" value="Status Update">Status Update
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check d-flex align-items-center">
                                                                     <label class="form-check-label">
-                                                                        <input type="radio" <?php echo (get_post_meta($rf_id, 'rf_status', true) == "Close Out Report") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input in_ass" name="rf_status" value="Close Out Report">Close Out Report
+                                                                        <input type="radio" <?php echo (get_post_meta($rf_id, 'report_status', true) == "Close Out Report") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input in_ass" name="report_status" value="Close Out Report">Close Out Report
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -355,14 +355,14 @@ if (is_user_logged_in()) {
                                                             <div class="col-lg-4 mb-3">
                                                                 <div class="form-group">
                                                                     <label>Name of Organization*</label>
-                                                                    <input type="text" class="form-control na_or" name="rf_org" placeholder="Enter " value="<?php echo get_post_meta($rf_id, 'rf_org', true) ?>">
+                                                                    <input type="text" class="form-control na_or" name="organization" placeholder="Enter " value="<?php echo get_post_meta($rf_id, 'organization', true) ?>">
                                                                 </div>
                                                                 <div class="marker" id="na_or_error"></div>
                                                             </div>
                                                             <div class="col-lg-4 mb-3">
                                                                 <div class="form-group">
                                                                     <label>Contact Person *</label>
-                                                                    <input type="text" class="form-control con_per" name="rf_contact_person" placeholder="Enter Name" value="<?php echo $userInfo->first_name;  ?> <?php echo $userInfo->last_name;  ?>" readonly>
+                                                                    <input type="text" class="form-control con_per" name="contact_person" placeholder="Enter Name" value="<?php echo $userInfo->first_name;  ?> <?php echo $userInfo->last_name;  ?>" readonly>
                                                                 </div>
                                                                 <div class="marker" id="con_per_error"></div>
                                                             </div>
@@ -439,14 +439,14 @@ if (is_user_logged_in()) {
                                                             <div class="col-lg-4 mb-3">
                                                                 <div class="form-group">
                                                                     <label>Name of Organization</label>
-                                                                    <input type="text" class="form-control na_me" name="_rf_org" placeholder="Enter " value="<?php echo get_post_meta($rf_id, '_rf_org', true) ?>">
+                                                                    <input type="text" class="form-control na_me" name="_organization" placeholder="Enter " value="<?php echo get_post_meta($rf_id, '_organization', true) ?>">
                                                                 </div>
                                                                 <div class="marker" id="na_me_error"></div>
                                                             </div>
                                                             <div class="col-lg-4 mb-3">
                                                                 <div class="form-group">
                                                                     <label>Contact Person</label>
-                                                                    <input type="text" class="form-control co_pe" name="rf_contact_person2" placeholder="Enter " value="<?php echo get_post_meta($rf_id, 'rf_contact_person2', true) ?>">
+                                                                    <input type="text" class="form-control co_pe" name="contact_person2" placeholder="Enter " value="<?php echo get_post_meta($rf_id, 'contact_person2', true) ?>">
                                                                 </div>
                                                                 <div class="marker" id="co_pe_error"></div>
                                                             </div>
@@ -683,49 +683,49 @@ if (is_user_logged_in()) {
                                                                     <div class="col-12 col-lg-4 mb-3">
                                                                         <div class="form-check d-flex align-items-center">
                                                                             <label class="form-check-label">
-                                                                                <input type="radio" <?php echo (get_post_meta($rf_id, 'rf_disaster_type1', true) == "Tunnels") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="rf_disaster_type1" value="Tunnels">Tunnels
+                                                                                <input type="radio" <?php echo (get_post_meta($rf_id, 'disaster_type1', true) == "Tunnels") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="disaster_type1" value="Tunnels">Tunnels
                                                                             </label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-12 col-lg-4 mb-3">
                                                                         <div class="form-check d-flex align-items-center">
                                                                             <label class="form-check-label">
-                                                                                <input type="radio" <?php echo (get_post_meta($rf_id, 'rf_disaster_type1', true) == "Roads") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="rf_disaster_type1" value="Roads">Roads
+                                                                                <input type="radio" <?php echo (get_post_meta($rf_id, 'disaster_type1', true) == "Roads") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="disaster_type1" value="Roads">Roads
                                                                             </label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-12 col-lg-4 mb-3">
                                                                         <div class="form-check d-flex align-items-center">
                                                                             <label class="form-check-label">
-                                                                                <input type="radio" <?php echo (get_post_meta($rf_id, 'rf_disaster_type1', true) == "Subways") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="rf_disaster_type1" value="Subways">Subways
+                                                                                <input type="radio" <?php echo (get_post_meta($rf_id, 'disaster_type1', true) == "Subways") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="disaster_type1" value="Subways">Subways
                                                                             </label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-12 col-lg-4 mb-3">
                                                                         <div class="form-check d-flex align-items-center">
                                                                             <label class="form-check-label">
-                                                                                <input type="radio" <?php echo (get_post_meta($rf_id, 'rf_disaster_type1', true) == "Bus Lines") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="rf_disaster_type1" value="Bus Lines">Bus Lines
+                                                                                <input type="radio" <?php echo (get_post_meta($rf_id, 'disaster_type1', true) == "Bus Lines") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="disaster_type1" value="Bus Lines">Bus Lines
                                                                             </label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-12 col-lg-4 mb-3">
                                                                         <div class="form-check d-flex align-items-center">
                                                                             <label class="form-check-label">
-                                                                                <input type="radio" <?php echo (get_post_meta($rf_id, 'rf_disaster_type1', true) == "Airports") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="rf_disaster_type1" value="Airports">Airports
+                                                                                <input type="radio" <?php echo (get_post_meta($rf_id, 'disaster_type1', true) == "Airports") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="disaster_type1" value="Airports">Airports
                                                                             </label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-12 col-lg-4 mb-3">
                                                                         <div class="form-check d-flex align-items-center">
                                                                             <label class="form-check-label">
-                                                                                <input type="radio" <?php echo (get_post_meta($rf_id, 'rf_disaster_type1', true) == "Availability of fuel") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="rf_disaster_type1" value="Availability of fuel">Availability of fuel
+                                                                                <input type="radio" <?php echo (get_post_meta($rf_id, 'disaster_type1', true) == "Availability of fuel") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input" name="disaster_type1" value="Availability of fuel">Availability of fuel
                                                                             </label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-12 col-lg-6 mb-3">
                                                                         <div class="form-check d-flex align-items-center">
                                                                             <label class="form-check-label">
-                                                                                <input type="radio" <?php echo (get_post_meta($rf_id, 'rf_disaster_type1', true) == "Major logistics bottlenecks or problems") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input bot_pro" name="rf_disaster_type1" value="Major logistics bottlenecks or problems">Major logistics bottlenecks or problems
+                                                                                <input type="radio" <?php echo (get_post_meta($rf_id, 'disaster_type1', true) == "Major logistics bottlenecks or problems") ? "CHECKED='CHECKED'" : "" ?> class="form-check-input bot_pro" name="disaster_type1" value="Major logistics bottlenecks or problems">Major logistics bottlenecks or problems
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -803,11 +803,11 @@ if (is_user_logged_in()) {
                                                             <div class="col-lg-4 mb-3">
                                                                 <div class="form-group seletc-form-height">
                                                                     <label>Utilities</label>
-                                                                    <select class="select2 js-example-placeholder-multiple-123 set-postion" name="rf_utilities" data-placeholder="Utilities" multiple="multiple" style="width: 100%; box-shadow: unset; color: #000;">
-                                                                        <option value="Gas Leaks" <?php echo (get_post_meta($rf_id, 'rf_utilities', true) == "Gas Leaks") ? "selected='selected'" : "" ?>>Gas Leaks</option>
-                                                                        <option value="Sewage/Biological Hazard" <?php echo (get_post_meta($rf_id, 'rf_utilities', true) == "Sewage/Biological Hazard") ? "selected='selected'" : "" ?>>Sewage/Biological Hazard</option>
-                                                                        <option value="Downed Wires" <?php echo (get_post_meta($rf_id, 'rf_utilities', true) == "Downed Wires") ? "selected='selected'" : "" ?>>Downed Wires</option>
-                                                                        <option value="No Electricity" <?php echo (get_post_meta($rf_id, 'rf_utilities', true) == "No Electricity") ? "selected='selected'" : "" ?>>No Electricity</option>
+                                                                    <select class="select2 js-example-placeholder-multiple-123 set-postion" name="utilities" data-placeholder="Utilities" multiple="multiple" style="width: 100%; box-shadow: unset; color: #000;">
+                                                                        <option value="Gas Leaks" <?php echo (get_post_meta($rf_id, 'utilities', true) == "Gas Leaks") ? "selected='selected'" : "" ?>>Gas Leaks</option>
+                                                                        <option value="Sewage/Biological Hazard" <?php echo (get_post_meta($rf_id, 'utilities', true) == "Sewage/Biological Hazard") ? "selected='selected'" : "" ?>>Sewage/Biological Hazard</option>
+                                                                        <option value="Downed Wires" <?php echo (get_post_meta($rf_id, 'utilities', true) == "Downed Wires") ? "selected='selected'" : "" ?>>Downed Wires</option>
+                                                                        <option value="No Electricity" <?php echo (get_post_meta($rf_id, 'utilities', true) == "No Electricity") ? "selected='selected'" : "" ?>>No Electricity</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -820,7 +820,7 @@ if (is_user_logged_in()) {
                                                             <div class="col-lg-6 mb-3">
                                                                 <div class="form-group">
                                                                     <label>Additional Comments:</label>
-                                                                    <input type="text" class="form-control" id="rf_comment" name="rf_comment" placeholder="Enter " <?php echo get_post_meta($rf_id, 'rf_comment', true) ?>>
+                                                                    <input type="text" class="form-control" id="additional_comment" name="additional_comment" placeholder="Enter " <?php echo get_post_meta($rf_id, 'additional_comment', true) ?>>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12 mb-3">
@@ -1133,7 +1133,7 @@ if (is_user_logged_in()) {
             var tiMe = $('.ti_me').val();
 
 
-            var publishFrom = document.getElementsByName('rf_status');
+            var publishFrom = document.getElementsByName('report_status');
             for (let p of publishFrom) {
                 if (p.checked) {} else {
                     $("#in_ass_error").text("Select any option.");
@@ -1241,7 +1241,7 @@ if (is_user_logged_in()) {
 
 
             var publishFrom = document.getElementsByName('rf_publish');
-            var disaster_type = document.getElementsByName('rf_disaster_type1');
+            var disaster_type = document.getElementsByName('disaster_type1');
             for (let l of disaster_type) {
                 if (l.checked) {
 

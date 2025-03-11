@@ -50,8 +50,9 @@ class GroupAnnouncementNotification extends Notification{
                         %s has posted an announcement in the group %s. <br>
                         Announcement: %s <br>
                         View Announcement: <a href='" . $this->announcement->permalink() . "'>". $this->announcement->permalink()."</a><br>
-                        Thank You,<br>
-                        The KCC Notifications Droid", $recipient->name(), $this->announcement->author()->name(), $this->group->name(), $this->announcement->title());
+                        Thank you,<br>
+                        Tech Support at World Cares Center
+", $recipient->name(), $this->announcement->author()->name(), $this->group->name(), $this->announcement->title());
 
         parent::send_email($recipient);
     }

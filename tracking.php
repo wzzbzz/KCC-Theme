@@ -368,7 +368,7 @@ span.group_info {
 
                                                     <td><?php echo get_post_meta($rid,'rf_date',true)?></td>
 
-                                                    <td><?php echo get_post_meta($rid,'rf_org',true)?></td>
+                                                    <td><?php echo get_post_meta($rid,'organization',true)?></td>
 
                                                     <td><?php echo get_post_meta($rid,'rf_city',true)?></td>
 
@@ -376,13 +376,13 @@ span.group_info {
 
                                                     <td><?php echo get_post_meta($rid,'rf_country',true)?></td>
 
-                                                    <td><?php echo get_post_meta($rid,'rf_contact_person',true)?></td>
+                                                    <td><?php echo get_post_meta($rid,'contact_person',true)?></td>
 
                                                     <td>
 
                                                        <div class="organization">
 
-                                                           <?php echo get_post_meta($rid,'rf_org',true)?>
+                                                           <?php echo get_post_meta($rid,'organization',true)?>
 
                                                         </div>
 

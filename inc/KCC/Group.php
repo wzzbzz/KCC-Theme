@@ -342,7 +342,7 @@ class Group extends \jwc\Wordpress\WPPost
         $args = ['group_id' => $this->id(), 'user_id' => $user_id];
         $notification = new \KCC\Notifications\JoinRequestNotification($args);
         $notification->send();
-
+        
         // update "notification_sent = 1" in group_invite
         $wpdb->update(
             'group_invite',
@@ -518,20 +518,41 @@ class Group extends \jwc\Wordpress\WPPost
         return $posts;
     }
 
-    public function reports( $report_type ){
-        $reportData = get_posts( array(
-            'post_type'      => 'reportsforms',
+    public function reports( $report_type='' ){
+
+        $args=  array(
+            'post_type'      => 'kcc_report',
             'post_status'    => 'publish',
             'numberposts' => 1000,
              'meta_query'    => array(
                        'relation'      => 'AND',
                        array(
                        'key' => 'group_id',
-                       'value'   => $post->ID,
+                       'value'   => $this->id(),
                        'compare' => '='
                        )
                        )
-       ) );
+       );
+
+         if( !empty($report_type) ){
+              // report type is a taxonomy query
+                $args['tax_query'] = array(
+                    array(
+                        'taxonomy' => 'kcc_report_type',
+                        'field'    => 'slug',
+                        'terms'    => $report_type,
+                    )
+                );
+         }
+        
+        $query = new \WP_Query($args);
+        
+        $reports = [];
+        foreach($query->posts as $report){
+            $report = \KCC\Reports\Reports::factory($report->ID);
+            $reports[] = $report;
+        }
+        return $reports;
        
     }
 

@@ -2511,7 +2511,7 @@
 
         $("#red-2").removeClass('circle-red');
 
-        $("#red-1").removeClass('circle-orange');
+        $(":").removeClass('circle-orange');
 
         $("#red-1").addClass('circle-red');
 
@@ -2881,12 +2881,6 @@
 
             }
 
-
-
-           
-
-
-
          var publishFrom7 = document.getElementsByName('agree_terms ');
 
             for (let c of publishFrom7) {
@@ -2902,8 +2896,6 @@
                 }
 
             }
-
-
 
 
 
@@ -3022,51 +3014,6 @@
             }
 
 
-
-
-
-
-
-
-
-
-
-           
-
-
-
-           
-
-
-
-           
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
          if(surPro ==''){
 
             $("#sur_pro_error").text("Select any value.");
@@ -3182,46 +3129,6 @@
         
 
     });
-
-    
-
-    
-
-    
-
-    
-
-    // $("#step-btn-5").click(function(){
-
-    //     $("#step-6").removeClass('d-none');
-
-    //     $("#step-1").addClass('d-none');
-
-    //     $("#step-2").addClass('d-none');
-
-    //     $("#step-3").addClass('d-none');
-
-    //     $("#step-4").addClass('d-none');
-
-    //     $("#step-5").addClass('d-none');
-
-        
-
-       
-
-    //     $("#bd-5").addClass('orange-bd');
-
-    //     $("#red-6").addClass('circle-red');
-
-    //     $("#red-5").addClass('circle-orange');
-
-    //     $("#red-5").removeClass('circle-red');
-
-    // });
-
-
-
-    var rf_id="<?php echo $_GET['rf_id']?>";
 
 
 
@@ -3518,4 +3425,4 @@
 
  
 
-<?php get_footer('new'); } ?>
+<?php get_footer('new');  ?>

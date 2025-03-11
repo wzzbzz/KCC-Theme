@@ -1,13 +1,19 @@
 <?php
 
 namespace KCC\Reports;
-
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL); 
 class Reports extends \jwc\Wordpress\WPCollection
 {
 
     public function register(){
+
         $this->register_post_type();
         $this->register_taxonomies();
+        $this->add_rewrites();
+
+        flush_rewrite_rules();
     }
 
     public function register_post_type(){
@@ -35,12 +41,13 @@ class Reports extends \jwc\Wordpress\WPCollection
             'show_ui' => true, 
             'show_in_menu' => true, 
             'query_var' => true,
-            'rewrite' => array( 'slug' => 'kcc_report' ),
+            'rewrite' => ['slug' => 'reports/%kcc_report_type%', 'with_front' => false],
             'capability_type' => 'post',
             'has_archive' => true, 
             'hierarchical' => false,
             'menu_position' => null,
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
+            'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+            'taxonomies' => ['kcc_report_type'],
         );
 
         register_post_type( 'kcc_report', $args );
@@ -75,4 +82,65 @@ class Reports extends \jwc\Wordpress\WPCollection
             //'rewrite' => array( 'slug' => 'kcc_report_type' ),
         ));
     }
+
+
+    public static function factory($report_id){
+        // get the post, and find out what kcc_report_type it is
+        
+        $report_type = wp_get_post_terms($report_id, 'kcc_report_type');
+        
+
+        
+        switch( $report_type[0]->name){
+            case "Disaster Situational Report":
+                return new DisasterSituationalReport($report_id);
+            case "Organization Volunteer Request":
+                return new OrganizationVolunteerRequest($report_id);
+            default:
+                return new Report($report_id);
+        }
+    }
+
+    public function add_filters(){
+        add_filter('post_type_link', array($this,'link_structure'), 10, 2);
+        add_filter('query_vars', array($this,'add_query_vars'));
+
+        add_action('template_redirect', array($this,'template_redirect'));
+
+    }
+
+    public function add_rewrites(){
+        add_rewrite_rule('^reports/create/([^/]+)/?$', 'index.php?post_type=kcc_report&report_create=1&kcc_report_type=$matches[1]', 'top');
+        add_rewrite_rule('^reports/([^/]+)/?$', 'index.php?post_type=kcc_report&kcc_report_type=$matches[1]', 'top');
+        
+        
+
+    }
+
+    public function add_query_vars($vars){
+        $vars[] = 'report_create';
+        return $vars;
+    }
+
+    public function link_structure($post_link, $post) {
+        
+        if ($post->post_type === 'kcc_report') {
+            $terms = get_the_terms($post->ID, 'kcc_report_type');
+            if ($terms && !is_wp_error($terms)) {
+                $report_type = array_shift($terms)->slug;
+                return home_url("/reports/$report_type/{$post->post_name}/");
+            }
+        }
+        return $post_link;
+    }
+
+    public function template_redirect(){
+        global $wp_query;
+        if (get_query_var('report_create') == 1) {
+            // Load your custom create report template
+            include get_template_directory() . '/create-report.php';
+            exit;
+        }
+    }
+
 }
