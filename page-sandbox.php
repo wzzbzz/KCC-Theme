@@ -6,5 +6,5 @@ error_reporting(E_ALL);
 
 echo "the sandbox<br>";
 // get a user id
-
-pre(\KCC\Users::allKCCUsers());
+pre(learndash_get_user_courses_from_meta(get_current_user_id()));
+         

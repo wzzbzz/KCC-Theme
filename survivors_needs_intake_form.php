@@ -375,24 +375,14 @@ get_header('new');
                                               //echo $rid;
 
                                                echo   "<form method = 'POST' action ='' class='row mediadoc_form' id='disaster_media' enctype='multipart/form-data'>";
-
                                                echo   "<div class='orange-box report-btn'>";
-
                                                echo   "<input type='hidden' name ='page_url'  value= '$current_url'>";
-
                                                echo   "<input type='hidden' name='survivorNeedIntakeReport_alert' value='survivorNeedIntakeReport_alert'/>";
-
                                                echo   "<input type ='hidden' name ='post_author'  id='post_author'  value ='$report->post_author'>";
-
-                                               
-
                                                echo   "<input type ='hidden' name ='rid'  id='rid'  value ='$rid'>";
-
-                                                echo  '<button type ="submit" class="orange-box"><p>Apply</p></button>';
-
-                                                echo  '</div>'; 
-
-                                                echo  '</form>';
+                                               echo  '<button type ="submit" class="orange-box"><p>Apply</p></button>';
+                                               echo  '</div>'; 
+                                               echo  '</form>';
 
                                         ?>
 

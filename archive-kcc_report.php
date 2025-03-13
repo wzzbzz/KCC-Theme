@@ -23,8 +23,10 @@ get_header('dashboard'); ?>
         $report_type = \KCC\Reports\ReportType::fromSlug(get_query_var('kcc_report_type'));
     }
     
-   
+    $viewClass = $report_type->getViewClass();
 
+    
+    
     ?>
 
 
@@ -63,7 +65,7 @@ get_header('dashboard'); ?>
 
             <div class="btn_list_blog ">
 
-                 <a href="<?=$report_type->create_url();?>" class="mr-4" data-toggle1="modal" data-target1="#selectGroupModal">
+                 <a href="<?= $report_type->create_url(); ?>" class="mr-4" data-toggle1="modal" data-target1="#selectGroupModal">
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/plus_icon.png" class="img-fluid mr-2">
                     Create New
                 </a> 
@@ -134,25 +136,7 @@ die;
 
                                 <tr>
 
-                                    <th scope="col">Report No.</th>
-
-                                    <th scope="col">Date</th>
-
-                                    <th scope="col">Event</th>
-
-                                    <th scope ="col">Group</th>
-
-                                    <th scope="col">Country</th>
-
-                                    <th scope="col">State</th>
-
-                                    <th scope="col">City</th>
-
-                                    <th scope="col">Contact Person</th>
-
-                                  
-
-                                    <th scope="col"></th>
+                                   <?= $viewClass::tableHeader();?>
 
                                 </tr>
 
@@ -163,50 +147,10 @@ die;
                              <?php if(!empty($reports)){
 
                                     foreach($reports as $report){
-                                        
-                                         ?>
-
-                                                <tr class="bg-color">
-
-                                                    <td><?= $report->slug();?></td>
-
-                                                    <td><?= $report->date(); ?></td>
-
-                                                    <td><?php echo $report->title();?></td>
-
-                                                    <td>
-                                                        <?php if($report->group()):?>
-                                                        <a href="<?= $report->group()->permalink();?>"><?= $report->group()->name();?></a>
-                                                        <?php endif;?>
-                                                    </td>
-
-                                                    <td><?= $report->country()?></td>
-
-                                                    <td><?= $report->state()?></td>
-
-                                                    <td><?= $report->city()?></td>
-
-                                                    <td><?= $report->contact_name()?></td>
-
-                                                    <td style="width:12%;">
-
-                                                        <a href="<?= $report->permalink();?>" class="d-block">
-
-                                                            <div class="orange-box report-btn">
-
-                                                                <p>View</p>
-
-                                                            </div>
-
-                                                        </a>
-
-                                                    </td>
-
-                                                </tr>
-
-                                          <?php }
-
-                                        }?>                            
+                                        $view = new $viewClass($report);
+                                        $view->render_table_row();
+                                    }
+                             }?>                            
 
                                                         
 

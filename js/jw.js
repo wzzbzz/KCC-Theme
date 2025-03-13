@@ -1186,7 +1186,7 @@ $(document).ready(function () {
         // disconnect the click event from the submit button inside it.
         e.preventDefault();
         // find all the divs with the class of group-cell and hide them
-        console.log($(this).data('filter'));
+        
         switch ($(this).data('filter')) {
             case 'all':
                 $('.group-cell').show();
@@ -1248,3 +1248,18 @@ $(".editAnnouncement").click(function () {
     $('#edit_ann_id').val(edit_ann_id);               
 
 });
+
+
+
+// /* this is a hack to hopefully get the tabs working on the report applications page */
+
+$(".report-applications a.nav-link").on('click', function (e) {
+    e.preventDefault();
+    var tab = $(this).attr('href');
+    $('.nav-link').removeClass('active');
+    $(this).addClass('active');
+    $('.tab-pane').removeClass('active');
+    $(tab).addClass('active');
+    $(tab).addClass('show');
+}
+);

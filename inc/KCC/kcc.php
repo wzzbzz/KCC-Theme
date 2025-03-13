@@ -6,6 +6,18 @@ if( isset($_GET['debug']) && $_GET['debug'] == 'true' ){
     ini_set('display_startup_errors', 1);
 }
 
+if(isset($_GET['delete_applications_from_postmeta'])){
+    $args = array(
+        'post_type' => 'kcc_report',
+        'posts_per_page' => -1,
+        'post_status' => 'any'
+    );
+    $reports = get_posts($args);
+    foreach($reports as $report){
+        delete_post_meta($report->ID, 'vol_applications');
+    }
+}
+
 // make an autoload function for the /jwc/Wordpress directory
 spl_autoload_register(function ($class) {
     
@@ -42,6 +54,8 @@ function leave_a_comment_title_tag( $defaults ){
   return $defaults;
 }
 
+
+// these function calls will set up the hooks
 new KCC\Groups();
 new KCC\Roles();
 new KCC\Communications\Announcements();
@@ -50,4 +64,6 @@ new KCC\FlashMessages\FlashMessages();
 
 // right now Reports must precede Forms....
 new KCC\Reports\Reports();
+new KCC\Reports\ReportTypes();
+new KCC\Reports\OrganizationVolunteerRequests();
 new KCC\Forms\Forms();

@@ -16,6 +16,14 @@ class WPTerm{
         return get_term($this->term_id, $this->taxonomy);
     }
 
+    public function id(){
+        return $this->term_id;
+    }
+
+    public function term_id(){
+        return $this->term_id;
+    }
+
     public function slug(){
         return get_term($this->term_id, $this->taxonomy)->slug;
     }

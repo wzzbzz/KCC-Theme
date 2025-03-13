@@ -544,7 +544,7 @@
 
                                                         <div class="col-lg-6 mb-3">
 
-                                                            <div class="form-group seletc-form-height">
+                                                            <div class="form-group select-form-height">
 
                                                                 <label>Task Status</label>
 
@@ -580,7 +580,7 @@
 
                                                         <div class="col-lg-6 mb-3">
 
-                                                            <div class="form-group seletc-form-height">
+                                                            <div class="form-group select-form-height">
 
                                                                 <label>Task Status</label>
 
@@ -616,7 +616,7 @@
 
                                                         <div class="col-lg-6 mb-3">
 
-                                                            <div class="form-group seletc-form-height">
+                                                            <div class="form-group select-form-height">
 
                                                                 <label>Task Status</label>
 
@@ -782,7 +782,7 @@
 
                                                             <div class="col-lg-6 mb-3">
 
-                                                                <div class="form-group seletc-form-height">
+                                                                <div class="form-group select-form-height">
 
                                                                     <label>Action will be taken by *</label>
 
@@ -820,7 +820,7 @@
 
                                                             <div class="col-lg-6 mb-3">
 
-                                                                <div class="form-group seletc-form-height">
+                                                                <div class="form-group select-form-height">
 
                                                                     <label>Action will be taken by *</label>
 
@@ -852,7 +852,7 @@
 
                                                             <div class="col-lg-6 mb-3">
 
-                                                                <div class="form-group seletc-form-height">
+                                                                <div class="form-group select-form-height">
 
                                                                     <label>Action will be taken by *</label>
 

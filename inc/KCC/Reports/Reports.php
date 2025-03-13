@@ -110,15 +110,16 @@ class Reports extends \jwc\Wordpress\WPCollection
     }
 
     public function add_rewrites(){
-        add_rewrite_rule('^reports/create/([^/]+)/?$', 'index.php?post_type=kcc_report&report_create=1&kcc_report_type=$matches[1]', 'top');
+        add_rewrite_rule('^reports/([^/]+)/create/?$', 'index.php?post_type=kcc_report&report_create=1&kcc_report_type=$matches[1]', 'top');
+        add_rewrite_rule('^reports/([^/]+)/([^/]+)/applications/?$', 'index.php?post_type=kcc_report&report_applications=1&kcc_report_type=$matches[1]&name=$matches[2]', 'top');
         add_rewrite_rule('^reports/([^/]+)/?$', 'index.php?post_type=kcc_report&kcc_report_type=$matches[1]', 'top');
-        
-        
+    
 
     }
 
     public function add_query_vars($vars){
         $vars[] = 'report_create';
+        $vars[] = 'report_applications';
         return $vars;
     }
 
@@ -139,6 +140,12 @@ class Reports extends \jwc\Wordpress\WPCollection
         if (get_query_var('report_create') == 1) {
             // Load your custom create report template
             include get_template_directory() . '/create-report.php';
+            exit;
+        }
+
+        if(get_query_var('report_applications') == 1){
+            // Load your custom create report template
+            include get_template_directory() . '/report-applications.php';
             exit;
         }
     }

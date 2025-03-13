@@ -517,7 +517,7 @@
 
                                                         <div class="col-lg-4 mb-3">
 
-                                                            <div class="form-group seletc-form-height">
+                                                            <div class="form-group select-form-height">
 
                                                                 <label>Best Time to Contact</label>
 
@@ -1387,7 +1387,7 @@
 
                                                         <div class="col-lg-6 mb-3">
 
-                                                            <div class="form-group seletc-form">
+                                                            <div class="form-group select-form">
 
                                                                 <select id="property_type" name="property_type" class="form-control sur_pro">
 
@@ -1503,7 +1503,7 @@
 
                                                         <div class="col-lg-4 mb-3">
 
-                                                            <div class="form-group seletc-form">
+                                                            <div class="form-group select-form">
 
                                                                 <select id="recovery_status" name="recovery_status" class="form-control sur_se" >
 
@@ -2105,7 +2105,7 @@
 
                                                         <div class="col-lg-6 mb-3">
 
-                                                            <div class="form-group seletc-form">
+                                                            <div class="form-group select-form">
 
                                                                 <input type="text" class="form-control ins_type"  name="insurance_type" placeholder="Enter here">
 
@@ -2511,7 +2511,7 @@
 
         $("#red-2").removeClass('circle-red');
 
-        $(":").removeClass('circle-orange');
+        $("#red-1").removeClass('circle-orange');
 
         $("#red-1").addClass('circle-red');
 

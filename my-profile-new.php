@@ -1,6 +1,6 @@
 <?php 
 /* Template Name: My Profile */ 
-
+die("hi");
  if ( is_user_logged_in() ) {
 get_header('new'); ?>
 

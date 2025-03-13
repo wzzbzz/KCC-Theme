@@ -143,4 +143,9 @@
    </div>
 
 
-<?php get_footer(); } ?>
+<?php get_footer(); } 
+
+else{
+// do a 404
+        
+}?>

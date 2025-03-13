@@ -783,7 +783,7 @@ if (is_user_logged_in()) {
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-4 mb-3">
-                                                                <div class="form-group seletc-form-height">
+                                                                <div class="form-group select-form-height">
                                                                     <label>Security</label>
                                                                     <select class="form-control set-postion" name="rf_security">
                                                                         <option value="No Issue" <?php echo (get_post_meta($rf_id, 'rf_security', true) == "No Issue") ? "selected='selected'" : "" ?>>No Issue</option>
@@ -793,7 +793,7 @@ if (is_user_logged_in()) {
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-4 mb-3">
-                                                                <div class="form-group seletc-form-height">
+                                                                <div class="form-group select-form-height">
                                                                     <select class="select2 js-example-placeholder-multiple-II set-postion" name="rf_sheltering" data-placeholder="Sheltering" multiple="multiple" style="width: 100%; box-shadow: unset; color: #000;">
                                                                         <option value="Survivor sheltering in place" <?php echo (get_post_meta($rf_id, 'rf_sheltering', true) == "Survivor sheltering in place") ? "selected='selected'" : "" ?>>Survivor sheltering in place</option>
                                                                         <option value="Volunteer Housing in place" <?php echo (get_post_meta($rf_id, 'rf_sheltering', true) == "Volunteer Housing in place") ? "selected='selected'" : "" ?>>Volunteer Housing in place</option>
@@ -801,7 +801,7 @@ if (is_user_logged_in()) {
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-4 mb-3">
-                                                                <div class="form-group seletc-form-height">
+                                                                <div class="form-group select-form-height">
                                                                     <label>Utilities</label>
                                                                     <select class="select2 js-example-placeholder-multiple-123 set-postion" name="utilities" data-placeholder="Utilities" multiple="multiple" style="width: 100%; box-shadow: unset; color: #000;">
                                                                         <option value="Gas Leaks" <?php echo (get_post_meta($rf_id, 'utilities', true) == "Gas Leaks") ? "selected='selected'" : "" ?>>Gas Leaks</option>

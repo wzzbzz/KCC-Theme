@@ -18,16 +18,16 @@ get_header('dashboard'); ?>
                 <div class="g_group_box_new">
                     <ul class="groups-nav nav nav-pills mb-3 linked_blog" id="pills-tab" role="tablist">
                         <li class="nav-item group_btn">
-                            <a href="#" data-filter='all' id="all" class="nav-link active">All</a>
+                            <a href="#all-groups" data-filter='all' id="all" class="nav-link active">All</a>
                         </li>
                         <li class="nav-item group_btn">
-                            <a href="#" data-filter='mine' id="my-groups" class="nav-link ">My Groups</a>
+                            <a href="#my-groups" data-filter='mine' id="my-groups" class="nav-link ">My Groups</a>
                         </li>
                         <li class="nav-item group_btn">
-                            <a href="#" data-filter='joined' id="joined" class="nav-link">Groups Joined</a>
+                            <a href="#joined-groups" data-filter='joined' id="joined" class="nav-link">Groups Joined</a>
                         </li>
                         <li class="nav-item group_btn">
-                            <a href="#" data-filter='requests' class="nav-link <?php echo ($user->hasAnyInvitationsOrRequests())?" has-request ":"";?>" id="requests">Invitations / Requests</a>
+                            <a href="#invitations-requests" data-filter='requests' class="nav-link <?php echo ($user->hasAnyInvitationsOrRequests())?" has-request ":"";?>" id="requests">Invitations / Requests</a>
                         </li>
                     </ul>
                 </div>

@@ -38,6 +38,14 @@ class WPUser extends WPEntity{
         return get_the_author_meta('last_name', $this->user_id);
     }
 
+    public function full_name(){
+        return get_the_author_meta('first_name', $this->user_id) . ' ' . get_the_author_meta('last_name', $this->user_id);
+    }
+
+    public function user_login(){
+        return get_the_author_meta('user_login', $this->user_id);
+    }
+
     public function user_id(){
         return $this->user_id;
     }

@@ -2316,10 +2316,10 @@ label {
 	padding-left: 10px;
 	padding-top: 5px;
 }
-.create-report .form-box .report-next-tab .all-form .main-form-section .seletc-form{
+.create-report .form-box .report-next-tab .all-form .main-form-section .select-form{
 	min-height: 60px;
 }
-.create-report .form-box .report-next-tab .all-form .main-form-section .seletc-form-height{
+.create-report .form-box .report-next-tab .all-form .main-form-section .select-form-height{
 	min-height: 80px;
 }
 
@@ -2327,7 +2327,7 @@ label {
 	top: 35px;
 	position: absolute;
 }
-.create-report .form-box .report-next-tab .all-form .main-form-section .seletc-form .form-control{
+.create-report .form-box .report-next-tab .all-form .main-form-section .select-form .form-control{
 	min-height: 60px;
 }
 
@@ -2390,7 +2390,7 @@ input[type="radio"] {
 }
 
 
-.create-report .form-box .report-next-tab .all-form .main-form-section .seletc-form .form-control{
+.create-report .form-box .report-next-tab .all-form .main-form-section .select-form .form-control{
 	min-height: 60px;
 }
 

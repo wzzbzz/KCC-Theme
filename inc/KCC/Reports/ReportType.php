@@ -43,7 +43,8 @@ class ReportType extends \jwc\Wordpress\WPTerm{
     }
 
     public function reports_link(){
-        return get_term_link($this->term_id, 'kcc_report_type');
+        
+        return get_term_link($this->id(), 'kcc_report_type');
     }
 
     public function name(){
@@ -60,7 +61,27 @@ class ReportType extends \jwc\Wordpress\WPTerm{
 
     public function create_url(){
         // it will be reports/create/{slug}
-        return home_url('reports/create/' . $this->slug());
+        return home_url('reports/' . $this->slug() . "/create");
+    }
+
+    public function getReportClass(){
+        $classname = str_replace(' ', '', ucwords($this->name()));
+        $class = 'KCC\Reports\\' . $classname;
+        if(class_exists($class)){
+            return $class;
+        }else{
+            return 'KCC\Reports\ReportType\Report';
+        }
+    }
+
+    public function getViewClass(){
+        $classname = str_replace(' ', '', ucwords($this->name()));
+        $class = 'KCC\Reports\\' . $classname . 'View';
+        if(class_exists($class)){
+            return $class;
+        }else{
+            return 'KCC\Reports\ReportView';
+        }
     }
         
 }

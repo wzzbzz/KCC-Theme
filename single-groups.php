@@ -11,15 +11,10 @@ if (!is_user_logged_in()) {
 
 global $post;
 
-$group_id = $post->ID;
+$group = new KCC\Group($post->ID);
 
-$group = new KCC\Group($group_id);
-
-$author_id = $post->post_author;
 
 $current_user_id = get_current_user_id();
-$ownerInfo  = get_userdata($author_id);
-$owner_name = $ownerInfo->display_name;
 
 $member_ids = $group->getMemberIds();
 $members = $group->getMembers();
@@ -36,10 +31,8 @@ if (!$group->currentUserCanAccessPage($current_user_id) && $group->type() == 'Cl
 
 
 $headerurl = $_SERVER['REQUEST_URI'];
-$main_url = site_url();
-$baseHref = $main_url . "$headerurl";
 
-
+$baseHref = site_url() . "$headerurl";
 
 get_header('dashboard');
 

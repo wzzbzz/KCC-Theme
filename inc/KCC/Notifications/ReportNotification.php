@@ -23,7 +23,8 @@ class ReportNotification extends Notification{
         $this->report_post_id = $args['report_post_id'] ?? '';
 
         if (empty($this->report_post_id)) {
-            die("no report_post_id");
+            pre("no report_post_id");
+            die;
             return;
         }
 

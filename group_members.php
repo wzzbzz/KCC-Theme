@@ -110,6 +110,7 @@ get_header('dashboard');
                                                                         <input type="hidden" name="reportsforms_nonce" value="<?php echo wp_create_nonce('reportsforms_nonce'); ?>" />
                                                                         <input type="hidden" name="declineMemberRequest" value="declineMemberRequest">
                                                                         <button type="button" class="btn btn-primary declineMemberRequest ums_btn<?php echo $user->id() ?>" data-uid="<?php echo $user->id() ?>" data-groupid="<?php echo $group->id() ?>" data-rid=<?= $request->id ?> title="Decline">Decline</button> 
+                                                                    </form>
                                                                     
                                                                 </div>
                                                             </div>

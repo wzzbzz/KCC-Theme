@@ -94,7 +94,7 @@ if ( is_user_logged_in() ) {
 
                             <p>This form is submitted by an RRN member on behalf of a citizen who has survived a disaster and needs assistance to recover.</p>                            
 
-                            <a href="<?php echo get_site_url(); ?>/survivors-needs-intake-form">View Form</a>
+                            <a href="<?php echo get_site_url(); ?>/reports/survivor-needs-intake">View Form</a>
 
                         </div>
 

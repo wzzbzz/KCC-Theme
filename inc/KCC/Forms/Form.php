@@ -23,6 +23,29 @@ class Form
 
     protected $autofill = false;
 
+    protected $disaster_types =  [
+        ["value" => "Hurricane", "label" => "Hurricane"],
+        ["value" => "Flooding", "label" => "Flooding"],
+        ["value" => "Earthquake", "label" => "Earthquake"],
+        ["value" => "Landslide", "label" => "Landslide"],
+        ["value" => "Severe Heat", "label" => "Severe Heat"],
+        ["value" => "Snowstorm", "label" => "Snowstorm"],
+        ["value" => "Tornado", "label" => "Tornado"],
+        ["value" => "Fire Emergency", "label" => "Fire Emergency"],
+        ["value" => "Hazardous Material/Spill/ Chemical Release", "label" => "Hazardous Material/Spill/ Chemical Release"],
+        ["value" => "Medical Emergency/Mass Casualty", "label" => "Medical Emergency/Mass Casualty"],
+        ["value" => "Missing Persons", "label" => "Missing Persons"],
+        ["value" => "Utility Outage", "label" => "Utility Outage"],
+        ["value" => "Structural Disaster", "label" => "Structural Disaster"],
+        ["value" => "Collapse", "label" => "Collapse"],
+        ["value" => "Weakened Structures", "label" => "Weakened Structures"],
+        ["value" => "Workplace Violence or Threat of Violence", "label" => "Workplace Violence or Threat of Violence"],
+        ["value" => "Epidemic / Pandemic Outbreak", "label" => "Epidemic / Pandemic Outbreak"],
+        ["value" => "Terrorist Attack", "label" => "Terrorist Attack"],
+        ["value" => "Nuclear Power Disasters", "label" => "Nuclear Power Disasters"],
+    ];
+
+
     public function __construct($report_id = null)
     {
         $args = array();
@@ -91,7 +114,7 @@ class Form
         if ($this->group_id) {
             return $this->group_id;
         } else {
-            return '';
+            return '0';
         }
     }
 
@@ -137,6 +160,39 @@ class Form
     }
 
 
+    protected function country(){
+        if(!empty($this->report_id)){
+            return $this->report->country();
+        }
+        return '';
+    }
+
+    protected function state(){
+        if(!empty($this->report_id)){
+            return $this->report->state();
+        }
+        return '';
+    }
+
+    protected function city(){
+        if(!empty($this->report_id)){
+            return $this->report->city();
+        }
+        return '';
+    }
+
+    public function disaster_type_checked($type)
+    {
+        if ($this->report_post_id()) {
+            $disaster_type = $this->report->disaster_type();
+            if (in_array($type, $disaster_type)) {
+                return 'checked';
+            }
+        }
+        return '';
+    }
+
+
     /* attempt at a mechanical approach to form generation.  Would not work with current build. */
     public function render_title()
     {
@@ -147,20 +203,19 @@ class Form
 
                 <div class="title">
 
-                    <h2><?= $this->report_type->name();?></h2>
+                    <h2><?= $this->report_type->name(); ?></h2>
 
                 </div>
 
                 <div>
 
-                    <?php foreach($this->schema['form']['steps'] as $i => $step): 
-                    if($i==0){
-                        $href = $this->back_link();
-                    }else{
-                        $href = 'javascript:void(0);';
-                    }
+                    <?php foreach ($this->schema['form']['steps'] as $i => $step):
+                        if ($i == 0) {
+                            $href = $this->back_link();
+                        } else {
+                            $href = 'javascript:void(0);';
+                        }
                     ?>
-                        <a href="<?= $href; ?>" id="back-<?= $i+1; ?>" class="btn btn-outline-primary <?= $i==0 ? '' : 'd-none'; ?>" title="Back">Back</a>
                     <?php endforeach; ?>
 
                     <a href="<?= $this->back_link(); ?>" id="back-1" class="btn btn-outline-primary" title="Back">Back</a>
@@ -476,16 +531,16 @@ class Form
             $audience = $this->report->audience();
         } else {
             if (isset($this->group_id)) {
-                $audience = $this->group_id;
+                $audience = "group";
             } else {
                 $audience = 'all-rnn-users';
             }
         }
+        
 
-        if(isset($this->group_id)){
-            $group_id= $this->group_id;
-        }
-        else{
+        if (isset($this->group_id)) {
+            $group_id = $this->group_id;
+        } else {
             $group_id = '';
         }
 
@@ -513,7 +568,7 @@ class Form
                         <div class="form-check d-flex align-items-center">
 
                             <label class="form-check-label">
-                                <input id='audience-all' type="radio" class="form-check-input all_rrn rf_publish" name="audience" value="all-rnn-users" <?= ($audience=='all-rnn-users')?'checked':''?>>All RRN Users
+                                <input id='audience-all' type="radio" class="form-check-input all_rrn rf_publish" name="audience" value="all-rnn-users" <?= ($audience == 'all-rnn-users') ? 'checked' : '' ?>>All RRN Users
                             </label>
 
                         </div>
@@ -525,7 +580,7 @@ class Form
 
                             <label class="form-check-label">
 
-                                <input id='audience-group' type="radio" class="form-check-input joined" value='group' name="audience" <?= (is_numeric($audience))?"checked":"" ?>>Publish to a group
+                                <input id='audience-group' type="radio" class="form-check-input joined" value='group' name="audience" <?= ( ( $audience == 'group' ) ) ? "checked" : "" ?>>Publish to a group
 
                             </label>
 
@@ -539,16 +594,16 @@ class Form
 
                             ?>
 
-                            <div id="" class="group-select-wrap" <?= ($audience=='all-rnn-users') ?'style="display:none;"' : '' ?>>
+                            <div id="" class="group-select-wrap" <?= ($audience == 'all-rnn-users') ? 'style="display:none;"' : '' ?>>
 
                                 <select class="form-control mt-3 border" id="audience_group" name="group_id">
 
-                                    <option value="" >Select any group </option>
+                                    <option value="">Select any group </option>
 
                                     <?php foreach ($myGroups as $group) {
 
                                     ?>
-                                        <option value="<?= $group->id(); ?>" <?= ($audience==$group_id)?'selected':''?>><?= $group->name(); ?></option>
+                                        <option value="<?= $group->id(); ?>" <?= ($group->id() == $group_id) ? 'selected' : '' ?>><?= $group->name(); ?></option>
                                     <?php } ?>
 
                                 </select>
@@ -570,7 +625,7 @@ class Form
     <?php
     }
 
-    
+
 
     public function render_progress_bar()
     {
@@ -611,6 +666,104 @@ class Form
                         <?php } ?>
 
                     </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    <?php
+    }
+
+    public function render_disaster_types()
+    {
+    ?>
+
+        <div>
+
+            <div class="row">
+
+                <div class="col-lg-12 mb-3">
+
+                    <div class="form-title">
+
+                        <h3>Disaster Type</h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-12 mb-3">
+
+                    <div class="form-title">
+
+                        <h3>Select all that Apply</h3>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-12 mb-3">
+
+                    <div class="row">
+
+                        <?php foreach ($this->disaster_types as $disaster_type) { ?>
+
+
+                            <div class="col-12 col-lg-3 mb-3">
+
+                                <div class="form-check d-flex align-items-center">
+
+                                    <label class="form-check-label">
+
+                                        <input type="checkbox" <?= $this->disaster_type_checked($disaster_type['value']); ?> class="form-check-input dis_apply" value="<?= $disaster_type['value']; ?>" name="disaster_type[]"><?= $disaster_type['label']; ?>
+
+                                    </label>
+
+                                </div>
+
+                            </div>
+                        <?php } ?>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="col-lg-12 mb-3">
+
+                <div class="row">
+
+
+                    <div class="col-12 col-lg-4 mb-3">
+
+                        <div class="form-check d-flex align-items-center">
+
+                            <label class="form-check-label">
+
+                                <input type="radio" onclick="show4();" <?= $this->checkIfReportValueMatches("disaster_type_other", "Other") ?> class="form-check-input dis_huri" name="disaster_type_other" value="Other">Other
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-6 mb-3">
+
+                <div class="form-group hides" id="div2">
+
+                    <input type="text" class="form-control text-info" id="disaster_type_other" name="disaster_type_other" placeholder="Enter Comments">
 
                 </div>
 

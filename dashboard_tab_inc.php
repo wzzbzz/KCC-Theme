@@ -1,3 +1,11 @@
+<?php
+
+ $user = new WP_User(get_current_user_id());
+ $kcc_user = new KCC\User(get_current_user_id());
+
+?>
+
+<!-- Knowledge Center -->
 <div class="row user-dashboard-tab mt-4">
    <div id="dashboard-knowledge-center" class="col-lg-6 mb-3">
       <div class="top-title">
@@ -19,68 +27,35 @@
             </div>
          </div>
          <?php
-         $user = new WP_User(get_current_user_id());
-         $arrays = learndash_get_user_courses_from_meta(get_current_user_id());
-         $um = 0;
-         if (!empty($arrays)) {
-            foreach ($arrays as $arr1) {
-               if ($um == 2) {
-                  break;
-               }
-               $um++;
-               $arr2 = learndash_course_status($arr1);
-
-               $course = get_post($arr1);
-
-               $progress = learndash_user_get_course_progress(get_current_user_id(),  $course->ID, $type = 'summary');
-
-               if ($progress['total'] == 0) {
-                  $percentage = 0;
-               } else {
-                  $percentage = $progress['completed'] / $progress['total'];
-               }
-
-               $id = $user->ID;
-               $name = get_user_meta($id, 'up_update_user_firstname', true);
-               $feat_image = wp_get_attachment_url(get_post_thumbnail_id($course->ID));
-               if (empty($feat_image)) {
-                  $feat_image1 = get_template_directory_uri() . "/assets/images/range_1.png";
-               }
+         $courses = $kcc_user->myCourses();
+  
+         if (!empty($courses)) {
+            foreach ($courses as $course) {
+            
+               $status = $course->status();
          ?>
 
                <div class="bottom-card">
                   <div class="message-box know-center">
-                     <a href="<?php echo site_url('knowledge-center') ?>" target="_blank">
+                     <a href="<?php echo site_url('knowledge-center') ?>">
                         <div class="row no-gutters">
                            <div class="col-lg-4">
                               <div class="images">
-                                 <?php if (!empty($feat_image)) { ?>
-
-                                    <img src="<?php echo  $feat_image; ?>" alt="" title="" height="" width="">
-
-                                 <?php } else { ?>
-                                    <img src="<?php echo $feat_image1; ?>" alt="" title="" height="" width="">
-
-                                 <?php } ?>
+                                 <?= $course->thumbnail();?>
                               </div>
                            </div>
                            <div class="col-lg-8 d-flex align-items-center">
                               <div class="text ml-3">
-                                 <h2><?php echo mb_strimwidth($course->post_title, 0, 30, '...'); ?></h2>
+                                 <h2><?php echo mb_strimwidth($course->title(), 0, 30, '...'); ?></h2>
                                  <div class="date">
                                     <div class="d-flex">
                                        <div>
                                           <span>
-                                             <?php if (get_field('course_hour', $course->ID) > 1) { ?>
-                                                <?php echo get_field('course_hour', $course->ID); ?> hours
-                                             <?php } else {  ?>
-                                                <?php echo get_field('course_hour', $course->ID); ?> hour
-                                             <?php } ?>
-
+                                             <?= $course->duration(true);?>
                                           </span>
                                        </div>
                                        <div class="ml-2">
-                                          <span>All Levels</span>
+                                          <span>All Levels</span> <!-- should this be something? -->
                                        </div>
                                     </div>
                                  </div>
@@ -97,7 +72,7 @@
                                   </div>   
                                </div>
                             </div>-->
-                                 <?php echo wp_trim_words(get_field('course_description', $course->ID), 13); ?>
+                                 <?php echo wp_trim_words(get_field('course_description', $course->id()), 13); ?>
                                  <!-- <div class="progress mt-3">
                                <div class="progress-bar" role="progressbar" style="width: <? //php echo $percentage*100; 
                                                                                           ?>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><? //php echo $percentage*100; 
@@ -136,11 +111,11 @@
             <div class="know-center">
                <div class="row no-gutters">
                   <div class="col-lg-4">
-                     <a href="<?php echo site_url('disaster-situational-reports') ?>" target="_blank">
+                     <a href="<?php echo site_url('reports/disaster-situational-report') ?>">
                         <?php
-                        $current_user_id = get_current_user_id();
-                        $reportCount = "SELECT COUNT(ID) FROM wp_posts WHERE post_type = 'reportsforms' AND post_status ='publish' AND post_author = $current_user_id ";
-                        $num = $wpdb->get_var($reportCount);
+                           
+                           $num = count($kcc_user->reports('disaster-situational-report'));
+
                         ?>
                         <div class="bg-color-box">
                            <div class="d-flex justify-content-between w-100 align-items-center">
@@ -159,11 +134,9 @@
                      </a>
                   </div>
                   <div class="col-lg-4">
-                     <a href="<?php echo site_url('organization-volunteer-requests') ?>" target="_blank">
-                        <?php
-                        $current_user_id = get_current_user_id();
-                        $reportCount = "SELECT COUNT(ID) FROM wp_posts WHERE post_type = 'volunteer_request' AND post_author = $current_user_id ";
-                        $num = $wpdb->get_var($reportCount);
+                     <a href="<?php echo site_url('reports/organization-volunteer-request') ?>">
+                        <?php                        
+                        $num = count($kcc_user->reports('organization-volunteer-request'));
                         ?>
 
 
@@ -186,9 +159,7 @@
                   <div class="col-lg-4">
                      <a href="<?php echo site_url('survivors-needs-intake-form') ?>" target="_blank">
                         <?php
-                        $current_user_id = get_current_user_id();
-                        $reportCount = "SELECT COUNT(ID) FROM wp_posts WHERE post_type = 'supplierNeedIntake' AND post_author = $current_user_id ";
-                        $num = $wpdb->get_var($reportCount);
+                        $num = count($kcc_user->reports('survivor-needs-intake'));
                         ?>
 
                         <div class="bg-color-box">
@@ -210,9 +181,7 @@
                   <div class="col-lg-4">
                      <a href="<?php echo site_url('after-action-reports') ?>" target="_blank">
                         <?php
-                        $current_user_id = get_current_user_id();
-                        $reportCount = "SELECT COUNT(ID) FROM wp_posts WHERE post_type = 'afterActionReport' AND post_author = $current_user_id ";
-                        $num = $wpdb->get_var($reportCount);
+                        $num = count($kcc_user->reports('after-action-report'));
                         ?>
 
                         <div class="bg-color-box">
@@ -234,9 +203,7 @@
                   <div class="col-lg-4">
                      <a href="<?php echo site_url('groups') ?>" target="_blank">
                         <?php
-                        $current_user_id = get_current_user_id();
-                        $reportCount = "SELECT COUNT(ID) FROM wp_posts WHERE post_type = 'groups'  AND post_status = 'publish'  AND post_author = $current_user_id ";
-                        $num = $wpdb->get_var($reportCount);
+                        $num = count($kcc_user->allMyGroups());
                         ?>
 
                         <div class="bg-color-box">
@@ -289,7 +256,9 @@
    </div>
 </div>
 
+<!-- Calendar, Nofications, Announcements -->
 <div class="row user-dashboard-tab">
+   <!-- Calendar -->
    <div id="dashboard-calendar" class="col-12 col-lg-4 mb-3">
       <div class="top-title">
          <div class="d-flex justify-content-between w-100">
@@ -351,6 +320,7 @@
 
       </div>
    </div>
+   <!-- Notifications -->
    <div id="dashbboard-notifications" class="col-12 col-lg-4 mb-3">
       <div class="top-title">
          <div class="d-flex justify-content-between w-100">
@@ -457,6 +427,7 @@
 
       </div>
    </div>
+   <!-- announcements -->
    <div id="dashboard-announcements" class="col-12 col-lg-4 mb-3">
       <div class="top-title">
          <div class="d-flex justify-content-between w-100">
@@ -520,7 +491,7 @@
       </div>
    </div>
 </div>
-
+<!-- Donations -->
 <div id="dashboard-donations" class="row user-dashboard-tab mt-4">
    <div class="col-lg-12 mb-4">
       <div class="top-title">

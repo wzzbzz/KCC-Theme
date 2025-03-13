@@ -2,6 +2,8 @@
 
 namespace KCC;
 
+use KCC\CoursesCredentials\Course;
+
 class User extends \jwc\Wordpress\WPUser{
 
     public function __construct($id){
@@ -164,5 +166,119 @@ class User extends \jwc\Wordpress\WPUser{
         return $this->meta('zip');
     }
 
+    public function zipcode(){
+        return $this->meta('code');
+    }
+
+
+    public function nickname(){
+        return $this->meta('nickname');
+    }
+
+    public function birth_year(){
+        return $this->meta('dob');
+    }
+
+
+    public function highest_education(){
+        return $this->meta('edu');
+    }
+    
+
+    public function ethnicity(){
+        return $this->meta('ethnicity');
+    }
+
+    public function gender(){
+        return $this->meta('gendar');
+    }
+    
+
+    public function race(){
+        return $this->meta('ethnicity');
+    }
+
+    public function language(){
+        return $this->meta('lang');
+    }
+
+    public function employment_status(){
+        return $this->meta('currently_employed');
+    }
+
+    public function employer(){
+        return $this->meta('employer');
+    }
+
+    public function union(){
+        return $this->meta('rep_union');
+    }
+
+    public function job_title(){
+        return $this->meta('job_title');
+    }
+
+    public function occupation(){
+        return $this->meta('occupation');
+    }
+
+    public function occupational_field(){
+        return $this->meta('occup_field');
+    }
+
+    public function work_setting(){
+        return $this->meta('work_setting');
+    }
+
+
+
+    public function hazardous_waste_site(){
+        return $this->meta('hazardous_waste_site');
+    }
+    
+
+    public function profile_link(){
+        return get_site_url()."/profile/?user_id=".$this->id();
+    }
+
+    public function connections( $type="all"){
+        $connections = get_user_meta($this->id(), 'connections', true);
+        if(empty($connections)){
+            return ["followers" => [], "following" => []];
+        }
+        if($type == "all"){
+            return $connections;
+        }
+        return $connections[$type];
+    }
+
+    public function connections_count($type="all"){
+        $connections = $this->connections($type);
+        if(empty($connections)){
+            return 0;
+        }
+        switch($type){
+            case "all":
+                return count($connections['followers']) + count($connections['following']);
+            case "followers":
+                return count($connections['followers']);
+            case "following":
+                return count($connections['following']);
+        }
+
+    }
+
+    public function learndash_course_ids(){
+        return learndash_get_user_courses_from_meta($this->id());
+    }
+
+    public function myCourses(){
+        $ids = $this->learndash_course_ids();
+        $courses = [];
+        foreach($ids as $id){
+            $courses[] = new Course($id);
+        }
+        return $courses;
+    }
 
 }

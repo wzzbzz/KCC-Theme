@@ -197,8 +197,6 @@ class Forms extends \jwc\Wordpress\WPCollection
 
         unset($_POST['save']);
 
-
-
         // M009: Disaster Situational Report Notification
         if (empty($report_post_id)) {
             $reportsformsData = array(
@@ -208,6 +206,7 @@ class Forms extends \jwc\Wordpress\WPCollection
                 'post_name' => $post_slug,
                 'post_type' => 'kcc_report',
             );
+
 
             $report_post_id = wp_insert_post($reportsformsData);
 

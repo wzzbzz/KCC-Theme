@@ -12,17 +12,16 @@ if (is_user_logged_in()) {
 
     <?php
 
-    $rf_id = empty($_GET['id'])?'':$_GET['id'];
+    $report_post_id = empty($_GET['id'])?'':$_GET['id'];
 
-    if(empty($rf_id)){
+    if(empty($report_post_id)){
         wp_redirect(site_url('groups'));
     }
 
-    $report = \KCC\Reports\Reports::factory($rf_id);
+    $report = \KCC\Reports\Reports::factory($report_post_id);
 
-    $form = new \KCC\Forms\DisasterSituationalReportForm($rf_id);
+    $form = new \KCC\Forms\DisasterSituationalReportForm($report_post_id);
     
-
     
 
     ?>

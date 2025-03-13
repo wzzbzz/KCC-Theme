@@ -46,6 +46,8 @@ class Notification{
         $this->actionlink = $args['action_link'] ?? '';
         $this->calledFrom = $args['calledFrom'] ?? '';
         $this->post_id = $args['post_id'] ?? '';
+        $this->group_id = $args['group_id'] ?? '';
+        $this->user_id = $args['user_id'] ?? '';
 
     }
 
@@ -90,7 +92,7 @@ class Notification{
 
     public function send_notification( $recipient){
         global $wpdb;
-        // insert into kcc_notifications
+        
         $insert_result = $wpdb->insert(
             'kcc_notifications',
             array(

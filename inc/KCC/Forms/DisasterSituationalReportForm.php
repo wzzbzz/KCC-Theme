@@ -426,29 +426,6 @@ class DisasterSituationalReportForm extends Form
 
     protected $abbreviation = "DSR";
 
-    private $disaster_types =  [
-        ["value" => "Hurricane", "label" => "Hurricane"],
-        ["value" => "Flooding", "label" => "Flooding"],
-        ["value" => "Earthquake", "label" => "Earthquake"],
-        ["value" => "Landslide", "label" => "Landslide"],
-        ["value" => "Severe Heat", "label" => "Severe Heat"],
-        ["value" => "Snowstorm", "label" => "Snowstorm"],
-        ["value" => "Tornado", "label" => "Tornado"],
-        ["value" => "Fire Emergency", "label" => "Fire Emergency"],
-        ["value" => "Hazardous Material/Spill/ Chemical Release", "label" => "Hazardous Material/Spill/ Chemical Release"],
-        ["value" => "Medical Emergency/Mass Casualty", "label" => "Medical Emergency/Mass Casualty"],
-        ["value" => "Missing Persons", "label" => "Missing Persons"],
-        ["value" => "Utility Outage", "label" => "Utility Outage"],
-        ["value" => "Structural Disaster", "label" => "Structural Disaster"],
-        ["value" => "Collapse", "label" => "Collapse"],
-        ["value" => "Weakened Structures", "label" => "Weakened Structures"],
-        ["value" => "Workplace Violence or Threat of Violence", "label" => "Workplace Violence or Threat of Violence"],
-        ["value" => "Epidemic / Pandemic Outbreak", "label" => "Epidemic / Pandemic Outbreak"],
-        ["value" => "Terrorist Attack", "label" => "Terrorist Attack"],
-        ["value" => "Nuclear Power Disasters", "label" => "Nuclear Power Disasters"],
-    ];
-
-
     private $logistic_types = [
         ["value" => "Tunnels", "label" => "Tunnels", "default" => true],
         ["value" => "Roads", "label" => "Roads"],
@@ -777,17 +754,6 @@ class DisasterSituationalReportForm extends Form
         }
         if ($this->autofill) {
             return '1234567890';
-        }
-        return '';
-    }
-
-    public function disaster_type_checked($type)
-    {
-        if ($this->report_post_id()) {
-            $disaster_type = $this->report->disaster_type();
-            if (in_array($type, $disaster_type)) {
-                return 'checked';
-            }
         }
         return '';
     }
@@ -1494,90 +1460,7 @@ class DisasterSituationalReportForm extends Form
 
                                     <div>
 
-                                        <div class="row">
-
-                                            <div class="col-lg-12 mb-3">
-
-                                                <div class="form-title">
-
-                                                    <h3>Disaster Type</h3>
-
-                                                </div>
-
-                                            </div>
-
-
-                                            <div class="col-lg-12 mb-3">
-
-                                                <div class="form-title">
-
-                                                    <h3>Select all that Apply</h3>
-
-                                                </div>
-
-                                                <div class="marker form-error" id="disaster_type_error"></div>
-
-                                            </div>
-
-                                            <div class="col-lg-12 mb-3">
-
-                                                <div class="row">
-
-                                                    <?php foreach ($this->disaster_types as $disaster_type) { ?>
-
-
-                                                        <div class="col-12 col-lg-3 mb-3">
-
-                                                            <div class="form-check d-flex align-items-center">
-
-                                                                <label class="form-check-label">
-
-                                                                    <input type="checkbox" <?= $this->disaster_type_checked($disaster_type['value']); ?> class="form-check-input dis_apply" value="<?= $disaster_type['value']; ?>" name="disaster_type[]"><?= $disaster_type['label']; ?>
-
-                                                                </label>
-
-                                                            </div>
-
-                                                        </div>
-                                                    <?php } ?>
-
-                                                </div>
-
-                                                <div class="col-lg-12 mb-3">
-
-                                                    <div class="col-12 col-lg-4 mb-3">
-
-                                                        <div class="form-check d-flex align-items-center">
-
-                                                            <label class="form-check-label">
-
-                                                                <input type="checkbox" <?= $this->disaster_type_checked("Other"); ?> class="form-check-input" name="disaster_type_other" value="Other" id="other_age126">Other
-
-                                                            </label>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="col-lg-6 mb-3">
-
-                                                    <div class="form-group" id="div15" style="display:none;">
-
-                                                        <input type="text" class="form-control text-info" id="disaster_type_other_description" name="disaster_type_other_description" value="<?= $this->disaster_type_description(); ?>" placeholder="Disaster Description">
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-
-
-                                        </div>
-
-
+                                       <?= $this->render_disaster_types(); ?>
 
                                         <div class="row">
 
@@ -1673,7 +1556,7 @@ class DisasterSituationalReportForm extends Form
 
                                             <div class="col-lg-4 mb-3">
 
-                                                <div class="form-group seletc-form-height">
+                                                <div class="form-group select-form-height">
 
                                                     <label>Security</label>
 
@@ -1693,7 +1576,7 @@ class DisasterSituationalReportForm extends Form
 
                                             <div class="col-lg-4 mb-3">
 
-                                                <div class="form-group seletc-form-height sheltring">
+                                                <div class="form-group select-form-height sheltring">
 
                                                     <label>Sheltering Available</label>
 
@@ -1732,7 +1615,7 @@ class DisasterSituationalReportForm extends Form
 
                                             <div class="col-lg-4 mb-3">
 
-                                                <div class="form-group seletc-form-height">
+                                                <div class="form-group select-form-height">
 
                                                     <label>Utilities</label>
 

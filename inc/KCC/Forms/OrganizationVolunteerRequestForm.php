@@ -393,28 +393,6 @@ class OrganizationVolunteerRequestForm extends Form
 
     protected $abbreviation = "OVR";
 
-    private $disaster_types =  [
-        ["value" => "Hurricane", "label" => "Hurricane"],
-        ["value" => "Flooding", "label" => "Flooding"],
-        ["value" => "Earthquake", "label" => "Earthquake"],
-        ["value" => "Landslide", "label" => "Landslide"],
-        ["value" => "Severe Heat", "label" => "Severe Heat"],
-        ["value" => "Snowstorm", "label" => "Snowstorm"],
-        ["value" => "Tornado", "label" => "Tornado"],
-        ["value" => "Fire Emergency", "label" => "Fire Emergency"],
-        ["value" => "Hazardous Material/Spill/ Chemical Release", "label" => "Hazardous Material/Spill/ Chemical Release"],
-        ["value" => "Medical Emergency/Mass Casualty", "label" => "Medical Emergency/Mass Casualty"],
-        ["value" => "Missing Persons", "label" => "Missing Persons"],
-        ["value" => "Utility Outage", "label" => "Utility Outage"],
-        ["value" => "Structural Disaster", "label" => "Structural Disaster"],
-        ["value" => "Collapse", "label" => "Collapse"],
-        ["value" => "Weakened Structures", "label" => "Weakened Structures"],
-        ["value" => "Workplace Violence or Threat of Violence", "label" => "Workplace Violence or Threat of Violence"],
-        ["value" => "Epidemic / Pandemic Outbreak", "label" => "Epidemic / Pandemic Outbreak"],
-        ["value" => "Terrorist Attack", "label" => "Terrorist Attack"],
-        ["value" => "Nuclear Power Disasters", "label" => "Nuclear Power Disasters"],
-    ];
-
     private $skills = [
         ["value" => "Emergency Service", "label" => "Emergency Service"],
         ["value" => "General Service Needed", "label" => "General Service Needed"],
@@ -681,18 +659,6 @@ class OrganizationVolunteerRequestForm extends Form
         }
         if ($this->autofill) {
             return '1234567890';
-        }
-        return '';
-    }
-
-
-    public function disaster_type_checked($type)
-    {
-        if ($this->report_post_id()) {
-            $disaster_type = $this->report->disaster_type();
-            if (in_array($type, $disaster_type)) {
-                return 'checked';
-            }
         }
         return '';
     }
@@ -1256,99 +1222,7 @@ class OrganizationVolunteerRequestForm extends Form
 
 
                                 <div id="step-2" class="main-form-section w-100 form-section">
-
-                                    <div>
-
-                                        <div class="row">
-
-                                            <div class="col-lg-12 mb-3">
-
-                                                <div class="form-title">
-
-                                                    <h3>Disaster Type</h3>
-
-                                                </div>
-
-                                            </div>
-
-
-                                            <div class="col-lg-12 mb-3">
-
-                                                <div class="form-title">
-
-                                                    <h3>Select all that Apply</h3>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-lg-12 mb-3">
-
-                                                <div class="row">
-
-                                                    <?php foreach ($this->disaster_types as $disaster_type) { ?>
-
-
-                                                        <div class="col-12 col-lg-3 mb-3">
-
-                                                            <div class="form-check d-flex align-items-center">
-
-                                                                <label class="form-check-label">
-
-                                                                    <input type="checkbox" <?= $this->disaster_type_checked($disaster_type['value']); ?> class="form-check-input dis_apply" value="<?= $disaster_type['value']; ?>" name="disaster_type[]"><?= $disaster_type['label']; ?>
-
-                                                                </label>
-
-                                                            </div>
-
-                                                        </div>
-                                                    <?php } ?>
-
-                                                </div>
-
-                                            </div>
-
-
-
-                                        </div>
-
-
-
-                                        <div class="col-lg-12 mb-3">
-
-                                            <div class="row">
-
-
-                                                <div class="col-12 col-lg-4 mb-3">
-
-                                                    <div class="form-check d-flex align-items-center">
-
-                                                        <label class="form-check-label">
-
-                                                            <input type="radio" onclick="show4();" <?= $this->checkIfReportValueMatches("disaster_type_other","Other") ?> class="form-check-input dis_huri" name="disaster_type_other" value="Other">Other
-
-                                                        </label>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-lg-6 mb-3">
-
-                                            <div class="form-group hides" id="div2">
-
-                                                <input type="text" class="form-control text-info" id="disaster_type_other" name="disaster_type_other" placeholder="Enter Comments">
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
+                                    <?= $this->render_disaster_types();?>
                                     <div class="row">
 
                                         <!-- <div class="col-lg-6 d-flex justify-content-end">

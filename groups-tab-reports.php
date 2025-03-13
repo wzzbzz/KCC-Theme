@@ -1,5 +1,7 @@
 <?php 
 
+
+
   $current_slug = add_query_arg( array(), $wp->request );
   $current_url =  home_url( $wp->request );
   $current_user_id = get_current_user_id();
@@ -51,6 +53,8 @@
                     <?php 
 
                      $reports = $group->reports("disaster-situational-report");
+
+                     
                     
 
                     ?>
@@ -58,47 +62,14 @@
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
-                                    <tr>
-                                        <th>Report No.</th>
-                                        <th>Date</th>
-                                        <th>Event</th>
-                                        <th>Country</th>
-                                        <th>State</th>
-                                        <th>City</th>
-                                        <th>Contact Person</th>
-                                        <th>Organization</th>
-                                        <th>&nbsp;</th>
-                                    </tr>
+                                    <?= KCC\Reports\DisasterSituationalReportView::tableHeader(); ?>
                                 </thead>
                                 <tbody>
                                 <?php if(!empty($reports)){
                                     foreach($reports as $report){
-
-                                      
-                                         if(1){//$current_user_id == $postauthor || in_array($current_user_id, $all_member_ids)){
-                                         ?>
-                                    <tr class="bg-color">
-                                        <td><?= $report->report_id();?></td>
-                                        <td><?= $report->event_date(); ?></td>
-                                        <td><?= $report->event();?></td>
-                                        <td><?= $report->incident_country();?></td>
-                                        <td><?= $report->incident_state();?></td>
-                                        <td><?= $report->incident_city();?></td>
-                                        <td><?= $report->contact_person();?></td>
-                                        <td>
-                                           <div class="organization">
-                                               <?= $report->organization();?>
-                                            </div>
-                                        </td>
-                                        <td style="width:12%;">
-                                            <a href="<?= $report->permalink();?>" class="d-block">
-                                                <div class="orange-box report-btn">
-                                                    <p>View</p>
-                                                </div>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                <?php } }
+                                        $view = new KCC\Reports\DisasterSituationalReportView($report);
+                                        $view->render_table_row();
+                                   }
                             } else{ ?><tr><td style="color:#FF0000;"><?php echo "There are no reports" ?></td></tr><?php } ?>
                                 </tbody>
                             </table>
@@ -128,17 +99,7 @@
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
-                                    <tr>
-                                        <th>Report No.</th>
-                                        <th>Date</th>
-                                        <th>Event</th>
-                                        <th>Country</th>
-                                        <th>State</th>
-                                        <th>City</th>
-                                        <th>Contact Person</th>
-                                        <th>Organization</th>
-                                        <th>&nbsp;</th>
-                                    </tr>
+                                    <?= KCC\Reports\OrganizationVolunteerRequestView::tableHeader(); ?>
                                 </thead>
                                 <tbody>
                                 
@@ -147,77 +108,10 @@
                                  if(!empty($reports)){
 
                                     foreach($reports as $report){
+                                        $view = new KCC\Reports\OrganizationVolunteerRequestView($report);
+                                        $view->render_table_row();
                                         
-                                        if(1){//$current_user_id == $postauthor || in_array($current_user_id, $all_member_ids)){
-                                         ?>
-                                    <tr class="bg-color">
-                                        <td><?= $report->slug();?></td>
-                                         <td><?= $report->date();?></td>
-                                        
-                                        <td><?= $report->title();?></td>
-                                        <td><?= $report->event_org_contact_country();?></td>
-                                        <td><?= $report->event_org_contact_state();?></td>
-                                        <td><?= $report->event_org_contact_city();?></td>
-                                         <td><?= $report->event_org_contact_name();?></td>
-                                         <td><?= $report->event_organizer();?></td>
-                                         <?php if($current_user_id != $report->author()->id()){ ?>
-                                           <td>
-                                            <a href="<?= $report->permalink(); ?>" class="d-block">
-                                                <div class="orange-box report-btn">
-                                                    <p>View</p>
-                                                </div>
-                                            </a>
-                                        </td>
-                                        <td style="width:12%;">
-                                          <?php if( (get_post_meta($rid,'report_status_'.$current_user_id,true) == 'applied') && (get_post_meta($rid,'report_applied_by_'.$current_user_id,true) == $current_user_id)){ ?>
-                                               
-                                               <?php 
-                                                    echo '<div class="orange-box report-btn">
-                                                              <button type ="submit" class="orange-box"
-                                                         disabled><p>Applied</p></button>
-                                                     </div>' ?> 
-                                                     
-                                        <?php } elseif(get_post_meta($rid,'report_status_'.$current_user_id,true) == 'rejected') { ?>
-                                        
-                                      <?php   echo '<div class="orange-box report-btn rejected_btn">
-                                                      <button type ="submit" class="rejected_btn" disabled><p>Rejected</p></button>
-                                             </div>' ?> 
-                                                
-                                                <?php } elseif(get_post_meta($rid,'report_status_'.$current_user_id,true) == 'approved') { ?>
-                                                
-                                              <?php   echo '<div class=" report-btn approved_btn">
-                                                              <button type ="submit" class="approved_btn " disabled><p>Approved</p></button>
-                                                     </div>' ?> 
-                                                
-                                             <?php } else{ ?>
-                                             
-                                         <?php 
-                                              //echo $rid;
-                                               echo   "<form method = 'POST' action ='' class='row mediadoc_form' id='disaster_media' enctype='multipart/form-data'>";
-                                               echo   "<div class='orange-box report-btn'>";
-                                               echo   "<input type='hidden' name ='page_url'  value= '$current_url'>";
-                                               echo   "<input type='hidden' name='orgnaizationReport_alert' value='orgnaizationReport_alert'/>";
-                                               echo   "<input type ='hidden' name ='post_author' value ='{$report->author()->id()}'>";
-                                               echo   "<input type= 'hidden' name = 'uniqueReportID' value= '{$report->report_id()}'>";
-                                               echo   "<input type ='hidden' name ='rid' value ='$rid'>";
-                                                echo  '<button type ="submit" class="orange-box"><p>Apply</p></button>';
-                                                echo  '</div>'; 
-                                                echo  '</form>';
-                                        ?>
-                                             
-                                        <?php } ?>
-                                       </td>
-                                       <?php } else{ ?>
-                                            <td>
-                                            <a href="<?= $report->permalink(); ?>" class="d-block">
-                                                <div class="orange-box report-btn">
-                                                    <p>View</p>
-                                                </div>
-                                            </a>
-                                        </td>
-                                        <?php } ?>
-                                    </tr>
-                                    <?php } }} else{?>
+                                     }} else{?>
                                         <tr>
                                             <td style="color:#FF0000;"><?php echo "There are no reports" ?></td>
                                         </tr>

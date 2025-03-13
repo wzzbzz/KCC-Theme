@@ -498,7 +498,7 @@
 
                                                         <div class="col-lg-4 mb-3">
 
-                                                            <div class="form-group seletc-form-height">
+                                                            <div class="form-group select-form-height">
 
                                                                 <label>Best Time to Contact</label>
 
@@ -1378,7 +1378,7 @@
 
                                                         <div class="col-lg-6 mb-3">
 
-                                                            <div class="form-group seletc-form">
+                                                            <div class="form-group select-form">
 
                                                                 <select id="property_type" name="property_type" class="form-control">
 
@@ -1486,7 +1486,7 @@
 
                                                         <div class="col-lg-4 mb-3">
 
-                                                            <div class="form-group seletc-form">
+                                                            <div class="form-group select-form">
 
                                                                 <select id="recovery_status" name="recovery_status" class="form-control" >
 
@@ -2070,7 +2070,7 @@
 
                                                         <div class="col-lg-6 mb-3">
 
-                                                            <div class="form-group seletc-form">
+                                                            <div class="form-group select-form">
 
                                                                 <input type="text" class="form-control"  name="insurance_type" value="<?php echo get_post_meta($rf_id,'insurance_type',true)?>" placeholder="Enter here">
 

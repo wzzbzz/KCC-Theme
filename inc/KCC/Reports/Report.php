@@ -91,11 +91,15 @@ class Report extends \jwc\Wordpress\WPPost
 
     public function render_view(){
         
-        $class = '\KCC\Reports\\' . str_replace(" ", "", $this->report_type()) . 'View';
+        $class = $this->viewClass();
         if(class_exists($class)){
             $view = new $class($this);
             $view->render();
         }
+    }
+
+    public function viewClass(){
+        return '\KCC\Reports\\' . str_replace(" ", "", $this->report_type()) . 'View';
     }
 
 }

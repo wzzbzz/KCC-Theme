@@ -2,6 +2,7 @@
 
 /* Template Name: User Dashboard */
 
+
 if (is_user_logged_in()) {
 
    $current_page = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
@@ -148,25 +149,25 @@ if (is_user_logged_in()) {
                         <img class="profile_image" src="<?php echo $kcc_user->user_avatar_url(); ?>">
                      </div>
                      <div class="display_name d-flex justify-content-center">
-                        <?php echo  $current_user->first_name ?> <?php echo  $current_user->last_name ?></div>
+                        <?= $kcc_user->full_name();?></div>
                      <div class="display_email d-flex justify-content-center">
-                        <a href="mailto:<?= $current_user->user_email ?>"><?= $current_user->user_email; ?></a>
+                        <a href="mailto:<?= $kcc_user->email();?>"><?= $kcc_user->email(); ?></a>
                      </div>
                      <div class="display_location d-flex justify-content-center">
-                        <span>New York, New York</span>
+                        <span><?= $kcc_user->state();?>, <?= $kcc_user->city();?></span>
                      </div>
                      <!-- then the location and number of connects -->
                      <div class="display_groups_connects  d-flex justify-content-center">
                         <div class="profile_count d-lg-flex d-md-flex align-self-end">
                            <div class="profile_count_main d-lg-flex d-md-flex justify-content-between px-2 align-items-center">
                               <div class="profile_count1 d-flex justify-content-start align-items-center">
-                                 <div class="px-2"><span><?php echo myFollowing() ?></span></div>
+                                 <div class="px-2"><span><?= $kcc_user->connections_count() ?></span></div>
                                  <div class="">
                                     <p>Connects</p>
                                  </div>
                               </div>
                               <div class=" profile_count2 d-flex justify-content-start align-items-center">
-                                 <div class="px-3"><span><?php echo count_user_posts($current_user->ID, 'groups') ?></span></div>
+                                 <div class="px-3"><span><?= count($kcc_user->allMyGroups()); ?></span></div>
                                  <div class="">
                                     <p>Groups</p>
                                  </div>
@@ -283,13 +284,10 @@ if (is_user_logged_in()) {
                      ?>
 
                      <!-- Profile Display: Personal Information -->
-                     <br><br><br><br>
-                     <hr>
                      <div class="profile-section" style="margin-bottom: 40px;">
                         <?php
                         // Include the profile display template from the Astra theme directory
-                        include get_template_directory() . '/profile_display_personal_info.php';
-                        echo "<br>";
+                        //include get_template_directory() . '/profile_display_personal_info.php';
                         // include get_template_directory() . '/profile_display_experience.php';
 
 
@@ -300,14 +298,14 @@ if (is_user_logged_in()) {
                      <div class="profile-section" id="skills-section" style="margin-bottom: 40px;">
                         <?php
                         // Include the profile display template from the Astra theme directory
-                        include get_template_directory() . '/profile_display_skills.php';
+                       // include get_template_directory() . '/profile_display_skills.php';
                         ?>
                      </div>
                      <!-- Profile Display: Experience -->
                      <div class="experience-section profile-section" style="margin-bottom: 40px;">
                         <?php
                         // Include the profile display template from the Astra theme directory
-                        include get_template_directory() . '/profile_display_experience.php';
+                        //include get_template_directory() . '/profile_display_experience.php';
                         ?>
                      </div>
 
@@ -319,17 +317,11 @@ if (is_user_logged_in()) {
 
                   </div>
 
-
-                  <div class="tab-pane fade" id="pills-annoucements" role="tabpanel" aria-labelledby="pills-annoucements-tab">
-
+                  <!-- <div class="tab-pane fade" id="pills-annoucements" role="tabpanel" aria-labelledby="pills-annoucements-tab">
                      <?php include('dashboard_contacts_inc.php'); ?>
-
-                  </div>
-
+                  </div> -->
                   <div class="tab-pane fade" id="pills-reports" role="tabpanel" aria-labelledby="pills-reports-tab">
-
                      <?php include('dashboard_groups_inc.php'); ?>
-
                   </div>
 
                   <div class="tab-pane fade" id="pills-media" role="tabpanel" aria-labelledby="pills-media-tab">

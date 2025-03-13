@@ -505,7 +505,7 @@
 
                                                         <div class="col-lg-4 mb-3">
 
-                                                            <div class="form-group seletc-form-height">
+                                                            <div class="form-group select-form-height">
 
                                                                 <label>Best Time to Contact</label>
 
@@ -1377,7 +1377,7 @@
 
                                                         <div class="col-lg-6 mb-3">
 
-                                                            <div class="form-group seletc-form">
+                                                            <div class="form-group select-form">
 
                                                                  <div class="marker" id ="prop_type_error"> </div>
 
@@ -1495,7 +1495,7 @@
 
                                                         <div class="col-lg-4 mb-3">
 
-                                                            <div class="form-group seletc-form">
+                                                            <div class="form-group select-form">
 
                                                                 <div class ="marker" id ="rec_status_error"></div>
 
@@ -2101,7 +2101,7 @@
 
                                                         <div class="col-lg-6 mb-3">
 
-                                                            <div class="form-group seletc-form">
+                                                            <div class="form-group select-form">
 
                                                                  <div class ="marker" id="ins_type_error"> </div>
 
