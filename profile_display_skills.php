@@ -485,8 +485,8 @@ if (!empty($results)) {
                             <span class="input_b"><?php echo $additional_info ?></span>
                         </div>
                     </div>
-                <?php endif; ?>
                 </div>
             </div>
+        <?php endif; ?>
     </div>
 </div>

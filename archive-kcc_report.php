@@ -24,9 +24,6 @@ get_header('dashboard'); ?>
     }
     
     $viewClass = $report_type->getViewClass();
-
-    
-    
     ?>
 
 

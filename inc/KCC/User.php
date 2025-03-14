@@ -150,6 +150,14 @@ class User extends \jwc\Wordpress\WPUser{
 
     }
 
+    public function avatar_url($size=96){
+        $avatar_url = parent::user_avatar_url($size);
+        if(!empty($avatar_url)){
+            return $avatar_url;
+        }
+        return get_template_directory_uri() . "/avatar.png";
+    }
+
     public function country(){
         return $this->meta('country');
     }

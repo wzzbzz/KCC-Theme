@@ -58,6 +58,10 @@ class WPUser extends WPEntity{
         return $this->meta('display_name');
     }
 
+    public function nicename(){
+        return $this->meta('user_nicename');
+    }
+
     public function email(){
         return $this->user_email();
     }
@@ -130,6 +134,10 @@ class WPUser extends WPEntity{
     }
 
     public function user_avatar_url($size = 96){
+        return get_avatar_url($this->user_id, array('size' => $size));
+    }
+
+    public function avatar_url($size = 96){
         return get_avatar_url($this->user_id, array('size' => $size));
     }
 

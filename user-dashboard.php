@@ -226,25 +226,25 @@ if (is_user_logged_in()) {
 
                   <li class="nav-item">
 
-                     <a class="nav-link" id="pills-members-tab" data-toggle="pill" href="#pills-members" role="tab" aria-controls="pills-members" aria-selected="false">My Courses</a>
+                     <a class="nav-link" id="pills-members-tab" data-toggle="pill" href="#pills-courses" role="tab" aria-controls="pills-courses" aria-selected="false">My Courses</a>
 
                   </li>
 
                   <li class="nav-item">
 
-                     <a class="pills-profile-tab nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-my_profile" role="tab" aria-controls="pills-profile" aria-selected="false">My Profile</a>
+                     <a class="pills-profile-tab nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-personal-info" role="tab" aria-controls="pills-profile" aria-selected="false">My Profile</a>
 
                   </li>
 
                   <li class="nav-item">
 
-                     <a class="nav-link" id="pills-annoucements-tab" data-toggle="pill" href="#pills-annoucements" role="tab" aria-controls="pills-annoucements" aria-selected="false">My Contacts</a>
+                     <a class="nav-link" id="pills-contacts-tab" data-toggle="pill" href="#pills-contacts" role="tab" aria-controls="pills-contacts" aria-selected="false">My Contacts</a>
 
                   </li>
 
                   <li class="nav-item">
 
-                     <a class="nav-link" id="pills-reports-tab" data-toggle="pill" href="#pills-reports" role="tab" aria-controls="pills-reports" aria-selected="false">My Groups</a>
+                     <a class="nav-link" id="pills-groups-tab" data-toggle="pill" href="#pills-groups" role="tab" aria-controls="pills-groups" aria-selected="false">My Groups</a>
 
                   </li>
 
@@ -263,20 +263,20 @@ if (is_user_logged_in()) {
                </ul>
 
                <div class="tab-content" id="pills-tabContent">
-
+                  <!-- DASHBOARD -->
                   <div class="tab-pane fade show active" id="pills-dashboard" role="tabpanel" aria-labelledby="pills-dashboard-tab">
 
                      <?php include('dashboard_tab_inc.php') ?>
 
                   </div>
-
-                  <div class="tab-pane" id="pills-members" role="tabpanel" aria-labelledby="pills-members-tab">
+                  <!-- COURSES -->
+                  <div class="tab-pane" id="pills-courses" role="tabpanel" aria-labelledby="pills-members-tab">
 
                      <?php include('dashboard_courses_inc.php') ?>
 
                   </div>
-
-                  <div class="tab-pane fade" id="pills-my_profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                  <!-- PROFILE -->
+                  <div class="tab-pane fade" id="pills-personal-info" role="tabpanel" aria-labelledby="pills-profile-tab">
 
                      <?php
                      // Check if the user ID is passed via query string, otherwise default to the logged-in user
@@ -287,7 +287,7 @@ if (is_user_logged_in()) {
                      <div class="profile-section" style="margin-bottom: 40px;">
                         <?php
                         // Include the profile display template from the Astra theme directory
-                        //include get_template_directory() . '/profile_display_personal_info.php';
+                        include get_template_directory() . '/profile_display_personal_info.php';
                         // include get_template_directory() . '/profile_display_experience.php';
 
 
@@ -298,29 +298,24 @@ if (is_user_logged_in()) {
                      <div class="profile-section" id="skills-section" style="margin-bottom: 40px;">
                         <?php
                         // Include the profile display template from the Astra theme directory
-                       // include get_template_directory() . '/profile_display_skills.php';
+                        include get_template_directory() . '/profile_display_skills.php';
                         ?>
                      </div>
                      <!-- Profile Display: Experience -->
                      <div class="experience-section profile-section" style="margin-bottom: 40px;">
                         <?php
                         // Include the profile display template from the Astra theme directory
-                        //include get_template_directory() . '/profile_display_experience.php';
+                        include get_template_directory() . '/profile_display_experience.php';
                         ?>
                      </div>
 
-
-
-
-
-
-
                   </div>
 
-                  <!-- <div class="tab-pane fade" id="pills-annoucements" role="tabpanel" aria-labelledby="pills-annoucements-tab">
+                  <!-- CONTACTS -->
+                  <div class="tab-pane fade" id="pills-contacts" role="tabpanel" aria-labelledby="pills-contacts-tab">
                      <?php include('dashboard_contacts_inc.php'); ?>
-                  </div> -->
-                  <div class="tab-pane fade" id="pills-reports" role="tabpanel" aria-labelledby="pills-reports-tab">
+                  </div>
+                  <div class="tab-pane fade" id="pills-groups" role="tabpanel" aria-labelledby="pills-groups-tab">
                      <?php include('dashboard_groups_inc.php'); ?>
                   </div>
 

@@ -41,8 +41,11 @@ class WPPost extends WPEntity{
         return get_post_field('post_name', $this->post_id);
     }
 
-    public function content(){
-        return apply_filters('the_content', get_post_field('post_content', $this->post_id));
+    public function content( $filters = true ){
+        if($filters){
+            return apply_filters('the_content', get_post_field('post_content', $this->post_id));
+        }
+        return get_post_field('post_content', $this->post_id);
     }
 
     public function excerpt(){

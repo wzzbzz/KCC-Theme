@@ -1,3 +1,10 @@
+<?php
+$current_user_id = get_current_user_id();
+$user = new \KCC\User($current_user_id);
+
+
+?>
+
 <ul class="nav nav-pills nav-pills1 mb-3" id="pills1-tab" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="pills-membersvinay-tab" data-toggle="pill" href="#pills-membersvinay" role="tab" aria-controls="pills-membersvinay" aria-selected="true">
@@ -24,118 +31,14 @@
         </div>
         <div class="row">
             <?php
-            $current_user_id = get_current_user_id();
-            $myGroupList = learndash_get_users_group_ids($current_user_id);
-            // $myGroupList33 = learndash_get_groups( $current_user_id);
+            
+            $groups = $user->groupsILead();
 
-            $allGroups = get_posts(array(
-                'post_type'      => 'groups',
-                'post_status'    => 'publish',
-                'author'        =>  $current_user_id,
-                'numberposts'   => 1000,
-            ));
-
-            if (!empty($allGroups)) {
+            if (!empty($groups)) {
                 $j = 1;
-                foreach ($allGroups as $grpupVal) {
-
-                    $groupImg = wp_get_attachment_url(get_post_thumbnail_id($grpupVal->ID));
-                    if (empty($groupImg)) {
-                        $groupImg = get_template_directory_uri() . "/assets/images/range_1.png";
-                    }
-
-                    $author_id = $grpupVal->post_author;
-                    $author_img = get_avatar_url($author_id);
-                    if (empty($author_img)) {
-                        $author_img = get_template_directory_uri() . "/avatar.png";
-                    }
-
-                    $userList = learndash_get_groups_user_ids($grpupVal->ID);
-                    $group_type = get_post_meta($grpupVal->ID, 'group_type', true);
-
-            ?>
-                    <div class="col-lg-3 ums1">
-                        <div class="custom-card">
-                            <a href="<?php echo get_permalink($grpupVal->ID) ?>">
-                                <!--  <a href="javascript:void(0);" data-toggle="modal" data-target="#group-modal"> -->
-                                <div class="image">
-                                    <img src="<?php echo $groupImg ?>" alt="" height="" title="" width="">
-                                    <div class="public-text">
-                                        <p><?php echo $group_type ?></p>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <div class="group-title">
-                                        <h4><?php echo $grpupVal->post_title ?></h4>
-                                    </div>
-                                    <div class="total-member">
-                                        <p><?php echo count($userList) ?> Member</p>
-                                    </div>
-                                </div>
-                                <div class="d-flex main-content  align-items-center">
-                                    <div class="left-text">
-                                        Manager2
-                                    </div>
-                                    <div class="member-image">
-                                        <img src="<?php echo $author_img; ?>" alt="<? //php echo the_author_meta( 'display_name' , $author_id ); 
-                                                                                    ?>" height="" title="" width="">
-                                    </div>
-                                    <div class="right-text">
-                                        <?php echo the_author_meta('user_nicename', $author_id) ?>
-                                    </div>
-                                </div>
-                                <div class="d-flex">
-                                    <div class="main-group-image">
-                                        <?php if (!empty($userList)) { ?>
-                                        <?php
-                                            $i = 1;
-                                            foreach ($userList as $key => $member_id) {
-                                                $member_img = get_avatar_url($member_id,   array("size" => 50));
-
-                                                if (empty($member_img)) {
-                                                    $member_img = get_template_directory_uri() . "/avatar.png";
-                                                }
-                                                if ($j > 3 && count($userList) > 3) {
-                                                    echo '<div class="mem-image">
-                               <img src="' . $member_img . '" alt="" height="" title="" width="">
-                               </div>';
-                                                    echo "+" . (count($userList));
-                                                    break;
-                                                } else {
-                                                    echo '<div class="mem-image">
-                               <img src="' . $member_img . '" alt="" height="" title="" width="">
-                               </div>';
-                                                }
-                                                $j++;
-                                            }
-                                        } ?>
-                                    </div>
-                                    <!--  <div class="blue-circle">
-                        <div class="circle-text">
-                            <p>+25K</p>
-                        </div>
-                        </div> -->
-                                </div>
-                                <div class="card-text">
-                                    <p><?php echo mb_strimwidth($grpupVal->post_content, 0, 115, '...'); ?></p>
-                                </div>
-                            </a>
-
-                            <div class="col-md-12 text-center ">
-                                <?php if ($group_type == "Open") { ?>
-                                    <a target="_blank" href="https://knowledge.communication.worldcares.org/all-joined-members?group_id=<?php echo $grpupVal->ID ?>"><button class="btn btn-primary mb-3"> Members </button></a>
-                                <?php } elseif ($group_type == "Closed") { ?>
-                                    <a target="_blank" href="https://knowledge.communication.worldcares.org/group-members?group_id=<?php echo $grpupVal->ID ?>"><button class="btn btn-primary mb-3"> Members </button></a>
-                                <?php } else { ?>
-                                    <a target="_blank" href="https://knowledge.communication.worldcares.org/group-members?group_id=<?php echo $grpupVal->ID ?>"><button class="btn btn-primary mb-3"> Members </button></a>
-                                <?php  } ?>
-
-                            </div>
-                        </div>
-                    </div>
-            <?php   }
-            }
-
+                foreach ($groups as $group) {
+                    $group->render_cell();
+                }
             ?>
         </div>
         <div class="row">
@@ -150,103 +53,21 @@
 
             //  $myGroupList112  = learndash_get_users_group_ids($current_user_id);
 
+            $groups = $user->myGroups();
 
 
-
-            if (!empty($myGroupList)) {
-                foreach ($myGroupList as $gval) {
-
-                    $grpupVal = get_post($gval);
-                    $groupImg = wp_get_attachment_url(get_post_thumbnail_id($gval));
-                    if (empty($groupImg)) {
-                        $groupImg = get_template_directory_uri() . "/assets/images/range_1.png";
-                    }
-
-                    $author_id = $grpupVal->post_author;
-
-                    if ($current_user_id != $author_id) {
-                        $author_img = get_avatar_url($author_id);
-                        if (empty($author_img)) {
-                            $author_img = get_template_directory_uri() . "/avatar.png";
-                        }
-
-                        $userList = learndash_get_groups_user_ids($grpupVal->ID);
-
-                        $group_type = get_post_meta($grpupVal->ID, 'group_type', true);
-
-                        $user = get_user_by('id', $author_id);
-
-                        $autherName = $user->user_nicename;
-
-
-                        $userList = learndash_get_groups_user_ids($grpupVal->ID);
-                        $group_type = get_post_meta($grpupVal->ID, 'group_type', true);
-                        $html1 = '<div class="col-lg-3 ums2">
-                        <div class="custom-card">
-                             <a href="' . get_permalink($grpupVal->ID) . '"> 
-                           
-                                <div class="image">
-                                    <img src="' . $groupImg . '" alt="" height="" title="" width="">
-                                    <div class="public-text">
-                                        <p>' . $group_type . '</p>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <div class="group-title">
-                                        <h4>' . $grpupVal->post_title . '</h4>
-                                    </div>
-                                    <div class="total-member">
-                                        <p>' . count($userList) . ' Member</p>
-                                    </div>
-                                </div>
-                                <div class="d-flex main-content  align-items-center">
-                                    <div class="left-text">
-                                        Manager3
-                                    </div>
-                                    <div class="member-image">
-                                        <img src="' . $author_img . '" alt="" height="" title="" width="">
-                                    </div>
-                                    <div class="right-text">
-                                        ' . $autherName . '
-                                    </div>
-                                </div>
-                                <div class="d-flex">
-                                   <div class="main-group-image">';
-                        if (!empty($userList)) {
-                            foreach ($userList as $key => $member_id) {
-                                $member_img = get_avatar_url($member_id);
-                                if (empty($member_img)) {
-                                    $member_img = get_template_directory_uri() . "/avatar.png";
-                                }
-                                if ($j > 3 && count($userList) > 3) {
-                                    $html1 .= "+" . (count($userList) - 3);
-                                    break;
-                                } else {
-                                    $html1 .= '<div class="mem-image">
-                                                <img src="' . $member_img . '" alt="" height="" title="" width=""></div>';
-                                }
-                                $j++;
-                            }
-                        }
-
-                        $html1 .= '</div>
-                                </div>
-                                <div class="card-text">
-                                   <p>' . $grpupVal->post_content . '</p>
-                                </div>
-                            </a>
-                              <div class="col-md-12 text-center ">
-                            <a target="_blank" href="https://knowledge.communication.worldcares.org/group-joined-members?group_id=' . $grpupVal->ID . '"><button class="btn btn-primary mb-3"> Members </button></a>
-                        </div>
-                        
-                                
-                        </div>
-                    </div>';
-
-
-                        echo $html1;
+            if (!empty($groups)) {
+                if (!empty($groups)) {
+                    $j = 1;
+                    foreach ($groups as $group) {
+                        $group->render_cell();
                     }
                 }
+            } else {
+                echo '<h6 class="text-danger mx-5 pb-3">You have joined no groups. </h6><p>visit the <a href="' . site_url('groups') . '">groups page</a> to join or create a group.</p>';
+            }
+
+                   
             }
             ?>
         </div>

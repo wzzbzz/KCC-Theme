@@ -63,6 +63,7 @@ if ( !empty($results) ) {
         }
         ?></h4>
     </div>
+    
 <div class="row">
             <?php
                 $experienceToCheck = ['Hurricane', 'Flooding', 'Earthquake', 'Landslide','Severe Heat','Snowstorm','Tornado'];
@@ -174,9 +175,6 @@ if (array_intersect($terrToCheck, $myExperience)) : ?>
            </div>
        </div>            
    <?php endif; ?>
-   
-
-
 
    <?php
     $spillToCheck = ['Spill'];
@@ -379,6 +377,5 @@ if (array_intersect($otherToCheck, $myExperience) || $experience_other) : ?>
 
 <?php endif; ?>
 
-  
-    <!-- </div>
-</div> -->
+</div>
+</div>

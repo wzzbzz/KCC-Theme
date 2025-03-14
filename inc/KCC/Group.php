@@ -167,6 +167,10 @@ class Group extends \jwc\Wordpress\WPPost
         return $this->getGroupType();
     }
 
+    public function memberCount(){
+        return count($this->getMemberIds());
+    }
+
 
     // is the current user the leader of the group?
     public function currentUserIsLeader()
@@ -637,7 +641,7 @@ class Group extends \jwc\Wordpress\WPPost
                     </div>
                 </div>
                 <div class="card-text d-flex justify-content-center">
-                    <p><?php echo  substr($this->content(), 0, 100) ?><? if (strlen($this->content()) > 100): ?>...<?php endif; ?></p>
+                    <p><?php echo  substr($this->content(false), 0, 100) ?><? if (strlen($this->content(false)) > 100): ?>...<?php endif; ?></p>
                 </div>
                 <div class="col-md-12 text-center action-button">
                     <?php
@@ -715,5 +719,5 @@ class Group extends \jwc\Wordpress\WPPost
             </div>
         </div>
 <?
-    }
+   }
 }
