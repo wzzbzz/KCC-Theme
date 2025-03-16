@@ -55,6 +55,7 @@ function leave_a_comment_title_tag( $defaults ){
 }
 
 
+new KCC\Users();
 // these function calls will set up the hooks
 new KCC\Groups();
 new KCC\Roles();

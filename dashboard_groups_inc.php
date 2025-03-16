@@ -32,45 +32,49 @@ $user = new \KCC\User($current_user_id);
         <div class="row">
             <?php
             
-            $groups = $user->groupsILead();
+            $groups = $user->allMyGroups();
 
             if (!empty($groups)) {
                 $j = 1;
                 foreach ($groups as $group) {
                     $group->render_cell();
                 }
+            }
+            else{
+                echo '<p>No groups joined.  Please visit the <a href="' . site_url('groups') . '">groups page</a> to join or create a group.</p>';
+            }
             ?>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-12 mb-4">
                 <h3>Groups Joined</h3>
             </div>
-        </div>
+        </div> -->
 
 
-        <div class="row">
+        <!-- <div class="row">
             <?php
 
             //  $myGroupList112  = learndash_get_users_group_ids($current_user_id);
 
-            $groups = $user->myGroups();
+            //$groups = $user->myGroups();
 
 
             if (!empty($groups)) {
                 if (!empty($groups)) {
                     $j = 1;
                     foreach ($groups as $group) {
-                        $group->render_cell();
+                        // $group->render_cell();
                     }
                 }
             } else {
-                echo '<h6 class="text-danger mx-5 pb-3">You have joined no groups. </h6><p>visit the <a href="' . site_url('groups') . '">groups page</a> to join or create a group.</p>';
+            //    echo '<h6 class="text-danger mx-5 pb-3">You have joined no groups. </h6><p>visit the <a href="' . site_url('groups') . '">groups page</a> to join or create a group.</p>';
             }
 
                    
-            }
+            
             ?>
-        </div>
+        </div> -->
 
 
 

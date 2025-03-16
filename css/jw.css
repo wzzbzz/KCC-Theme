@@ -1584,3 +1584,47 @@ table, td, th{
     background: #f5f5f5;       
 
 }
+
+
+
+.emergency_textbox { display:none }
+.general_textbox { display:none }
+.repair_textbox { display:none }
+.property_textbox { display:none }
+.health_inputbox { display:none }
+.food_textbox { display:none }
+.volunteer_textbox { display:none }
+.severe_checkbox { display:none }
+.structural_checkbox { display:none }
+.terrorist_checkbox { display:none }
+.disaster_textbox { display:none }
+
+ .modal{
+  visibility: unset;
+  }
+  .profile_medal .profile_count_main img {
+   width: auto;
+   height: auto;
+   min-height: 60px;
+}
+.profile_count_title{
+  font-size: 10px;
+}
+.profile_medal .col-md-3{
+  padding: 0px 7.5px;
+}
+.profile_count_main{
+  min-height: 100px;
+}
+.skills_add_b{border: 1px dashed #D3D3D3; background:none; width: 100px; justify-content: center;border-radius: 15px;}
+.skills_add_b a{background:none;padding:10px;font-size: 16px; color:#242424;}
+
+.skill_add1 .skill-box{ background:none!important;}
+
+.input_main1 .skill-box{height:45px; text-align: center; align-items: center;}
+
+.skills_add_b button:hover {
+   color: #242424;
+   background: transparent;
+}
+

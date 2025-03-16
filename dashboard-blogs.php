@@ -4,16 +4,13 @@
 
 if ( is_user_logged_in() ) {
 
-get_header('dashboard'); //include 'aq_resizer.php';?>
+get_header('dashboard'); 
+//include 'aq_resizer.php';
+?>
 
 <div class="col-xl-12 ">
 
         <div class="row justify-content-end mt-3">
-
-
-
-            <?php include('user_topbar.php')?>
-
 
 
 

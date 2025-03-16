@@ -9,7 +9,7 @@
    
    $expList = $wpdb->get_results( "SELECT * FROM user_experience WHERE user_id = '".$current_user->ID."' ",ARRAY_A); 
    $skillList = $wpdb->get_results( "SELECT * FROM user_skills WHERE user_id = '".$current_user->ID."' ",ARRAY_A);  
-   get_header('new'); 
+   get_header('dashboard'); 
  
     ?>
 <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/lavleen.css">

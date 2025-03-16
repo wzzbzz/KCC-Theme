@@ -62,7 +62,7 @@
                             </div>
                         <?php } ?>
                             <div class="member-images">
-                                <?= $member->image();?>
+                                <a href="<?= $member->profile_link();?>"><?= $member->image();?></a>
                             </div>
                             <div class="member-name">
                                 <h3><?php echo $member->name(); ?></h3>

@@ -59,7 +59,8 @@ class WPUser extends WPEntity{
     }
 
     public function nicename(){
-        return $this->meta('user_nicename');
+        // erturn th user field nicename
+        return get_the_author_meta('user_nicename', $this->user_id);
     }
 
     public function email(){

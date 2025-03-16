@@ -5,274 +5,13 @@
    
 
     $current_user_id = get_current_user_id();
-
-   ?>
-
-<!DOCTYPE html>
-
-<html lang="en">
-
-   <head>
-
-      <meta charset="UTF-8" />
-
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-      <title>My Blogs</title>
-
-      <!-- Favicon -->
-
-      <link rel="shortcut icon" type="image/jpg" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.png"/>
-
-      <!-- css links -->
-
-      <link href="<?php echo get_template_directory_uri(); ?>/assets/css/all.min.css" rel="stylesheet"/>
-
-      <link href="<?php echo get_template_directory_uri(); ?>/assets/css/bootstrap.min.css" rel="stylesheet"/>
-
-      <link href="<?php echo get_template_directory_uri(); ?>/assets/images/css/owl.carousel.min.css" rel="stylesheet"/>
-
-      <link href="<?php echo get_template_directory_uri(); ?>/assets/css/owl.theme.default.min.css" rel="stylesheet"/>
-
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
-      <link href="<?php echo get_template_directory_uri(); ?>/assets/css/font.css" rel="stylesheet"/>
-
-      <link href="<?php echo get_template_directory_uri(); ?>/assets/css/style.css" rel="stylesheet"/>
-
-      <link href="<?php echo get_template_directory_uri(); ?>/assets/css/responsive.css" rel="stylesheet"/>
-
-      <link href="<?php echo get_template_directory_uri(); ?>/assets/css/wcc_custom_style.css" rel="stylesheet">
-
-      <link rel="stylesheet" type="text/css" href="<?= get_template_directory_uri();?>/assets/css/style_new.min.css"/>
-
-   </head>
-
-   <style>
-
-      /* Left Sidebar */
-
-      .main_side_bar_left {
-
-      height: 100%;
-
-      }
-
-      /* Right Body */
-
-      /* .main_footer_sec {
-
-      position: fixed;
-
-      bottom: 0;
-
-      } */
-
-      .btn_list {
-
-      padding: 0 0rem;
-
-      margin: 0 0 30px;
-
-      }
-
-      .back_btn {
-
-      margin-right: 10%;
-
-      }
-
-      .btn_list a {
-
-      background: #f9671d 0% 0% no-repeat padding-box;
-
-      box-shadow: 0px 3px 99px #ccd6ff3e;
-
-      border-radius: 9px;
-
-      font-size: 13px;
-
-      color: #ffffff;
-
-      padding: 1rem 2rem;
-
-      }
-
-      .btn_list {
-
-      position: relative;
-
-      top: unset;
-
-      right: unset;
-
-      padding: 0;
-
-      padding: 0 0rem;
-
-      }
-
-      .donation_tab_pills {
-
-      background: unset;
-
-      box-shadow: unset;
-
-      border-radius: unset;
-
-      padding: unset;
-
-      }
-
-      .create_by_me_tabs_main .nav-link.active{
-
-      background: #f9671d 0% 0% no-repeat padding-box;
-
-      box-shadow: 0px 3px 99px #ccd6ff3e;
-
-      border-radius: 9px;
-
-      font-size: 13px;
-
-      color: #ffffff;
-
-      padding: 1rem 2rem;
-
-      }
-
-      .linked_blog ul{
-
-      margin-bottom:0;
-
-      }
-
-      .linked_blog a{
-
-      padding:1rem 0.8rem
-
-      }
-
-      .donation_tab_pills .grid-container{
-
-      padding-left:0;
-
-      }
-
-      .blog_box:first-child{
-
-      margin-left:0;
-
-      }
-
-      /* Responsive */
-
-      @media (max-width: 1024px) {
-
-      /* Left Sidebar */
-
-      .main_side_bar_left:hover .side_text_view p,
-
-      .main_side_bar_left:hover .side_open_logo {
-
-      margin-left: 2.5rem;
-
-      }
-
-      }
-
-      @media (max-width: 600px) {
-
-      .main_footer_sec {
-
-      position: relative;
-
-      bottom: 0;
-
-      }
-
-      .btn_list {
-
-      justify-content: start;
-
-      margin-left: 0;
-
-      margin-right: 0;
-
-      margin-bottom:0;
-
-      }
-
-      .btn_list a {
-
-      margin: 10px 0;
-
-      font-size: 10px;
-
-      }
-
-      .back_btn a {
-
-      width: 65%;
-
-      margin-left: 50px;
-
-      }
-
-      .back_btn {
-
-      margin-right: 10%;
-
-      }
-
-      .btn_list a {
-
-      padding: 0.6rem 0.7rem;
-
-      }
-
-      .btn_list_blog a{
-
-      padding: 0.4rem 0.5rem;
-
-      font-size: 10px;
-
-      }
-
-      .btn_list_blog{
-
-      justify-content: center;
-
-      display: flex;
-
-      }
-
-      .right_top_sec {
-
-      justify-content: flex-start;
-
-      }
-
-      .create_by_me_tabs_main .nav-link.active{
-
-      padding:9.6px 11.2px;
-
-      }
-
-      }
-
-   </style>
-
-   <body class="main_all_bg_Sec">
-
-      <?php include('user-sidebar.php')?>
-
-      <div class="col-xl-12 mb-2">
+    $user = new KCC\User($current_user_id); 
+    
+get_header('dashboard'); ?>
+   
 
          <div class="row justify-content-end mt-3">
 
-            <?php include('user_topbar.php')?>
 
             <div class="col-xl-11 col-lg-11 col-md-11 col-10 my-4 px-4 create_by_me_tabs_main">
 
@@ -284,13 +23,13 @@
 
                         <li class="nav-item">
 
-                           <a class="nav-link" id="all_tab_content" data-toggle="pill" href="#all_tab" role="tab" aria-controls="all_tab" aria-selected="true">All</a>
+                           <a class="nav-link active" id="all_tab_content" data-toggle="pill" href="#all_tab" role="tab" aria-controls="all_tab" aria-selected="true">All</a>
 
                         </li>
 
                         <li class="nav-item">
 
-                           <a class="nav-link active" id="create_by_me_tab" data-toggle="pill" href="#createbyme" role="tab" aria-controls="createbyme" aria-selected="false">Created By Me</a>
+                           <a class="nav-link" id="create_by_me_tab" data-toggle="pill" href="#createbyme" role="tab" aria-controls="createbyme" aria-selected="false">Created By Me</a>
 
                         </li>
 
@@ -300,7 +39,7 @@
 
                   <div class="back_btn">
 
-                     <a href="<?php echo site_url('dashboard-blogs')?>">Back</a>
+                     <a href="<?php echo site_url('dashboard-home')?>">Back</a>
 
                   </div>
 
@@ -308,7 +47,7 @@
 
                <div class="tab-content" id="tab_group">
 
-                  <div class="tab-pane fade show active" id="createbyme" role="tabpanel" aria-labelledby="create_be_me_tab">
+                  <div class="tab-pane fade" id="createbyme" role="tabpanel" aria-labelledby="create_be_me_tab">
 
                      <div class="col-xl-12 col-lg-12 col-md-12 col-12 my-4 pl-0">
 
@@ -338,40 +77,19 @@
 
                                 <?php 
 
-                                    
-
-                                    $current_user_id = get_current_user_id();
-
-                                    $args = array(    
-
-                                                'order' => 'DESC',
-
-                                                'post_type'=>'post',
-
-                                                'post_status'=>'publish',
-
-                                                'author' =>  $current_user_id             
-
-                                            );
-
-
-
-                                    $posts = get_posts($args);  
+                           
+                              $posts = $user->myBlogPosts();
+                              if(empty($posts)){
+                                 ?>
+                              <div class="col-lg-12 col-12">
+                                 <div class="alert alert-warning text-center" role="alert">
+                                    There are no blog posts created by you.
+                                 </div>
+                              </div>
+                              <?php
+                              }
 
                               foreach($posts as $post):
-
-                                $id= $post->ID;
-
-                                $permalink = get_permalink( $id );
-
-                                $title = $post->post_title;
-
-                                $content = $post->post_content;
-
-                                $image = wp_get_attachment_url(get_post_thumbnail_id($id)); 
-
-
-
                                ?>
 
                             
@@ -382,9 +100,9 @@
 
                                         <div class="image">
 
-                                            <a href="<?php echo  get_post_permalink($value->ID);?>">
+                                            <a href="<?= $post->permalink(); ?>">
 
-                                             <?php echo get_the_post_thumbnail($value->ID)?>
+                                             <?= $post->thumbnail(); ?>
 
                                             </a> 
 
@@ -400,13 +118,13 @@
 
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtonap">
 
-                                                      <a class="dropdown-item" href="javascript:void(0)"   onclick ='editMyBlog("<?=$id; ?>","<?=$content; ?>","<?php echo $image ?>","<?php echo $title; ?>");'>Edit Post</a>
+                                                      <a class="dropdown-item" href="javascript:void(0)"   onclick ='editMyBlog("<?=$post->id(); ?>","<?=$post->content(false); ?>","<?= $post->thumbnail_url() ?>","<?= $post->title(); ?>");'>Edit Post</a>
 
 
 
                                                         <form method = "POST" action ="" class="mediadoc_form" enctype="multipart/form-data">
 
-                                                            <input type ="hidden" name ="blog_id"  id="blog_id"  value ="<?=$id; ?>">
+                                                            <input type ="hidden" name ="blog_id"  id="blog_id"  value ="<?=$post->id(); ?>">
 
                                                             <input type="hidden" name="delete_blog" value="delete_blog"/>
 
@@ -430,13 +148,13 @@
 
                                             <div class="title">
 
-                                                <h6><?php echo mb_strimwidth($title, 0, 30, '...'); ?></h6>
+                                                <h6><?php echo mb_strimwidth($post->title(), 0, 30, '...'); ?></h6>
 
                                             </div>
 
                                             <div class="blog-date">
 
-                                                <p><?php echo date("F jS, Y", strtotime($value->post_date)); ?></p>
+                                                <p><?= $post->date('F jS, Y'); ?></p>
 
                                             </div>
 
@@ -444,7 +162,7 @@
 
                                            <div class="blog-description">
 
-                                                    <p><?php echo mb_strimwidth($content, 0, 50, '...'); ?></p>
+                                                    <p><?php echo mb_strimwidth($post->content(false), 0, 50, '...'); ?></p>
 
                                             </div>
 
@@ -478,7 +196,7 @@
 
                   </div>
 
-                  <div class="tab-pane fade  " id="all_tab" role="tabpanel" aria-labelledby="all_tab_content">
+                  <div class="tab-pane fade show active " id="all_tab" role="tabpanel" aria-labelledby="all_tab_content">
 
                      <div class="col-xl-12 col-lg-11 col-md-11 col-12 my-4">
 
@@ -694,7 +412,6 @@
 
       </div>
 
-     <?php include('common_user_footer.php')?>
 
       </div>
 
@@ -1243,119 +960,6 @@
          </div>
 
       </div>
-
-      
-
-      <script>
-
-         function editMyBlog(id,content,img,title){ 
-
-             $("#img_new").attr("src",img);  
-
-             $('#blogEditImage').css('background-image', 'url('+img+')');          
-
-             $('#blog_edit_id').val(id);
-
-             $('#blog_title').val(title);
-
-              $("#blog_content").val(content );
-
-             $('#editBlog').modal('show');
-
-         }
-
-          
-
-      </script>
-
-      <script>
-
-         $(document).ready(function () {
-
-           $('#dropdownMenuButtonap').on('click',function(){
-
-           })        
-
-         });  
-
-         
-
-         function readURL(input) {
-
-           if (input.files && input.files[0]) {
-
-               var reader = new FileReader();
-
-               reader.onload = function(e) {
-
-                   $('.imagePreviewFile2').css('background-image', 'url('+e.target.result +')');
-
-                   $('.imagePreviewFile2').hide();
-
-                   $('.imagePreviewFile2').fadeIn(650);
-
-               }
-
-               reader.readAsDataURL(input.files[0]);
-
-           }
-
-         }
-
-         $("#blog_edit_image").change(function() {
-
-           readURL(this);
-
-         });
-
-         
-
-      </script>
-
-      <!--<script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
-
-      <script>
-
-         ClassicEditor
-
-                 .create( document.querySelector( '.mytextarea' ) )
-
-                 
-
-      </script>-->
-
-      <script>
-
-    
-
-    function show1(){
-
-      document.getElementById('div1').style.display ='none';
-
-      document.getElementById('div2').style.display ='none';
-
-    }
-
-    
-
-    function show2(){
-
-      document.getElementById('div1').style.display = 'block';
-
-      document.getElementById('div2').style.display ='none';
-
-    }
-
-      function show3(){
-
-      document.getElementById('div2').style.display = 'block';
-
-      document.getElementById('div1').style.display ='none';
-
-    }
-
- </script>
-
-   </body>
-
-</html>
+<?php
+get_footer();
+?>

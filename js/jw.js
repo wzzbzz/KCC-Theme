@@ -149,6 +149,14 @@ $("#imageUpload").change(function () {
     readURL(this);
 });
 
+$("#blog_edit_image").change(function () {
+
+    readURL(this);
+
+});
+
+
+
 /* from single-groups.php */
 $('.dropdown-toggle').dropdown();
 
@@ -943,7 +951,7 @@ $(document).ready(function () {
     $(".action-button").on('click', ".cancelInvite", function (e) {
         e.preventDefault();
         var group_id = localvars.post_id;
-        
+
         var user_id = $(this).data("mid");
 
         console.log(user_id);
@@ -1186,7 +1194,7 @@ $(document).ready(function () {
         // disconnect the click event from the submit button inside it.
         e.preventDefault();
         // find all the divs with the class of group-cell and hide them
-        
+
         switch ($(this).data('filter')) {
             case 'all':
                 $('.group-cell').show();
@@ -1203,7 +1211,7 @@ $(document).ready(function () {
                 $('.group-cell').hide();
                 $('.my-group-has-pending-requests').show();
                 $('.invited-to-join').show();
-                
+
                 break;
         }
 
@@ -1217,12 +1225,12 @@ $(document).ready(function () {
     if (tab) {
         $('#' + tab).click();
     }
-    
+
 
     // Intercept touch event for menu_icon images in mobile views
     $('.main_side_bar_left a').on('touchstart', function (e) {
         e.preventDefault();
-        
+
         // set body class .ast-mouse-clicked
         $('body').addClass('ast-mouse-clicked');
     });
@@ -1239,13 +1247,13 @@ $(".editAnnouncement").click(function () {
 
     let desc = $(this).data('desc');
 
-     let edit_ann_id = $(this).data('id');
+    let edit_ann_id = $(this).data('id');
 
-    $('#post_title1').val(title);               
+    $('#post_title1').val(title);
 
     $('#post_content1').html(desc);
 
-    $('#edit_ann_id').val(edit_ann_id);               
+    $('#edit_ann_id').val(edit_ann_id);
 
 });
 
@@ -1263,3 +1271,265 @@ $(".report-applications a.nav-link").on('click', function (e) {
     $(tab).addClass('show');
 }
 );
+
+
+function editMyBlog(id, content, img, title) {
+
+    $("#img_new").attr("src", img);
+
+    $('#blogEditImage').css('background-image', 'url(' + img + ')');
+
+    $('#blog_edit_id').val(id);
+
+    $('#blog_title').val(title);
+
+    $("#blog_content").val(content);
+
+    $('#editBlog').modal('show');
+
+}
+
+$(function () {
+    $("#emergency_other").on("click", function () {
+        $(".emergency_textbox").toggle(this.checked);
+    });
+    $("#general_other").on("click", function () {
+        $(".general_textbox").toggle(this.checked);
+    });
+    $("#repair_other").on("click", function () {
+        $(".repair_textbox").toggle(this.checked);
+    });
+    $("#property_other").on("click", function () {
+        $(".property_textbox").toggle(this.checked);
+    });
+    $("#health_other").on("click", function () {
+        $(".health_inputbox").toggle(this.checked);
+    });
+    $("#food_Other").on("click", function () {
+        $(".food_textbox").toggle(this.checked);
+    });
+    $("#volunteer_other").on("click", function () {
+        $(".volunteer_textbox").toggle(this.checked);
+    });
+    $("#severe_type").on("click", function () {
+        $(".severe_checkbox").toggle(this.checked);
+    });
+
+    $("#structural_type").on("click", function () {
+        $(".structural_checkbox").toggle(this.checked);
+
+    });
+
+
+    $("#terrorist_type").on("click", function () {
+        $(".terrorist_checkbox").toggle(this.checked);
+    });
+    $("#structural_other").on("click", function () {
+        $(".disaster_textbox").toggle(this.checked);
+    });
+});
+
+
+
+$(document).ready(function () {
+
+    var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
+
+    $(".follwMember").click(function (e) {
+        e.preventDefault();
+        var mid = $(this).data("uid");
+        var nonce = $(this).attr("data-nonce");
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: ajaxurl,
+            data: { "action": "follow_member1", "mid": mid, "nonce": nonce },
+            success: function (response) {
+                $('.ums_btn' + mid).text(response.msg);
+                //$('.followMember_'+mid).remove();
+                $('.ums_btn' + mid).removeClass('follwMember');
+                $('.ums_btn' + mid).addClass('unFollwMember');
+
+            }
+        })
+    });
+
+
+    $(".unFollwMember").click(function (e) {
+        e.preventDefault();
+        var mid = $(this).data("uid");
+        var nonce = $(this).attr("data-nonce");
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: ajaxurl,
+            data: { "action": "unfollow_member", "mid": mid, "nonce": nonce },
+            success: function (response) {
+                $('.ums_btn' + mid).text(response.msg);
+                $('.ums_btn' + mid).removeClass('unFollwMember');
+                $('.ums_btn' + mid).addClass('follwMember');
+
+            }
+        })
+    });
+
+
+
+    $(".acceptUser").click(function (e) {
+        e.preventDefault();
+        var group_id = $(this).data("groupid");
+        var uid = $(this).data("uid");
+        var id = $(this).data("id");
+        var nonce = $(this).attr("data-nonce");
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: ajaxurl,
+            data: { "action": "accept_group_request", "uid": uid, "group_id": group_id, "id": id, "nonce": nonce },
+            success: function (response) {
+                $('.ums_btn' + id).text(response.msg);
+                $('.ums_' + id).remove();
+
+            }
+        })
+    });
+
+    $(".rejectUser").click(function (e) {
+        e.preventDefault();
+        var group_id = $(this).data("groupid");
+        var uid = $(this).data("uid");
+        var id = $(this).data("id");
+        var nonce = $(this).attr("data-nonce");
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: ajaxurl,
+            data: { "action": "reject_group_request", "uid": uid, "group_id": group_id, "id": id, "nonce": nonce },
+            success: function (response) {
+                $('.ums_btn' + id).text(response.msg);
+                $('.ums_' + id).remove();
+
+            }
+        })
+    });
+
+
+    $(".acceptInvitation").click(function () {
+        var gid = $(this).attr('data-gid');
+        var invited_to = $(this).attr('data-invited_to');
+        var invited_from = $(this).attr('data-invited_from');
+        $('#requestAccept').attr('data-gid', gid);
+        $('#requestAccept').attr('data-invited_to', invited_from);
+        $('#requestAccept').attr('data-invited_from', invited_to);
+
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: ajaxurl,
+            data: { "action": "lmuser_detail", "uid": invited_from, "nonce": "<?php echo $nonce?>" },
+            success: function (response) {
+                console.log(response);
+                $('.userImg').attr('src', response.avatar_url);
+                $('.userName').html(response.ownerInfo.data.user_nicename);
+                $('.UserEmail').html(response.ownerInfo.data.user_email);
+                $('.userConnection').html(response.groupList);
+                $('.userGroup').html(response.groupList);
+                $('#requestAccept').data('gid', gid);
+                $('#requestAccept').data('invited_to', invited_from);
+                $('#requestAccept').data('invited_from', invited_to);
+                $('#GroupeModalCenter').modal('show');
+
+            }
+        })
+
+    });
+
+
+
+    $("#requestAccept").click(function (e) {
+        e.preventDefault();
+        var group_id = $(this).data("gid");
+        var invited_to = $(this).attr('data-invited_to');
+        var invited_from = $(this).attr('data-invited_from');
+        var nonce = $(this).attr("data-nonce");
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: ajaxurl,
+            data: { "action": "lmuser_add_in_group", "group_id": group_id, "invited_to": invited_to, "invited_from": invited_from, "nonce": "<?php echo $nonce?>" },
+            success: function (response) {
+                console.log(response);
+                $('#GroupeModalCenter').modal('hide');
+
+
+            }
+        })
+
+    })
+
+
+
+    $(".next").click(function () {
+        let previous = $(this).closest("fieldset").attr('id');
+        let next = $('#' + this.id).closest('fieldset').next('fieldset').attr('id');
+        if (previous == "step0") {
+            console.log(previous);
+            $('#' + next).show();
+            $('#' + previous).hide();
+        }
+        else if (previous == "step1") {
+            $('#' + next).show();
+            $('#' + previous).hide();
+        }
+    });
+
+});
+$(".previous").click(function () {
+    let current = $(this).closest("fieldset").attr('id');
+    let previous = $('#' + this.id).closest('fieldset').prev('fieldset').attr('id');
+    $('#' + previous).show();
+    $('#' + current).hide();
+});
+
+function readURLprofile(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+            $('#imagePreview').hide();
+            $('#imagePreview').fadeIn(650);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
+
+
+$("#imageUpload").change(function () {
+
+    var form = $('imageuploadform')[0]; // You need to use standard javascript object here
+    var formData = new FormData(form);
+
+
+    var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
+
+    readURLprofile(this);
+
+
+    $.ajax({
+        url: ajaxurl,
+        type: "POST",
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.log("error");
+            console.log(data);
+        }
+    });
+});

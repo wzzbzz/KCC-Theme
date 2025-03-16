@@ -587,7 +587,6 @@ class Group extends \jwc\Wordpress\WPPost
 
                 <!--  <a href="javascript:void(0);" data-toggle="modal" data-target="#group-modal"> -->
                 <div class="image">
-
                     <a href="<?php echo $this->permalink(); ?>">
                        <?= $this->image();?>
                     </a>

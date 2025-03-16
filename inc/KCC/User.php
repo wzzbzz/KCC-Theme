@@ -15,15 +15,21 @@ class User extends \jwc\Wordpress\WPUser{
         $table_name = 'users_groups';
         $sql = "SELECT group_id FROM {$table_name} WHERE user_id = %d";
         $sql = $wpdb->prepare($sql, $this->id());
+        
         return $wpdb->get_col($sql);
     }
 
     public function myGroups(){
         $group_ids = $this->group_ids();
-        $groups = [];
+
         foreach($group_ids as $group_id){
-            $groups[] = new Group($group_id);
+            $post = get_post($group_id);
+            if($post->post_status == 'publish'){
+                $groups[] = new Group($group_id);
+            }
+            
         }
+        
         return $groups;
     }
 
@@ -32,7 +38,8 @@ class User extends \jwc\Wordpress\WPUser{
         $args = array(
             'post_type' => 'groups',
             'author' => $this->id(),
-            'posts_per_page' => -1
+            'posts_per_page' => -1,
+            'post_status' => 'publish'
         );
         $query = new \WP_Query($args);
         $groups = [];
@@ -150,6 +157,21 @@ class User extends \jwc\Wordpress\WPUser{
 
     }
 
+
+    public function myBlogPosts(){
+        $args = array(
+            'post_type' => 'post',
+            'author' => $this->id(),
+            'posts_per_page' => -1
+        );
+        $query = new \WP_Query($args);
+        $posts = [];
+        foreach($query->posts as $post){
+            $posts[] = new \jwc\Wordpress\WPPost($post->ID);
+        }
+        return $posts;
+    }
+
     public function avatar_url($size=96){
         $avatar_url = parent::user_avatar_url($size);
         if(!empty($avatar_url)){
@@ -246,7 +268,7 @@ class User extends \jwc\Wordpress\WPUser{
     
 
     public function profile_link(){
-        return get_site_url()."/profile/?user_id=".$this->id();
+        return get_site_url()."/users/". $this->nicename();
     }
 
     public function connections( $type="all"){
@@ -287,6 +309,138 @@ class User extends \jwc\Wordpress\WPUser{
             $courses[] = new Course($id);
         }
         return $courses;
+    }
+
+    // TBD - make view class
+    public function render_profile_pic(){
+        ?>
+                   <div class="profile-information-column">
+                     <!-- first the user avatar -->
+                     <div class="profile_image_div  d-flex justify-content-center">
+                        <img class="profile_image" src="<?php echo $this->user_avatar_url(); ?>">
+                     </div>
+                     <div class="display_name d-flex justify-content-center">
+                        <?= $this->full_name();?></div>
+                     <div class="display_email d-flex justify-content-center">
+                        <a href="mailto:<?= $this->email();?>"><?= $this->email(); ?></a>
+                     </div>
+                     <div class="display_location d-flex justify-content-center">
+                        <span><?= $this->state();?>, <?= $this->city();?></span>
+                     </div>
+                     <!-- then the location and number of connects -->
+                     <div class="display_groups_connects  d-flex justify-content-center">
+                        <div class="profile_count d-lg-flex d-md-flex align-self-end">
+                           <div class="profile_count_main d-lg-flex d-md-flex justify-content-between px-2 align-items-center">
+                              <div class="profile_count1 d-flex justify-content-start align-items-center">
+                                 <div class="px-2"><span><?= $this->connections_count() ?></span></div>
+                                 <div class="">
+                                    <p>Connects</p>
+                                 </div>
+                              </div>
+                              <div class=" profile_count2 d-flex justify-content-start align-items-center">
+                                 <div class="px-3"><span><?= count($this->allMyGroups()); ?></span></div>
+                                 <div class="">
+                                    <p>Groups</p>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- then the badges -->
+                     <div class="profile_medal1 d-flex justify-content-center ml-3 mr-3">
+                        <div class="d-flex justify-content-center">
+                              <!-- begin badges paste -->
+                              <div class="col-md-3 col-3">
+                                 <div class="text-center pt-1 pb-2">
+                                    <a href="/courses/the-collaborative-disaster-volunteer-credential-level-one/">
+                                       <img src="/wp-content/themes/astra/assets/images/cdvc_1b.png" width="50" class="img-fluid membergroup-img1 pro_img1" alt="image">
+                                    </a>
+                                 </div>
+                              </div>
+                              <div class="col-md-3 col-3">
+                                 <div class="text-center pt-1 pb-2">
+                                    <a href="/courses/the-collaborative-disaster-volunteer-credential-level-two/">
+                                       <img src="/wp-content/themes/astra/assets/images/cdvc_2b.png" width="50" class="img-fluid membergroup-img1 pro_img2" alt="image">
+                                    </a>
+                                 </div>
+                              </div>
+                              <div class="col-md-3 col-3">
+                                 <div class="text-center pt-1 pb-2">
+                                    <a href="/courses/the-collaborative-disaster-volunteer-credential-level-three/">
+                                       <img src="/wp-content/themes/astra/assets/images/cdvc_3b.png" width="50" class="img-fluid membergroup-img1 pro_img3" alt="image">
+                                    </a>
+                                 </div>
+                              </div>
+                           <!-- end badges paste -->
+                           <?php //echo do_shortcode('[user_badges]'); 
+                           ?>
+                        </div>
+                     </div>
+                  </div>div class="profile-information-column">
+                     <!-- first the user avatar -->
+                     <div class="profile_image_div  d-flex justify-content-center">
+                        <img class="profile_image" src="<?php echo $this->user_avatar_url(); ?>">
+                     </div>
+                     <div class="display_name d-flex justify-content-center">
+                        <?= $this->full_name();?></div>
+                     <div class="display_email d-flex justify-content-center">
+                        <a href="mailto:<?= $this->email();?>"><?= $this->email(); ?></a>
+                     </div>
+                     <div class="display_location d-flex justify-content-center">
+                        <span><?= $this->state();?>, <?= $this->city();?></span>
+                     </div>
+                     <!-- then the location and number of connects -->
+                     <div class="display_groups_connects  d-flex justify-content-center">
+                        <div class="profile_count d-lg-flex d-md-flex align-self-end">
+                           <div class="profile_count_main d-lg-flex d-md-flex justify-content-between px-2 align-items-center">
+                              <div class="profile_count1 d-flex justify-content-start align-items-center">
+                                 <div class="px-2"><span><?= $this->connections_count() ?></span></div>
+                                 <div class="">
+                                    <p>Connects</p>
+                                 </div>
+                              </div>
+                              <div class=" profile_count2 d-flex justify-content-start align-items-center">
+                                 <div class="px-3"><span><?= count($this->allMyGroups()); ?></span></div>
+                                 <div class="">
+                                    <p>Groups</p>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- then the badges -->
+                     <div class="profile_medal1 d-flex justify-content-center ml-3 mr-3">
+                        <div class="d-flex justify-content-center">
+                              <!-- begin badges paste -->
+                              <div class="col-md-3 col-3">
+                                 <div class="text-center pt-1 pb-2">
+                                    <a href="/courses/the-collaborative-disaster-volunteer-credential-level-one/">
+                                       <img src="/wp-content/themes/astra/assets/images/cdvc_1b.png" width="50" class="img-fluid membergroup-img1 pro_img1" alt="image">
+                                    </a>
+                                 </div>
+                              </div>
+                              <div class="col-md-3 col-3">
+                                 <div class="text-center pt-1 pb-2">
+                                    <a href="/courses/the-collaborative-disaster-volunteer-credential-level-two/">
+                                       <img src="/wp-content/themes/astra/assets/images/cdvc_2b.png" width="50" class="img-fluid membergroup-img1 pro_img2" alt="image">
+                                    </a>
+                                 </div>
+                              </div>
+                              <div class="col-md-3 col-3">
+                                 <div class="text-center pt-1 pb-2">
+                                    <a href="/courses/the-collaborative-disaster-volunteer-credential-level-three/">
+                                       <img src="/wp-content/themes/astra/assets/images/cdvc_3b.png" width="50" class="img-fluid membergroup-img1 pro_img3" alt="image">
+                                    </a>
+                                 </div>
+                              </div>
+                           <!-- end badges paste -->
+                           <?php //echo do_shortcode('[user_badges]'); 
+                           ?>
+                        </div>
+                     </div>
+                  </div>
+         </div>
+        <?php
     }
 
 }

@@ -65,7 +65,7 @@ get_header('dashboard');
                                                 <div class="custom-card d-flex align-items-center justify-content-center">
                                                     <div class="close-group">
                                                         <div class="text-center">
-                                                            <?= $user->image() ?>
+                                                            <a href="<?= $user->profile_link();?>"><?= $user->image() ?></a>
                                                         </div>
                                                         <div class="text-center mt-3">
                                                             <h5><?= $user->name() ?></h5>
