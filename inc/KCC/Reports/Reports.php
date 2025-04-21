@@ -4,7 +4,7 @@ namespace KCC\Reports;
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL); 
-class Reports extends \jwc\Wordpress\WPCollection
+class Reports extends \jwc\Wordpress\WPController
 {
 
     public function register(){
@@ -96,6 +96,8 @@ class Reports extends \jwc\Wordpress\WPCollection
                 return new DisasterSituationalReport($report_id);
             case "Organization Volunteer Request":
                 return new OrganizationVolunteerRequest($report_id);
+            case "Survivor Needs Intake":
+                return new SurvivorNeedsIntake($report_id);
             default:
                 return new Report($report_id);
         }

@@ -41,7 +41,7 @@ class WPPost extends WPEntity{
         return get_post_field('post_name', $this->post_id);
     }
 
-    public function content( $filters = true ){
+    public function content( $filters = false ){
         if($filters){
             return apply_filters('the_content', get_post_field('post_content', $this->post_id));
         }
@@ -65,6 +65,9 @@ class WPPost extends WPEntity{
         return new \jwc\Wordpress\WPUser( $this->author_id() );
     }
 
+    public function currentUserIsAuthor(){
+        return get_current_user_id() == $this->author_id();
+    }
     public function thumbnail($size = 'large'){
         if(empty($this->thumbnail_url($size))){
             return '';

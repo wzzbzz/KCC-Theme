@@ -2,7 +2,7 @@
 
 namespace jwc\Wordpress;
 
-class WPTaxonomies extends WPCollection{
+class WPTaxonomies extends WPController{
 
     public static function register_taxonomy()
     {

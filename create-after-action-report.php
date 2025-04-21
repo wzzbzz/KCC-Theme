@@ -1,7 +1,7 @@
  <?php 
 
    /* Template Name: Create After Action Report */
-
+die("hi");
    
 
    global $wpdb;
@@ -316,7 +316,7 @@
 
                                                                     <label>Date Submitted *</label>
 
-                                                                    <input type="date" class="form-control cr_da" name="action_date" placeholder="Enter here" required>
+                                                                    <input type="date" class="form-control cr_da" name="submission_date" placeholder="Enter here" required>
 
                                                                 </div>
 
@@ -330,7 +330,7 @@
 
                                                                     <label>Time Submitted *</label>
 
-                                                                    <input type="time" class="form-control cr_ti"  name="action_time" placeholder="Enter here" required>
+                                                                    <input type="time" class="form-control cr_ti"  name="submission_time" placeholder="Enter here" required>
 
                                                                 </div>
 
@@ -344,7 +344,7 @@
 
                                                                     <label>Name of Organization *</label>
 
-                                                                    <input type="text" class="form-control cr_or" name="action_org_name" placeholder="Enter here">
+                                                                    <input type="text" class="form-control cr_or" name="organization_name" placeholder="Enter here">
 
                                                                 </div>
 
@@ -358,7 +358,7 @@
 
                                                                     <label>Submitted By *</label>
 
-                                                                    <input type="text" class="form-control cr_su"  name="action_submit_by" placeholder="Enter here">
+                                                                    <input type="text" class="form-control cr_su"  name="submitter_name" placeholder="Enter here">
 
                                                                 </div>
 
@@ -372,7 +372,7 @@
 
                                                                     <label>Contact phone *</label>
 
-                                                                    <input type="number" id="phone" class="form-control cr_con" name="action_phone" placeholder="Enter here">
+                                                                    <input type="number" id="phone" class="form-control cr_con" name="contact_phone" placeholder="Enter here">
 
                                                                 </div>
 
@@ -386,7 +386,7 @@
 
                                                                     <label>Contact E-mail *</label>
 
-                                                                    <input type="email" class="form-control cr_e" name="action_email" placeholder="Enter here">
+                                                                    <input type="email" class="form-control cr_e" name="contact_email" placeholder="Enter here">
 
                                                                 </div>
 
@@ -400,7 +400,7 @@
 
                                                                     <label>Supervisor Name *</label>
 
-                                                                    <input type="text" class="form-control cr_sup"  name="action_supervisor" placeholder="Enter here">
+                                                                    <input type="text" class="form-control cr_sup"  name="supervisor_name" placeholder="Enter here">
 
                                                                 </div>
 
@@ -450,7 +450,7 @@
 
                                                                 <label>Shift Reported Covers *</label>
 
-                                                                <input type="text" class="form-control cr_shi" id="shift_reported" name="shift_reported" placeholder="Enter here " value="">
+                                                                <input type="text" class="form-control cr_shi" id="shift_reported_covers" name="shift_reported_covers" placeholder="What does this mean?  -jim" value="">
 
                                                             </div>
 
@@ -464,7 +464,7 @@
 
                                                                 <label>Start Date *</label>
 
-                                                                <input type="date" class="form-control cr_st" id="action_start_date" name="action_start_date" placeholder="Enter here " value="">
+                                                                <input type="date" class="form-control cr_st" id="action_start_date" name="start_date" placeholder="Enter here " value="">
 
                                                             </div>
 
@@ -478,7 +478,7 @@
 
                                                                 <label>End Date *</label>
 
-                                                                <input type="date" class="form-control cr_en" id="action_end_date" name="action_end_date" placeholder="Enter here " value="">
+                                                                <input type="date" class="form-control cr_en" id="action_end_date" name="end_date" placeholder="Enter here " value="">
 
                                                             </div>
 
@@ -492,7 +492,7 @@
 
                                                                 <label>Time Submitted *</label>
 
-                                                                <input type="time" class="form-control cr_time" id="action_submit_time" name="action_submit_time" placeholder="Enter here " value="">
+                                                                <input type="time" class="form-control cr_time" id="action_submit_time" name="submission_time" placeholder="Enter here " value="">
 
                                                             </div>
 

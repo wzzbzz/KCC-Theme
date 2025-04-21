@@ -5,7 +5,7 @@ namespace KCC\Forms;
 
 use KCC\FlashMessages\FlashMessages;
 
-class Forms extends \jwc\Wordpress\WPCollection
+class Forms extends \jwc\Wordpress\WPController
 {
 
 
@@ -54,6 +54,61 @@ class Forms extends \jwc\Wordpress\WPCollection
         return $countries;
     }
 
+    public static function countrySelect($args){
+
+        $countries = self::allCountries();
+
+        $defaults = [
+            'id' => '',
+            'name' => '',
+            'selected' => '',
+            'change_target' => null,
+            'required' => false
+        ];
+        $args = wp_parse_args($args, $defaults);
+        extract($args);
+ 
+        $html = "<select class='form-control country' id='$id' name='$name' "
+               . ($required ? 'required' : '') . " " . ( ($change_target) ? "data-change-target='" . $change_target . "'" : '') . ">";
+        $html .= "<option value=''>Select Country</option>";
+        foreach($countries as $country){
+            $html .= "<option value='$country->name' data-value='{$country->id}' ".($selected==$country->name ? 'selected' : '').">{$country->name}</option>";
+        }
+        $html .= "</select>";
+
+        return $html;
+    }
+
+    public static function stateSelect( $args = [] ){
+        $defaults = [
+            'id' => '',
+            'name' => '',
+            'selected' => '',
+            'change_target' => null,
+            'required' => false,
+            'country' => ''
+        ];
+        
+        $args = wp_parse_args($args, $defaults);
+        extract($args);
+        
+        $states = self::statesByCountryName($country);
+        
+        $html = "<select class='form-control state' id='$id' name='$name' "
+               . ($required ? 'required' : '') . " " . ($change_target ? "data-change-target='$change_target'" : '') . ">";
+        $html .= "<option value=''>Select State</option>";
+        
+        foreach($states as $state){
+            $html .= "<option value='$state->name' data-value='{$state->id}' " . ($selected == $state->name ? 'selected' : '') . ">{$state->name}</option>";
+        }
+        $html .= "</select>";
+
+        $html .= "<!-- made by KCC.Forms.Forms::stateSelect -->";
+
+        return $html;
+    }
+
+
     public static function allStates()
     {
         global $wpdb;
@@ -75,7 +130,7 @@ class Forms extends \jwc\Wordpress\WPCollection
         return $states;
     }
 
-    public static function statesByCountry($country_id)
+    public static function statesByCountryId($country_id)
     {
         global $wpdb;
 
@@ -218,15 +273,18 @@ class Forms extends \jwc\Wordpress\WPCollection
             foreach ($_POST as $key => $value) {
 
                 if (!empty($value)) {
-                    if (is_array($value)) {
-                        $value = implode(',', $value);
-                        // sanitize the array
-
+                    
+                   // if it's a string, 
+                    if (is_string($value)) {
+                        $value = sanitize_text_field($value);
                     }
 
-                    update_post_meta($report_post_id, $key, sanitize_text_field($value));
+                    update_post_meta($report_post_id, $key, $value);
                 }
+                
             }
+
+            
             if (0) { //$rf_private == 'keep_private') {
                 $args = [
                     
@@ -344,6 +402,7 @@ class Forms extends \jwc\Wordpress\WPCollection
         // get the term with that slug
         $term = get_term_by('slug', $report_type, 'kcc_report_type');
         $class = '\KCC\Forms\\' . str_replace(" ", "", $term->name) . 'Form';
+
       
         if(class_exists($class)){
             return new $class();

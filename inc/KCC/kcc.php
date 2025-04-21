@@ -1,5 +1,9 @@
 <?php
 
+
+// define _KCC_ROOT_ as the root directory of the plugin
+define('__KCC_ROOT__', __DIR__);
+
 if( isset($_GET['debug']) && $_GET['debug'] == 'true' ){
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
@@ -14,7 +18,7 @@ if(isset($_GET['delete_applications_from_postmeta'])){
     );
     $reports = get_posts($args);
     foreach($reports as $report){
-        delete_post_meta($report->ID, 'vol_applications');
+        delete_post_meta($report->ID, 'applications');
     }
 }
 
@@ -56,6 +60,7 @@ function leave_a_comment_title_tag( $defaults ){
 
 
 new KCC\Users();
+new KCC\Members();
 // these function calls will set up the hooks
 new KCC\Groups();
 new KCC\Roles();

@@ -3,7 +3,7 @@
 
 namespace KCC;
 
-class Users extends \jwc\Wordpress\WPCollection{
+class Users extends \jwc\Wordpress\WPController{
 
     public static function getKCCAdmins(){
         // get all users with the role 'kcc_admin'
@@ -37,6 +37,7 @@ class Users extends \jwc\Wordpress\WPCollection{
     }
 
     public static function allKCCUsers(){
+
         // get all users with the role Subscriber
         $args = array(
             'role'    => 'subscriber',
@@ -49,6 +50,25 @@ class Users extends \jwc\Wordpress\WPCollection{
         $return = [];
         foreach($users as $user){
             $return[] = new User($user->ID);
+        }
+
+        return $return;
+        
+    }
+
+    public static function allKCCUserIds(){
+        // get all users with the role Subscriber
+        $args = array(
+            'role'    => 'subscriber',
+            'orderby' => 'user_nicename',
+            'order'   => 'ASC'
+        );
+
+        $users = get_users($args);
+
+        $return = [];
+        foreach($users as $user){
+            $return[] = $user->ID;
         }
 
         return $return;

@@ -2,6 +2,10 @@
 
 namespace KCC;
 
+use \KCC\Users;
+use \KCC\User;
+
+
 class Group extends \jwc\Wordpress\WPPost
 {
 
@@ -129,6 +133,10 @@ class Group extends \jwc\Wordpress\WPPost
         return new User($this->leaderId());
     }
 
+    public function leader(){
+        return $this->getLeader();
+    }
+
     public function every_id(){
         return array_merge([$this->leaderId()], $this->getMemberIds());
     }
@@ -151,6 +159,50 @@ class Group extends \jwc\Wordpress\WPPost
             $users[] = new User($id);
         }
         return $users;
+    }
+
+    public function invitedUserIds(){
+        global $wpdb;
+        $current_user_id = get_current_user_id();
+        
+        $sqlQuery = " SELECT user_id FROM `group_invite` WHERE `group_id` = '".$this->id()."' AND
+        request_type = 'invitation' AND status = 'pending' group by user_id ";
+
+        $results = $wpdb->get_results($sqlQuery);
+        $invitedUserIds = [];
+        foreach($results as $result){
+            $invitedUserIds[] = $result->user_id;
+        }
+        return $invitedUserIds;
+    }
+
+    public function uninvitedUsers(){
+
+        $invitedUserIds = $this->invitedUserIds();
+        $current_user_id_array = [get_current_user_id()];
+        $invitedUserIds = array_merge($invitedUserIds, $current_user_id_array);
+        
+        $everyone = Users::allKCCUserIds();
+
+        $uninvitedUserIds = array_diff($everyone, $invitedUserIds);
+        $uninvitedUsers = [];
+
+        foreach($uninvitedUserIds as $userId){
+            $uninvitedUsers[] = new User($userId);
+        }
+
+        return $uninvitedUsers;
+    }
+
+
+
+    public function invitedUsers(){
+        $invitedUserIds = $this->invitedUserIds();
+        $invitedUsers = [];
+        foreach($invitedUserIds as $userId){
+            $invitedUsers[] = new User($userId);
+        }
+        return $invitedUsers;
     }
 
     public function isClosed(){
@@ -242,6 +294,18 @@ class Group extends \jwc\Wordpress\WPPost
         global $wpdb;
         $sql = $wpdb->prepare(
             "SELECT * FROM group_invite WHERE group_id = %d AND user_id=%d AND status = 'pending' AND request_type = 'join_request'",
+            $this->id(),
+            $user_id
+        );
+
+        $result = $wpdb->get_results($sql);
+        return count($result) > 0;
+    }
+
+    public function userHasBeenInvited($user_id){
+        global $wpdb;
+        $sql = $wpdb->prepare(
+            "SELECT * FROM group_invite WHERE group_id = %d AND user_id=%d AND status = 'pending' AND request_type = 'invitation'",
             $this->id(),
             $user_id
         );
@@ -499,10 +563,10 @@ class Group extends \jwc\Wordpress\WPPost
         return false;
     }
 
-    public function blogPosts(){
+    public function blogPosts( $n=3 ){
         $args = array(
             'post_type' => 'post',
-            'posts_per_page' => 3,
+            'posts_per_page' => $n,
             'meta_query' => array(
                 array(
                     'key' => 'group_id',
@@ -520,6 +584,29 @@ class Group extends \jwc\Wordpress\WPPost
             $posts[] = $post;
         }
         return $posts;
+    }
+
+    public function announcements($n=3){
+        $args = array(
+            'post_type' => 'announcement',
+            'posts_per_page' => $n,
+            'meta_query' => array(
+                array(
+                    'key' => 'group_id',
+                    'value' => $this->id(),
+                    'compare' => '='
+                )
+            )
+        );
+
+        $query = new \WP_Query($args);
+
+        $announcements = [];
+        foreach($query->posts as $announcement){
+            $announcement = new \KCC\Communications\Announcement($announcement->ID);
+            $announcements[] = $announcement;
+        }
+        return $announcements;
     }
 
     public function reports( $report_type='' ){

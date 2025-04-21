@@ -31,6 +31,8 @@ class GroupBlogPostNotification extends Notification{
         $this->post_id = $args['post_id'] ?? '';
 
         if (empty($this->post_id)) {
+            
+            pre(debug_backtrace());
             die("no post_id");
             return;
         }

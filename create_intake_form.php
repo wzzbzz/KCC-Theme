@@ -369,9 +369,9 @@
 
                                                                 <label>Primary Telephone *</label>
 
-                                                            <input type ="number" class ="form-control sur_pr" name="intake_phone"   onKeyPress="if(this.value.length==10) return false;" min="0" placeholder="Enter here">
+                                                            <input type ="number" class ="form-control sur_pr" name="client_phone"   onKeyPress="if(this.value.length==10) return false;" min="0" placeholder="Enter here">
 
-                                                             <!--<input type="number"  onfocusout ="validatePhone()" class="form-control sur_pr"  name="intake_phone" placeholder="Enter here" value="<//?php echo get_post_meta($rf_id,'rf_country',true)?>">-->
+                                                             <!--<input type="number"  onfocusout ="validatePhone()" class="form-control sur_pr"  name="client_phone" placeholder="Enter here" value="<//?php echo get_post_meta($rf_id,'rf_country',true)?>">-->
 
                                                         
 
@@ -393,7 +393,7 @@
 
                                                                 <label>Client First Name *</label>
 
-                                                                <input type="text" class="form-control sur_cl"  name="intake_firstName" placeholder="Enter here" value="<?php echo $userInfo->first_name;  ?>" readonly>
+                                                                <input type="text" class="form-control sur_cl"  name="client_firstName" placeholder="Enter here" value="<?php echo $userInfo->first_name;  ?>" readonly>
 
                                                             </div>
 
@@ -407,7 +407,7 @@
 
                                                                 <label>Client last name *</label>
 
-                                                                <input type="text" class="form-control sur_la"  name="intake_lastName" placeholder="Enter here" value="<?php echo $userInfo->last_name;  ?>" readonly>
+                                                                <input type="text" class="form-control sur_la"  name="client_lastName" placeholder="Enter here" value="<?php echo $userInfo->last_name;  ?>" readonly>
 
                                                             </div>
 
@@ -421,7 +421,7 @@
 
                                                                 <label>Address *</label>
 
-                                                                <input type="text" class="form-control sur_add"  name="intake_address" placeholder="Enter here" value="<?php echo get_post_meta($rf_id,'rf_country',true)?>">
+                                                                <input type="text" class="form-control sur_add"  name="client_address" placeholder="Enter here" value="<?php echo get_post_meta($rf_id,'rf_country',true)?>">
 
                                                             </div>
 
@@ -507,7 +507,7 @@
 
                                                                 <label>Alternative Telephone</label>
 
-                                                                <input type="number" class="form-control sur_al"  onKeyPress="if(this.value.length==10) return false;" min="0"  name="intake_phone2" placeholder="Enter here" value="<?php echo get_post_meta($rf_id,'rf_country',true)?>">
+                                                                <input type="number" class="form-control sur_al"  onKeyPress="if(this.value.length==10) return false;" min="0"  name="client_phone2" placeholder="Enter here" value="<?php echo get_post_meta($rf_id,'rf_country',true)?>">
 
                                                             </div>
 
@@ -521,7 +521,7 @@
 
                                                                 <label>Best Time to Contact</label>
 
-                                                                <select class="form-control set-postion sur_be" name="intake_contact_time">
+                                                                <select class="form-control set-postion sur_be" name="client_preferred_contact_time">
 
                                                                     <option> Select Time</option>
 

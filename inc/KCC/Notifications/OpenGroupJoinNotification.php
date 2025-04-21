@@ -52,8 +52,7 @@ class OpenGroupJoinNotification extends Notification
         $this->body = sprintf("Hi %s,<br>
                         %s has joined your open group <strong>%s</strong>. <br>
                         Say hello here: <a href=\"%s\">%s</a> <br>
-                        Thanks,<br>Tech Support at World Cares Center
-", $recipient->name(), $this->user->name(), $this->group->name(), $this->group->permalink(), $this->group->permalink());
+                        Thanks,<br>Tech Support at World Cares Center", $recipient->name(), $this->user->name(), $this->group->name(), $this->group->permalink(), $this->group->permalink());
 
         parent::send_email($recipient);
     }

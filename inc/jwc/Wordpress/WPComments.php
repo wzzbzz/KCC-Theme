@@ -4,7 +4,7 @@
 namespace jwc\Wordpress;
 
 
-class WPComments extends WPCollection{
+class WPComments extends WPController{
     
     public function init(){
         add_filter( 'comment_form_defaults', [$this, 'leave_a_comment_title_tag'] );

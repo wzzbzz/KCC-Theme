@@ -4,7 +4,7 @@ namespace KCC\Communications;
 
 use KCC\FlashMessages\FlashMessages;
 
-class Announcements extends \jwc\Wordpress\WPCollection
+class Announcements extends \jwc\Wordpress\WPController
 {
 
 
@@ -74,7 +74,7 @@ class Announcements extends \jwc\Wordpress\WPCollection
 
         // Registering your Custom Post Type
 
-        register_post_type('Announcement', $args);
+        register_post_type('announcement', $args);
     }
 
     // save an announcement
@@ -83,170 +83,209 @@ class Announcements extends \jwc\Wordpress\WPCollection
 
         if (!empty($_POST['create_announcement'])) {
 
-            $post_title = ($_POST['post_title']) ? sanitize_text_field($_POST['post_title']) : "";
 
-            $post_content = ($_POST['post_content']) ? sanitize_text_field($_POST['post_content']) : "";
+            $post_title = ($_POST['post_title']) ? sanitize_text_field($_POST['post_title']) : "";
+            $post_content = ($_POST['post_content']) ? $_POST['post_content'] : "";
+            $group_id = ($_POST['group_id']) ? sanitize_text_field($_POST['group_id']) : "";
+            $audience = ($_POST['audience']) ? sanitize_text_field($_POST['audience']) : "";
 
             $current_user_id = get_current_user_id();
 
-            $wordpress_post = array(
 
+            switch ($audience) {
+
+                case 'group':
+                    $audience = 'group';
+                    if (empty($group_id)) {
+                        FlashMessages::add('Group ID not submitted', 'error');
+                        return;
+                    }
+                    $group = new \KCC\Group($group_id);
+                    if (empty($group)) {
+                        FlashMessages::add('Group not found', 'error');
+                        return;
+                    }
+
+                    if (!$group->userCanPost($current_user_id)) {
+                        FlashMessages::add('You are not a member of this group', 'error');
+                        return;
+                    }
+                    break;
+                case 'all-rnn-users':
+                default:
+                    break;
+            }
+
+
+
+            $args = array(
                 'post_title' => $post_title,
-
                 'post_content' => $post_content,
-
                 'post_status' => 'publish',
-
                 'post_author' => $current_user_id,
-
                 'post_type' => 'announcement'
-
             );
 
+            $post_id  =  wp_insert_post($args);
+
+            // set post meta
+            add_post_meta($post_id, 'audience', $audience);
+
+            if ($audience == 'group') {
+                add_post_meta($post_id, 'group_id', $group_id);
+            }
+
+            // handle image upload
+            $uploaddir = wp_upload_dir();
+
+            if (!empty($_FILES["post_image"])) {
+                //FlashMessages::add( 'No image uploaded', 'error' );
+                //return;
+
+                $file = $_FILES["post_image"]["name"];
+                $uploadfile = $uploaddir['path'] . '/' . basename($file);
+
+                if (move_uploaded_file($_FILES["post_image"]["tmp_name"], $uploadfile)) {
+
+                    $filename = basename($uploadfile);
+
+                    $wp_filetype = wp_check_filetype(basename($filename), null);
+
+                    $attachment = array(
+
+                        'post_mime_type' => $wp_filetype['type'],
+                        'post_title' => preg_replace('/\.[^.]+$/', '', $filename),
+                        'post_content' => '',
+                        'post_status' => 'inherit',
+                        //'menu_order' => $_i + 1000
+
+                    );
+
+                    $attach_id = wp_insert_attachment($attachment, $uploadfile);
+
+                    set_post_thumbnail($post_id, $attach_id);
+                }
 
 
-            $announcement_id = wp_insert_post($wordpress_post);
+                switch ($audience) {
+                    case 'group':
+                        // set a flash notification
+                        
+                        $notification = new \KCC\Notifications\GroupAnnouncementNotification(
+                            [
+                                'group_id' => $group_id,
+                                'post_id' => $post_id
+                            ]
+                        );
 
-            // validate $announcement_id
-            if(!$announcement_id){
-                FlashMessages::add('Announcement Creation Failed', 'error');
+                        $notification->send();
+                        break;
+                    case 'all-rnn-users':
+                        $notification = new \KCC\Notifications\PublicAnnouncementNotification(
+                            [
+                                'post_id' => $post_id
+                            ]
+                        );
+
+                        $notification->send();
+                    default:
+                        break;
+                }
+
+                FlashMessages::add('Blog post created successfully', 'success');
                 header('Location: ' . $_SERVER["HTTP_REFERER"]);
                 exit;
             }
-
-    
-            add_post_meta($announcement_id, 'announcement_group_id', $_POST['group_id']);
-
-            //Set thumbnail image
-
-
-
-            $uploaddir = wp_upload_dir();
-
-            $file = $_FILES["group_image"]["name"];
-
-            $uploadfile = $uploaddir['path'] . '/' . basename($file);
-
-
-
-            if (move_uploaded_file($_FILES["group_image"]["tmp_name"], $uploadfile)) {
-
-                $filename = basename($uploadfile);
-
-                $wp_filetype = wp_check_filetype(basename($filename), null);
-
-                $attachment = array(
-
-                    'post_mime_type' => $wp_filetype['type'],
-
-                    'post_title' => preg_replace('/\.[^.]+$/', '', $filename),
-
-                    'post_content' => '',
-
-                    'post_status' => 'inherit',
-
-                    'menu_order' => $_i + 1000
-
-                );
-
-                $attach_id = wp_insert_attachment($attachment, $uploadfile);
-
-                set_post_thumbnail($announcement_id, $attach_id);
-            }
-
-            
-            $notification = new \KCC\Notifications\GroupAnnouncementNotification([
-                'group_id' => $_POST['group_id'],
-                'announcement_id' => $announcement_id
-            ]);
-
-            $notification->send();
-
-            FlashMessages::add('Announcement Created Successfully', 'success');
-
-            header('Location: ' . $_SERVER["HTTP_REFERER"]);
-
-            exit;
         }
     }
 
     public function update_announcement()
     {
         if (!empty($_POST['update_announcement'])) {
-    
-            $announcement_id = ($_POST['edit_ann_id']) ? sanitize_text_field($_POST['edit_ann_id']) : "";
-    
+
             $post_title = ($_POST['post_title']) ? sanitize_text_field($_POST['post_title']) : "";
-    
-            $post_content = ($_POST['post_content']) ? sanitize_text_field($_POST['post_content']) : "";
-    
+            $post_content = ($_POST['post_content']) ? $_POST['post_content'] : "";
+            $group_id = ($_POST['group_id']) ? sanitize_text_field($_POST['group_id']) : "";
+            $audience = ($_POST['audience']) ? sanitize_text_field($_POST['audience']) : "";
+            $post_id = $_POST['post_id'];
+
             $current_user_id = get_current_user_id();
-    
-            $updatePostData = array(
-    
-                'ID' => $announcement_id,
-    
-                'post_title' => $post_title,
-    
-                'post_content' => $post_content,
-    
-                'post_status' => 'publish',
-    
-                'post_author' => $current_user_id,
-    
-                'post_type' => 'announcement'
-    
-            );
-    
-            wp_update_post($updatePostData);
-    
-            update_post_meta($announcement_id, 'announcement_group_id', @$_POST['ugroup_id']);
-    
-    
-    
-            //Set thumbnail image
-    
-    
-    
-            $uploaddir = wp_upload_dir();
-    
-            $file = $_FILES["group_image"]["name"];
-    
-            $uploadfile = $uploaddir['path'] . '/' . basename($file);
-    
-    
-    
-            if (move_uploaded_file($_FILES["group_image"]["tmp_name"], $uploadfile)) {
-    
-                $filename = basename($uploadfile);
-    
-                $wp_filetype = wp_check_filetype(basename($filename), null);
-    
-                $attachment = array(
-    
-                    'post_mime_type' => $wp_filetype['type'],
-    
-                    'post_title' => preg_replace('/\.[^.]+$/', '', $filename),
-    
-                    'post_content' => '',
-    
-                    'post_status' => 'inherit',
-    
-                    'menu_order' => $_i + 1000
-    
-                );
-    
-                $delete = wp_delete_attachment($announcement_id, true);
-    
-                $attach_id = wp_insert_attachment($attachment, $uploadfile);
-    
-                set_post_thumbnail($announcement_id, $attach_id);
+
+
+            switch ($audience) {
+
+                case 'group':
+                    $audience = 'group';
+                    if (empty($group_id)) {
+                        FlashMessages::add('Group ID not submitted', 'error');
+                        return;
+                    }
+                    $group = new \KCC\Group($group_id);
+                    if (empty($group)) {
+                        FlashMessages::add('Group not found', 'error');
+                        return;
+                    }
+
+                    if (!$group->userCanPost($current_user_id)) {
+                        FlashMessages::add('You are not a member of this group', 'error');
+                        return;
+                    }
+                    break;
+                case 'all-rnn-users':
+                default:
+                    break;
             }
-    
-    
-    
+
+
+
+            $updatePostData = array(
+
+                'ID' => $post_id,
+                'post_title' => $post_title,
+                'post_content' => $post_content,
+                'post_status' => 'publish',
+                'post_author' => $current_user_id,
+            );
+
+            wp_update_post($updatePostData);
+
+            update_post_meta($post_id, 'audience', $audience);
+            if($audience == 'group'){
+                update_post_meta($post_id, 'group_id', $group_id);
+            }
+            
+
+
+
+            //Set thumbnail image
+
+
+
+            $uploaddir = wp_upload_dir();
+            $file = $_FILES["blog_image"]["name"];
+            $uploadfile = $uploaddir['path'] . '/' . basename($file);
+
+            if (move_uploaded_file($_FILES["blog_image"]["tmp_name"], $uploadfile)) {
+                $filename = basename($uploadfile);
+                $wp_filetype = wp_check_filetype(basename($filename), null);
+                $attachment = array(
+                    'post_mime_type' => $wp_filetype['type'],
+                    'post_title' => preg_replace('/\.[^.]+$/', '', $filename),
+                    'post_content' => '',
+                    'post_status' => 'inherit',
+                    'menu_order' => $_i + 1000
+                );
+
+                $delete = wp_delete_attachment($post_id, true);
+                $attach_id = wp_insert_attachment($attachment, $uploadfile);
+                set_post_thumbnail($post_id, $attach_id);
+            }
+
+            // add flash message saying blog post updated successfully
+            FlashMessages::add('Announcement updated successfully', 'success');
+
             header('Location: ' . $_SERVER["HTTP_REFERER"]);
-    
+
             exit;
         }
     }
@@ -256,11 +295,11 @@ class Announcements extends \jwc\Wordpress\WPCollection
     
         if (!empty($_POST['delete_announcement'])) {
     
-            $post_id  =  $_POST['ann_id'];
+            $post_id  =  $_POST['post_id'];
     
             wp_delete_post($post_id);
     
-            add_action('form_message', "Announcement Deleted Successfully");
+            FlashMessages::add('Announcement deleted successfully', 'success');
         }
     }
 

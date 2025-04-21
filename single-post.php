@@ -87,7 +87,7 @@ else{
                                 
                             </div>
                             <div class="teatx-area">
-                                <?php echo get_the_content(); ?>
+                                <?php echo nl2br(get_the_content()); ?>
                             </div>
                             <?php  comments_template( '', true );?>
                         </div>

@@ -6,10 +6,9 @@ namespace KCC\Reports;
 
 class OrganizationVolunteerRequestView extends ReportView
 {
-    public function render()
-    {
-
-?>
+    public function render(){ 
+        //pre(get_post_meta($this->report->id()));
+    ?>
         <div class="col-xl-11 col-lg-11 col-md-11 col-10 mt-2">
 
             <div class="col-xl-11 col-lg-11 col-md-11 col-12 main_profile_form disaster_p donation_tab_pills  g_donation_tab_pills mb-5" id="reportPrint">
@@ -146,22 +145,6 @@ class OrganizationVolunteerRequestView extends ReportView
 
                         </div>
 
-                        <!-- <div>
-
-            <h4>City</h4>
-
-            <p><//?php echo get_post_meta($org_id,'rf_city',true)?></p>
-
-         </div>-->
-
-                        <!--  <div>
-
-            <h4>Zip</h4>
-
-            <p><//?php echo get_post_meta($org_id,'vol_zipcode2',true)?></p>
-
-         </div>-->
-
                         <div>
 
                             <h4>Mission</h4>
@@ -291,8 +274,7 @@ class OrganizationVolunteerRequestView extends ReportView
                         <div>
 
                             <h4>Type</h4>
-
-                            <p><?= implode(',', $this->report->disaster_type()); ?></p>
+                            <p><?=  $this->report->print_disaster_types(); ?></p>
 
                         </div>
 
@@ -361,9 +343,7 @@ class OrganizationVolunteerRequestView extends ReportView
                         <div>
 
                             <h4>Shift End Date</h4>
-
                             <p><?= $this->report->shift_end_date(); ?></p>
-
                         </div>
 
 
@@ -464,13 +444,13 @@ class OrganizationVolunteerRequestView extends ReportView
 
                             <h4>Skills</h4>
 
-                            <p><?= $this->report->skills_needed(); ?></p>
+                            <p><?= $this->report->print_skills_needed(); ?></p>
 
                         </div>
 
 
 
-                    </div>
+                    </div> 
 
                 </div>
 
@@ -508,8 +488,7 @@ class OrganizationVolunteerRequestView extends ReportView
     }
 
     public static function tableHeader()
-    {
-    ?>
+    {?>
         <tr>
 
             <th scope="col">Report No.</th>
@@ -537,8 +516,7 @@ class OrganizationVolunteerRequestView extends ReportView
     }
 
     public function render_table_row()
-    {
-    ?>
+    {?>
 
         <tr class="bg-color">
 
@@ -565,88 +543,14 @@ class OrganizationVolunteerRequestView extends ReportView
             <td><?= $this->report->event_organizer(); ?></td>
 
             <td>
-                    <a href="<?= $this->report->permalink(); ?>" class="d-block">
-                        <div class="orange-box report-btn">
-                            <p>View</p>
-                        </div>
-                    </a>
-                </td>
+                <a href="<?= $this->report->permalink(); ?>" class="d-block">
+                    <div class="orange-box report-btn">
+                        <p>View</p>
+                    </div>
+                </a>
+            </td>
 
-            <?php
-            $user_id = get_current_user_id();
-            if ($user_id != $this->report->author_id()) { ?>
-
-               
-                <td style="width:12%;">
-
-                    <?php if ($this->report->user_has_applied($user_id)) { ?>
-                        <div class="">
-                            <button class="report-btn" type="submit" disabled>
-                                <p>Applied</p>
-                            </button>
-
-                        </div>'
-
-
-
-                    <?php } elseif ($this->report->user_has_been_declined($user_id)) { ?>
-                        <div class="orange-box report-btn rejected_btn">
-
-                            <button type="submit" class="rejected_btn" disabled>
-                                <p>Declined</p>
-                            </button>
-
-                        </div>
-
-
-
-                    <?php } elseif ($this->report->user_has_been_approved($user_id)) { ?>
-                        <div class=" report-btn approved_btn">
-                            <button type="submit" class="approved_btn " disabled>
-                                <p>Approved</p>
-                            </button>
-                        </div>
-                    <?php } else { ?>
-                        <form method='POST' action='' class='row mediadoc_form' id='disaster_media' enctype='multipart/form-data'>
-                            <div class='orange-box report-btn'>
-                                <input type="hidden" name="action" value="ovr_apply" />
-                                <input type='hidden' name='user_id' value='<?= $user_id; ?>'>
-                                <input type='hidden' name='report_id' value='<?= $this->report->id(); ?>'>
-                                <button type="submit" class="orange-box">
-                                    <p>Apply</p>
-                                </button>
-                            </div>
-                        </form>
-                    <?php } ?>
-
-
-
-                </td>
-
-            <?php } else { ?>
-
-                <td>
-
-                    <?php if ($this->report->has_applications()) { ?>
-                        <a href="<?= $this->report->permalink(); ?>/applications" class="d-block">
-
-                            <div class="orange-box report-btn">
-
-                                <p>View Applications</p>
-
-                            </div>
-                        </a>
-                    <?php } else { ?>
-                        <button class="report-btn" type="submit" disabled>
-                                <p>No Applications</p>
-                            </button>
-                    <?php
-                    } ?>
-
-
-                </td>
-
-            <?php } ?>
+            <?php $this->render_applications(); ?>
 
         </tr>
 

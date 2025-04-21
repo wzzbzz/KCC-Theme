@@ -233,7 +233,7 @@ a.disabled {
                                        <td><?php echo get_user_meta($reportAuthor,'country',true)?></td>
                                         <td><?php echo get_user_meta($reportAuthor,'state',true)?></td>
                                          <td><?php echo get_user_meta($reportAuthor,'city',true)?></td>
-                                         <td><?php echo get_post_meta($rid,'intake_firstName',true)?></td>
+                                         <td><?php echo get_post_meta($rid,'client_firstName',true)?></td>
                                           <td><?php echo get_post_meta($rid,'vol_org',true)?></td>
                                          <?php if($current_user_id != $report->post_author){ ?>
                                          <td><a href="<?php echo site_url('view-survivor-need-intake-request-form')."?id=".$rid; ?>" class="d-block" target="_blank">

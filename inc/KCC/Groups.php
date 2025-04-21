@@ -5,7 +5,7 @@ namespace KCC;
 use KCC\FlashMessages\FlashMessage;
 use KCC\FlashMessages\FlashMessages;
 
-class Groups extends \jwc\Wordpress\WPCollection
+class Groups extends \jwc\Wordpress\WPController
 {
 
     public function __construct()
@@ -93,6 +93,11 @@ class Groups extends \jwc\Wordpress\WPCollection
 
         switch($previous_status){
             case 'publish':
+                // here delete all from users_groups where group_id = $group_id
+                global $wpdb;
+                $sql = $wpdb->prepare("DELETE FROM users_groups WHERE group_id = %d", $group_id);
+                $wpdb->query($sql);
+                // send notification to group members   
                 $this->sendGroupRemovedNotification($group_id);
                 break;
             case 'pending':

@@ -5481,8 +5481,9 @@ function update_blog($query)
         $post = get_post($post_id);
 
         $post_title = ($_POST['post_title']) ? sanitize_text_field($_POST['post_title']) : "";
-
-        $post_content = ($_POST['post_content']) ? sanitize_text_field($_POST['post_content']) : "";
+        
+        $post_content = ($_POST['post_content']) ? $_POST['post_content'] : "";
+    
 
         $current_user_id = get_current_user_id();
 
@@ -5504,17 +5505,10 @@ function update_blog($query)
 
         );
 
-
-
-        $blogID =     wp_update_post($updatePostData);
-
-
-
+        $blogID =  wp_update_post($updatePostData);
 
 
         //Set thumbnail image
-
-
 
         $uploaddir = wp_upload_dir();
 
@@ -5571,7 +5565,7 @@ function update_blog($query)
     }
 }
 
-add_action('init', 'update_blog');
+//add_action('init', 'update_blog');
 
 
 
@@ -6786,35 +6780,6 @@ function loginUsers($query)
 }
 
 add_action('init', 'loginUsers');
-
-
-
-
-
-
-
-
-
-
-
-
-
-function delete_blog($query)
-{
-
-    if (!empty($_POST['delete_blog'])) {
-
-        $post_id  =  $_POST['blog_id'];
-
-        wp_delete_post($post_id);
-
-        add_action('form_message', "Blog Deleted Successfully");
-    }
-}
-
-add_action('init', 'delete_blog');
-
-
 
 
 
@@ -9259,16 +9224,10 @@ add_shortcode('general_Safety', 'general_Safety_elementor_shortcode');
 function disaster_volunteer_training_elementor_shortcode($atts)
 {
 
-
-
     $cat_id = 85;
-
     $args = array(
-
         'posts_per_page' => 5,
-
         'mid_size'  => 2,
-
         'paged' => (get_query_var('paged') ? get_query_var('paged') : 1),
 
         'post_type' => 'sfwd-courses',
@@ -12361,11 +12320,11 @@ function kcc_enqueue_scripts()
     wp_enqueue_script('fullcalendar', get_template_directory_uri() . '/js/fullcalendarxx.min.js', array('jquery'), $jsversion, true);
     wp_enqueue_script('list', get_template_directory_uri() . '/packages/list/main.js', array('jquery'), $jsversion, true);
     wp_enqueue_script('popper', get_template_directory_uri() . '/assets/js/popper.min.js', array('jquery'), $jsversion, true);
-    wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.min.js', array('jquery'), $jsversion, true);
+    // wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.min.js', array('jquery'), $jsversion, true);
     wp_enqueue_script('owl-carousel', get_template_directory_uri() . '/assets/js/owl.carousel.min.js', array('jquery'), $jsversion, true);
     wp_enqueue_script('ckeditor', 'https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js', array('jquery'), $jsversion, true);
     wp_enqueue_script('eae-iconHelper', site_url() . '/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/js/iconHelper.js?ver=1.0', array('jquery'), $jsversion, true);
-    wp_enqueue_script('ckeditor5', 'https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js', array('jquery'), $jsversion, true);
+    //wp_enqueue_script('ckeditor5', 'https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js', array('jquery'), $jsversion, true);
     wp_enqueue_script('select2', get_template_directory_uri() . '/assets/js/select2/select2.full.js', array('jquery'), $jsversion, true);
 
     /* js */
@@ -12375,7 +12334,7 @@ function kcc_enqueue_scripts()
     // jim williams clean start
     // all of these scripts may or may not be in use.
     wp_enqueue_script('jw-script', get_template_directory_uri() . '/js/jw.js',[
-        'jquery', 'moment', 'fullcalendar', 'list', 'popper', 'bootstrap', 'owl-carousel', 'ckeditor','ckeditor5','select2'
+        'jquery', 'moment', 'fullcalendar', 'list', 'popper', 'owl-carousel','ckeditor','select2'
     ], $jsversion, true);
 
       // `localize` variables

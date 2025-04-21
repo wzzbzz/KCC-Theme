@@ -398,7 +398,7 @@ span.browse {
 
 
 
-.donate_detais_main .imgHeightWidth {
+.donate_details_main .imgHeightWidth {
 
     height: 200px;
 
@@ -1549,7 +1549,7 @@ img.profile_image {
 
 
 /* from global forms page */
-.donation_tab_pills{
+.donation_tab_pills {
 
     background: unset;
 
@@ -1557,19 +1557,21 @@ img.profile_image {
 
 }
 
-table, td, th{
+table,
+td,
+th {
 
     border: 0px;
 
 }
 
-.modal{
+.modal {
 
     visibility: unset;
 
 }
 
-.modal-groups{
+.modal-groups {
 
     border-radius: 1.5rem;
 
@@ -1577,54 +1579,158 @@ table, td, th{
 
 }
 
-.modal-groups .form-control{
+.modal-groups .form-control {
 
-    height: 55px; 
+    height: 55px;
 
-    background: #f5f5f5;       
+    background: #f5f5f5;
 
 }
 
 
 
-.emergency_textbox { display:none }
-.general_textbox { display:none }
-.repair_textbox { display:none }
-.property_textbox { display:none }
-.health_inputbox { display:none }
-.food_textbox { display:none }
-.volunteer_textbox { display:none }
-.severe_checkbox { display:none }
-.structural_checkbox { display:none }
-.terrorist_checkbox { display:none }
-.disaster_textbox { display:none }
+.emergency_textbox {
+    display: none
+}
 
- .modal{
-  visibility: unset;
-  }
-  .profile_medal .profile_count_main img {
-   width: auto;
-   height: auto;
-   min-height: 60px;
+.general_textbox {
+    display: none
 }
-.profile_count_title{
-  font-size: 10px;
-}
-.profile_medal .col-md-3{
-  padding: 0px 7.5px;
-}
-.profile_count_main{
-  min-height: 100px;
-}
-.skills_add_b{border: 1px dashed #D3D3D3; background:none; width: 100px; justify-content: center;border-radius: 15px;}
-.skills_add_b a{background:none;padding:10px;font-size: 16px; color:#242424;}
 
-.skill_add1 .skill-box{ background:none!important;}
+.repair_textbox {
+    display: none
+}
 
-.input_main1 .skill-box{height:45px; text-align: center; align-items: center;}
+.property_textbox {
+    display: none
+}
+
+.health_inputbox {
+    display: none
+}
+
+.food_textbox {
+    display: none
+}
+
+.volunteer_textbox {
+    display: none
+}
+
+.severe_checkbox {
+    display: none
+}
+
+.structural_checkbox {
+    display: none
+}
+
+.terrorist_checkbox {
+    display: none
+}
+
+.disaster_textbox {
+    display: none
+}
+
+.modal {
+    visibility: unset;
+}
+
+.profile_medal .profile_count_main img {
+    width: auto;
+    height: auto;
+    min-height: 60px;
+}
+
+.profile_count_title {
+    font-size: 10px;
+}
+
+.profile_medal .col-md-3 {
+    padding: 0px 7.5px;
+}
+
+.profile_count_main {
+    min-height: 100px;
+}
+
+.skills_add_b {
+    border: 1px dashed #D3D3D3;
+    background: none;
+    width: 100px;
+    justify-content: center;
+    border-radius: 15px;
+}
+
+.skills_add_b a {
+    background: none;
+    padding: 10px;
+    font-size: 16px;
+    color: #242424;
+}
+
+.skill_add1 .skill-box {
+    background: none !important;
+}
+
+.input_main1 .skill-box {
+    height: 45px;
+    text-align: center;
+    align-items: center;
+}
 
 .skills_add_b button:hover {
-   color: #242424;
-   background: transparent;
+    color: #242424;
+    background: transparent;
 }
 
+
+
+.btn_list {
+
+    padding: 0 0rem;
+
+    margin: 0 0 30px;
+
+}
+
+
+.btn_list a {
+
+    background: #f9671d 0% 0% no-repeat padding-box;
+
+    box-shadow: 0px 3px 99px #ccd6ff3e;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+    color: #ffffff;
+
+    padding: 1rem 2rem;
+
+}
+
+/* .btn_list {
+
+    position: relative;
+
+    top: unset;
+
+    right: unset;
+
+    padding: 0;
+
+    padding: 0 0rem;
+
+} */
+
+.form-group input[type="text"] {
+   border: 1px solid #e0e0e0;
+}
+
+
+.checkbox-checkboxes-container > div:first-child {
+    margin-right: 10px;
+}

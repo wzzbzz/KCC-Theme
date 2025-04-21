@@ -149,16 +149,6 @@ $("#imageUpload").change(function () {
     readURL(this);
 });
 
-$("#blog_edit_image").change(function () {
-
-    readURL(this);
-
-});
-
-
-
-/* from single-groups.php */
-$('.dropdown-toggle').dropdown();
 
 jQuery(document).ready(function () {
     jQuery(".next").click(function () {
@@ -196,7 +186,7 @@ function clickfunction(id, content, img) {
 }
 
 $(document).ready(function () {
-    $("#serach_user").on("keyup", function () {
+    $("#search_user").on("keyup", function () {
         var value = $(this).val().toLowerCase();
         $(".add-mem-list").children('div').children('div').children('div').children('h5').filter(function () {
             $(this).parent('div').parent('div').parent('div').toggle($(this).text().toLowerCase().indexOf(value) > -1);
@@ -398,13 +388,17 @@ function readURL(input) {
     }
 }
 
+// by Jim Williams to replace all of the othe readUrl functions
 function showImagePreview(input) {
+
+    var selector = $(input).closest('.image-upload-and-preview').find('.image-preview');
+    
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            $('.imagePreview').css('background-image', 'url(' + e.target.result + ')');
-            $('.imagePreview').hide();
-            $('.imagePreview').fadeIn(650);
+            $(selector).css('background-image', 'url(' + e.target.result + ')');
+            $(selector).hide();
+            $(selector).fadeIn(650);
         }
         reader.readAsDataURL(input.files[0]);
     }
@@ -564,8 +558,9 @@ jQuery(document).ready(function ($) {
         });
     });
 
-    $("#blog_edit_image").change(function () {
-        blogfileupload(this);
+
+    $(".post-image-input").change(function () {
+        showImagePreview(this);
     });
 
 
@@ -605,16 +600,6 @@ $(document).ready(function () {
 function deleteFeed(id) {
     $('#feed_id').val(id);
     $('#track_delete').modal('show');
-}
-
-function deleteBlog(id) {
-    $('#blog_id').val(id);
-    $('#blogDelete').modal('show');
-}
-
-function deleteAnnouncement(id) {
-    $('#ann_id').val(id);
-    $('#deleteAnnoucementModal').modal('show');
 }
 
 
@@ -1242,17 +1227,11 @@ $(document).ready(function () {
 $(".editAnnouncement").click(function () {
 
     let title = $(this).data('title');
-
     let img = $(this).data('img');
-
     let desc = $(this).data('desc');
-
     let edit_ann_id = $(this).data('id');
-
     $('#post_title1').val(title);
-
     $('#post_content1').html(desc);
-
     $('#edit_ann_id').val(edit_ann_id);
 
 });
@@ -1272,22 +1251,6 @@ $(".report-applications a.nav-link").on('click', function (e) {
 }
 );
 
-
-function editMyBlog(id, content, img, title) {
-
-    $("#img_new").attr("src", img);
-
-    $('#blogEditImage').css('background-image', 'url(' + img + ')');
-
-    $('#blog_edit_id').val(id);
-
-    $('#blog_title').val(title);
-
-    $("#blog_content").val(content);
-
-    $('#editBlog').modal('show');
-
-}
 
 $(function () {
     $("#emergency_other").on("click", function () {
@@ -1333,7 +1296,7 @@ $(function () {
 
 $(document).ready(function () {
 
-    var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
+    var ajaxurl = localvars.ajax_url;
 
     $(".follwMember").click(function (e) {
         e.preventDefault();
@@ -1376,11 +1339,13 @@ $(document).ready(function () {
 
 
     $(".acceptUser").click(function (e) {
+
         e.preventDefault();
         var group_id = $(this).data("groupid");
         var uid = $(this).data("uid");
         var id = $(this).data("id");
         var nonce = $(this).attr("data-nonce");
+
         $.ajax({
             type: "post",
             dataType: "json",
@@ -1392,14 +1357,18 @@ $(document).ready(function () {
 
             }
         })
+
     });
 
     $(".rejectUser").click(function (e) {
+
         e.preventDefault();
+
         var group_id = $(this).data("groupid");
         var uid = $(this).data("uid");
         var id = $(this).data("id");
         var nonce = $(this).attr("data-nonce");
+
         $.ajax({
             type: "post",
             dataType: "json",
@@ -1411,6 +1380,7 @@ $(document).ready(function () {
 
             }
         })
+
     });
 
 
@@ -1467,8 +1437,6 @@ $(document).ready(function () {
 
     })
 
-
-
     $(".next").click(function () {
         let previous = $(this).closest("fieldset").attr('id');
         let next = $('#' + this.id).closest('fieldset').next('fieldset').attr('id');
@@ -1484,6 +1452,7 @@ $(document).ready(function () {
     });
 
 });
+
 $(".previous").click(function () {
     let current = $(this).closest("fieldset").attr('id');
     let previous = $('#' + this.id).closest('fieldset').prev('fieldset').attr('id');
@@ -1512,7 +1481,7 @@ $("#imageUpload").change(function () {
     var formData = new FormData(form);
 
 
-    var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
+    var ajaxurl = localvars.ajax_url;
 
     readURLprofile(this);
 
@@ -1533,3 +1502,6 @@ $("#imageUpload").change(function () {
         }
     });
 });
+
+
+

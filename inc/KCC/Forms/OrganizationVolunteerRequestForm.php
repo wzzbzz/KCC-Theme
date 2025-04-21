@@ -14,7 +14,7 @@ class OrganizationVolunteerRequestForm extends Form
     protected $schema =
     [
         "form" => [
-            "title"=> "Organization Volunteer Request",
+            "title" => "Organization Volunteer Request",
             "steps" => [
                 [
                     "id" => "step-1",
@@ -801,7 +801,7 @@ class OrganizationVolunteerRequestForm extends Form
         if (isset($_GET['dumpmeta'])) {
             pre($this->report->dump_meta());
         }
-    ?>
+?>
         <div class="form-box">
 
             <div class="report-next-tab">
@@ -816,7 +816,7 @@ class OrganizationVolunteerRequestForm extends Form
 
                             <form method="POST" action="" class="row mediadoc_form" enctype="multipart/form-data">
                                 <?php
-                                    $this->render_hidden_fields();
+                                $this->render_hidden_fields();
                                 ?>
                                 <div id="step-1" class="main-form-section w-100 form-section active">
 
@@ -922,6 +922,68 @@ class OrganizationVolunteerRequestForm extends Form
 
                                             </div>
 
+
+                                            <div class="col-lg-4 mb-3">
+
+                                                <div class="form-group">
+
+                                                    <label>Country</label>                                                    
+                                                    <?php 
+                                                    $args = [
+                                                        'id' => 'event_contact_country',
+                                                        'name' => 'vol_event_org_contact_country',
+                                                        'selected' => $this->event_org_contact_country(),
+                                                        'change_target' => 'event_contact_state',
+                                                        'required' => true,
+                                                    ];
+                                                    echo Forms::countrySelect($args); 
+                                                ?>
+                                                    <div class="marker" id="org_country_error"></div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-lg-4 mb-3">
+
+                                                <div class="form-group">
+
+                                                    <label>State</label>
+
+                                                    <?php 
+                                                    $args = [
+                                                        'id' => 'event_org_contact_state',
+                                                        'name' => 'vol_event_org_contact_state',
+                                                        'selected' => $this->event_org_contact_state(),
+                                                        'country' => $this->event_org_contact_country(),
+                                                        'required' => true,
+                                                    ];
+                                                     echo Forms::stateSelect($args); 
+                                                    ?>
+
+        
+                                                    <div class="marker" id="org_state_error"></div>
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                            <div class="col-lg-4 mb-3">
+
+                                                <div class="form-group">
+
+                                                    <label>City</label>
+
+                                                    <input type="text" class="form-control org_city" name="vol_event_org_contact_city" value="<?= $this->event_org_contact_city() ?>">
+
+                                                    <div class="marker" id="org_city_error"></div>
+
+                                                </div>
+
+                                            </div>
+
                                             <div class="col-lg-4 mb-3">
 
                                                 <div class="form-group">
@@ -950,53 +1012,6 @@ class OrganizationVolunteerRequestForm extends Form
 
                                             </div>
 
-                                            <div class="col-lg-4 mb-3">
-
-                                                <div class="form-group">
-
-                                                    <label>Country</label>
-
-                                                    <input type="text" class="form-control org_country" name="vol_event_org_contact_country" value="<?= $this->event_org_contact_country() ?>">
-
-                                                    <div class="marker" id="org_country_error"></div>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-lg-4 mb-3">
-
-                                                <div class="form-group">
-
-                                                    <label>State</label>
-
-                                                    <input type="text" class="form-control org_state" name="vol_event_org_contact_state" value="<?= $this->event_org_contact_state() ?>">
-
-                                                    <div class="marker" id="org_state_error"></div>
-
-                                                </div>
-
-                                            </div>
-
-
-
-                                            <div class="col-lg-4 mb-3">
-
-                                                <div class="form-group">
-
-                                                    <label>City</label>
-
-                                                    <input type="text" class="form-control org_city" name="vol_event_org_contact_city" value="<?= $this->event_org_contact_city() ?>">
-
-                                                    <div class="marker" id="org_city_error"></div>
-
-                                                </div>
-
-                                            </div>
-
-
-
-
 
                                             <div class="col-lg-4 mb-3">
 
@@ -1018,7 +1033,7 @@ class OrganizationVolunteerRequestForm extends Form
 
                                                     <label>Mission</label>
 
-                                                    <input type="text" class="form-control org_mission" name="vol_event_org_mission" placeholder="Enter Mission " value="<?= $this->event_org_mission() ?>">
+                                                    <input type="text" class="form-control org_mission" name="mission" placeholder="Enter Mission " value="<?= $this->event_org_mission() ?>">
 
                                                     <div class="marker" id="org_mission_error"></div>
 
@@ -1222,7 +1237,7 @@ class OrganizationVolunteerRequestForm extends Form
 
 
                                 <div id="step-2" class="main-form-section w-100 form-section">
-                                    <?= $this->render_disaster_types();?>
+                                    <?= $this->render_disaster_types(); ?>
                                     <div class="row">
 
                                         <!-- <div class="col-lg-6 d-flex justify-content-end">
@@ -1239,382 +1254,377 @@ class OrganizationVolunteerRequestForm extends Form
                                     </div>
 
                                 </div>
+                                <div id="step-3" class="main-form-section w-100 form-section">
 
-                        </div>
-
-
-
-
-
-                        <div id="step-3" class="main-form-section w-100 form-section">
-
-                            <div>
-
-                                <div class="row">
-
-                                    <div class="col-lg-12 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>Volunteer Project Description</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-group">
-
-                                            <label>Scope of Work</label>
-
-                                            <!--  <textarea class="form-control" name="" placeholder="Enter here"></textarea> -->
-
-                                            <input type="text" class="form-control vol_sco" name="vol_scope" placeholder="Enter here" value="<?= $this->scope(); ?>">
-
-                                            <div class="marker" id="vol_sco_error"></div>
-
-                                        </div>
-
-                                    </div>
-
-
-
-                                    <div class="col-lg-12 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>Volunteer Service Details</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-group">
-
-                                            <label>Start Date</label>
-
-                                            <input type="date" class="form-control vol_start" name="vol_start_date" placeholder="Enter here" value="<?= $this->start_date(); ?>">
-
-                                            <div class="marker" id="vol_start_error"></div>
-
-                                        </div>
-
-                                    </div>
-
-
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-group">
-
-                                            <label>End Date</label>
-
-                                            <input type="date" class="form-control vol_end" name="vol_end_date" placeholder="Enter here" value="<?= $this->end_date(); ?>">
-
-                                            <div class="marker" id="vol_end_error"></div>
-
-                                        </div>
-
-                                    </div>
-
-
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-group">
-
-                                            <label>Shift Start Date</label>
-
-                                            <input type="date" class="form-control vol_shift" name="vol_shift_start_date" placeholder="Enter here" value="<?= $this->shift_start_date(); ?>">
-
-                                            <div class="marker" id="vol_shift_error"></div>
-
-                                        </div>
-
-                                    </div>
-
-
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-group">
-
-                                            <label>Shift End Date</label>
-
-                                            <input type="date" class="form-control vol_she" name="vol_shift_end_date" placeholder="Enter here" value="<?= $this->shift_end_date(); ?>">
-
-                                            <div class="marker" id="vol_she_error"></div>
-
-                                        </div>
-
-                                    </div>
-
-
-
-                                    <div class="col-lg-12 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>Geographic Area Volunteers Will Serve Within</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-group">
-
-                                            <select class="form-control vol_coun" name="geo_country" onchange="getCountries2()" id="countries">
-
-                                                <option value="">Select Country*</option>
-
-                                                <?php foreach (Forms::allCountries() as $country) { ?>
-
-                                                    <option value="<?= $country->name; ?>" <?= $this->selectIfReportValueMatches("geo_country", $country->name); ?> data-value="<?= $country->id; ?>"><?= $country->name; ?></option>
-
-                                                <?php } ?>
-                                            </select>
-
-                                            <div class="marker" id="vol_coun_error"></div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-group">
-
-                                            <select class="form-control vol_sel" name="geo_state" id="states">
-
-                                                <option value="">Select State*</option>
-
-                                                <?php if (!empty($this->geo_state())):
-
-                                                    $states = Forms::statesByCountryName($this->geo_country());
-                                                    foreach ($states as $state): ?>
-                                                        <option value="<?= $state->name; ?>" <?= $this->selectIfReportValueMatches("geo_state", $state->name); ?> data-value="<?= $state->id; ?>"><?= $state->name; ?></option>
-                                                    <?php endforeach; ?>
-                                                <?php endif; ?>
-                                            </select>
-
-                                            <div class="marker" id="vol_sel_error"></div>
-
-                                        </div>
-
-
-
-                                    </div>
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-group">
-
-                                            <label>City</label>
-                                            <input type="text" class="form-control vol_city" name="geo_city" placeholder="Enter here" value="<?= $this->geo_city() ?>">
-
-                                            <div class="marker" id="vol_city_error"></div>
-
-                                        </div>
-
-                                    </div>
-
-
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-group">
-
-                                            <label>Neighborhood</label>
-
-                                            <input type="text" class="form-control vol_nei" id="area_neighbour" name="geo_neighborhood" placeholder="Enter here" value="<?= $this->geo_neighborhood() ?>">
-
-                                            <div class="marker" id="vol_nei_error"></div>
-
-                                        </div>
-
-                                    </div>
-
-
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-group">
-
-                                            <label>Zip Code</label>
-
-                                            <input type="number" class="form-control vol_code" onKeyPress="if(this.value.length==6) return false;" min="0" name="geo_zipcode" placeholder="Enter here" value="<?= $this->geo_zipcode() ?>">
-
-                                            <div class="marker" id="vol_code_error"></div>
-
-                                        </div>
-
-                                    </div>
-
-
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-group">
-
-                                            <label>Other</label>
-
-                                            <input type="text" class="form-control vol_other" name="geo_other" placeholder="Enter here" value="<?= $this->geo_other(); ?>">
-
-                                            <div class="marker" id="vol_other_error"></div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-
-                                    <!-- <div class="col-lg-6 d-flex justify-content-end">
-
-                                    <button class="btn btn-outline-primary" title="Save Draft">Save Draft</button>
-
-                                </div> -->
-
-                                    <div class="col-lg-12 d-flex justify-content-center">
-                                        <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
-                                        <a href="javascript:void(0);" class="btn btn-primary step-button form-next" title="Next">Next</a>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-
-
-
-                        <div id="step-4" class="main-form-section w-100 form-section">
-
-                            <div>
-
-                                <div class="row">
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>Skills and Disqualifiers</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-12 mb-3">
-
-                                        <div class="form-group">
-
-                                            <label>Disqualifiers</label>
-
-
-
-                                            <input type="text" class="form-control vol_disqu" name="vol_skills_disqualifiers" placeholder="Enter here" value="<?= $this->disqualifiers() ?>">
-
-                                            <div class="marker" id="vol_disqu_error"></div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-12 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>Skills Needed</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-12 mb-3">
+                                    <div>
 
                                         <div class="row">
 
+                                            <div class="col-lg-12 mb-3">
 
-                                            <?php foreach ($this->skills as $skill) { ?>
+                                                <div class="form-title">
 
-                                                <div class="col-12 col-lg-3 mb-3">
-
-                                                    <div class="form-check d-flex align-items-center">
-
-                                                        <label class="form-check-label">
-
-                                                            <input type="checkbox" <?= $this->checkIfReportValueMatches("skills_needed", $skill); ?> class="form-check-input vol_eme" name="vol_skills_needed[]" value="<?php echo $skill['value'] ?>"><?php echo $skill['label'] ?>
-
-                                                        </label>
-
-                                                        <div class="marker" id="vol_eme_error"></div>
-
-
-
-                                                    </div>
+                                                    <h3>Volunteer Project Description</h3>
 
                                                 </div>
 
-                                            <?php } ?>
+                                            </div>
+
+                                            <div class="col-lg-4 mb-3">
+
+                                                <div class="form-group">
+
+                                                    <label>Scope of Work</label>
+
+                                                    <!--  <textarea class="form-control" name="" placeholder="Enter here"></textarea> -->
+
+                                                    <input type="text" class="form-control vol_sco" name="vol_scope" placeholder="Enter here" value="<?= $this->scope(); ?>">
+
+                                                    <div class="marker" id="vol_sco_error"></div>
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                            <div class="col-lg-12 mb-3">
+
+                                                <div class="form-title">
+
+                                                    <h3>Volunteer Service Details</h3>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-lg-4 mb-3">
+
+                                                <div class="form-group">
+
+                                                    <label>Start Date</label>
+
+                                                    <input type="date" class="form-control vol_start" name="vol_start_date" placeholder="Enter here" value="<?= $this->start_date(); ?>">
+
+                                                    <div class="marker" id="vol_start_error"></div>
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                            <div class="col-lg-4 mb-3">
+
+                                                <div class="form-group">
+
+                                                    <label>End Date</label>
+
+                                                    <input type="date" class="form-control vol_end" name="vol_end_date" placeholder="Enter here" value="<?= $this->end_date(); ?>">
+
+                                                    <div class="marker" id="vol_end_error"></div>
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                            <div class="col-lg-4 mb-3">
+
+                                                <div class="form-group">
+
+                                                    <label>Shift Start Date</label>
+
+                                                    <input type="date" class="form-control vol_shift" name="vol_shift_start_date" placeholder="Enter here" value="<?= $this->shift_start_date(); ?>">
+
+                                                    <div class="marker" id="vol_shift_error"></div>
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                            <div class="col-lg-4 mb-3">
+
+                                                <div class="form-group">
+
+                                                    <label>Shift End Date</label>
+
+                                                    <input type="date" class="form-control vol_she" name="vol_shift_end_date" placeholder="Enter here" value="<?= $this->shift_end_date(); ?>">
+
+                                                    <div class="marker" id="vol_she_error"></div>
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                            <div class="col-lg-12 mb-3">
+
+                                                <div class="form-title">
+
+                                                    <h3>Geographic Area Volunteers Will Serve Within</h3>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-lg-4 mb-3">
+
+                                                <div class="form-group">
+
+                                                    <select class="form-control country" name="geo_country" data-change-target="geo_state" id="geo_country">
+
+                                                        <option value="">Select Country*</option>
+
+                                                        <?php foreach (Forms::allCountries() as $country) { ?>
+
+                                                            <option value="<?= $country->name; ?>" <?= $this->selectIfReportValueMatches("geo_country", $country->name); ?> data-value="<?= $country->id; ?>"><?= $country->name; ?></option>
+
+                                                        <?php } ?>
+                                                    </select>
+
+                                                    <div class="marker" id="vol_coun_error"></div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-lg-4 mb-3">
+
+                                                <div class="form-group">
+
+                                                    <select class="form-control vol_sel" name="geo_state" id="geo_state">
+
+                                                        <option value="">Select State*</option>
+
+                                                        <?php if (!empty($this->geo_state())):
+
+                                                            $states = Forms::statesByCountryName($this->geo_country());
+                                                            foreach ($states as $state): ?>
+                                                                <option value="<?= $state->name; ?>" <?= $this->selectIfReportValueMatches("geo_state", $state->name); ?> data-value="<?= $state->id; ?>"><?= $state->name; ?></option>
+                                                            <?php endforeach; ?>
+                                                        <?php endif; ?>
+                                                    </select>
+
+                                                    <div class="marker" id="vol_sel_error"></div>
+
+                                                </div>
+
+
+
+                                            </div>
+
+                                            <div class="col-lg-4 mb-3">
+
+                                                <div class="form-group">
+
+                                                    <label>City</label>
+                                                    <input type="text" class="form-control vol_city" name="geo_city" placeholder="Enter here" value="<?= $this->geo_city() ?>">
+
+                                                    <div class="marker" id="vol_city_error"></div>
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                            <div class="col-lg-4 mb-3">
+
+                                                <div class="form-group">
+
+                                                    <label>Neighborhood</label>
+
+                                                    <input type="text" class="form-control vol_nei" id="area_neighbour" name="geo_neighborhood" placeholder="Enter here" value="<?= $this->geo_neighborhood() ?>">
+
+                                                    <div class="marker" id="vol_nei_error"></div>
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                            <div class="col-lg-4 mb-3">
+
+                                                <div class="form-group">
+
+                                                    <label>Zip Code</label>
+
+                                                    <input type="number" class="form-control vol_code" onKeyPress="if(this.value.length==6) return false;" min="0" name="geo_zipcode" placeholder="Enter here" value="<?= $this->geo_zipcode() ?>">
+
+                                                    <div class="marker" id="vol_code_error"></div>
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                            <div class="col-lg-4 mb-3">
+
+                                                <div class="form-group">
+
+                                                    <label>Other</label>
+
+                                                    <input type="text" class="form-control vol_other" name="geo_other" placeholder="Enter here" value="<?= $this->geo_other(); ?>">
+
+                                                    <div class="marker" id="vol_other_error"></div>
+
+                                                </div>
+
+                                            </div>
 
                                         </div>
 
-                                    </div>
+                                        <div class="row">
 
+                                            <!-- <div class="col-lg-6 d-flex justify-content-end">
 
-                                    <div class="row">
+                                            <button class="btn btn-outline-primary" title="Save Draft">Save Draft</button>
 
-                                        <!-- <div class="col-lg-6 d-flex justify-content-end">
+                                        </div> -->
 
-                                    <button class="btn btn-outline-primary" title="Save Draft">Save Draft</button>
+                                            <div class="col-lg-12 d-flex justify-content-center">
+                                                <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
+                                                <a href="javascript:void(0);" class="btn btn-primary step-button form-next" title="Next">Next</a>
+                                            </div>
 
-                                </div> -->
-
-                                        <div class="col-lg-12 d-flex justify-content-center">
-                                            <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
-                                            <a href="javascript:void(0);" class="btn btn-primary step-button form-next" name="save" value="save" title="Next" id="step-btn-4">Next</a>
-                                            <!-- <button class="btn btn-outline-primary" id="step-btn-4" value="save" name="save" title="Next">Next</button>-->
                                         </div>
 
                                     </div>
 
                                 </div>
 
-                            </div>
 
-                        </div>
 
-                        <div id="step-5" class="main-form-section w-100 form-section">
-                            <div>
-                                <div class="row">
-                                    <?php $this->render_audience_section(); ?>
-                                    <div class="col-lg-12 d-flex justify-content-center">
-                                        <div>                                                                        
-                                        <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
-                                        <button class="btn btn-outline-primary" value="save" name="save" title="Submit">Submit</button>
+
+
+                                <div id="step-4" class="main-form-section w-100 form-section">
+
+                                    <div>
+
+                                        <div class="row">
+
+                                            <div class="col-lg-4 mb-3">
+
+                                                <div class="form-title">
+
+                                                    <h3>Skills and Disqualifiers</h3>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-lg-12 mb-3">
+
+                                                <div class="form-group">
+
+                                                    <label>Disqualifiers</label>
+
+
+
+                                                    <input type="text" class="form-control vol_disqu" name="vol_skills_disqualifiers" placeholder="Enter here" value="<?= $this->disqualifiers() ?>">
+
+                                                    <div class="marker" id="vol_disqu_error"></div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-lg-12 mb-3">
+
+                                                <div class="form-title">
+
+                                                    <h3>Skills Needed</h3>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-lg-12 mb-3">
+
+                                                <div class="row">
+
+
+                                                    <?php foreach ($this->skills as $skill) { ?>
+
+                                                        <div class="col-12 col-lg-3 mb-3">
+
+                                                            <div class="form-check d-flex align-items-center">
+
+                                                                <label class="form-check-label">
+
+                                                                    <input type="checkbox" <?= $this->checkIfReportValueMatches("skills_needed", $skill['value']); ?> class="form-check-input vol_eme" name="vol_skills_needed[]" value="<?php echo $skill['value'] ?>"><?php echo $skill['label'] ?>
+
+                                                                </label>
+
+                                                                <div class="marker" id="vol_eme_error"></div>
+
+
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    <?php } ?>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="row">
+
+                                                <!-- <div class="col-lg-6 d-flex justify-content-end">
+
+                                        <button class="btn btn-outline-primary" title="Save Draft">Save Draft</button>
+
+                                    </div> -->
+
+                                                <div class="col-lg-12 d-flex justify-content-center">
+                                                    <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
+                                                    <a href="javascript:void(0);" class="btn btn-primary step-button form-next" name="save" value="save" title="Next" id="step-btn-4">Next</a>
+                                                    <!-- <button class="btn btn-outline-primary" id="step-btn-4" value="save" name="save" title="Next">Next</button>-->
+                                                </div>
+
+                                            </div>
+
                                         </div>
 
                                     </div>
 
                                 </div>
 
-                            
+                                <div id="step-5" class="main-form-section w-100 form-section">
+                                    <div>
+                                        <div class="row">
+                                            <?php $this->render_audience_section(); ?>
+                                            <div class="col-lg-12 d-flex justify-content-center">
+                                                <div>
+                                                    <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
+                                                    <button class="btn btn-outline-primary" value="save" name="save" title="Submit">Submit</button>
+                                                </div>
 
-                            </div>
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+                            <!--</div>-->
 
                         </div>
-
-                        </form>
-
-                        <!--</div>-->
 
                     </div>
 
@@ -1623,9 +1633,6 @@ class OrganizationVolunteerRequestForm extends Form
             </div>
 
         </div>
-
-        </div>
-
 
 <?php
 

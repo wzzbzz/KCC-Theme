@@ -217,7 +217,7 @@
                                                                     <td><?php echo get_post_meta($rid,'intake_state',true)?></td>
                                                                     <td><?php echo get_post_meta($rid,'intake_country',true)?></td>
                                                                     <td><?php echo get_post_meta($rid,'client_need',true)?></td>
-                                                                    <td><?php echo get_post_meta($rid,'intake_firstName',true)?> <?php echo get_post_meta($rid,'intake_lastName',true)?></td>
+                                                                    <td><?php echo get_post_meta($rid,'client_firstName',true)?> <?php echo get_post_meta($rid,'client_lastName',true)?></td>
                                                                     <td><?php echo get_post_meta($rid,'rf_date',true)?></td>
                                                                     <td style="width:12%;">
                                                                         <a href="<?php echo site_url('track-request')?>" class="d-block">

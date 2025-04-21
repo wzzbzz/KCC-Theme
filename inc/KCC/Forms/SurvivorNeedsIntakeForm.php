@@ -39,28 +39,28 @@ class SurvivorNeedsIntakeForm extends Form
                             "fields" => [
                                 [
                                     "type" => "number",
-                                    "name" => "intake_phone",
+                                    "name" => "client_phone",
                                     "label" => "Primary Telephone",
                                     "required" => true,
                                     "maxLength" => 10
                                 ],
                                 [
                                     "type" => "text",
-                                    "name" => "intake_firstName",
+                                    "name" => "client_firstName",
                                     "label" => "Client First Name",
                                     "required" => true,
                                     "required" => true
                                 ],
                                 [
                                     "type" => "text",
-                                    "name" => "intake_lastName",
+                                    "name" => "client_lastName",
                                     "label" => "Client Last Name",
                                     "required" => true,
                                     "required" => true
                                 ],
                                 [
                                     "type" => "text",
-                                    "name" => "intake_address",
+                                    "name" => "client_address",
                                     "label" => "Address",
                                     "required" => true
                                 ],
@@ -98,13 +98,13 @@ class SurvivorNeedsIntakeForm extends Form
                                 ],
                                 [
                                     "type" => "number",
-                                    "name" => "intake_phone2",
+                                    "name" => "client_phone2",
                                     "label" => "Alternative Telephone",
                                     "maxLength" => 10
                                 ],
                                 [
                                     "type" => "select",
-                                    "name" => "intake_contact_time",
+                                    "name" => "client_preferred_contact_time",
                                     "label" => "Best Time to Contact",
                                     "options" => [
                                         ["value" => "", "label" => "Select Time", "default" => true],
@@ -114,7 +114,7 @@ class SurvivorNeedsIntakeForm extends Form
                                         ["value" => "Weekend Mornings", "label" => "Weekend Mornings"],
                                         ["value" => "Weekend Afternoons", "label" => "Weekend Afternoons"],
                                         ["value" => "Weekend Nights", "label" => "Weekend Nights"],
-                                        ["value" => "Other", "label" => "Other"]
+                                        ["value" => "Other", "label" => "Other Time"]
                                     ]
                                 ]
                             ]
@@ -169,7 +169,7 @@ class SurvivorNeedsIntakeForm extends Form
                         ],
                         [
                             "type" => "checkbox",
-                            "name" => "client_need[]",
+                            "name" => "client_needs[]",
                             "label" => "Client Needs - Select all that apply",
                             "options" => [
                                 ["value" => "Medical Assistance", "label" => "Medical Assistance"],
@@ -237,6 +237,11 @@ class SurvivorNeedsIntakeForm extends Form
                 ],
                 [
                     "id" => "step-3",
+                    "title" => "Client Needs",
+                    "fields" => ""
+                ],
+                [
+                    "id" => "step-4",
                     "title" => "Property Assessment",
                     "fields" => [
                         [
@@ -255,7 +260,7 @@ class SurvivorNeedsIntakeForm extends Form
                         ],
                         [
                             "type" => "radio",
-                            "name" => "property_condition",
+                            "name" => "property_is_damaged",
                             "label" => "Is the property or home damaged due to the current disaster?",
                             "required" => true,
                             "options" => [
@@ -265,7 +270,7 @@ class SurvivorNeedsIntakeForm extends Form
                         ],
                         [
                             "type" => "radio",
-                            "name" => "life_safety",
+                            "name" => "safety_issues_present",
                             "label" => "Are there life safety issues present at the worksite?",
                             "required" => true,
                             "options" => [
@@ -310,7 +315,7 @@ class SurvivorNeedsIntakeForm extends Form
                         ],
                         [
                             "type" => "radio",
-                            "name" => "owner_present",
+                            "name" => "owner_agrees_to_be_present_checked",
                             "label" => "The client/property owner agrees to be present while volunteers are working",
                             "required" => true,
                             "options" => [
@@ -320,7 +325,7 @@ class SurvivorNeedsIntakeForm extends Form
                         ],
                         [
                             "type" => "radio",
-                            "name" => "agree_terms",
+                            "name" => "owner_oversight_checked",
                             "label" => "The owner must agree to be present to oversee work being done to their property, secure valuables and contribute to the work when possible. Does the owner agree to these terms?",
                             "options" => [
                                 ["value" => "Yes", "label" => "Yes"],
@@ -329,7 +334,7 @@ class SurvivorNeedsIntakeForm extends Form
                         ],
                         [
                             "type" => "radio",
-                            "name" => "willing_to_help",
+                            "name" => "family_willing_to_help",
                             "label" => "Are client family members or friends willing to help?",
                             "required" => true,
                             "options" => [
@@ -353,7 +358,7 @@ class SurvivorNeedsIntakeForm extends Form
                         ],
                         [
                             "type" => "radio",
-                            "name" => "is_water",
+                            "name" => "standing_water",
                             "label" => "Is there standing water in any of the rooms?",
                             "required" => true,
                             "options" => [
@@ -363,7 +368,7 @@ class SurvivorNeedsIntakeForm extends Form
                         ],
                         [
                             "type" => "radio",
-                            "name" => "is_mud",
+                            "name" => "is_mud_damage",
                             "label" => "Is there mud or sewage?",
                             "required" => true,
                             "options" => [
@@ -405,12 +410,12 @@ class SurvivorNeedsIntakeForm extends Form
                     ]
                 ],
                 [
-                    "id" => "step-4",
+                    "id" => "step-5",
                     "title" => "Service Provider Information",
                     "fields" => [
                         [
                             "type" => "radio",
-                            "name" => "on_behalf",
+                            "name" => "is_service_provider",
                             "label" => "Are you a service provider entering this information on behalf of your client?",
                             "required" => true,
                             "options" => [
@@ -465,7 +470,7 @@ class SurvivorNeedsIntakeForm extends Form
                         ]
                     ]
                 ],
-               
+
             ],
             "hidden_fields" => [
                 ["type" => "hidden", "name" => "group_id", "value" => "dynamic"],
@@ -480,7 +485,7 @@ class SurvivorNeedsIntakeForm extends Form
     ];
 
 
-    private $intake_contact_times = [
+    private $client_preferred_contact_times = [
         ["value" => "", "label" => "Select Time", "default" => true],
         ["value" => "Weekday Mornings", "label" => "Weekday Mornings"],
         ["value" => "Weekday Afternoons", "label" => "Weekday Afternoons"],
@@ -488,7 +493,7 @@ class SurvivorNeedsIntakeForm extends Form
         ["value" => "Weekend Mornings", "label" => "Weekend Mornings"],
         ["value" => "Weekend Afternoons", "label" => "Weekend Afternoons"],
         ["value" => "Weekend Nights", "label" => "Weekend Nights"],
-        ["value" => "Other", "label" => "Other"]
+        ["value" => "Other", "label" => "Other Contact Time"]
     ];
 
     private $property_types = [
@@ -497,7 +502,7 @@ class SurvivorNeedsIntakeForm extends Form
         ["value" => "Owned House / Apartment", "label" => "Owned House / Apartment"],
         ["value" => "Landlord Property", "label" => "Landlord Property"],
         ["value" => "Business Owner", "label" => "Business Owner"],
-        ["value" => "Other", "label" => "Other"]
+        ["value" => "Other", "label" => "Other Property Type"]
     ];
 
     private $recovery_statuses = [
@@ -539,10 +544,10 @@ class SurvivorNeedsIntakeForm extends Form
     private function intake_date()
     {
         if (!empty($this->report_id)) {
-            return $this->report->intake_date();
+            return date("Y-m-d", strtotime($this->report->intake_date()));
         }
 
-        if($this->autofill){
+        if ($this->autofill) {
             return date('Y-m-d');
         }
         return date('Y-m-d');
@@ -551,54 +556,54 @@ class SurvivorNeedsIntakeForm extends Form
     private function intake_time()
     {
         if (!empty($this->report_id)) {
-            return $this->report->intake_time();
+            return $this->report->intake_time("H:i");
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return date('H:i');
         }
         return date('H:i');
     }
 
-    private function intake_phone()
+    private function client_phone()
     {
         if (!empty($this->report_id)) {
-            return $this->report->intake_phone();
+            return $this->report->client_phone();
         }
 
-        if($this->autofill){
+        if ($this->autofill) {
             return "1234567890";
         }
         return '';
     }
 
-    private function intake_firstName()
+    private function client_firstName()
     {
         if (!empty($this->report_id)) {
-            return $this->report->intake_firstName();
+            return $this->report->client_firstName();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return "John";
         }
         return '';
     }
 
-    private function intake_lastName()
+    private function client_lastName()
     {
         if (!empty($this->report_id)) {
-            return $this->report->intake_lastName();
+            return $this->report->client_lastName();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return "Doe";
         }
         return '';
     }
 
-    private function intake_address()
+    private function client_address()
     {
         if (!empty($this->report_id)) {
-            return $this->report->intake_address();
+            return $this->report->client_address();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return "123 Main St";
         }
         return '';
@@ -610,42 +615,42 @@ class SurvivorNeedsIntakeForm extends Form
             return $this->report->intake_other();
         }
 
-        if($this->autofill){
+        if ($this->autofill) {
             return "Other";
         }
         return '';
     }
 
-    private function intake_phone2()
+    private function client_phone2()
     {
         if (!empty($this->report_id)) {
-            return $this->report->intake_phone2();
+            return $this->report->client_phone2();
         }
 
-        if($this->autofill){
+        if ($this->autofill) {
             return "1234567890";
         }
         return '';
     }
 
-    private function intake_contact_time()
+    private function client_preferred_contact_time()
     {
         if (!empty($this->report_id)) {
-            return $this->report->intake_contact_time();
+            return $this->report->client_preferred_contact_time();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return "Weekday Mornings";
         }
         return '';
     }
 
-    private function intake_zipcode()
+    private function client_zipcode()
     {
         if (!empty($this->report_id)) {
-            return $this->report->intake_zipcode();
+            return $this->report->client_zipcode();
         }
 
-        if($this->autofill){
+        if ($this->autofill) {
             return "12345";
         }
         return '';
@@ -656,22 +661,211 @@ class SurvivorNeedsIntakeForm extends Form
         if (!empty($this->report_id)) {
             return $this->report->property_type();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return "Rented House / Apartment";
         }
         return '';
     }
+
+    private function provider_organization()
+    {
+        if (!empty($this->report_id)) {
+            return $this->report->provider_organization();
+        }
+        if ($this->autofill) {
+            return "Organization Name";
+        }
+        return '';
+    }
+
+    private function provider_firstName()
+    {
+        if (!empty($this->report_id)) {
+            return $this->report->provider_firstName();
+        }
+        if ($this->autofill) {
+            return "John";
+        }
+        return '';
+    }
+
+    private function provider_lastName()
+    {
+        if (!empty($this->report_id)) {
+            return $this->report->provider_lastName();
+        }
+        if ($this->autofill) {
+            return "Doe";
+        }
+        return '';
+    }
+
+    private function provider_address()
+    {
+        if (!empty($this->report_id)) {
+            return $this->report->provider_address();
+        }
+        if ($this->autofill) {
+            return "123 Main St";
+        }
+        return '';
+    }
+
+    private function provider_phone()
+    {
+        if (!empty($this->report_id)) {
+            return $this->report->provider_phone();
+        }
+        if ($this->autofill) {
+            return "1234567890";
+        }
+        return '';
+    }
+
+    private function provider_phone2()
+    {
+        if (!empty($this->report_id)) {
+            return $this->report->provider_phone2();
+        }
+        if ($this->autofill) {
+            return "1234567890";
+        }
+        return '';
+    }
+
+    private function provider_zipcode()
+    {
+        if (!empty($this->report_id)) {
+            return $this->report->provider_zipcode();
+        }
+        if ($this->autofill) {
+            return "12345";
+        }
+        return '';
+    }
+
+    private function provider_country()
+    {
+        if (empty($this->report_id)) {
+            $user = new \KCC\User(get_current_user_id());
+            return $user->country();
+        } else {
+            return $this->report->provider_country();
+        }
+    }
+
+    private function provider_state()
+    {
+        if (empty($this->report_id)) {
+            $user = new \KCC\User(get_current_user_id());
+            return $user->state();
+        } else {
+            return $this->report->provider_state();
+        }
+    }
+
+    private function provider_city()
+    {
+        if (!empty($this->report_id)) {
+            return $this->report->provider_city();
+        }
+        if ($this->autofill) {
+            return "New York";
+        }
+        return '';
+    }
+
+    private function provider_email()
+    {
+
+        if (!empty($this->report_id)) {
+            return $this->report->provider_email();
+        }
+        if ($this->autofill) {
+            return "test@test.com";
+        }
+        return '';
+    }
+
+    private function provider_website()
+    {
+        if (!empty($this->report_id)) {
+            return $this->report->provider_website();
+        }
+        if ($this->autofill) {
+            return "https://www.example.com";
+        }
+        return '';
+    }
+
+    private function provider_notes()
+    {
+        if (!empty($this->report_id)) {
+            return $this->report->provider_notes();
+        }
+        if ($this->autofill) {
+            return "Notes about the provider";
+        }
+        return '';
+    }
+
+    protected function nonprescription_treatments_details()
+    {
+        if (!empty($this->report_id)) {
+            return $this->report->nonprescription_treatments_details();
+        }
+        if ($this->autofill) {
+            return "Details about non-prescription treatments";
+        }
+        return '';
+    }
+
+    protected function other_needs_details()
+    {
+        if (!empty($this->report_id)) {
+            return $this->report->other_needs_details();
+        }
+        if ($this->autofill) {
+            return "Details about other needs";
+        }
+        return '';
+    }
+
+    protected function medical_conditions_details()
+    {
+        if (!empty($this->report_id)) {
+            return $this->report->medical_conditions_details();
+        }
+        if ($this->autofill) {
+            return "Details about medical conditions";
+        }
+        return '';
+    }
+
+    protected function other_special_needs_details()
+    {
+        if (!empty($this->report_id)) {
+            return $this->report->other_special_needs_details();
+        }
+        if ($this->autofill) {
+            return "Details about other special needs";
+        }
+        return '';
+    }
+
+
+
 
     public function recovery_status()
     {
         if (!empty($this->report_id)) {
             return $this->report->recovery_status();
         }
-        if($this->autofill){
+        if ($this->autofill) {
             return "No Work has begun";
         }
         return '';
-    }  
+    }
 
 
     public function render()
@@ -683,19 +877,18 @@ class SurvivorNeedsIntakeForm extends Form
     public function render_hidden_fields()
     {
         parent::render_hidden_fields();
-        ?>
+?>
         <input type="hidden" name="post_title" value="<?= strtoupper($this->report_slug()); ?>">
-        <?php
+    <?php
     }
 
     public function render_form_box()
-    {
-?>
+    { ?>
         <div class="form-box">
 
             <div class="report-next-tab">
 
-                <?php $this->render_progress_bar(); ?>
+                <?= $this->render_progress_bar(); ?>
 
                 <div class="row">
 
@@ -703,19 +896,99 @@ class SurvivorNeedsIntakeForm extends Form
 
                         <div class="all-form">
 
-                            <form id="myForm" name="form" method="POST" action="" class="row mediadoc_form" id="disaster_media" enctype="multipart/form-data">
+                            <form method="POST" action="" class="row mediadoc_form survieForm" enctype="multipart/form-data">
 
-                                <?= $this->render_hidden_fields(); ?>
+                                <?php $this->render_hidden_fields(); ?>
 
-                                <div id="step-1" class="main-form-section w-100 form-section active">
+                                <div id="step-1" class="main-form-section form-section active w-100">
 
                                     <div>
 
                                         <div class="row">
-
                                             <div class="col-lg-12 mb-3">
+                                                <div class="form-title mb-3">
+                                                    <h3>Required permissions</h3>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 questionnaire">
+                                                <div class="form-group w-100">
 
-                                                <div class="form-title">
+                                                    <div class="form-title mb-3">
+                                                        <h3>Is the homeowner willing to sign a liability waiver releasing the volunteers of any damages? *</h3>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-12 col-sm-12 mb-3 d-flex">
+                                                        <div class="form-check d-flex align-items-center">
+
+                                                            <label class="form-check-label">
+
+                                                                <input type="radio" class="form-check-input questionnaire-radio pro_con" value="Yes" name="liability_waiver" required <?= $this->checkIfReportValueMatches("liability_waiver_checked", "Yes"); ?>>Yes
+
+                                                            </label>
+
+                                                        </div>
+                                                        <div class="form-check d-flex align-items-center">
+
+                                                            <label class="form-check-label">
+
+                                                                <input type="radio" class="form-check-input questionnaire-radio" value="No" name="liability_waiver" <?= $this->checkIfReportValueMatches("liability_waiver_checked", "no"); ?>>No
+
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-error col-lg-12">
+                                                        <em>The property owner must sign a liability waiver for work to be done.</em>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div class="form-group col-lg-12 col-md-12 col-sm-12 mb-3 questionnaire">
+
+                                                    <div class="form-title mb-3">
+
+                                                        <h3>The client/property owner agrees to be present while volunteers are working *</h3>
+
+                                                    </div>
+
+                                                    <div class="col-lg-6 col-md-12 col-sm-12 mb-3 d-flex">
+
+                                                        <div class="form-check d-flex align-items-center">
+
+                                                            <label class="form-check-label">
+
+                                                                <input type="radio" class="form-check-input questionnaire-radio own_pr" value="Yes" name="owner_agrees_to_be_present" required <?= $this->checkIfReportValueMatches("owner_present_checked", "Yes"); ?>>Yes
+
+                                                            </label>
+
+                                                        </div>
+
+                                                        <div class="form-check d-flex align-items-center">
+
+                                                            <label class="form-check-label">
+
+                                                                <input type="radio" class="form-check-input  questionnaire-radio" value="No" name="owner_agrees_to_be_present" <?= $this->checkIfReportValueMatches("owner_present_checked", "No"); ?>>No
+
+                                                            </label>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="form-error col-lg-12">
+                                                        <em>The owner must agree to be present to oversee work being done to their property, secure valuables and contribute to the work when possible.</em>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-lg-12 mb-3 d-lg-flex d-md-block d-sm-block">
+
+                                                <div class="form-title mb-3">
 
                                                     <h3>Date & Time</h3>
 
@@ -723,39 +996,42 @@ class SurvivorNeedsIntakeForm extends Form
 
                                             </div>
 
+                                            <div class="col-lg-12 mb-3 d-lg-flex d-md-block d-sm-block">
+                                                <?php
+                                                $args = array(
+                                                    'name' => 'intake_date',
+                                                    'id' => 'intake_date',
+                                                    'label' => 'Intake Date',
+                                                    'value' => $this->intake_date(),
+                                                    'required' => true,
+                                                    'class' => 'form-control sur_da',
+                                                    'containter-class' => 'col-lg-4 mb-3',
+                                                    'disabled' => false
+                                                );
+                                                $this->render_date_picker($args);
+                                                ?>
 
-
-                                            <div class="col-lg-4 mb-3">
-
-                                                <div class="form-group">
-
-                                                    <label>Date *</label>
-
-                                                    <input type="date" class="form-control sur_da" name="intake_date" placeholder="Enter here" value="<?= $this->intake_date() ?>">
-
-                                                </div>
-
-                                                <div class="marker" id="sur_da_error"></div>
+                                                <?php
+                                                $args = array(
+                                                    'name' => 'intake_time',
+                                                    'id' => 'intake_time',
+                                                    'label' => 'Intake Time',
+                                                    'value' => $this->intake_time(),
+                                                    'required' => true,
+                                                    'class' => 'form-control sur_ti',
+                                                    'containter-class' => 'col-lg-4 mb-3',
+                                                    'disabled' => false
+                                                );
+                                                $this->render_time_picker($args);
+                                                ?>
 
                                             </div>
+                                        </div>
 
-                                            <div class="col-lg-4 mb-3">
+                                        <div class="row">
+                                            <div class="col-lg-12 mb-3 d-lg-flex d-md-block d-sm-block">
 
-                                                <div class="form-group">
-
-                                                    <label>Time *</label>
-
-                                                    <input type="time" class="form-control sur_ti" name="intake_time" placeholder="Intake Time" value="<?= $this->intake_time() ?>">
-
-                                                </div>
-
-                                                <div class="marker" id="sur_ti_error"></div>
-
-                                            </div>
-
-                                            <div class="col-lg-12 mb-3">
-
-                                                <div class="form-title">
+                                                <div class="form-title mb-3">
 
                                                     <h3>Client Information</h3>
 
@@ -763,1140 +1039,1170 @@ class SurvivorNeedsIntakeForm extends Form
 
                                             </div>
 
-                                            <div class="col-lg-4 mb-3">
+                                            <div class="col-lg-12 mb-3 d-lg-flex d-md-block d-sm-block">
+                                                <?php
+                                                $args = array(
+                                                    'id' => 'client_firstName',
+                                                    'name' => 'client_firstName',
+                                                    'label' => 'Client First Name *',
+                                                    'value' => $this->client_firstName(),
+                                                    'required' => true,
+                                                    'container-class' => 'col-lg-4 mb-3',
+                                                    'class' => 'form-control',
+                                                    'disabled' => false,
+                                                    'error_message' => 'Please enter a valid first name',
+                                                );
+                                                $this->render_text_input($args);
 
-                                                <div class="form-group">
+                                                $args = array(
+                                                    'id' => 'client_lastName',
+                                                    'name' => 'client_lastName',
+                                                    'label' => 'Client Last Name *',
+                                                    'value' => $this->client_lastName(),
+                                                    'required' => true,
+                                                    'container-class' => 'col-lg-4 mb-3',
+                                                    'class' => 'form-control',
+                                                    'disabled' => false,
+                                                    'error_message' => 'Please enter a valid last name',
+                                                );
 
-                                                    <label>Client First Name *</label>
+                                                $this->render_text_input($args);
 
-                                                    <input type="text" class="form-control sur_cl" name="intake_firstName" placeholder="Enter here" value="<?= $this->intake_firstName() ?>" required>
+
+                                                ?>
+                                            </div>
+
+                                            <div class="col-lg-12 mb-3 d-lg-flex d-md-block d-sm-blockp">
+
+                                                <div class="col-lg-4 mb-3">
+
+                                                    <div class="form-group">
+
+                                                        <label>Country</label>
+
+                                                        <?php
+                                                        $args = [
+                                                            'id' => 'country',
+                                                            'name' => 'country',
+                                                            'selected' => $this->country(),
+                                                            'change_target' => 'state',
+                                                            'required' => true,
+                                                        ];
+                                                        echo Forms::countrySelect($args);
+                                                        ?>
+
+                                                    </div>
+
+                                                    <div class="form-error" id="sur_coun_error">Please select a country</div>
 
                                                 </div>
 
-                                                <div class="marker" id="sur_cl_error"></div>
+                                                <div class="col-lg-4 mb-3">
+
+                                                    <div class="form-group">
+
+                                                        <label>State</label>
+
+                                                        <?php
+                                                        $args = [
+                                                            'id' => 'state',
+                                                            'name' => 'state',
+                                                            'selected' => $this->state(),
+                                                            'required' => true,
+                                                            'country' => $this->country(),
+                                                        ];
+                                                        echo Forms::stateSelect($args);
+                                                        ?>
+
+                                                    </div>
+
+                                                    <div class="form-error" id="sur_sta_error">Please select a state</div>
+
+                                                </div>
+
+                                                <?php
+
+                                                $args = array(
+                                                    'id' => 'city',
+                                                    'name' => 'city',
+                                                    'label' => 'City',
+                                                    'value' => $this->city(),
+                                                    'required' => true,
+                                                    'container-class' => 'col-lg-4 mb-3',
+                                                    'class' => 'form-control sur_cit',
+                                                    'disabled' => false,
+                                                    'error_message' => 'Please enter a valid city',
+                                                );
+                                                $this->render_text_input($args);
+                                                ?>
+
+                                            </div>
+                                            <div class="col-lg-12 mb-3 d-lg-flex d-md-block d-sm-block">
+
+                                                <?php
+                                                $args = array(
+                                                    'id' => 'client_address',
+                                                    'name' => 'client_address',
+                                                    'label' => 'Address *',
+                                                    'value' => $this->client_address(),
+                                                    'required' => true,
+                                                    'container-class' => 'col-lg-4 mb-3',
+                                                    'class' => 'form-control sur_add',
+                                                    'disabled' => false,
+                                                    'error_message' => 'Please enter a valid address',
+                                                );
+                                                $this->render_text_input($args);
+                                                ?>
+
+                                                <div class="col-lg-4 mb-3">
+
+                                                    <div class="form-group">
+
+                                                        <label>Zip / Postal Code *</label>
+
+                                                        <input type="number" class="form-control sur_zip" onKeyPress="if(this.value.length==6) return false;" min="0" name="client_zipcode" placeholder="Enter here" value="<?= $this->client_zipcode(); ?>" required>
+                                                    </div>
+
+                                                    <div class="form-error" id="sur_zip_error">Zip or postal code is required</div>
+
+                                                </div>
+
+
+                                                <?php
+                                                $args = array(
+                                                    "id" => 'intake_other_address',
+                                                    "name" => 'intake_other',
+                                                    "label" => 'Other Address Information',
+                                                    "value" => $this->intake_other(),
+                                                    "required" => false,
+                                                    "container-class" => 'col-lg-4 mb-3',
+                                                    "class" => 'form-control sur_oth',
+                                                    "disabled" => false,
+                                                    "error_message" => '',
+                                                    "placeholder" => 'Enter here'
+                                                );
+                                                $this->render_text_input($args);
+                                                ?>
 
                                             </div>
 
-                                            <div class="col-lg-4 mb-3">
+                                            <div class="col-lg-12 mb-3 d-lg-flex d-md-block d-sm-block">
 
-                                                <div class="form-group">
+                                                <div class="col-lg-4 mb-3">
 
-                                                    <label>Client last name *</label>
+                                                    <div class="form-group">
 
-                                                    <input type="text" class="form-control sur_la" name="intake_lastName" placeholder="Enter here" value="<?= $this->intake_lastName() ?>" required>
+                                                        <label>Primary Telephone *</label>
 
-                                                </div>
+                                                        <input type="number" class="form-control sur_pri" onKeyPress="if(this.value.length==10) return false;" min="0" name="client_phone" placeholder="Enter here" value="<?= $this->client_phone(); ?>" required>
 
-                                                <div class="marker" id="sur_la_error"></div>
+                                                    </div>
 
-                                            </div>
-
-
-                                            <div class="col-lg-4 mb-3">
-
-                                                <div class="form-group">
-
-                                                    <label>Country</label>
-
-                                                    <input type="text" class="form-control sur_co" name="country" value="<?= $this->country() ?>" required>
+                                                    <div class="form-error" id="">Primary telephone # is required</div>
 
                                                 </div>
 
-                                                <div class="marker" id="sur_co_error"></div>
+                                                <div class="col-lg-4 mb-3">
 
-                                            </div>
+                                                    <div class="form-group">
 
-                                            <div class="col-lg-4 mb-3">
+                                                        <label>Alternative Telephone</label>
 
-                                                <div class="form-group">
+                                                        <input type="number" class="form-control sur_alt" onKeyPress="if(this.value.length==10) return false;" min="0" name="client_phone2" placeholder="Enter here" value="<?= $this->client_phone2(); ?>">
 
-                                                    <label>State</label>
+                                                    </div>
 
-                                                    <input type="text" class="form-control sur_st" name="state" value="<?= $this->state() ?>" required>
-
-                                                </div>
-
-                                                <div class="marker" id="sur_st_error"></div>
-
-                                            </div>
-
-
-
-                                            <div class="col-lg-4 mb-3">
-
-                                                <div class="form-group">
-
-                                                    <label>City</label>
-
-                                                    <input type="text" class="form-control sur_ci" name="city" value="<?= $this->city() ?>" required>
+                                                    <div class="form-error" id="sur_alt_error"></div>
 
                                                 </div>
 
-                                            </div>
+                                                <div class="col-lg-4 mb-3">
+
+                                                    <div class="form-group select-form-height">
+
+                                                        <label>Best Time to Contact</label>
 
 
-                                            <div class="col-lg-4 mb-3">
+                                                        <select class="form-control set-postion sur_be" name="client_preferred_contact_time">
+                                                            <?php foreach ($this->client_preferred_contact_times as $time) : ?>
+                                                                <option value="<?= $time['value'] ?>" <?= $this->client_preferred_contact_time() == $time['value'] ? 'selected' : '' ?>><?= $time['label'] ?></option>
+                                                            <?php endforeach; ?>
 
-                                                <div class="form-group">
+                                                        </select>
 
-                                                    <label>Address *</label>
+                                                    </div>
 
-                                                    <input type="text" class="form-control sur_add" name="intake_address" placeholder="Enter here" value="<?= $this->intake_address() ?>" required>
-
-                                                </div>
-
-                                                <div class="marker" id="sur_add_error"></div>
-
-                                            </div>
-
-
-
-
-                                            <div class="col-lg-4 mb-3">
-
-                                                <div class="form-group">
-
-                                                    <label>Zip Code *</label>
-
-                                                    <input type="number" class="form-control sur_zi" name="intake_zip" onKeyPress="if(this.value.length==6) return false;" min="0" placeholder="Enter here" value="<?= $this->intake_zipcode(); ?>" required>
+                                                    <div class="form-error" id="sur_best_error"></div>
 
                                                 </div>
-
-                                                <div class="marker" id="sur_zi_error"></div>
-
-                                            </div>
-
-                                            <div class="col-lg-4 mb-3">
-
-                                                <div class="form-group">
-
-                                                    <label>Other *</label>
-
-                                                    <input type="text" class="form-control sur_oth" name="intake_other" placeholder="Enter here" value="<?= $this->intake_other() ?>">
-
-                                                </div>
-
-                                                <div class="marker" id="sur_oth_error"></div>
-
-                                            </div>
-
-
-
-
-                                            <div class="col-lg-4 mb-3">
-
-                                                <div class="form-group">
-
-                                                    <label>Primary Telephone *</label>
-
-                                                    <input type="number" class="form-control sur_pr" name="intake_phone" onKeyPress="if(this.value.length==10) return false;" min="0" placeholder="Enter here" value="<?= $this->intake_phone() ?>" required>
-
-                                                    <!--<input type="number"  onfocusout ="validatePhone()" class="form-control sur_pr"  name="intake_phone" placeholder="Enter here" value="<//?php echo get_post_meta($rf_id,'rf_country',true)?>">-->
-
-
-
-                                                </div>
-
-                                                <div class="marker" id="sur_pr_error"></div>
-
-                                            </div>
-
-
-                                            <div class="col-lg-4 mb-3">
-
-                                                <div class="form-group">
-
-                                                    <label>Alternative Telephone</label>
-
-                                                    <input type="number" class="form-control sur_al" onKeyPress="if(this.value.length==10) return false;" min="0" name="intake_phone2" placeholder="Enter here" value="<?= $this->intake_phone2(); ?>">
-
-                                                </div>
-
-                                                <div class="marker" id="sur_al_error"></div>
-
-                                            </div>
-
-                                            
-
-                                            <div class="col-lg-4 mb-3">
-
-                                                <div class="form-group select-form-height">
-
-                                                    <label>Best Time to Contact</label>
-
-                                                    <select class="form-control set-postion sur_be" name="intake_contact_time">
-                                                    <?php foreach ($this->intake_contact_times as $time) : ?>
-                                                        <option value="<?= $time['value'] ?>" <?= $this->intake_contact_time() == $time['value'] ? 'selected' : '' ?>><?= $time['label'] ?></option>
-                                                    <?php endforeach; ?> 
-
-                                                    </select>
-
-                                                </div>
-
-                                                <div class="marker" id="sur_be_error"></div>
-
                                             </div>
 
                                         </div>
-
                                     </div>
 
                                     <div class="row">
 
-                                        <!-- <div class="col-lg-6 d-flex justify-content-end">
+                                        <div class="col-lg-12 d-flex justify-content-center">
+                                            <a href="javascript:void(0);" class="btn btn-primary btn-disabled step-button form-next" title="Next" id="step-btn-1">Next</a>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                    <button class="btn btn-outline-primary" title="Save Draft">Save Draft</button>
+                                <div id="step-2" class="main-form-section form-section w-100">
 
-                                </div> -->
+
+                                    <?= $this->render_disaster_types(); ?>
+
+                                    <div class="row">
 
                                         <div class="col-lg-12 d-flex justify-content-center">
-
-                                            <a href="javascript:void(0);" class="btn btn-primary step-button form-next" title="Next">Next</a>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                        </div>
-
-                        <div id="step-2" class="main-form-section w-100 form-section">
-
-                            <?= $this->render_disaster_types(); ?>
-                            <div class="row">
-
-                                <!-- <div class="col-lg-6 d-flex justify-content-end">
-
-                                <button class="btn btn-outline-primary" title="Save Draft">Save Draft</button>
-
-                            </div> -->
-
-                                <div class="col-lg-12 d-flex justify-content-center">
-
-                                <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
+                                            <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
                                             <a href="javascript:void(0);" class="btn btn-primary  step-button form-next" title="Next">Next</a>
 
+                                        </div>
+
+                                    </div>
+
+
 
                                 </div>
+                                <div id="step-3" class="main-form-section form-section w-100">
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-lg-12 mb-3">
+                                                <div class="form-title mb-3">
 
-                            </div>
+                                                    <h3>Client Needs</h3>
 
-                        </div>
+                                                </div>
+                                            </div>
+                                            <?php $this->render_client_needs(); ?>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12 mb-3">
+                                                <div class="form-title mb-3">
 
-                        <div id="step-3" class="main-form-section w-100 form-section">
+                                                    <h3>Client Special Needs</h3>
+                                                    <p>As best you can, please describe all special conditions that make it difficult or impossible for you or your family to access the resource that you need on your own.</p>
 
-                            <div>
-
-                                <div class="row">
-
-                                    <div class="col-lg-6 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>Property Type *</h3>
+                                                </div>
+                                            </div>
+                                            <?= $this->render_client_special_needs(); ?>
 
                                         </div>
-
-                                    </div>
-
-                                    <div class="col-lg-6 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>Is the property or home damaged due to the current disaster? *</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-6 mb-3">
-
-                                        <div class="form-group select-form">
-
-                                            <select id="property_type" name="property_type" class="form-control sur_pro">
-
-                                                <?php foreach ($this->property_types as $type) : ?>
-
-                                                    <option value="<?= $type['value'] ?>" <?= $this->property_type() == $type['value'] ? 'selected' : '' ?>><?= $type['label'] ?></option>
-
-                                                <?php endforeach; ?>
-
-                                            </select>
-
-                                        </div>
-
-                                        <div class="marker" id="sur_pro_error"></div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input pro_con" value="Yes" name="property_condition">Yes
-
-                                            </label>
-
-                                        </div>
-
-                                        <div class="marker" id="pro_con_error"></div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="No" name="property_condition">No
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>Are there life safety issues present at the worksite? *</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>What is the current recovery status of the property? *</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>Is the Client the property owner? *</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input li_fe" value="Yes" name="life_safety">Yes
-
-                                            </label>
-
-                                        </div>
-
-                                        <div class="marker" id="li_fe_error"></div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="No" name="life_safety">No
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-group select-form">
-
-                                            <select id="recovery_status" name="recovery_status" class="form-control sur_se">
-
-                                                <?php
-                                                foreach($this->recovery_statuses as $status) :
-                                                ?>
-                                                    <option value="<?= $status['value'] ?>" <?= $this->recovery_status() == $status['value'] ? 'selected' : '' ?>><?= $status['label'] ?></option>
-                                                <?php endforeach; ?>
-
-                                            </select>
-
-                                        </div>
-
-                                        <div class="marker" id="sur_se_error"></div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input pro_ow" value="Yes" name="property_owner">Yes
-
-                                            </label>
-
-                                        </div>
-
-                                        <div class="marker" id="pro_ow_error"></div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="No" name="property_owner">No
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-6 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>Is the homeowner willing to sign a liability waiver releasing the volunteers of any damages? *</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-6 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>The client/property owner agrees to be present while volunteers are working *</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-3 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input la_yes" value="Yes" name="liability_waiver">Yes
-
-                                            </label>
-
-                                        </div>
-
-                                        <div class="marker" id="la_yes_error"></div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-3 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="No" name="liability_waiver">No
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-3 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input ow_pr" value="Yes" name="owner_present">Yes
-
-                                            </label>
-
-                                        </div>
-
-                                        <div class="marker" id="pro_ow_error"></div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-3 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="No" name="owner_present">No
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-6 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>The owner must agree to be present to oversee work being done to their property, secure valuables and contribute to the work when possible. Does the owner agree to these terms?</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-6 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>Are client family members or friends willing to help? *</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-3 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input ag_yes" value="Yes" name="agree_terms">Yes
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-3 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="No" name="agree_terms">No
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-3 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input will_yes" value="Yes" name="willing_to_help">Yes
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-3 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="No" name="willing_to_help">No
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-12 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>What room/floors have been damaged? Select all that apply.*</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="Basement" name="property_type">Basement
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="First Floor" name="property_type">First Floor
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="Second Floor" name="property_type">Second Floor
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="Attic" name="property_type">Attic
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="Garage" name="property_type">Garage
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input pro_yes" value="Other" name="property_type">Other
-
-                                            </label>
-
-                                        </div>
-
-                                        <div class="marker" id="pro_yes_error"></div>
-
-                                    </div>
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>Is there standing water in any of the rooms? *</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-4 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>Is there mud or sewage? *</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-12"></div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input is_yes" value="Yes" name="is_water">Yes
-
-                                            </label>
-
-                                        </div>
-
-                                        <div class="marker" id="is_yes_error"></div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input is_yes" value="No" name="is_water">No
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input mu_yes" value="Yes" name="is_mud">Yes
-
-                                            </label>
-
-                                        </div>
-
-                                        <div class="marker" id="mu_yes_error"></div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="No" name="is_mud">No
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-12"></div>
-
-
-
-                                    <!--  -->
-
-                                    <!--   <div class="col-12 col-lg-2 mb-3">
-
-                                    <div class="form-check d-flex align-items-center">
-
-                                        <label class="form-check-label">
-
-                                            <input type="radio" class="form-check-input" value="Central Air" name="disaster_type[]">Central Air
-
-                                        </label>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="col-12 col-lg-2 mb-3">
-
-                                    <div class="form-check d-flex align-items-center">
-
-                                        <label class="form-check-label">
-
-                                            <input type="radio" class="form-check-input" value="Electric Service" name="disaster_type[]">Electric Service
-
-                                        </label>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="col-12 col-lg-2 mb-3">
-
-                                    <div class="form-check d-flex align-items-center">
-
-                                        <label class="form-check-label">
-
-                                            <input type="radio" class="form-check-input" value="Gas Service" name="disaster_type[]">Gas Service
-
-                                        </label>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="col-12 col-lg-2 mb-3">
-
-                                    <div class="form-check d-flex align-items-center">
-
-                                        <label class="form-check-label">
-
-                                            <input type="radio" class="form-check-input" value="Water" name="disaster_type[]">Water
-
-                                        </label>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="col-12 col-lg-2 mb-3">
-
-                                    <div class="form-check d-flex align-items-center">
-
-                                        <label class="form-check-label">
-
-                                            <input type="radio" class="form-check-input" value="Other" name="disaster_type[]">Other
-
-                                        </label>
-
-                                    </div>
-
-                                </div> -->
-
-                                    <div class="col-lg-12 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>What Appliances & Contents have been damaged? *</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-1 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="Boiler" name="damage_contents">Boiler
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="Furniture" name="damage_contents">Furniture
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="Hot Water Heater" name="damage_contents">Hot Water Heater
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="Refrigerator" name="damage_contents">Refrigerator
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="Stove" name="damage_contents">Stove
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="Washer/Dryer" name="damage_contents">Washer/Dryer
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-1 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input da_co" value="Other" name="damage_contents">Other
-
-                                            </label>
-
-                                        </div>
-
-                                        <div class="marker" id="da_co_error"></div>
-
-                                    </div>
-
-                                    <div class="col-lg-6 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>What type of insurance do you have? *</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-6 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>Have you contacted other service providers for help? *</h3>
-
-                                        </div>
-
-                                    </div>
-
-
-
-                                    <div class="col-lg-6 mb-3">
-
-                                        <div class="form-group select-form">
-
-                                            <input type="text" class="form-control ins_type" name="insurance_type" placeholder="Enter here">
-
-                                        </div>
-
-                                        <div class="marker" id="ins_type_error"></div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-3 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input con_yes" value="Yes" name="contacted_other">Yes
-
-                                            </label>
-
-                                        </div>
-
-                                        <div class="marker" id="con_yes_error"></div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-3 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="No" name="contacted_other">No
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-
-                                    <!-- <div class="col-lg-6 d-flex justify-content-end">
-
-                                    <button class="btn btn-outline-primary" title="Save Draft">Save Draft</button>
-
-                                </div> -->
-
-                                    <div class="col-lg-12 d-flex justify-content-center">
-
-                                    <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
-                                            <a href="javascript:void(0);" class="btn btn-primary  step-button form-next" title="Next">Next</a>
-
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div id="step-4" class="main-form-section w-100 form-section">
-
-                            <div>
-
-                                <div class="row">
-
-                                    <div class="col-lg-12 mb-3">
-
-                                        <div class="form-title">
-
-                                            <h3>Are you a service provider entering this information on behalf of your client? *</h3>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-12"></div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input on_be" value="Yes" name="on_behalf">Yes
-
-                                            </label>
-
-                                        </div>
-
-                                        <div class="marker" id="on_be_error"></div>
-
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 mb-3">
-
-                                        <div class="form-check d-flex align-items-center">
-
-                                            <label class="form-check-label">
-
-                                                <input type="radio" class="form-check-input" value="No" name="on_behalf">No
-
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="row mt-3">
-
-                                    <!-- <div class="col-lg-6 d-flex justify-content-end">
-
-                                    <button class="btn btn-outline-primary" title="Save Draft">Save Draft</button>
-
-                                </div> -->
-
-                                    <div class="col-lg-12 d-flex justify-content-center">
-
-                                    <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
-                                            <a href="javascript:void(0);" class="btn btn-primary  step-button form-next" title="Next">Next</a>
-
-
-                                        <!-- <button class="btn btn-primary" title="Next" name="save" value="save">Next</button>-->
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div id="step-5" class="main-form-section w-100 form-section">
-
-                            <div>
-
-
-                                <?= $this->render_audience_section(); ?>
-                                <div class="row">
-
-                                    <div class="col-lg-12 mb-3">
-
-                                        <div class="bg-ligt-color">
-
-                                            <div class="form-title">
-
-                                                <h3>Are you sure to submit form ?</h3>
-
+                                        <div class="row">
+                                            <div class="col-lg-12 mb-3">
+                                                <div class="form-title mb-3">
+
+                                                    <h3>Household Demographics</h3>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 mb-3 d-flex">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
+                                                    <div class='form-group'>
+                                                        <div class="row">
+                                                            <?php
+                                                            $age_groups = [
+                                                                'Infant' => 'infant',
+                                                                'Under 5' => 'under_5',
+                                                                'Ages 5-12' => '5-12',
+                                                                'Ages 13-18' => '13-18',
+                                                                'Ages 19-40' => '19-40',
+                                                                'Ages 41-65' => '41-65',
+                                                                'Ages 66-80' => '66-80',
+                                                                'Ages 81+' => '81+'
+                                                            ];
+
+
+                                                            foreach ($age_groups as $label => $value) {
+
+                                                                if (!empty($this->report)) {
+                                                                    $checked = $this->checkIfReportValueMatches("household_demographics", $value);
+                                                                    $is_checked = ($checked == "checked");
+                                                                    $males_count = $this->report->demographic_count(sanitize_title($value) . "_male");
+                                                                    $females_count = $this->report->demographic_count(sanitize_title($value) . "_female");
+                                                                } else {
+                                                                    $checked = '';
+                                                                    $is_checked = false;
+                                                                    $males_count = 0;
+                                                                    $females_count = 0;
+                                                                }
+                                                            ?>
+                                                                <div class="col-12 mb-3">
+                                                                    <div class="form-check d-flex align-items-center mb-2">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="form-check-input demographic-checkbox"
+                                                                                value="<?php echo $value; ?>"
+                                                                                name="household_demographics[]"
+                                                                                data-group="<?php echo sanitize_title($value); ?>"
+                                                                                <?= $checked; ?>>
+                                                                            <?php echo $label; ?>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="demographic-counts" id="<?php echo sanitize_title($value); ?>_counts" <?php if (!$is_checked): ?>style="display: none; margin-left: 20px;" <?php endif; ?>>
+                                                                        <div class="row">
+                                                                            <div class="col-3">
+                                                                                <div class="form-group">
+                                                                                    <label>Number of Males:</label>
+                                                                                    <input type="number" min="0" class="form-control"
+                                                                                        name="<?php echo sanitize_title($value); ?>_male"
+                                                                                        placeholder=""
+                                                                                        value="<?= $is_checked ? $males_count : "0"; ?>">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-3">
+                                                                                <div class="form-group">
+                                                                                    <label>Number of Females:</label>
+                                                                                    <input type="number" min="0" class="form-control"
+                                                                                        name="<?php echo sanitize_title($value); ?>_female"
+                                                                                        placeholder=""
+                                                                                        value="<?= $is_checked ? $females_count : "0"; ?>">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
                                             </div>
 
                                         </div>
-
                                     </div>
-
-
-
-                                </div>
-
-                                <div class="row">
-
-
-
-                                    <div class="col-lg-12 d-flex justify-content-center">
-
-                                        <button class="btn btn-primary" title="Next" name="save" value="save">Submit</button>
-
-                                        <!--<button class="btn btn-outline-primary" value="finish" name="finish" title="Save Draft">Finish</button>-->
-
+                                    <div class="row">
+                                        <div class="col-lg-12 d-flex justify-content-center">
+                                            <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
+                                            <a href="javascript:void(0);" class="btn btn-primary  step-button form-next" title="Next">Next</a>
+                                        </div>
                                     </div>
 
                                 </div>
 
-                            </div>
+                                <div id="step-4" class="main-form-section active form-section w-100">
+
+                                    <div>
+
+                                        <div class="row">
+
+                                            <div class='radios-conditional w-100'>
+                                                <div class="col-12 radios">
+
+                                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 mb-3">
+
+                                                        <div class="form-title mb-3">
+
+                                                            <h3>Is the property or home damaged due to the current disaster? *</h3>
+
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-12 col-sm-12 mb-3 d-flex">
+                                                            <div class="form-check d-flex align-items-center">
+
+                                                                <label class="form-check-label">
+
+                                                                    <input type="radio" class="form-check-input" value="Yes" name="property_is_damaged" <?= $this->checkIfReportValueMatches("property_is_damaged", "Yes"); ?>>Yes
+
+                                                                </label>
+
+                                                            </div>
+                                                            <div class="form-check d-flex align-items-center">
+
+                                                                <label class="form-check-label">
+
+                                                                    <input type="radio" class="form-check-input" value="No" name="property_is_damaged" <?= $this->checkIfReportValueMatches("property_is_damaged", "No"); ?>>No
+
+                                                                </label>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <?php
+                                                $style = $this->checkIfReportValueMatches("property_is_damaged", "Yes") == "checked" ? "display:block" : "display:none";
+                                                ?>
+                                                <div class="col-lg-12 mb-3 conditional" data-conditional-value="Yes" style="<?= $style; ?>">
+                                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 mb-3">
+
+                                                        <div class="form-title mb-3">
+
+                                                            <h3>Property Type *</h3>
+
+                                                        </div>
+                                                        <div class="form-error" id="prop_type_error"> </div>
+
+                                                        <select id="property_type" name="property_type" class="form-control propert_type" data-require-condition="property_is_damaged=Yes">
+                                                            <?php foreach ($this->property_types as $type) : ?>
+                                                                <option value="<?= $type['value']; ?>" <?= ($this->property_type() == $type['value'] || (isset($type['default']) && $type['default'] && empty($this->property_type()))) ? 'selected' : ''; ?>>
+                                                                    <?= $type['label']; ?>
+                                                                </option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="form-group col-lg-12 mb-3">
+
+                                                        <div class="form-title mb-3">
+
+                                                            <h3>Are there life safety issues present at the worksite? *</h3>
+
+                                                        </div>
+
+                                                        <div class="col-lg-6 col-md-12 col-sm-12 mb-3 d-flex">
+
+                                                            <div class="radios-possible-checkboxes-container">
+                                                                <div class='radio-checkboxes-container d-flex justify-content-start'>
+                                                                    <?php
+                                                                    $checked = $this->checkIfReportValueMatches("life_safety_issues_present", "Yes");
+                                                                    if ($checked == "checked") {
+                                                                        $style = "display:block";
+                                                                    } else {
+                                                                        $style = "display:none";
+                                                                    }
+
+                                                                    ?>
+                                                                    <div class="radio">
+                                                                        <div class="form-check d-flex align-items-center">
+
+                                                                            <label class="form-check-label">
+
+                                                                                <input type="radio" class="form-check-input li_fe radio-checkboxes" value="Yes" name="life_safety_issues_present" <?= $checked ?> data-require-condition="property_is_damaged=Yes">Yes
+
+                                                                            </label>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="checkboxes" style="<?= $style; ?>">
+
+                                                                        <div class="form-check d-flex align-items-center">
+                                                                            <label class="form-check-label">
+                                                                                <input type="checkbox" class="form-check-input" value="Collapsed Foundation" name="life_safety_issues[]" <?= $this->checkIfReportValueMatches("life_safety_issues", "Collapsed Foundation"); ?>>
+                                                                                Collapsed Foundation
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="form-check d-flex align-items-center">
+                                                                            <label class="form-check-label">
+                                                                                <input type="checkbox" class="form-check-input" value="Exposed Electrical" name="life_safety_issues[]" <?= $this->checkIfReportValueMatches("life_safety_issues", "Exposed Electrical"); ?>>
+                                                                                Exposed Electrical
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="form-check d-flex align-items-center">
+                                                                            <label class="form-check-label">
+                                                                                <input type="checkbox" class="form-check-input" value="Gas Leaks" name="life_safety_issues[]" <?= $this->checkIfReportValueMatches("life_safety_issues", "Gas Leaks"); ?>>
+                                                                                Gas Leaks
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="form-check d-flex align-items-center">
+                                                                            <label class="form-check-label">
+                                                                                <input type="checkbox" class="form-check-input" value="Water Leaks" name="life_safety_issues[]" <?= $this->checkIfReportValueMatches("life_safety_issues", "Water Leaks"); ?>>
+                                                                                Water Leaks
+                                                                            </label>
+                                                                        </div>
+
+                                                                        <div class="checkbox-text-container">
+                                                                            <div class="form-check d-flex align-items-center">
+                                                                                <label class="form-check-label">
+                                                                                    <input type="checkbox" class="form-check-input checkbox-text" value="Other" name="life_safety_issues[]" <?= $this->checkIfReportValueMatches("life_safety_issues", "Other"); ?>>
+                                                                                    Other
+                                                                                </label>
+                                                                            </div>
+
+                                                                            <div class='text-container' <?= $this->hide_if_field_empty("other_life_safety_issues"); ?>>
+                                                                                <input type="text" class="form-control" name="other_life_safety_issues" placeholder="Specify other safety issues" value="<?= !empty($this->report_id) ? $this->report->other_life_safety_issues() : ''; ?>">
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="radio-checkboxes-container">
+                                                                    <?php
+                                                                    $checked = $this->checkIfReportValueMatches("life_safety_issues_present", "No");
+                                                                    if ($checked == "checked") {
+                                                                        $style = "display:block";
+                                                                    } else {
+                                                                        $style = "display:none";
+                                                                    }
+                                                                    ?>
+                                                                    <div class="radio">
+                                                                        <div class="form-check d-flex align-items-center">
+
+                                                                            <label class="form-check-label">
+
+                                                                                <input type="radio" class="form-check-input radio-checkboxes" value="No" name="life_safety_issues_present" <?= $checked; ?>>No
+
+                                                                            </label>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="checkboxes" style="<?= $style; ?>"></div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group col-lg-12 mb-3">
+
+                                                        <div class="form-title mb-3">
+
+                                                            <h3>What is the current recovery status of the property? *</h3>
+
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group select-form">
+
+                                                                <div class="form-error" id="rec_status_error"></div>
+
+                                                                <select id="recovery_status" name="recovery_status" class="form-control rec_status" data-require-condition="property_is_damaged=Yes">
+
+                                                                    <option value="" slected>Select any value</option>
+
+                                                                    <?php
+                                                                    $recovery_statuses = [
+                                                                        "No Work has begun",
+                                                                        "Partially Recovered - Still a lot of work to do",
+                                                                        "Mostly Recovered - There are still problems",
+                                                                        "Getting Worse - More problems have occurred",
+                                                                        "Uninhabitable - Declared to be condemned",
+                                                                        "Other"
+                                                                    ];
+
+                                                                    foreach ($recovery_statuses as $status) {
+                                                                        $display = ($status == "Other") ? "Other Status" : $status;
+                                                                        echo '<option value="' . $status . '" ' . $this->selectIfReportValueMatches("recovery_status", $status) . '>' . $display . '</option>';
+                                                                    }
+                                                                    ?>
+
+                                                                </select>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group col-lg-12 mb-3">
+
+                                                        <div class="form-title mb-3">
+
+                                                            <h3>Is the Client the property owner? *</h3>
+
+                                                        </div>
+
+                                                        <div class="col-lg-6 col-md-12 col-sm-12 mb-3 d-flex">
+                                                            <div class="form-check d-flex align-items-center">
+
+                                                                <label class="form-check-label">
+
+                                                                    <input type="radio" class="form-check-input pro_con" value="Yes" name="client_is_property_owner" <?= $this->checkIfReportValueMatches("client_is_property_owner", "Yes"); ?>>Yes
+
+                                                                </label>
+
+                                                            </div>
+                                                            <div class="form-check d-flex align-items-center">
+
+                                                                <label class="form-check-label">
+
+                                                                    <input type="radio" class="form-check-input" value="No" name="client_is_property_owner" <?= $this->checkIfReportValueMatches("client_is_property_owner", "No"); ?>>No
+
+                                                                </label>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 mb-3">
+
+                                                        <div class="form-title mb-3">
+
+                                                            <h3>Are client family members or friends willing to help? *</h3>
+
+                                                        </div>
+
+                                                        <div class="col-12 col-lg-3 mb-3 d-flex">
+
+                                                            <div class="form-check d-flex align-items-center">
+
+                                                                <label class="form-check-label">
+
+                                                                    <input type="radio" class="form-check-input wil_to" value="Yes" name="willing_to_help" <?= $this->checkIfReportValueMatches("family_willing_to_help", "Yes"); ?>>Yes
+
+                                                                </label>
+
+                                                            </div>
+
+                                                            <div class="form-check d-flex align-items-center">
+
+                                                                <label class="form-check-label">
+
+                                                                    <input type="radio" class="form-check-input" value="No" name="willing_to_help" <?= $this->checkIfReportValueMatches("family_willing_to_help", "No") ?>>No
+
+                                                                </label>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 mb-3">
+
+                                                        <div class="form-title mb-3">
+
+                                                            <h3>What room/floors have been damaged? Select all that apply.*</h3>
+
+                                                        </div>
+
+                                                        <div class="form-group col-lg-12 col-md-12 col-sm-12 mb-3 damaged-floors-container">
+                                                            <?php
+                                                            $damaged_floors = [
+                                                                ["value" => "Basement", "label" => "Basement"],
+                                                                ["value" => "First Floor", "label" => "First Floor"],
+                                                                ["value" => "Second Floor", "label" => "Second Floor"],
+                                                                ["value" => "Attic", "label" => "Attic"],
+                                                                ["value" => "Garage", "label" => "Garage"]
+                                                            ];
+
+                                                            foreach ($damaged_floors as $floor) {
+                                                                $checked = $this->checkIfReportValueMatches("damaged_floors", $floor['value']);
+                                                            ?>
+                                                                <div class="form-check d-flex align-items-center">
+                                                                    <label class="form-check-label">
+                                                                        <input type="checkbox" class="form-check-input"
+                                                                            value="<?php echo $floor['value']; ?>"
+                                                                            name="damaged_floors[]"
+                                                                            <?php echo $checked; ?>>
+                                                                        <?php echo $floor['label']; ?>
+                                                                    </label>
+                                                                </div>
+                                                            <?php
+                                                            }
+
+                                                            // Handle "Other" option
+                                                            $other_checked = $this->checkIfReportValueMatches("damaged_floors", "Other");
+                                                            $other_value = '';
+                                                            if (!empty($this->report_id)) {
+                                                                $other_value = $this->report->other_damaged_location();
+                                                            }
+                                                            $display_style = $other_checked ? '' : 'style="display:none;"';
+                                                            ?>
+
+                                                            <div class="checkbox-text-container">
+                                                                <div class="form-check d-flex align-items-center">
+                                                                    <label class="form-check-label">
+                                                                        <input type="checkbox" class="form-check-input checkbox-text"
+                                                                            value="Other"
+                                                                            name="damaged_floors[]"
+                                                                            <?php echo $other_checked; ?>>
+                                                                        Other Location
+                                                                    </label>
+                                                                </div>
+                                                                <div class="text-container" <?php echo $display_style; ?>>
+                                                                    <input type="text" class="form-control"
+                                                                        name="other_damaged_location"
+                                                                        placeholder="Specify Other Location"
+                                                                        value="<?php echo $other_value; ?>">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                    </div>
+
+                                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 mb-3">
+
+                                                        <div class="form-title mb-3">
+
+                                                            <h3>Is there standing water in any of the rooms? *</h3>
+
+                                                        </div>
+
+                                                        <div class="col-lg-6 mb-3 d-flex">
+                                                            <div class="form-check d-flex align-items-center">
+
+                                                                <label class="form-check-label">
+
+                                                                    <input type="radio" class="form-check-input is_wa" value="Yes" name="is_standing_water" <?= $this->checkIfReportValueMatches("is_standing_water", "Yes"); ?>>Yes
+
+                                                                </label>
+
+                                                            </div>
+                                                            <div class="form-check d-flex align-items-center">
+
+                                                                <label class="form-check-label">
+
+                                                                    <input type="radio" class="form-check-input" value="No" name="is_standing_water" <?= $this->checkIfReportValueMatches("is_standing_water", "No"); ?>>No
+
+                                                                </label>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group col-lg-12 mb-3">
+
+                                                        <div class="form-title mb-3">
+
+                                                            <h3>Is there mud or sewage? *</h3>
+
+                                                        </div>
+                                                        <div class="col-lg-6 mb-3 d-flex">
+                                                            <div class="form-check d-flex align-items-center">
+
+                                                                <label class="form-check-label">
+
+                                                                    <input type="radio" class="form-check-input is_mus" value="Yes" name="is_mud" <?= $this->checkIfReportValueMatches("is_mud", "Yes"); ?>>Yes
+
+                                                                </label>
+
+                                                            </div>
+
+                                                            <div class="form-check d-flex align-items-center">
+
+                                                                <label class="form-check-label">
+
+                                                                    <input type="radio" class="form-check-input" value="No" name="is_mud" <?= $this->checkIfReportValueMatches("is_mud", "No"); ?>>No
+
+                                                                </label>
+
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
+
+
+                                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 mb-3">
+
+                                                        <div class="form-title mb-3">
+
+                                                            <h3>What Appliances & Contents have been damaged? *</h3>
+
+                                                        </div>
+
+                                                        <div class="form-group col-lg-12 col-md-12 col-sm-12 mb-3 damaged-appliances-container">
+                                                            <?php
+                                                            $damaged_appliances = [
+                                                                ["value" => "Boiler", "label" => "Boiler"],
+                                                                ["value" => "Furniture", "label" => "Furniture"],
+                                                                ["value" => "Hot Water Heater", "label" => "Hot Water Heater"],
+                                                                ["value" => "Refrigerator", "label" => "Refrigerator"],
+                                                                ["value" => "Stove", "label" => "Stove"],
+                                                                ["value" => "Washer/Dryer", "label" => "Washer/Dryer"]
+                                                            ];
+
+                                                            foreach ($damaged_appliances as $appliance) {
+                                                                $checked = $this->checkIfReportValueMatches("damaged_appliances", $appliance['value']);
+                                                            ?>
+                                                                <div class="form-check d-flex align-items-center">
+                                                                    <label class="form-check-label">
+                                                                        <input type="checkbox" class="form-check-input"
+                                                                            value="<?php echo $appliance['value']; ?>"
+                                                                            name="damaged_appliances[]"
+                                                                            <?php echo $checked; ?>>
+                                                                        <?php echo $appliance['label']; ?>
+                                                                    </label>
+                                                                </div>
+                                                            <?php
+                                                            }
+
+                                                            // Handle "Other" option
+                                                            $other_checked = $this->checkIfReportValueMatches("damaged_appliances", "Other");
+                                                            $other_value = '';
+                                                            if (!empty($this->report_id)) {
+                                                                $other_value = $this->report->other_damaged_appliance();
+                                                            }
+                                                            $display_style = $other_checked ? '' : 'style="display:none;"';
+                                                            ?>
+
+                                                            <div class="checkbox-text-container">
+                                                                <div class="form-check d-flex align-items-center">
+                                                                    <label class="form-check-label">
+                                                                        <input type="checkbox" class="form-check-input checkbox-text"
+                                                                            value="Other"
+                                                                            name="damaged_appliances[]"
+                                                                            <?php echo $other_checked; ?>>
+                                                                        Other Appliance
+                                                                    </label>
+                                                                </div>
+                                                                <div class="text-container" <?php echo $display_style; ?>>
+                                                                    <input type="text" class="form-control"
+                                                                        name="other_damaged_appliance"
+                                                                        placeholder="Specify Other Appliance"
+                                                                        value="<?php echo $other_value; ?>">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 mb-3">
+
+                                                        <div class="form-title mb-3">
+                                                            <h3>Do you have insurance?</h3>
+                                                        </div>
+
+                                                        <div class="col-lg-6">
+                                                            <div class="form-check d-flex align-items-center">
+
+                                                                <label class="form-check-label">
+
+                                                                    <input type="radio" class="form-check-input cont_yes" value="Yes" name="has_insurance" <?= $this->checkIfReportValueMatches("has_insurance", "Yes"); ?>>Yes
+
+                                                                </label>
+
+                                                            </div>
+                                                            <div class="form-check d-flex align-items-center">
+                                                                <label class="form-check-label">
+                                                                    <input type="radio" class="form-check-input" value="No" name="has_insurance" <?= $this->checkIfReportValueMatches("has_insurance", "No"); ?>>No
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 mb-3">
+
+                                                        <div class="form-title mb-3">
+
+                                                            <h3>Have you contacted any other other service providers for help? *</h3>
+
+                                                        </div>
+
+                                                        <div class="col-lg-6">
+                                                            <div class="form-check d-flex align-items-center">
+
+                                                                <label class="form-check-label">
+
+                                                                    <input type="checkbox" class="form-check-input cont_yes" value="FEMA" name="contacted_others[]" <?= $this->checkIfReportValueMatches("contacted_others", "FEMA"); ?>>FEMA
+
+                                                                </label>
+
+                                                            </div>
+                                                            <div class="checkbox-text-container">
+                                                                <div class="form-check d-flex align-items-center">
+
+                                                                    <label class="form-check-label">
+
+                                                                        <input type="checkbox" class="form-check-input prop_yes checkbox-text" value="Other" name="contacted_others[]" <?= $this->checkIfReportValueMatches("contacted_others", "Other"); ?>>Other Contacts
+
+                                                                    </label>
+
+                                                                </div>
+                                                                <div class='text-container' <?= $this->hide_if_field_unchecked("contacted_others", "Other"); ?>>
+                                                                    <input type="text" class="form-control" name="others_contacted" placeholder="Specify other contacts" value="<?= !empty($this->report_id) ? $this->report->contacted_others() : ''; ?>">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-12 d-flex justify-content-center">
+                                                <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
+                                                <a href="javascript:void(0);" class="btn btn-primary  step-button form-next" title="Next">Next</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                    <div id="step-5" class="main-form-section form-section w-100">
+
+                                        <div>
+
+                                            <div class="row">
+
+                                                <div class="col-lg-12 mb-3">
+
+                                                    <div class="form-title mb-3">
+
+                                                        <h3>Are you a service provider entering this information on behalf of your client? *</h3>
+
+                                                    </div>
+
+                                                </div>
+                                                <div class='radios-conditional w-100'>
+                                                    <div class="col-12 radios">
+                                                        <div class="col-12 col-lg-6 mb-3 d-flex">
+
+                                                            <div class="form-check d-flex align-items-center">
+
+                                                                <label class="form-check-label">
+
+                                                                    <input type="radio" class="form-check-input" value="Yes" name="is_provider" <?= $this->checkIfReportValueMatches("is_provider", "Yes"); ?>>Yes
+
+                                                                </label>
+
+                                                            </div>
+
+                                                            <div class="form-check d-flex align-items-center">
+
+                                                                <label class="form-check-label">
+
+                                                                    <input type="radio" class="form-check-input" value="No" name="is_provider" <?= $this->checkIfReportValueMatches("is_provider", "No"); ?>>No
+
+                                                                </label>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <?php
+                                                    $style = $this->checkIfReportValueMatches("is_provider", "Yes") == "checked" ? "display:block" : "display:none";
+                                                    ?>
+                                                    <div class="col-lg-12 mb-3 conditional" data-conditional-value="Yes" style="<?= $style; ?>">
+
+                                                        <div class="col-lg-4 mb-3">
+
+                                                            <div class="form-group">
+
+                                                                <label>Organization *</label>
+
+                                                                <input type="text" class="form-control sur_fri" id="provider_organization" data-require-condition="is_provider=Yes" name="provider_organization" placeholder="Enter here" value=" <?= $this->provider_organization(); ?>">
+
+                                                            </div>
+
+                                                            <div class="form-error" id="sur_fri_error">Organization name is required</div>
+
+                                                        </div>
+
+                                                        <div class="col-lg-4 mb-3">
+
+                                                            <div class="form-group">
+
+                                                                <label>First Name *</label>
+
+                                                                <input type="text" class="form-control sur_fri" id="provider_firstName" data-require-condition="is_provider=Yes" name="provider_firstName" placeholder="Enter here" value=" <?= $this->provider_firstName(); ?>">
+
+                                                            </div>
+
+                                                            <div class="form-error" id="sur_fri_error">First name is required</div>
+
+                                                        </div>
+
+                                                        <div class="col-lg-4 mb-3">
+
+                                                            <div class="form-group">
+
+                                                                <label>Last name *</label>
+
+                                                                <input type="text" class="form-control sur_last" id="provider_lastName" data-require-condition="is_provider=Yes" name="provider_lastName" placeholder="Enter here" value=" <?= $this->provider_lastName()  ?>">
+
+                                                            </div>
+
+                                                            <div class="form-error" id="sur_last_error">Last name is required</div>
+
+                                                        </div>
+
+                                                        <div class="col-lg-4 mb-3">
+
+                                                            <div class="form-group">
+
+                                                                <label>Title</label>
+
+                                                                <input type="text" class="form-control sur_last" id="provider_title" data-require-condition="is_provider=Yes" name="provider_title" placeholder="Enter here" value=" <?= $this->provider_lastName()  ?>">
+
+                                                            </div>
+
+                                                            <div class="form-error" id="sur_last_error"></div>
+
+                                                        </div>
+
+                                                        <div class="col-lg-4 mb-3">
+
+                                                            <div class="form-group">
+
+                                                                <label>Address *</label>
+
+                                                                <input type="text" class="form-control sur_add" id="provider_address" data-require-condition="is_provider=Yes" name="provider_address" placeholder="Enter here" value="<?= $this->provider_address(); ?>">
+
+                                                            </div>
+
+                                                            <div class="form-error" id="sur_add_error">Address is required</div>
+
+                                                        </div>
+
+                                                        <div class="col-lg-4 mb-3">
+
+                                                            <div class="form-group">
+
+                                                                <label>Country</label>
+
+                                                                <?php
+                                                                $args = [
+                                                                    'name' => 'provider_country',
+                                                                    'id' => 'provider_country',
+                                                                    'selected' => $this->provider_country(),
+                                                                    'class' => 'form-control'
+
+                                                                ];
+                                                                $args['data-attributes']['require-condition'] = 'is_provider=Yes';
+
+                                                                echo Forms::countrySelect($args);
+                                                                ?>
+
+                                                            </div>
+
+                                                            <div class="form-error" id="sur_coun_error">Country is required</div>
+
+                                                        </div>
+
+                                                        <div class="col-lg-4 mb-3">
+
+                                                            <div class="form-group">
+
+                                                                <label>State</label>
+
+                                                                <?php
+                                                                $args = [
+                                                                    'country' => $this->provider_country(),
+                                                                    'name' => 'provider_state',
+                                                                    'id' => 'provider_state',
+                                                                    'selected' => $this->provider_state(),
+                                                                    'class' => 'form-control'
+                                                                ];
+                                                                $args['data-attributes']['require-condition'] = 'is_provider=Yes';
+                                                                echo Forms::stateSelect($args);
+                                                                ?>
+
+                                                            </div>
+
+                                                            <div class="form-error" id="sur_sta_error">State is required</div>
+
+                                                        </div>
+
+                                                        <div class="col-lg-4 mb-3">
+
+                                                            <div class="form-group">
+
+                                                                <label>City</label>
+
+                                                                <input type="text" class="form-control sur_cit" name="provider_city" value="<?= $this->provider_city(); ?>" placeholder="Enter here" data-require-condition="is_provider=Yes">
+
+                                                            </div>
+
+                                                            <div class="form-error" id="sur_cit_error">City is required</div>
+
+                                                        </div>
+
+                                                        <div class="col-lg-4 mb-3">
+
+                                                            <div class="form-group">
+
+                                                                <label>Zip Code *</label>
+
+                                                                <input type="number" class="form-control sur_zip" onKeyPress="if(this.value.length==6) return false;" min="0" name="provider_zipcode" placeholder="Enter here" value="<?= $this->provider_zipcode(); ?>" data-require-condition="is_provider=Yes">
+                                                            </div>
+
+                                                            <div class="form-error" id="sur_zip_error">Zipcode is required</div>
+
+                                                        </div>
+
+                                                        <div class="col-lg-4 mb-3">
+
+                                                            <div class="form-group">
+
+                                                                <label>Primary Telephone *</label>
+
+                                                                <input type="number" class="form-control sur_pri" onKeyPress="if(this.value.length==10) return false;" min="0" name="provider_phone" placeholder="Enter here" value="<?= $this->provider_phone(); ?>" data-require-condition="is_provider=Yes">
+
+                                                            </div>
+
+                                                            <div class="form-error" id="sur_pri_error"></div>
+
+                                                        </div>
+
+                                                        <div class="col-lg-4 mb-3">
+
+                                                            <div class="form-group">
+
+                                                                <label>Alternative Telephone</label>
+
+                                                                <input type="number" class="form-control sur_alt" onKeyPress="if(this.value.length==10) return false;" min="0" name="provider_phone2" placeholder="Enter here" value="<?= $this->provider_phone2(); ?>">
+
+                                                            </div>
+
+                                                            <div class="form-error" id="sur_alt_error"></div>
+
+                                                        </div>
+
+                                                        <div class="col-lg-4 mb-3">
+                                                            <div class="form-group">
+                                                                <label>Email Address *</label>
+                                                                <input type="email" class="form-control sur_email" id="provider_email" data-require-condition="is_provider=Yes" name="provider_email" placeholder="Enter email address" value="<?= $this->provider_email(); ?>">
+                                                            </div>
+                                                            <div class="form-error" id="sur_email_error"></div>
+                                                        </div>
+
+                                                        <div class="col-lg-4 mb-3">
+                                                            <div class="form-group">
+                                                                <label>Website</label>
+                                                                <input type="url" class="form-control" name="provider_website" placeholder="Enter website URL" value="<?= $this->provider_website(); ?>">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-12 mb-3">
+                                                            <div class="form-group">
+                                                                <label>Notes</label>
+                                                                <textarea class="form-control" name="provider_notes" rows="4" placeholder="Enter any additional notes about the client or situation"><?= $this->provider_notes(); ?></textarea>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row mt-3">
+
+                                            <div class="col-lg-12 d-flex justify-content-center">
+                                                <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
+                                                <a href="javascript:void(0);" class="btn btn-primary  step-button form-next" title="Next">Next</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div id="step-6" class="main-form-section form-section w-100">
+                                        <div>
+                                            <div class="row">
+
+
+                                                <?= $this->render_audience_section(); ?>
+                                                <div class="col-lg-12 d-flex justify-content-center">
+                                                    <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
+                                                    <button class="btn btn-outline-primary" value="save" name="save" title="Submit">Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </form>
 
                         </div>
-
-                        </form>
 
                     </div>
 
@@ -1906,8 +2212,25 @@ class SurvivorNeedsIntakeForm extends Form
 
         </div>
 
-        </div>
 
 <?php
+    }
+
+    public function render_client_needs()
+    {
+        $report = \KCC\Reports\SurvivorNeedsIntake::getInstance();
+        $client_needs = $report->client_needs;
+        foreach ($client_needs['rows'] as $row) {
+            $this->render_row($row);
+        }
+    }
+
+    public function render_client_special_needs()
+    {
+        $report = \KCC\Reports\SurvivorNeedsIntake::getInstance();
+        $client_special_needs = $report->client_special_needs;
+        foreach ($client_special_needs['rows'] as $row) {
+            $this->render_row($row);
+        }
     }
 }

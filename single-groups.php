@@ -6,7 +6,8 @@ use KCC\FlashMessages\FlashMessages;
 
 if (!is_user_logged_in()) {
 
-    wp_redirect('login');
+    header('Location: ' . site_url('login'));
+    exit;
 }
 
 global $post;
@@ -47,7 +48,7 @@ get_header('dashboard');
 
             <div class="donation_tab_pills ">
 
-                <div id = "group_info" class="donate_detais_main">
+                <div id = "group_info" class="donate_details_main">
                     <div class="d-flex justify-content-center">
                         <?= $group->image();?>
                     </div>
@@ -56,7 +57,7 @@ get_header('dashboard');
                             <div class="d-flex align-items-center pt-2 pb-2">
                                 <div class="d-flex align-items-center">
                                     <h5 data-id="<?=$group->id(); ?>"><?= $group->title(); ?></h5>
-                                        <span data-id="<?php echo $post->ID; ?>"><?= $group->type(); ?></span>
+                                        <span data-id="<?php echo $group->id(); ?>"><?= $group->type(); ?></span>
                                 </div>
 
                             </div>
@@ -66,7 +67,7 @@ get_header('dashboard');
                                 <?php if ($group->currentUserIsLeader()) { // if user is leader, show the edit button ?>
                                     <div class="donate_btn_right">
 
-                                        <a href="<?php echo site_url('group-edit?id=' . $group_id) ?>">
+                                        <a href="<?php echo site_url('group-edit?id=' . $group->id()) ?>">
                                             <button class="btn now_donate">
                                                 <img src="<?php echo get_template_directory_uri(); ?>/assets/images/editImg.png">
                                                 Edit Group

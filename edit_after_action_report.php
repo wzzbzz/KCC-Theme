@@ -20,24 +20,7 @@
 
     $gid   =  $group_id;
 
-    //$gid=$_GET['gid'];
-
-   /* if(empty($gid)){
-
-         wp_redirect( 'login' );
-
-    }*/
-
-
-
-   /* $checkGroupExist = get_post($gid);
-
-    if( empty( $checkGroupExist)){
-
-        wp_redirect( 'login' );
-
-    }*/
-
+    
     $rdData = get_post($rf_id);
 
 

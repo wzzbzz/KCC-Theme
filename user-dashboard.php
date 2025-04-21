@@ -141,7 +141,7 @@ if (is_user_logged_in()) {
 
             <div class="donation_tab_pills profile-information-background">
 
-               <div class="donate_detais_main profile-information-container">
+               <div class="donate_details_main profile-information-container">
 
                   <div class="profile-information-column">
                      <!-- first the user avatar -->

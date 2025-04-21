@@ -22,8 +22,13 @@ class User extends \jwc\Wordpress\WPUser{
     public function myGroups(){
         $group_ids = $this->group_ids();
 
+        $groups = [];
         foreach($group_ids as $group_id){
             $post = get_post($group_id);
+            if(empty($post)){
+                continue;
+            }
+           
             if($post->post_status == 'publish'){
                 $groups[] = new Group($group_id);
             }
@@ -104,6 +109,8 @@ class User extends \jwc\Wordpress\WPUser{
         // get all the reports for all of my groups who have the taxonomy term of $report_slug
         $args = array(
             'post_type' => 'kcc_report',
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
             'tax_query' => array(
                 array(
                     'taxonomy' => 'kcc_report_type',
@@ -121,10 +128,11 @@ class User extends \jwc\Wordpress\WPUser{
         );
         
         $group_posts =  get_posts($args);
-
         // now get all the reports with audience of 'all-rrn-users'
         $args = array(
             'post_type' => 'kcc_report',
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
             'tax_query' => array(
                 array(
                     'taxonomy' => 'kcc_report_type',
@@ -140,8 +148,10 @@ class User extends \jwc\Wordpress\WPUser{
                 )
             )
         );
+        
 
         $all_rrn_posts = get_posts($args);
+ 
 
         $posts = array_merge($group_posts, $all_rrn_posts);
 
@@ -167,7 +177,21 @@ class User extends \jwc\Wordpress\WPUser{
         $query = new \WP_Query($args);
         $posts = [];
         foreach($query->posts as $post){
-            $posts[] = new \jwc\Wordpress\WPPost($post->ID);
+            $posts[] = new \KCC\Communications\BlogPost($post->ID);
+        }
+        return $posts;
+    }
+
+    public function myAnnouncements(){
+        $args = array(
+            'post_type' => 'announcement',
+            'author' => $this->id(),
+            'posts_per_page' => -1
+        );
+        $query = new \WP_Query($args);
+        $posts = [];
+        foreach($query->posts as $post){
+            $posts[] = new \KCC\Communications\Announcement($post->ID);
         }
         return $posts;
     }

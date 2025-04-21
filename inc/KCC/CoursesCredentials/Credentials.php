@@ -7,5 +7,5 @@
 namespace KCC\CoursesCredentials;
 
 
-class Credentials extends \jwc\Wordpress\WPCollection{
+class Credentials extends \jwc\Wordpress\WPController{
 }

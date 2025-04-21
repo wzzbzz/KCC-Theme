@@ -31,28 +31,28 @@ $schema = [
                         "fields" => [
                             [
                                 "type" => "number",
-                                "name" => "intake_phone",
+                                "name" => "client_phone",
                                 "label" => "Primary Telephone",
                                 "required" => true,
                                 "maxLength" => 10
                             ],
                             [
                                 "type" => "text",
-                                "name" => "intake_firstName",
+                                "name" => "client_firstName",
                                 "label" => "Client First Name",
                                 "required" => true,
                                 "readonly" => true
                             ],
                             [
                                 "type" => "text",
-                                "name" => "intake_lastName",
+                                "name" => "client_lastName",
                                 "label" => "Client Last Name",
                                 "required" => true,
                                 "readonly" => true
                             ],
                             [
                                 "type" => "text",
-                                "name" => "intake_address",
+                                "name" => "client_address",
                                 "label" => "Address",
                                 "required" => true
                             ],
@@ -90,13 +90,13 @@ $schema = [
                             ],
                             [
                                 "type" => "number",
-                                "name" => "intake_phone2",
+                                "name" => "client_phone2",
                                 "label" => "Alternative Telephone",
                                 "maxLength" => 10
                             ],
                             [
                                 "type" => "select",
-                                "name" => "intake_contact_time",
+                                "name" => "client_preferred_contact_time",
                                 "label" => "Best Time to Contact",
                                 "options" => [
                                     ["value" => "", "label" => "Select Time", "default" => true],

@@ -238,7 +238,7 @@
 
                                                                     <div class="content-para">
 
-                                                                        <p><?php echo get_post_meta($report_id,'intake_firstName',true)?> <?php echo get_post_meta($report_id,'intake_lastName',true)?></p>
+                                                                        <p><?php echo get_post_meta($report_id,'client_firstName',true)?> <?php echo get_post_meta($report_id,'client_lastName',true)?></p>
 
                                                                     </div>    
 
@@ -306,7 +306,7 @@
 
                                                                     <div class="content-para">
 
-                                                                        <p><?php echo get_post_meta($report_id,'intake_address',true)?></p>
+                                                                        <p><?php echo get_post_meta($report_id,'client_address',true)?></p>
 
                                                                     </div>    
 
@@ -346,7 +346,7 @@
 
                                                                     <div class="content-para">
 
-                                                                        <p><?php echo get_post_meta($report_id,'intake_phone',true)?></p>
+                                                                        <p><?php echo get_post_meta($report_id,'client_phone',true)?></p>
 
                                                                     </div>    
 
@@ -364,7 +364,7 @@
 
                                                                     <div class="content-para">
 
-                                                                        <p><?php echo get_post_meta($report_id,'intake_phone2',true)?></p>
+                                                                        <p><?php echo get_post_meta($report_id,'client_phone2',true)?></p>
 
                                                                     </div>    
 
@@ -382,7 +382,7 @@
 
                                                                     <div class="content-para">
 
-                                                                        <p><?php echo get_post_meta($report_id,'intake_contact_time',true)?></p>
+                                                                        <p><?php echo get_post_meta($report_id,'client_preferred_contact_time',true)?></p>
 
                                                                     </div>    
 

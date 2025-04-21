@@ -40,8 +40,7 @@ class GroupDeclinedNotification extends Notification
             $this->body = sprintf("Hi %s,<br>" .
                 "We regretfully inform you that your group request for <strong>%s</strong> has been declined by the admin.<br>".
                 "Thank you,<br>" .
-                "Tech Support at World Cares Center
-",
+                "Tech Support at World Cares Center",
                 $recipient->name(), $this->group->name());
         parent::send_email($recipient);
         

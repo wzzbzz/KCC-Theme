@@ -872,7 +872,7 @@ input.dropdown-item{
 }
 
 .modal-width-change .modal-dialog{
-	width: unset!important;
+	/* width: unset!important; */
 }
 .modal-width-change input[type=email], input[type=number], input[type=password], input[type=reset], input[type=search], input[type=tel], input[type=text], input[type=url], select, textarea{
 	background: unset;
@@ -1059,9 +1059,7 @@ label {
 .modal .create-feed-modal{
 	width: unset;
 }
-.modal .modal-dialog{
-	width: unset!important;
-}
+
 .create-feed-modal .form-group{
 	margin-top: 25px;
 	margin-bottom: 0px;
@@ -2528,6 +2526,8 @@ label {
 
 .form-error{
 	display:none;
+	color: red;
+	font-size: 12px;
 }
 
 
@@ -2580,6 +2580,7 @@ label {
 	font-size: 16px;
 	color: #132843;
 }
+
 .create-report .form-box .report-next-tab .all-form .main-form-section .title h3{
 	font-size: 16px;
 	color: #132843;	
@@ -2602,18 +2603,18 @@ label {
 	position: relative;
 }
 .create-report .form-box .report-next-tab .all-form .main-form-section .form-group label{
-	position:absolute;
+	/* position:absolute; */
 	top: 8px;
 	left: 0px;
 }
 .create-report .form-box .report-next-tab .all-form .main-form-section .form-group input{
-	position: absolute;
-    bottom: 6px;
-    left: 0px;
+	/* position: absolute; */
+    /* bottom: 6px;
+    left: 0px; */
 }
 
 .create-report .form-box .report-next-tab .all-form .main-form-section .form-group textarea{
-	position: absolute;
+	/* position: absolute; */
     bottom: -50px;
     left: 0px;
 }
@@ -2625,7 +2626,7 @@ label {
 }
 
 .create-report .form-box .report-next-tab .all-form .main-form-section .form-group .form-control{
-	border: 0px;
+	border: 1px solid #e8e8e8;
 	border-radius: 9px;
 }
 .create-report .form-box .report-next-tab .all-form .main-form-section .custom-control-inline{

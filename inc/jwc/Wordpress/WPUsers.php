@@ -2,7 +2,7 @@
 
 namespace jwc\Wordpress;
 
-class WPUsers extends WPCollection{
+class WPUsers extends WPController{
     public function __construct( $user_id )
     {
         parent::__construct( $user_id);

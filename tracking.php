@@ -772,7 +772,7 @@ span.group_info {
 
                                                     
 
-                                                    <td><?php echo get_post_meta($rid,'intake_firstName',true)?> <?php echo get_post_meta($rid,'intake_lastName',true)?></td>
+                                                    <td><?php echo get_post_meta($rid,'client_firstName',true)?> <?php echo get_post_meta($rid,'client_lastName',true)?></td>
 
                                                   
 
@@ -1270,7 +1270,7 @@ span.group_info {
 
                                                         <td><?php echo get_user_meta($reportAuthor,'city',true)?></td>
 
-                                                        <td><?php echo get_post_meta($rid,'intake_firstName',true)?> <?php echo get_post_meta($rid,'intake_lastName',true)?></td>
+                                                        <td><?php echo get_post_meta($rid,'client_firstName',true)?> <?php echo get_post_meta($rid,'client_lastName',true)?></td>
 
                                                         <td style="width:12%;">
 

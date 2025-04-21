@@ -258,7 +258,7 @@ function clickfunction(id, content, img) {
 
 $(document).ready(function () {
 
-    $("#serach_user").on("keyup", function () {
+    $("#search_user").on("keyup", function () {
 
         var value = $(this).val().toLowerCase();
 

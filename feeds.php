@@ -134,7 +134,7 @@ li.my_feeds a.nav-link{ width:160px; padding:15px 0px;}
 
                 <div class="donation_tab_pills col-xl-11">
 
-                    <div class="donate_detais_main">
+                    <div class="donate_details_main">
 
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/detail_click.png" class="img-fluid membergroup-img" alt="image">
 

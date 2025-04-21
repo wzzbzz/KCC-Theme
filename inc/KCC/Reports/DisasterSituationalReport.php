@@ -5,7 +5,7 @@ namespace KCC\Reports;
 
 class DisasterSituationalReport extends Report{
 
-
+    
     private $form_data = "{
         'sections': [
             id: 'disaster_details',
@@ -13,6 +13,8 @@ class DisasterSituationalReport extends Report{
             gr
         ]
     }";
+
+    protected $has_applications = false;
     
 
     public function incident_location(){
@@ -131,33 +133,33 @@ class DisasterSituationalReport extends Report{
         return $this->meta('alt_contact_phone');
     }
 
-    public function disaster_type(){
-        // should be an array
-        $disaster_type =  $this->meta('disaster_type');
-        // split it on the comma
-        $disaster_type = explode(',', $disaster_type);
-        // return the array
-        
-        return $disaster_type;
-    }
-
-    public function disaster_type_description(){
-        return $this->meta('disaster_type_description');
-    }
-
     public function logistic_type(){
         $logistic_type = $this->meta('logistic_type');
+        // if it's an array, return it
+        if(is_array($logistic_type)){
+            return $logistic_type;
+        }
+        
         return explode(',', $logistic_type);
     }
 
     public function ground_situation_description(){
-        return $this->meta('ground_situation_description');
+        $ground_situation_description = $this->meta('ground_situation_description');
+        if(is_array($ground_situation_description)){
+            return $ground_situation_description;
+        }
+        
+        return explode(',', $ground_situation_description);
+        
     }
 
     public function sheltering_options(){
-        // split on comma and return as array
-        $options = $this->meta('sheltering_options');
-        return explode(',', $options);
+        // if it's an array, return it
+        $sheltering_options = $this->meta('sheltering_options');
+        if(is_array($sheltering_options)){
+            return $sheltering_options;
+        }
+        return explode(',', $sheltering_options);
     }
 
     public function recommended_point_of_entry(){
@@ -190,6 +192,11 @@ class DisasterSituationalReport extends Report{
 
     public function utilities(){
         $utilities = $this->meta('utilities');
+        // if it's an array, return it
+        if(is_array($utilities)){
+            return $utilities;
+        }
+
         return explode(',', $utilities);
     }
 

@@ -468,10 +468,6 @@ class DisasterSituationalReportForm extends Form
     public function __construct($report_id = null)
     {
         parent::__construct($report_id);
-
-        if (get_current_user_id() == 847) {
-            $this->autofill = true;
-        }
     }
 
 
@@ -485,15 +481,24 @@ class DisasterSituationalReportForm extends Form
     {
         if ($this->report_post_id()) {
             $country = $this->report->incident_country();
-        }
-        else{
+        } else {
             // get the current user's country
             $user = new User(get_current_user_id());
             $country = $user->country();
         }
 
         return $this->selectIfReportValueMatches($country, 'incident_country');
+    }
 
+    public function disaster_name()
+    {
+        if ($this->report_post_id()) {
+            return $this->report->disaster_name();
+        }
+        if ($this->autofill) {
+            return 'Hurricane Sandy';
+        }
+        return '';
     }
 
     public function incident_country()
@@ -778,7 +783,7 @@ class DisasterSituationalReportForm extends Form
     {
         if ($this->report_post_id()) {
             $logistic_type = $this->report->logistic_type();
-            
+
             if (in_array($type, $logistic_type)) {
                 return 'checked';
             }
@@ -790,7 +795,16 @@ class DisasterSituationalReportForm extends Form
     {
         if ($this->report_post_id()) {
             $ground_situation = $this->report->ground_situation_description();
-            if ($ground_situation == $type) {
+            
+            // it's an array
+            if (is_array($ground_situation)) {
+                if (in_array($type, $ground_situation)) {
+                    return 'checked';
+                }
+            } else {
+                // it's a string
+                $ground_situation = explode(',', $ground_situation);
+                
                 return 'checked';
             }
         }
@@ -897,7 +911,7 @@ class DisasterSituationalReportForm extends Form
 
                         <div class="all-form">
 
-                            <form id="myForm" name="form" method="POST" action="" class="row mediadoc_form" id="disaster_media" enctype="multipart/form-data">
+                            <form id="myForm" name="form" method="POST" action="" class="row" id="disaster_media">
 
                                 <?= $this->render_hidden_fields(); ?>
 
@@ -925,9 +939,9 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Name of the Disaster *</label>
 
-                                                    <input type="text" class="form-control dis_name" name="post_title" Placeholder="Enter report name" value="<?= $this->report_title(); ?>" required>
+                                                    <input type="text" class="form-control dis_name" name="disaster_name" Placeholder="Enter disaster_name" value="<?= $this->disaster_name(); ?>">
 
-                                                    <div class="marker form-error" id="post_title_error"></div>
+                                                    <div class="form-error" id="disaster_name"></div>
 
                                                 </div>
 
@@ -947,21 +961,22 @@ class DisasterSituationalReportForm extends Form
 
                                                 <div class="form-group">
 
-                                                    <select class="form-control dis_country" name="incident_country" onchange="getCountries()" id="country" required>
+                                                    <label>Country *</label>
 
-                                                        <option value="">Select Country*</option>
-
-                                                        <?php foreach (Forms::allCountries() as $country) { ?>
-
-                                                            <option value="<?= $country->name; ?>" <?= $this->selectIfReportValueMatches('incident_country',$country->name); ?> data-value="<?= $country->id; ?>"><?= $country->name; ?></option>
-
-                                                        <?php } ?>
-
-                                                    </select>
+                                                    <?php 
+                                                        $args = [
+                                                            'id' => 'incident_country',
+                                                            'name' => 'incident_country',
+                                                            'selected' => $this->incident_country(),
+                                                            'change_target' => 'state',
+                                                            'required' => true,
+                                                        ];
+                                                        echo Forms::countrySelect($args); 
+                                                    ?>
 
                                                 </div>
 
-                                                <div class="marker form-error" id="incident_country_error">Please Select a Country</div>
+                                                <div class="form-error" id="incident_country_error">Please Select a Country</div>
 
                                             </div>
 
@@ -969,24 +984,22 @@ class DisasterSituationalReportForm extends Form
 
                                                 <div class="form-group">
 
-                                                    <!--<label>State *</label>-->
+                                                    <label>State *</label>
 
-                                                    <select class="form-control dis_state" name="incident_state" onchange="" id="state" required>
-
-                                                        <option value="">Select State*</option>
-                                                        <?php if (!empty($this->incident_state())):
-
-                                                            $states = Forms::statesByCountryName($this->incident_country());
-                                                            foreach ($states as $state): ?>
-                                                                <option value="<?= $state->name; ?>" <?= $this->selectIfReportValueMatches("incident_state",$state->name); ?> data-value="<?= $state->id; ?>"><?= $state->name; ?></option>
-                                                            <?php endforeach; ?>
-                                                        <?php endif; ?>
-
-                                                    </select>
+                                                    <?php
+                                                    $args = [
+                                                        'id' => 'incident_state',
+                                                        'name' => 'incident_state',
+                                                        'selected' => $this->incident_state(),
+                                                        'country' => $this->incident_country(),
+                                                        'change_target' => null,
+                                                        'required' => true,
+                                                    ];
+                                                    Forms::stateSelect($args); ?>
 
                                                 </div>
 
-                                                <div class="marker form-error" id="incident_state_error">Please select a State</div>
+                                                <div class="form-error" id="incident_state_error">Please select a State</div>
 
                                             </div>
 
@@ -1003,7 +1016,7 @@ class DisasterSituationalReportForm extends Form
 
                                                 </div>
 
-                                                <div class="marker form-error" id="incident_city_error">Please enter the city</div>
+                                                <div class="form-error" id="incident_city_error">Please enter the city</div>
 
                                             </div>
 
@@ -1015,7 +1028,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <input type="text" class="form-control dis_address" name="incident_location" placeholder="Street Address" value="<?= $this->incident_location(); ?>" required>
 
-                                                    <div class="marker form-error" id="incident_address_error">Please enter the Address</div>
+                                                    <div class="form-error" id="incident_address_error">Please enter the Address</div>
 
                                                 </div>
 
@@ -1028,7 +1041,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <input type="text" class="form-control dis_address" name="incident_zip" placeholder="Zip Code" value="<?= $this->incident_zipcode(); ?>" required>
 
-                                                    <div class="marker form-error" id="incident_zip_error">Please enter a valid zipcode</div>
+                                                    <div class="form-error" id="incident_zip_error">Please enter a valid zipcode</div>
 
                                                 </div>
 
@@ -1037,12 +1050,6 @@ class DisasterSituationalReportForm extends Form
                                         </div>
 
                                         <div class="row">
-
-                                            <!-- <div class="col-lg-5 d-flex justify-content-end">
-
-                                     <button class="btn btn-outline-primary" title="Save Draft">Save Draft</button>
-
-                                </div> -->
 
                                             <div class="col-lg-12 d-flex justify-content-center">
                                                 <a href="javascript:void(0);" class="btn btn-primary btn-disabled step-button form-next" title="Next" id="step-btn-1">Next</a>
@@ -1145,7 +1152,7 @@ class DisasterSituationalReportForm extends Form
 
                                             </div>
 
-                                            <div class="marker form-error" id="incident_date_error">Please enter the incident date</div>
+                                            <div class="form-error" id="incident_date_error">Please enter the incident date</div>
 
                                         </div>
 
@@ -1159,7 +1166,7 @@ class DisasterSituationalReportForm extends Form
 
                                             </div>
 
-                                            <div class="marker form-error" id="incident_time_error">Please enter the incident time</div>
+                                            <div class="form-error" id="incident_time_error">Please enter the incident time</div>
 
                                         </div>
 
@@ -1167,14 +1174,8 @@ class DisasterSituationalReportForm extends Form
 
                                     <div class="row">
 
-                                        <!-- <div class="col-lg-6 d-flex justify-content-end">
-
-                                <button class="btn btn-outline-primary" title="Save Draft">Save Draft</button>
-
-                            </div> -->
-
                                         <div class="col-lg-12 d-flex justify-content-center">
-                                           <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
+                                            <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
                                             <a href="javascript:void(0);" class="btn btn-primary  step-button form-next" title="Next">Next</a>
 
                                         </div>
@@ -1207,7 +1208,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <input type="text" name="organization" class="form-control dis_org" placeholder="Enter " value="<?= $this->organization(); ?>" required>
 
-                                                    <div class="marker form-error" id="org_error">Please enter the organization name</div>
+                                                    <div class="form-error" id="org_error">Please enter the organization name</div>
 
                                                 </div>
 
@@ -1221,7 +1222,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <input type="text" class="form-control dis_person" name="contact_person" placeholder="Enter Name" value="<?= $this->contact_name(); ?>" required>
 
-                                                    <div class="marker form-error" id="person_error">Please enter the contact person name</div>
+                                                    <div class="form-error" id="person_error">Please enter the contact person name</div>
 
                                                 </div>
 
@@ -1235,7 +1236,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <input type="text" class="form-control dis_title" name="contact_title" placeholder="Enter title" value="<?= $this->contact_title(); ?>">
 
-                                                    <div class="marker form-error" id="title_error">Please enter the contact's title</div>
+                                                    <div class="form-error" id="title_error">Please enter the contact's title</div>
 
                                                 </div>
 
@@ -1249,8 +1250,8 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Email Address *</label>
 
-                                                    <input type="text" class="form-control" id="contact_email" name="contact_email" placeholder="Enter email" value="<?= $this->contact_email(); ?>">
-                                                    
+                                                    <input type="text" class="form-control" id="contact_email" name="contact_email" placeholder="Enter email" value="<?= $this->contact_email(); ?>" required>
+
 
                                                 </div>
 
@@ -1262,11 +1263,9 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Phone *</label>
 
+                                                    <input type="number" id="phone" class="form-control dis_phone" name="contact_phone" placeholder="Enter phone no." value="<?= $this->contact_phone(); ?>" required>
 
-
-                                                    <input type="number" id="phone" class="form-control dis_phone" name="contact_phone" placeholder="Enter phone no." value="<?= $this->contact_phone(); ?>">
-
-                                                    <div class="marker form-error" id="phone_error">Please enter the contact's phone #</div>
+                                                    <div class="form-error" id="phone_error">Please enter the contact's phone #</div>
 
                                                 </div>
 
@@ -1278,9 +1277,9 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Address *</label>
 
-                                                    <input type="text" class="form-control con_dis_address" name="contact_address" placeholder="Enter Address" value="<?= $this->contact_address(); ?>">
+                                                    <input type="text" class="form-control con_dis_address" name="contact_address" placeholder="Enter Address" value="<?= $this->contact_address(); ?>" required>
 
-                                                    <div class="marker form-error" id="con_dis_address_error"></div>
+                                                    <div class="form-error" id="con_dis_address_error">Please enter the contact's address</div>
 
                                                 </div>
 
@@ -1294,7 +1293,16 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Country</label>
 
-                                                    <input type="text" class="form-control dis_country" name="contact_country" value="<?= $this->contact_country(); ?>">
+                                                    <?php 
+                                                        $args = [
+                                                            'id' => 'contact_country',
+                                                            'name' => 'contact_country',
+                                                            'selected' => $this->contact_country(),
+                                                            'change_target' => 'contact_state',
+                                                            'required' => true,
+                                                        ];
+                                                        echo Forms::countrySelect($args); 
+                                                    ?>
 
                                                 </div>
 
@@ -1308,7 +1316,18 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>State</label>
 
-                                                    <input type="text" class="form-control dis_state" name="contact_state" value="<?= $this->contact_state(); ?>">
+                                                    <?php
+                                                    $args = [
+                                                        'id' => 'contact_state',
+                                                        'name' => 'contact_state',
+                                                        'selected' => $this->contact_state(),
+                                                        'country' => $this->contact_country(),
+                                                        'change_target' => null,
+                                                        'required' => true,
+                                                    ];
+                                                    
+                                                    echo Forms::stateSelect($args); 
+                                                    ?>
 
                                                 </div>
 
@@ -1334,7 +1353,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <label>Zip Code *</label>
 
-                                                    <input type="number" class="form-control dis_zip" id="contact_zipcode" name="contact_zipcode" placeholder="Enter " value="<?= $this->contact_zipcode(); ?>">
+                                                    <input type="number" class="form-control dis_zip" id="contact_zipcode" name="contact_zipcode" placeholder="Enter " value="<?= $this->contact_zipcode(); ?>" required>
 
                                                 </div>
 
@@ -1348,7 +1367,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <input type="text" class="form-control dis_web" id="contact_website" name="contact_website" placeholder="Enter Website  Url " value="<?= $this->contact_website(); ?>">
 
-                                                    <div class="marker form-error" id="web_error"></div>
+                                                    <div class="form-error" id="web_error"></div>
 
                                                 </div>
 
@@ -1372,7 +1391,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <input type="text" class="form-control dis_conorg" id="alt_org" name="alt_org" value="<?= $this->alternate_contact_organization(); ?>">
 
-                                                    <div class="marker form-error" id="conorg_error"></div>
+                                                    <div class="form-error" id="conorg_error"></div>
 
                                                 </div>
 
@@ -1386,7 +1405,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <input type="text" class="form-control dis_conp" id="alt_contact_person" name="alt_contact_person" placeholder="Enter " value="<?= $this->alternate_contact_person(); ?>">
 
-                                                    <div class="marker form-error" id="con_person_error"></div>
+                                                    <div class="form-error" id="con_person_error"></div>
 
                                                 </div>
 
@@ -1400,7 +1419,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <input type="text" class="form-control dis_cont" id="alt_contact_title" name="alt_contact_title" placeholder="Enter title " value="<?= $this->alternate_contact_title(); ?>">
 
-                                                    <div class="marker form-error" id="con_title_error"></div>
+                                                    <div class="form-error" id="con_title_error"></div>
 
                                                 </div>
 
@@ -1414,7 +1433,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <input type="text" class="form-control dis_conemail" id="alt_contact_email" name="alt_contact_email" placeholder="Enter email" value="<?= $this->alternate_contact_email(); ?>">
 
-                                                    <div class="marker form-error" id="con_email_error"></div>
+                                                    <div class="form-error" id="con_email_error"></div>
 
                                                 </div>
 
@@ -1428,7 +1447,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     <input type="number" id="phone" class="form-control dis_conphone" id="alt_contact_phone" name="alt_contact_phone" placeholder="Enter " value="<?= $this->alternate_contact_phone(); ?>">
 
-                                                    <div class="marker form-error" id="con_phone_error"></div>
+                                                    <div class="form-error" id="con_phone_error"></div>
 
                                                 </div>
 
@@ -1438,14 +1457,8 @@ class DisasterSituationalReportForm extends Form
 
                                         <div class="row">
 
-                                            <!-- <div class="col-lg-6 d-flex justify-content-end">
-
-                                    <button class="btn btn-outline-primary" title="Save Draft">Save Draft</button>
-
-                                </div> -->
-
                                             <div class="col-lg-12 d-flex justify-content-center">
-                                              <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
+                                                <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
                                                 <a href="javascript:void(0);" class="btn btn-primary step-button form-next" title="Next">Next</a>
 
                                             </div>
@@ -1460,13 +1473,13 @@ class DisasterSituationalReportForm extends Form
 
                                     <div>
 
-                                       <?= $this->render_disaster_types(); ?>
+                                        <?= $this->render_disaster_types(); ?>
 
                                         <div class="row">
 
                                             <div class="col-lg-12 d-flex justify-content-center">
-                                               <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
-                                               <a href="javascript:void(0);" class="btn btn-primary step-button form-next" title="Next" id="">Next</a>
+                                                <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
+                                                <a href="javascript:void(0);" class="btn btn-primary step-button form-next" title="Next" id="">Next</a>
 
                                             </div>
 
@@ -1526,7 +1539,7 @@ class DisasterSituationalReportForm extends Form
 
                                                 </div>
 
-                                                <div class="marker form-error" id="ground_error"></div>
+                                                <div class="form-error" id="ground_error"></div>
 
                                             </div>
 
@@ -1563,12 +1576,12 @@ class DisasterSituationalReportForm extends Form
                                                     <select class="form-control set-postion security" name="security_concerns">
 
                                                         <?php foreach ($this->security_concerns as $security_concern) { ?>
-                                                            <option value="<?= $security_concern['value']?>" <?= $this->security_concern_selected($security_concern['value']) ?>><?= $security_concern['label']; ?></option>
+                                                            <option value="<?= $security_concern['value'] ?>" <?= $this->security_concern_selected($security_concern['value']) ?>><?= $security_concern['label']; ?></option>
                                                         <?php } ?>
 
                                                     </select>
 
-                                                    <div class="marker form-error" id="sec_error"></div>
+                                                    <div class="form-error" id="sec_error"></div>
 
                                                 </div>
 
@@ -1605,7 +1618,7 @@ class DisasterSituationalReportForm extends Form
 
 
 
-                                                    <div class="marker form-error" id="shelter_error"></div>
+                                                    <div class="form-error" id="shelter_error"></div>
 
 
 
@@ -1629,7 +1642,7 @@ class DisasterSituationalReportForm extends Form
 
                                                     </select>
 
-                                                    <div class="marker form-error" id="uti_error"></div>
+                                                    <div class="form-error" id="uti_error"></div>
 
                                                 </div>
 
@@ -1665,7 +1678,7 @@ class DisasterSituationalReportForm extends Form
                                         <div class="row">
 
                                             <div class="col-lg-12 d-flex justify-content-center">
-                                               <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
+                                                <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
                                                 <a href="javascript:void(0);" class="btn btn-primary step-button form-next" title="Next" id="">Next</a>
 
                                             </div>
@@ -1688,7 +1701,7 @@ class DisasterSituationalReportForm extends Form
                                             <?= $this->render_audience_section(); ?>
                                             <div class="col-lg-12 d-flex justify-content-center">
                                                 <a href="javascript:void(0);" class="btn btn-primary step-button form-back" title="Back">Back</a>
-                                                <button class="btn btn-outline-primary" value="save" name="save" title="Save Draft">Submit</button>
+                                                <button class="btn btn-outline-primary" value="save" name="save" title="Submit">Submit</button>
                                             </div>
 
                                         </div>

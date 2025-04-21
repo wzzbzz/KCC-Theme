@@ -5,15 +5,15 @@
 if ( is_user_logged_in() ) {
 
 get_header('dashboard'); 
-//include 'aq_resizer.php';
+include 'aq_resizer.php';
 ?>
+<style>
+    
+</style>
 
 <div class="col-xl-12 ">
 
         <div class="row justify-content-end mt-3">
-
-
-
 
             <div class="col-xl-11 col-lg-11 col-md-11 col-10  my-4">
 
@@ -66,26 +66,6 @@ get_header('dashboard');
             <div class="col-xl-11 col-lg-11 col-md-11 col-10  my-4">
 
                <div class="donation_tab_pills ">
-
-                  <div class="btn_list">
-
-                    <a href="#" class="mr-4">
-
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/plus_icon.png" class="img-fluid mr-2">
-
-                        Create a New
-
-                    </a>
-
-                    <a href="#">
-
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/group_icon.png" class="img-fluid mr-2">
-
-                        Filter By
-
-                    </a>
-
-                  </div>
 
                   <div class="blog_grid">
 
@@ -255,4 +235,4 @@ get_header('dashboard');
 
     </div>
 
-<?php get_footer('new'); }?>
+<?php get_footer(); }?>

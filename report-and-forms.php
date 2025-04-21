@@ -518,7 +518,7 @@
 
           <div class="donation_tab_pills col-xl-11">
 
-            <div class="donate_detais_main">
+            <div class="donate_details_main">
 
               <img
 

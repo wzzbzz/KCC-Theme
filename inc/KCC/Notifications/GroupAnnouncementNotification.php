@@ -28,7 +28,7 @@ class GroupAnnouncementNotification extends Notification{
         $user_id = get_current_user_id();
         $this->user = new \KCC\User($user_id);
 
-        $this->announcement_id = $args['announcement_id'] ?? '';
+        $this->announcement_id = $args['post_id'] ?? '';
 
         if (empty($this->announcement_id)) {
             die("no announcement_id");
@@ -51,8 +51,8 @@ class GroupAnnouncementNotification extends Notification{
                         Announcement: %s <br>
                         View Announcement: <a href='" . $this->announcement->permalink() . "'>". $this->announcement->permalink()."</a><br>
                         Thank you,<br>
-                        Tech Support at World Cares Center
-", $recipient->name(), $this->announcement->author()->name(), $this->group->name(), $this->announcement->title());
+                        Tech Support at World Cares Center",
+                        $recipient->name(), $this->announcement->author()->name(), $this->group->name(), $this->announcement->title());
 
         parent::send_email($recipient);
     }

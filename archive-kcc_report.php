@@ -83,15 +83,8 @@ get_header('dashboard'); ?>
 
 
         <div class="col-xl-11 col-lg-11 col-md-11 col-10 mt-2 mb-4 donation_tab_pills ">
-
-         
-
-        
-
             <div class="main_table_sec">
-
                <?php 
-
                        // $myResults = search_DisasterReport();
 
                           if(isset($_GET['submit']))

@@ -44,7 +44,7 @@ class GroupApprovalRequestSubmittedNotification extends Notification
             $this->body = sprintf("Hi %s,<br>" .
                 "Your group <strong>%s</strong> has been submitted for approval.  You will be notified when the admin takes action.<br>
                 No action is required at this time.<br>
-                With love,<br>
+                Thank you,<br>
                 Tech Support at World Cares Center", $recipient->name(), $this->group->name());
 
             parent::send_email($recipient);

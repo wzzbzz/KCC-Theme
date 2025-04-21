@@ -3,10 +3,9 @@
 namespace KCC\Communications;
 
 
-class Announcement extends \jwc\Wordpress\WPPost{
+class Announcement extends BroadcastPost{
 
-    public function group_id(){
-        return $this->meta('announcement_group_id');
-    }
+    protected $post_type = 'announcement';
+    protected $type='announcement';
 
 }

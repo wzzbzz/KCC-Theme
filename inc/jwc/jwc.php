@@ -11,44 +11,52 @@
  * 
  **/
 
-// make an autoload function for the /jwc/Wordpress directory
-spl_autoload_register(function ($class) {
-    
-    // Define the base directory for the namespace prefix
-    $baseDir = __DIR__."/";
 
-    // Project-specific namespace prefix
-    $prefix = 'jwc\\Wordpress\\';
+require __DIR__ . "/utilities.php";
 
-    // Does the class use the namespace prefix?
-    $len = strlen($prefix);
-    if (strncmp($prefix, $class, $len) !== 0) {
-        // If the class does not use the namespace prefix, move to the next registered autoloader
-        return;
+class jwc
+{
+    public function __construct()
+    {
+        spl_autoload_register(array($this, 'autoload'));
+
+        add_shortcode('jwc', array($this, 'shortcode'));
     }
-    
-    // strip jwc
-    $class = str_replace('jwc\\', '', $class);
-    
-    // Replace the namespace prefix with the base directory, replace namespace separators with directory separators
-    $file = $baseDir . str_replace('\\', '/', $class) . '.php';
-    // If the file exists, require it
-    if (file_exists($file)) {
-        require $file;
+
+    function autoload($class)
+    {
+
+        // Define the base directory for the namespace prefix
+        $baseDir = __DIR__ . "/";
+
+        // Project-specific namespace prefix
+        $prefix = 'jwc\\Wordpress\\';
+
+        // Does the class use the namespace prefix?
+        $len = strlen($prefix);
+        if (strncmp($prefix, $class, $len) !== 0) {
+            // If the class does not use the namespace prefix, move to the next registered autoloader
+            return;
+        }
+
+        // strip jwc
+        $class = str_replace('jwc\\', '', $class);
+
+        // Replace the namespace prefix with the base directory, replace namespace separators with directory separators
+        $file = $baseDir . str_replace('\\', '/', $class) . '.php';
+        // If the file exists, require it
+        if (file_exists($file)) {
+            require $file;
+        }
     }
-});
 
-// my debug function
-function pre($data) {
-    // Get the debug backtrace
-    $debugBacktrace = debug_backtrace();
-    // Get the line number from where pre() was called
-    $line = $debugBacktrace[0]['line'];
-    // Get the file name from where pre() was called
-    $file = $debugBacktrace[0]['file'];
-
-    echo "<pre>";
-    echo "Called from $file on line $line\n";
-    var_dump($data);
-    echo "</pre>";
+    function shortcode($atts, $content = null, $tag = ''){
+        $o = "";
+        
+        $o .= do_shortcode("[TheOddsApi sport='basketball_nba' region='us' mkt='h2h' oddsFormat='decimal']");
+        
+        return $o;
+    }
 }
+
+new jwc();

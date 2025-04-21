@@ -2,7 +2,6 @@
 
    /* Template Name: Create After Action Report Form */
 
-   
 
    global $wpdb;
 

@@ -2,7 +2,7 @@
 
 namespace KCC\Reports;
 
-class ReportTypes extends \jwc\Wordpress\WPCollection{
+class ReportTypes extends \jwc\Wordpress\WPController{
 
     public function init(){
         parent::init();
@@ -15,8 +15,6 @@ class ReportTypes extends \jwc\Wordpress\WPCollection{
         if($taxonomy == 'kcc_report_type'){
             return get_site_url() . '/reports/' . $term->slug;
         }
-        pre($termlink);
-        die;
         return $termlink;
     }
 }

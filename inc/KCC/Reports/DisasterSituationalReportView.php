@@ -6,8 +6,7 @@ class DisasterSituationalReportView extends ReportView
 {
 
    public function render()
-   {
-?>
+   {?>
       <div class="col-xl-12 main_content_disaster">
 
          <div class="row justify-content-end mt-3 main_content_disaster_row">
@@ -144,17 +143,6 @@ class DisasterSituationalReportView extends ReportView
 
                            </div>
 
-
-
-                           <!--<div>
-
-                        <h4>Street Address</h4>
-
-                        <p><? //php echo get_post_meta($this->report->id(),'incident_location',true)
-                           ?></p>
-
-                     </div>-->
-
                            <div>
 
                               <h4>Contact Person</h4>
@@ -229,17 +217,11 @@ class DisasterSituationalReportView extends ReportView
 
                               <div>
 
-
-
                                  <h4>State</h4>
 
                                  <p><?= $this->report->contact_state(); ?></p>
 
                               </div>
-
-
-
-
 
                               <div>
 
@@ -249,8 +231,6 @@ class DisasterSituationalReportView extends ReportView
 
                               </div>
 
-
-
                               <div>
 
                                  <h4>Zip code</h4>
@@ -259,17 +239,7 @@ class DisasterSituationalReportView extends ReportView
 
                               </div>
 
-
-
                            </div>
-
-
-
-
-
-
-
-
 
                         </div>
 
@@ -344,7 +314,7 @@ class DisasterSituationalReportView extends ReportView
                            <div>
 
                               <h4>Disaster</h4>
-                              <p><?= implode(",", $this->report->disaster_type()); ?></p>
+                              <p><?= $this->report->print_disaster_types(); ?></p>
 
                            </div>
 
@@ -468,11 +438,6 @@ class DisasterSituationalReportView extends ReportView
 
                   </div>
 
-               </div>
-
-            </div>
-
-         </div>
 
       </div>
    <?php
@@ -480,15 +445,14 @@ class DisasterSituationalReportView extends ReportView
 
 
    public function render_table_row()
-   {
-   ?>
+   {?>
       <tr class="bg-color">
 
          <td><?= $this->report->slug(); ?></td>
 
          <td><?= $this->report->date(); ?></td>
 
-         <td><?php echo $this->report->title(); ?></td>
+         <td><?= $this->report->title(); ?></td>
 
          <td>
             <?php if ($this->report->group()): ?>
@@ -502,7 +466,7 @@ class DisasterSituationalReportView extends ReportView
 
          <td><?= $this->report->city() ?></td>
 
-         <td><?= $this->report->contact_name() ?></td>
+         <td><?= $this->report->contact_person() ?></td>
 
          <td style="width:12%;">
 
@@ -524,8 +488,7 @@ class DisasterSituationalReportView extends ReportView
 
 
       public static function tableHeader()
-      {
-      ?>
+      {?>
       <th scope="col">Report No.</th>
 
       <th scope="col">Date</th>

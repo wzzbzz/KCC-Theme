@@ -12,27 +12,142 @@ $(document).ready(function () {
 
 
     $(".step-button.form-next").click(function () {
-        
+
         // get all inputs, selects, and textareas in the current step that have the required attribute
         var inputs = $('.form-section.active input[required], .form-section.active select[required], .form-section.active textarea[required]');
+
         var isValid = true;
         // loop through each input
         inputs.each(function () {
-            
-            // if the input is empty, mark it as invalid
-            if (!$(this).val()) {
-                $(this).addClass('is-invalid');
-                isValid = false;
-                // find the nearest form-error element and show it
-                $(this).closest('.form-group').siblings('.form-error').show();
-            } else {
-                $(this).removeClass('is-invalid');
-                $(this).closest('.form-group').siblings('.form-error').hide();
-            }
-        }
-        );
 
-        if(!isValid) {
+            switch ($(this).prop('type')) {
+                case 'radio':
+                    // if the radio is checked, mark it as valid
+                    if ($(this).is(':checked')) {
+                        $(this).removeClass('is-invalid');
+                        $(this).closest('.form-group').find('.form-error').hide();
+                    } else {
+                        // if the radio is not checked, mark it as invalid
+                        $(this).addClass('is-invalid');
+                        isValid = false;
+                        // find the nearest form-error element and show it
+                        $(this).closest('.form-group').find('.form-error').show();
+                    }
+                    break;
+                case 'checkbox':
+                    // if the checkbox is checked, mark it as valid
+                    if ($(this).is(':checked')) {
+                        $(this).removeClass('is-invalid');
+                        $(this).closest('.form-group').find('.form-error').hide();
+                    } else {
+                        // if the checkbox is not checked, mark it as invalid
+                        $(this).addClass('is-invalid');
+                        isValid = false;
+                        // find the nearest form-error element and show it
+                        $(this).closest('.form-group').find('.form-error').show();
+                    }
+                    break;
+                case 'select':
+                    // if the select is empty, mark it as invalid
+                    if (!$(this).val()) {
+                        $(this).addClass('is-invalid');
+                        isValid = false;
+                        // find the nearest form-error element and show it
+                        $(this).closest('.form-group').find('.form-error').show();
+                    } else {
+                        $(this).removeClass('is-invalid');
+                        $(this).closest('.form-group').find('.form-error').hide();
+                    }
+                    break;
+                case 'text':
+                case 'email':
+                case 'tel':
+                case 'search':
+                case 'number':
+                case 'password':
+                    // if the input is empty, mark it as invalid
+                    if (!$(this).val()) {
+                        $(this).addClass('is-invalid');
+                        isValid = false;
+                        // find the nearest form-error element and show it
+                        $(this).closest('.form-group').siblings('.form-error').show();
+                    } else {
+                        $(this).removeClass('is-invalid');
+                        $(this).closest('.form-group').siblings('.form-error').hide();
+                    }
+                    break;
+                case 'textarea':
+                    // if the textarea is empty, mark it as invalid
+                    if (!$(this).val()) {
+                        $(this).addClass('is-invalid');
+                        isValid = false;
+                        // find the nearest form-error element and show it
+                        $(this).closest('.form-group').siblings('.form-error').show();
+                    } else {
+                        $(this).removeClass('is-invalid');
+                        $(this).closest('.form-group').siblings('.form-error').hide();
+                    }
+                    break;
+                default:
+                    // if the input is empty, mark it as invalid
+                    if (!$(this).val()) {
+                        $(this).addClass('is-invalid');
+                        isValid = false;
+                        // find the nearest form-error element and show it
+                        $(this).closest('.form-group').siblings('.form-error').show();
+                    } else {
+                        $(this).removeClass('is-invalid');
+                        $(this).closest('.form-group').siblings('.form-error').hide();
+                    }
+                    break;
+            }
+        });
+        var conditionals = $('.form-section.active input[data-require-condition], .form-section.active select[data-require-condition], .form-section.active textarea[data-require-condition]');
+
+        conditionals.each(function () {
+            // the required condition is a form element id and a value
+            var condition = $(this).data('require-condition');
+            // split it on =
+            var parts = condition.split('=');
+            // the first part is the form element name
+            var name = parts[0];
+            // the second part is the value
+            var value = parts[1];
+            // find the radio button with the name = name and the value of value and the property checked
+            var formElement = $('input[name="' + name + '"][value="' + value + '"]');
+
+            if(!formElement.length) {
+                // don't do anything if the form element doesn't exist
+                return;
+            }
+
+            // log whether it's checked or not.
+            console.log(formElement.prop('checked'));
+
+            if (formElement.prop('checked')) {
+                // if the form element is checked, mark it as valid
+
+                // if the form element is not empty
+                if (formElement.val() == value) {
+                    // if the input is empty, mark it as invalid
+                    if (!$(this).val()) {
+                        $(this).addClass('is-invalid');
+                        isValid = false;
+                        // find the nearest form-error element and show it
+                        $(this).closest('.form-group').siblings('.form-error').show();
+                    } else {
+                        $(this).removeClass('is-invalid');
+                        $(this).closest('.form-group').siblings('.form-error').hide();
+                    }
+                } else {
+                    // if the form element is empty, hide the error message
+                    $(this).removeClass('is-invalid');
+                    $(this).closest('.form-group').siblings('.form-error').hide();
+                }
+            }
+
+        });
+        if (!isValid) {
             return;
         }
 
@@ -44,13 +159,18 @@ $(document).ready(function () {
 
         // add complete to current step
         $('.report-process').eq(index).addClass('complete');
-        
+
         // add active class to next step
         $('.report-process').eq(nextIndex).addClass('active');
 
         $('.form-section').eq(index).removeClass('active');
         $('.form-section').eq(nextIndex).addClass('active');
-        
+
+        // scroll to the top of the page
+        $('html, body').animate({
+            scrollTop: $('.reports-top').offset().top
+        }, 500);
+
     });
 
     $(".step-button.form-back").click(function () {
@@ -61,67 +181,36 @@ $(document).ready(function () {
         $('.report-process').removeClass('active');
         // remove complete class from current step
         $('.report-process').eq(prevIndex).removeClass('complete');
-        
+
         // add active class to next step
         $('.report-process').eq(prevIndex).addClass('active');
 
         $('.form-section').eq(index).removeClass('active');
         $('.form-section').eq(prevIndex).addClass('active');
-        
+
+        // scroll to the top of the page
+        $('html, body').animate({
+            scrollTop: $('.reports-top').offset().top
+        }, 500);
+
     });
 
 
-    $("#audience-all").click(function () {
-        // remove the selected options from the group_id select
-        $('#audience_group').val(null).trigger('change');
+    $('.audience-section').on('click', "#audience-all", function () {
 
-        // from the parent "audience-select" div, find the group-select div and hide it
         $(this).closest('.audience-section').find('.group-select-wrap').hide();
-        
+        $(this).closest('.audience-section').find('#audience_group').val(null).trigger('change');
+
+        // remove the selected options from the group_id select
+        // $('#audience_group').val(null).trigger('change');
+
     });
 
-    $("#audience-group").click(function () {
+    $('.audience-section').on('click', "#audience-group", function () {
         // from the parent "audience-select" div, find the group-select div and show it
         $(this).closest('.audience-section').find('.group-select-wrap').show();
     }
     );
-
-    var rf_id = formvars.rf_id;
-
-
-    if (rf_id) {
-        $("#step-2").addClass('d-none');
-        $("#step-1").addClass('d-none');
-        $("#step-3").addClass('d-none');
-        $("#step-4").addClass('d-none');
-        $("#step-5").addClass('d-none');
-        $("#step-6").removeClass('d-none');
-
-        $("#bd-1").addClass('orange-bd');
-        $("#red-1").addClass('circle-red');
-        $("#red-1").addClass('circle-orange');
-
-        $("#bd-2").addClass('orange-bd');
-        $("#red-2").addClass('circle-red');
-        $("#red-2").addClass('circle-orange');
-
-        $("#bd-3").addClass('orange-bd');
-        $("#red-3").addClass('circle-red');
-        $("#red-3").addClass('circle-orange');
-
-        $("#bd-4").addClass('orange-bd');
-        $("#red-4").addClass('circle-red');
-        $("#red-4").addClass('circle-orange');
-
-        $("#bd-5").addClass('orange-bd');
-        $("#red-5").addClass('circle-red');
-        $("#red-5").addClass('circle-orange');
-
-        $("#bd-6").addClass('orange-bd');
-        $("#red-6").addClass('circle-red');
-        $("#red-6").removeClass('circle-red');
-        $("#red-6").addClass('circle-orange');
-    }
 
     $('#other_age126').change(function () {
         if ($(this).is(':checked')) {
@@ -130,7 +219,219 @@ $(document).ready(function () {
             $('#div15').hide();
         }
     });
+
+
+    $('select.form-control.country').change(function () {
+        // the ID is the data-value attribute of the selected option
+        let countryId = $(this).find('option:selected').data('value');
+
+        let html = '<option value="">Select State*</option>';
+
+        // Check if countryId is invalid
+        if (!countryId) {
+            $('#' + $(this).data('change-target')).html(html);
+            return false;
+        }
+
+
+
+        let states = formvars.all_states;
+
+        // Check if states data is valid
+        if (!states || !states.length) {
+            console.log(
+                'Invalid states data',
+                states
+            )
+            $('#' + $(this).data('change-target')).html(html);
+            return false;
+        }
+
+        console.log('States data', states);
+        $.each(states, function (key, value) {
+            if (value.country_id == countryId) {
+                html += '<option value="' + value.state + '" data-value="' + value.id + '">' + value.state + '</option>';
+            }
+        });
+
+        // set the states of the state select
+        $('#' + $(this).data('change-target')).html(html);
+
+    });
+
+
+    $('.checkbox-select').on('click', function () {
+
+        if ($(this).is(':checked')) {
+            //$(this).closest('.checkbox-select-container').find('.select-container').show();
+            $(this).closest('.checkbox-select-container').find('select').attr('disabled', false);
+        }
+        else {
+            //$(this).closest('.checkbox-select-container').find('.select-container').hide();
+            $(this).closest('.checkbox-select-container').find('select').val(null).trigger('change').attr('disabled', true);
+        }
+    });
+
+    $('.checkbox-text').on('click', function () {
+
+        if ($(this).is(':checked')) {
+            //$(this).closest('.checkbox-text-container').find('.text-container').show();  
+            // remove the disabled
+            $(this).closest('.checkbox-text-container').find('input').attr('disabled', false);
+        }
+        else {
+            //$(this).closest('.checkbox-text-container').find('.text-container').hide();  
+            // clear the value
+            $(this).closest('.checkbox-text-container').find('input[type=text]').val('');
+            // add the disabled
+            $(this).closest('.checkbox-text-container').find('input[type=text]').attr('disabled', true);
+        }
+    }
+    );
+
+    $('.checkbox-textarea').on('click', function () {
+        if ($(this).is(':checked')) {
+            // enable the text area
+            $(this).closest('.checkbox-textarea-container').find('textarea').attr('disabled', false);
+            // show the container
+            $(this).closest('.checkbox-textarea-container').find('.textarea-container').show();
+        }
+        else {
+            // clear the value
+            $(this).closest('.checkbox-textarea-container').find('textarea').val('');
+            // disable the text area
+            $(this).closest('.checkbox-textarea-container').find('textarea').attr('disabled', true);
+            // hide the container
+            $(this).closest('.checkbox-textarea-container').find('.textarea-container').hide();
+        }
+    });
+
+    $('.checkbox-checkboxes').on('click', function () {
+        if ($(this).is(':checked')) {
+            $(this).closest('.checkbox-checkboxes-container').find('.checkboxes').find('input[type="checkbox"]').attr('disabled', false);
+        }
+        else {
+            $(this).closest('.checkbox-checkboxes-container').find('.checkboxes').find('input[type="checkbox"]').attr('disabled', true);
+            // uncheck all checkboxes
+            $(this).closest('.checkbox-checkboxes-container').find('.checkboxes').find('input[type="checkbox"]').prop('checked', false);
+        }
+    });
+
+    $('.radio-checkboxes').on('change', function () {
+
+        // this turns off both
+        $(this).closest('.radios-checkboxes-container').find('.checkboxes').find('input[type="checkbox"]').attr('disabled', true);
+        // hide all checkboxes
+        $(this).closest('.radios-checkboxes-container').find('.checkboxes').hide();
+        // clear all checkboxes
+        $(this).closest('.radios-checkboxes-container').find('.checkboxes').find('input[type="checkbox"]').prop('checked', false);
+
+        // this turns on the one we want
+        $(this).closest('.radio-checkboxes-container').find('.checkboxes').find('input[type="checkbox"]').attr('disabled', false);
+        // show the checkboxes
+        $(this).closest('.radio-checkboxes-container').find('.checkboxes').show();
+
+
+    });
+
+    $('.radios-conditional .form-check-input').on('change', function () {
+        if ($(this).val() == $(this).closest('.radios-conditional').children('.conditional').data('conditional-value')) {
+            $(this).closest('.radios-conditional').children('.conditional').show();
+        }
+        else {
+            $(this).closest('.radios-conditional').children('.conditional').hide();
+            // clear the value
+            $(this).closest('.radios-conditional').children('.conditional').children('input[type="text"]').val('');
+            // clear the value
+            $(this).closest('.radios-conditional').children('.conditional').children('textarea').val('');
+            // clear the checkboxes
+            $(this).closest('.radios-conditional').children('.conditional').children('input[type="checkbox"]').prop('checked', false);
+            // clear the email fields
+            $(this).closest('.radios-conditional').children('.conditional').children('input[type="email"]').val('');
+            // clear the number fields
+            $(this).closest('.radios-conditional').children('.conditional').children('input[type="number"]').val('');
+            // clear the select fields
+            $(this).closest('.radios-conditional').children('.conditional').children('select').val(null).trigger('change');
+            
+            // clear the value
+            $(this).closest('.radios-conditional').children('.conditional').children('select').val(null).trigger('change');
+            $(this).closest('.radios-conditional').children('.conditional').children('input[type="checkbox"]').prop('checked', false);
+            $(this).closest('.radios-conditional').children('.conditional').children('input[type="number"]').attr('disabled', true);
+        }
+    });
+
+    $('.questionnaire-radio').on('change', function () {
+
+        console.log($(this).attr('required'));
+
+        // if it's required, hide the error message
+        if ($(this).attr('required') === "required") {
+            $(this).closest('.questionnaire').find('.form-error').hide();
+        }
+        else {
+            // find the closest required radio from the questionnaire
+            var radios = $(this).closest('.questionnaire').find('.questionnaire-radio[required]');
+            console.log(radios);
+            // if there is length, show the error message
+            if (radios.length) {
+                $(this).closest('.questionnaire').find('.form-error').show();
+            }
+            else {
+                $(this).closest('.questionnaire').find('.form-error').hide();
+            }
+        }
+
+    });
+
+    $('.demographic-checkbox').on('change', function () {
+        const groupId = $(this).data('group') + '_counts';
+        if ($(this).is(':checked')) {
+            $('#' + groupId).show();
+        } else {
+            $('#' + groupId).hide();
+            // Clear values when unchecked
+            $('#' + groupId).find('input[type="number"]').val('');
+        }
+    });
+
+
+
+    // Clear placeholder text when any text input gains focus
+    $('input[type="text"], input[type="email"], input[type="tel"], input[type="search"], input[type="number"], input[type="password"], textarea').focus(function () {
+        $(this).attr('data-placeholder', $(this).attr('placeholder'));
+        $(this).attr('placeholder', '');
+    }).blur(function () {
+        $(this).attr('placeholder', $(this).attr('data-placeholder'));
+    });
+
+
 });
+
+function editBlog(args) {
+
+    if (args.post_thumbnail) {
+        $('#edit-modal-preview-div').css('background-image', 'url("' + encodeURI(args.post_thumbnail) + '")');
+    } else {
+        $('#edit-modal-preview-div').css('background-image', 'url("' + localvars.default_image + '")');
+    }
+
+    $("#editBlog").find("#blog_title").val(args.post_title);
+    $("#editBlog").find("#blog_content").val(args.post_content);
+    $("#editBlog").find("#post_id").val(args.post_id);
+
+    // if args.audience is 'all-rnn-users', then #audience-all is selected
+    if (args.audience == 'all-rnn-users') {
+        $("#editBlog").find('#audience-all').prop('checked', true).trigger('click');
+    } else {
+        $("#editBlog").find('#audience-group').prop('checked', true).trigger('click');
+        $("#editBlog").find('#audience_group_id').val(args.group_id);
+    }
+
+
+    $('#editBlog').modal('show');
+
+}
+
 
 function show2() {
     $("#div44").removeClass("hides");
@@ -146,14 +447,17 @@ function show8() {
     document.getElementById('div4').style.display = 'block';
 }
 
+
+
+
 const getCountries = () => {
 
     countryId = $('#country option:selected').data('value');
     let html = '<option value="">Select State*</option>';
-    let html1 = '<option value="">Select City*</option>';
+
     if (countryId == undefined || countryId == 0 || countryId == '') {
         $('#state').html(html);
-        $('#city').html(html1);
+
         return false;
     }
 
@@ -161,13 +465,13 @@ const getCountries = () => {
 
     if (states == '') {
         $('#state').html(html);
-        $('#city').html(html1);
+
         return false;
     }
 
     if (states.length == 0) {
         $('#state').html(html);
-        $('#city').html(html1);
+
         return false;
     }
 
@@ -177,7 +481,6 @@ const getCountries = () => {
         }
     });
     $('#state').html(html);
-    $('#city').html(html1);
 
     post_title_val = $("#post_title").val();
     if (post_title_val == "") {
@@ -305,6 +608,7 @@ $(document).ready(function () {
 
         }
 
+
     });
 
 
@@ -334,11 +638,7 @@ function printDiv(divName) {
 
     document.body.innerHTML = printContents;
 
-
-
     window.print();
-
-
 
     document.body.innerHTML = originalContents;
 
@@ -355,775 +655,6 @@ function deleteActiondisasterReport(id) {
 }
 
 
-
-
-
-
-
-//div show hide 
-
-$(document).ready(function () {
-
-    $('#other_age123').change(function () {
-
-        if ($(this).is(':checked')) {
-
-            $('#div11').show();
-
-        } else {
-
-            $('#div11').hide();
-
-        }
-
-    });
-
-});
-
-$(".tmp #back-2").click(function () {
-    return;
-
-    $(".tmp #step-1").removeClass('d-none');
-
-    $(".tmp #step-2").addClass('d-none');
-
-    $(".tmp #step-3").addClass('d-none');
-
-    $(".tmp #step-4").addClass('d-none');
-
-    $(".tmp #step-5").addClass('d-none');
-
-
-
-    // for circle color
-
-    $(".tmp #bd-1").removeClass('orange-bd');
-
-    $(".tmp #red-2").removeClass('circle-red');
-
-    $(".tmp #red-1").removeClass('circle-orange');
-
-    $(".tmp #red-1").addClass('circle-red');
-
-
-
-    $(".tmp #back-1").removeClass('d-none');
-
-    $(".tmp #back-2").addClass('d-none');
-
-});
-
-
-
-$(".tmp #back-3").click(function () {
-
-    $(".tmp #step-1").addClass('d-none');
-
-    $(".tmp #step-2").removeClass('d-none');
-
-    $(".tmp #step-3").addClass('d-none');
-
-    $(".tmp #step-4").addClass('d-none');
-
-    $(".tmp #step-5").addClass('d-none');
-
-
-
-    // for circle color
-
-    $(".tmp #bd-2").removeClass('orange-bd');
-
-    $(".tmp #red-3").removeClass('circle-red');
-
-    $(".tmp #red-2").removeClass('circle-orange');
-
-    $(".tmp #red-2").addClass('circle-red');
-
-
-
-    $(".tmp #back-1").addClass('d-none');
-
-    $(".tmp #back-2").removeClass('d-none');
-
-    $(".tmp #back-3").addClass('d-none');
-
-});
-
-
-
-$(".tmp #back-4").click(function () {
-
-    $(".tmp #step-1").addClass('d-none');
-
-    $(".tmp #step-3").removeClass('d-none');
-
-    $(".tmp #step-2").addClass('d-none');
-
-    $(".tmp #step-4").addClass('d-none');
-
-    $(".tmp #step-5").addClass('d-none');
-
-
-
-    // for circle color
-
-    $(".tmp #bd-3").removeClass('orange-bd');
-
-    $(".tmp #red-4").removeClass('circle-red');
-
-    $(".tmp #red-3").removeClass('circle-orange');
-
-    $(".tmp #red-3").addClass('circle-red');
-
-
-
-    $(".tmp #back-1").addClass('d-none');
-
-    $(".tmp #back-2").addClass('d-none');
-
-    $(".tmp #back-3").removeClass('d-none');
-
-    $(".tmp #back-4").addClass('d-none');
-
-});
-
-
-
-
-
-
-
-
-
-$(".tmp #step-btn-1").click(function () {
-
-    var surDa = $('.sur_da').val();
-
-    var surTi = $('.sur_ti').val();
-
-    var surAdd = $('.sur_add').val();
-
-    var surOth = $('.sur_oth').val();
-
-    var surPr = $('.sur_pr').val();
-
-    var surBe = $('.sur_be').val();
-
-
-
-
-
-
-
-
-
-
-
-    if (surPr.length < 10) {
-
-        $(".tmp #sur_pr_error").text("Please enter primary telephone. .");
-
-    }
-
-
-
-
-
-    if (surDa == '') {
-
-        $(".tmp #sur_da_error").text("Please enter date .");
-
-    }
-
-    if (surTi == '') {
-
-        $(".tmp #sur_ti_error").text("Please enter time .");
-
-    }
-
-    if (surAdd == '') {
-
-        $(".tmp #sur_add_error").text("Please enter address .");
-
-    }
-
-    if (surOth == '') {
-
-        $(".tmp #sur_oth_error").text("Please enter other information .");
-
-    }
-
-    if (surBe == '') {
-
-        $(".tmp #sur_be_error").text("Please enter date .");
-
-    }
-
-
-
-    else {
-
-        $(".tmp #step-2").removeClass('d-none');
-
-        $(".tmp #step-1").addClass('d-none');
-
-        $(".tmp #step-3").addClass('d-none');
-
-        $(".tmp #step-4").addClass('d-none');
-
-        $(".tmp #step-5").addClass('d-none');
-
-        $(".tmp #step-6").addClass('d-none');
-
-
-
-        // for circle color
-
-        $(".tmp #bd-1").addClass('orange-bd');
-
-        $(".tmp #red-2").addClass('circle-red');
-
-        $(".tmp #red-1").addClass('circle-orange');
-
-        $(".tmp #red-1").removeClass('circle-red');
-
-
-
-        $(".tmp #back-1").addClass('d-none');
-
-        $(".tmp #back-2").removeClass('d-none');
-
-
-
-    }
-
-
-
-
-
-});
-
-$(".tmp #step-btn-2").click(function () {
-
-    $(".tmp #step-3").removeClass('d-none');
-
-    $(".tmp #step-1").addClass('d-none');
-
-    $(".tmp #step-2").addClass('d-none');
-
-    $(".tmp #step-4").addClass('d-none');
-
-    $(".tmp #step-5").addClass('d-none');
-
-    $(".tmp #step-6").addClass('d-none');
-
-
-
-    // for circle color
-
-    $(".tmp #bd-2").addClass('orange-bd');
-
-    $(".tmp #red-3").addClass('circle-red');
-
-    $(".tmp #red-2").addClass('circle-orange');
-
-    $(".tmp #red-2").removeClass('circle-red');
-
-
-
-    $(".tmp #back-2").addClass('d-none');
-
-    $(".tmp #back-3").removeClass('d-none');
-
-});
-
-$(".tmp #step-btn-3").click(function () {
-
-    var surPro = $('.sur_pro').val();
-
-    var surSe = $('.sur_se').val();
-
-    var insType = $('.ins_type').val();
-
-
-
-
-
-    var publishFrom1 = document.getElementsByName('property_condition');
-
-    for (let j of publishFrom1) {
-
-        if (j.checked) {
-
-        }
-
-        else {
-
-            $(".tmp #pro_con_error").text("Select any option.");
-
-        }
-
-    }
-
-
-
-
-
-    var publishFrom2 = document.getElementsByName('life_safety');
-
-    for (let v of publishFrom2) {
-
-        if (v.checked) {
-
-        }
-
-        else {
-
-            $("#li_fe_error").text("Select any option.");
-
-        }
-
-    }
-
-
-
-
-
-
-
-    var publishFrom3 = document.getElementsByName('property_owner');
-
-    for (let h of publishFrom3) {
-
-        if (h.checked) {
-
-        }
-
-        else {
-
-            $("#pro_ow_error").text("Select any option.");
-
-        }
-
-    }
-
-
-
-
-
-    var publishFrom4 = document.getElementsByName('property_owner');
-
-    for (let y of publishFrom4) {
-
-        if (y.checked) {
-
-        }
-
-        else {
-
-            $("#pro_ow_error").text("Select any option.");
-
-        }
-
-    }
-
-
-
-
-
-    var publishFrom5 = document.getElementsByName('liability_waiver ');
-
-    for (let a of publishFrom5) {
-
-        if (a.checked) {
-
-        }
-
-        else {
-
-            $("#la_yes_error").text("Select any option.");
-
-        }
-
-    }
-
-
-
-
-
-    var publishFrom6 = document.getElementsByName('owner_present ');
-
-    for (let b of publishFrom6) {
-
-        if (b.checked) {
-
-        }
-
-        else {
-
-            $("#ow_pr_error").text("Select any option.");
-
-        }
-
-    }
-
-    var publishFrom7 = document.getElementsByName('agree_terms ');
-
-    for (let c of publishFrom7) {
-
-        if (c.checked) {
-
-        }
-
-        else {
-
-            $("#ag_yes_error").text("Select any option.");
-
-        }
-
-    }
-
-
-
-    var publishFrom8 = document.getElementsByName('willing_to_help ');
-
-    for (let f of publishFrom8) {
-
-        if (f.checked) {
-
-        }
-
-        else {
-
-            $("#will_yes_error").text("Select any option.");
-
-        }
-
-    }
-
-
-
-
-
-    var publishFrom9 = document.getElementsByName('property_type ');
-
-    for (let g of publishFrom9) {
-
-        if (g.checked) {
-
-        }
-
-        else {
-
-            $("#pro_yes_error").text("Select any option.");
-
-        }
-
-    }
-
-
-
-
-
-    var publishFrom10 = document.getElementsByName('is_water ');
-
-    for (let k of publishFrom10) {
-
-        if (k.checked) {
-
-        }
-
-        else {
-
-            $("#is_yes_error").text("Select any option.");
-
-        }
-
-    }
-
-
-
-    var publishFrom11 = document.getElementsByName('is_mud ');
-
-    for (let l of publishFrom11) {
-
-        if (l.checked) {
-
-        }
-
-        else {
-
-            $("#mu_yes_error").text("Select any option.");
-
-        }
-
-    }
-
-
-
-
-
-    var publishFrom12 = document.getElementsByName('damage_contents');
-
-    for (let m of publishFrom12) {
-
-        if (m.checked) {
-
-        }
-
-        else {
-
-            $("#da_co_error").text("Select any option.");
-
-        }
-
-    }
-
-
-
-
-
-    var publishFrom13 = document.getElementsByName('contacted_other');
-
-    for (let n of publishFrom13) {
-
-        if (n.checked) {
-
-        }
-
-        else {
-
-            $("#con_yes_error").text("Select any option.");
-
-        }
-
-    }
-
-
-    if (surPro == '') {
-
-        $("#sur_pro_error").text("Select any value.");
-
-    }
-
-    if (surSe == '') {
-
-        $("#sur_se_error").text("Select any value.");
-
-    }
-
-
-
-    if (insType == '') {
-
-        $("#ins_type_error").text("Please enter insurance type.");
-
-    }
-
-
-
-
-
-    else {
-
-        $("#step-4").removeClass('d-none');
-
-        $("#step-1").addClass('d-none');
-
-        $("#step-2").addClass('d-none');
-
-        $("#step-3").addClass('d-none');
-
-        $("#step-5").addClass('d-none');
-
-        $("#step-6").addClass('d-none');
-
-
-
-        // for circle color
-
-        $("#bd-3").addClass('orange-bd');
-
-        $("#red-4").addClass('circle-red');
-
-        $("#red-3").addClass('circle-orange');
-
-        $("#red-3").removeClass('circle-red');
-
-
-
-        $("#back-3").addClass('d-none');
-
-        $("#back-4").removeClass('d-none');
-
-    }
-
-
-
-});
-
-
-$("#step-btn-4").click(function () {
-
-    var publishFrom = document.getElementsByName('rf_publish');
-
-    for (let i of publishFrom) {
-
-        if (i.checked) {
-
-            $("#step-5").removeClass('d-none');
-            $("#step-1").addClass('d-none');
-            $("#step-2").addClass('d-none');
-            $("#step-3").addClass('d-none');
-            $("#step-4").addClass('d-none');
-            $("#step-6").addClass('d-none');
-
-            // for circle color
-
-            $("#bd-4").addClass('orange-bd');
-
-            $("#red-5").addClass('circle-red');
-
-            $("#red-4").addClass('circle-orange');
-
-            $("#red-4").removeClass('circle-red');
-
-
-
-        }
-
-        else {
-
-            $("#publish_error").text("Please select any group.");
-
-        }
-
-    }
-
-
-
-});
-
-var rf_id = formvars.rf_id;
-
-if (rf_id) {
-
-    $("#step-2").addClass('d-none');
-
-    $("#step-1").addClass('d-none');
-
-    $("#step-3").addClass('d-none');
-
-    $("#step-4").addClass('d-none');
-
-    $("#step-5").removeClass('d-none');
-
-
-
-    // $("#bd-5").addClass('orange-bd');
-
-    // $("#red-5").addClass('circle-red');
-
-    // $("#red-1").removeClass('circle-red');
-
-
-
-    $("#bd-1").addClass('orange-bd');
-
-    $("#red-1").addClass('circle-red');
-
-    $("#red-1").addClass('circle-orange');
-
-
-
-    $("#bd-2").addClass('orange-bd');
-
-    $("#red-2").addClass('circle-red');
-
-    $("#red-2").addClass('circle-orange');
-
-
-
-    $("#bd-3").addClass('orange-bd');
-
-    $("#red-3").addClass('circle-red');
-
-    $("#red-3").addClass('circle-orange');
-
-
-
-    $("#bd-4").addClass('orange-bd');
-
-    $("#red-4").addClass('circle-red');
-
-    $("#red-4").addClass('circle-orange');
-
-
-
-
-
-    $("#bd-5").addClass('orange-bd');
-
-    $("#red-5").addClass('circle-red');
-
-    $("#red-5").removeClass('circle-red');
-
-    $("#red-5").addClass('circle-orange');
-
-}
-
-
-
-
-function show1() {
-
-    $("#div55").addClass("hides");
-
-    $("#div44").addClass("hides");
-
-}
-
-
-
-function show2() {
-
-    $("#div44").removeClass("hides");
-
-    $("#div55").addClass("hides");
-
-}
-
-function show3() {
-
-    $("#div44").addClass("hides");
-
-    $("#div55").removeClass("hides");
-
-}
-
-function show4() {
-
-    document.getElementById('div2').style.display = 'block';
-
-}
-
-
-
-function show5() {
-
-    document.getElementById('div3').style.display = 'none';
-
-}
-
-
-
-
-
-function show6() {
-
-    document.getElementById('div3').style.display = 'block';
-
-}
 
 
 jQuery(document).ready(function () {
@@ -1155,20 +686,20 @@ jQuery(document).ready(function () {
 
 //  var urlmenu = document.getElementById( 'myGroup' );
 
- // urlmenu.onchange = function() {
+// urlmenu.onchange = function() {
 
- //     window.open( 'create-disaster-report?gid=' + this.options[ this.selectedIndex ].value );
+//     window.open( 'create-disaster-report?gid=' + this.options[ this.selectedIndex ].value );
 
- //};
+//};
 
 
 
 function updateLocationLink() {
 
-  var report_type = $("#report_type").val();
-  
-  var url = '/reports/create/' + report_type + '?gid=' + $("#myGroup").val();
-  window.location.href = url;
+    var report_type = $("#report_type").val();
+
+    var url = '/reports/create/' + report_type + '?gid=' + $("#myGroup").val();
+    window.location.href = url;
 
 }
 
@@ -1178,7 +709,7 @@ function updateLocationLink() {
 
 
 
-$(function() {
+$(function () {
 
     // Javascript to enable link to tab
 
@@ -1186,9 +717,9 @@ $(function() {
 
     if (hash) {
 
-      console.log(hash);
+        console.log(hash);
 
-      $('.nav-link a[href='+hash+']').tab('show');
+        $('.nav-link a[href=' + hash + ']').tab('show');
 
     }
 
@@ -1198,8 +729,118 @@ $(function() {
 
     $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
 
-      window.location.hash = e.target.hash;
+        window.location.hash = e.target.hash;
 
     });
 
-  });
+});
+
+
+function showEditModal(args) {
+
+    var selector = args.selector;
+
+    var type = args.type;
+
+    console.log(args);
+
+    if (args.post_thumbnail) {
+        $(selector).find('#edit-modal-preview-div').css('background-image', 'url("' + encodeURI(args.post_thumbnail) + '")');
+    } else {
+        $(selector).find('#edit-modal-preview-div').css('background-image', 'url("' + localvars.default_image + '")');
+    }
+
+    $(selector).find("#" + type + "_title").val(args.post_title);
+    $(selector).find("#" + type + "_content").val(args.post_content);
+    $(selector).find("#post_id").val(args.post_id);
+
+    // if args.audience is 'all-rnn-users', then #audience-all is selected
+    if (args.audience == 'all-rnn-users') {
+        $(selector).find('#audience-all').prop('checked', true).trigger('click');
+    } else {
+        $(selector).find('#audience-group').prop('checked', true).trigger('click');
+        console.log(args.group_id);
+        $(selector).find('#audience_group_id').val(args.group_id);
+    }
+
+
+    $(selector).modal('show');
+
+}
+
+
+function deleteBlog(id) {
+    $('#blogDelete').find('#post_id').val(id);
+    $('#blogDelete').modal('show');
+}
+
+function deleteAnnouncement(id) {
+    $('#announcementDelete').find('#post_id').val(id);
+    $('#announcementDelete').modal('show');
+}
+
+
+// repeater items 
+
+jQuery(document).ready(function ($) {
+    // Handle adding new task item
+    $('.add-repeater-item').on('click', function () {
+        var container = $(this).closest('.repeater-container').find('.repeater-fields');
+        var items = container.find('.repeater-item');
+        var max = container.data('max');
+
+        if (items.length < max) {
+            var newItem = items.first().clone();
+            var index = items.length;
+
+            // Update the name attributes with new index
+            newItem.find('input, select, textarea').each(function () {
+                var name = $(this).attr('name');
+                if (name) {
+                    var newName = name.replace(/\[\d+\]/, '[' + index + ']');
+                    $(this).attr('name', newName);
+                    $(this).val(''); // Clear the value
+                }
+            });
+
+            // Reset error messages
+            newItem.find('.marker').empty();
+
+            // Append the new item
+            container.append(newItem);
+
+            // Check if we've reached the maximum
+            if (items.length + 1 >= max) {
+                $(this).prop('disabled', true);
+            }
+        }
+    });
+
+    // Handle removing task item
+    $(document).on('click', '.remove-repeater-item', function () {
+        var container = $(this).closest('.repeater-container').find('.repeater-fields');
+        var items = container.find('.repeater-item');
+        var min = container.data('min');
+
+        // Only remove if we have more than the minimum required
+        if (items.length > min) {
+            $(this).closest('.repeater-item').remove();
+
+            // Re-enable the add button if it was disabled
+            $(this).closest('.repeater-container').find('.add-repeater-item').prop('disabled', false);
+
+            // Reindex the remaining items to ensure sequential indices
+            container.find('.repeater-item').each(function (index) {
+                $(this).find('input, select, textarea').each(function () {
+                    var name = $(this).attr('name');
+                    if (name) {
+                        var newName = name.replace(/\[\d+\]/, '[' + index + ']');
+                        $(this).attr('name', newName);
+                    }
+                });
+            });
+        } else {
+            alert('You must have at least ' + min + ' task item(s).');
+        }
+    });
+});

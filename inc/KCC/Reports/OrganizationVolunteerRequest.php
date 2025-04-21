@@ -13,6 +13,8 @@ class OrganizationVolunteerRequest extends Report{
             gr
         ]
     }";
+
+    protected $has_applications = true;
     
     public function __construct( $post_id=0 ) {
         parent::__construct($post_id);
@@ -123,20 +125,6 @@ class OrganizationVolunteerRequest extends Report{
         return $this->meta('poc_phone');
     }
 
-    public function disaster_type(){
-        $meta = $this->meta('disaster_type');
-        // split on comma 
-        return explode(',', $meta);
-    }
-
-    public function disaster_type_other(){
-        return $this->meta('disaster_type_other');
-    }
-
-    public function disaster_type_other_comment(){
-        return $this->meta('disaster_type_other_comment');
-    }
-
     public function scope_of_work(){
         return $this->meta('vol_scope');
     } 
@@ -186,172 +174,19 @@ class OrganizationVolunteerRequest extends Report{
     }
 
     public function skills_needed(){
+        // if it's not an array, explode it
+        if(!is_array($this->meta('vol_skills_needed'))){
+            $skills = explode(",", $this->meta('vol_skills_needed'));
+            return array_map('trim', $skills);
+        }
         return $this->meta('vol_skills_needed');
     }
 
-
-    public function applications(){
-        $applications = $this->meta('vol_applications');
-        if(empty($applications)){
-            return [];
-        }
-        return $applications;
+    public function print_skills_needed(){
+        $skills = $this->skills_needed();
+        return implode(", ", $skills);
     }
 
-    public function add_user_application($user_id){
-
-        if($this->find_user_application($user_id)){
-            return false;
-        }
-
-        $application = [
-            "user_id" => $user_id,
-            "status" => "applied",
-        ];
-
-        $applications = $this->applications();
-        $applications[] = $application;
-        $this->update_meta('vol_applications', $applications);
-        return true;
-        
-    }
-
-    public function approve_user_application($user_id){
-        $application = $this->find_user_application($user_id);
-        if($application){
-            $application['status'] = 'approved';
-            $applications = $this->applications();
-            foreach($applications as $key => $app){
-                if($app['user_id'] == $user_id){
-                    $applications[$key] = $application;
-                    $this->update_meta('vol_applications', $applications);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public function decline_user_application($user_id){
-        $application = $this->find_user_application($user_id);
-        if($application){
-            $application['status'] = 'declined';
-            $applications = $this->applications();
-            foreach($applications as $key => $app){
-                if($app['user_id'] == $user_id){
-                    $applications[$key] = $application;
-                    $this->update_meta('vol_applications', $applications);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public function delete_user_application($user_id){
-        $applications = $this->applications();
-        foreach($applications as $key => $application){
-            if($application['user_id'] == $user_id){
-                unset($applications[$key]);
-                $this->update_meta('vol_applications', $applications);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public function find_user_application($user_id){
-        $applications = $this->applications();
-        foreach($applications as $application){
-            if($application['user_id'] == $user_id){
-                return $application;
-            }
-        }
-        return false;
-    }
-
-    public function user_application_status($user_id){
-        $application = $this->find_user_application($user_id);
-        if($application){
-            return $application['status'];
-        }
-        return false;
-    }
-
-    public function user_has_applied($user_id){
-
-        $application = $this->find_user_application($user_id);
-        if($application){
-            return $application['status'] == 'applied';
-        }
-        return false;
-
-    }
-
-    public function user_has_been_declined($user_id){
-        $application = $this->find_user_application($user_id);
-        if($application){
-            return $application['status'] == 'declined';
-        }
-        return false;
-    }
-
-    public function user_has_been_approved($user_id){
-        $application = $this->find_user_application($user_id);
-        if($application){
-            return $application['status'] == 'approved';
-        }
-        return false;
-    }
-
-    public function has_applications(){
-        return !empty($this->applications());
-    }
-
-    public function pending_applications(){
-        $applications = $this->applications();
-        $pending = [];
-        foreach($applications as $application){
-            if($application['status'] == 'applied'){
-                $pending[] = $application;
-            }
-        }
-        return $pending;
-    }
-
-    public function approved_applications(){
-        $applications = $this->applications();
-        $approved = [];
-        foreach($applications as $application){
-            if($application['status'] == 'approved'){
-                $approved[] = $application;
-            }
-        }
-        return $approved;
-    }
-
-    public function declined_applications(){
-        $applications = $this->applications();
-        $declined = [];
-        foreach($applications as $application){
-            if($application['status'] == 'declined'){
-                $declined[] = $application;
-            }
-        }
-        return $declined;
-    }
-
-    public function has_pending_applications(){
-        return !empty($this->pending_applications());
-    }
-
-    public function has_approved_applications(){
-        return !empty($this->approved_applications());
-    }
-
-    public function has_declined_applications(){
-        return !empty($this->declined_applications());
-    }
 
 
 }

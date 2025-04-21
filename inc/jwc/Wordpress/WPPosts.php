@@ -2,7 +2,7 @@
 
 namespace jwc\Wordpress;
 
-class WPPosts extends WPCollection{
+class WPPosts extends WPController{
 
   
     

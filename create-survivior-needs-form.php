@@ -367,7 +367,7 @@
 
                                                                 <label>Client First Name *</label>
 
-                                                                <input type="text" class="form-control sur_fri" id="intake_firstName" name="intake_firstName" placeholder="Enter here"value="<?php echo $userInfo->first_name;  ?>" readonly>
+                                                                <input type="text" class="form-control sur_fri" id="client_firstName" name="client_firstName" placeholder="Enter here"value="<?php echo $userInfo->first_name;  ?>" readonly>
 
                                                             </div>
 
@@ -381,7 +381,7 @@
 
                                                                 <label>Client last name *</label>
 
-                                                                <input type="text" class="form-control sur_last" id="intake_lastName" name="intake_lastName" placeholder="Enter here"value=" <?php echo $userInfo->last_name;  ?>" readonly>
+                                                                <input type="text" class="form-control sur_last" id="client_lastName" name="client_lastName" placeholder="Enter here"value=" <?php echo $userInfo->last_name;  ?>" readonly>
 
                                                             </div>
 
@@ -395,7 +395,7 @@
 
                                                                 <label>Address *</label>
 
-                                                                <input type="text" class="form-control sur_add" id="intake_address" name="intake_address" placeholder="Enter here" value="<?php echo get_post_meta($rf_id,'rf_country',true)?>">
+                                                                <input type="text" class="form-control sur_add" id="client_address" name="client_address" placeholder="Enter here" value="<?php echo get_post_meta($rf_id,'rf_country',true)?>">
 
                                                             </div>
 
@@ -481,7 +481,7 @@
 
                                                                 <label>Primary Telephone *</label>
 
-                                                                <input type="number" class="form-control sur_pri" onKeyPress="if(this.value.length==10) return false;" min="0" name="intake_phone" placeholder="Enter here" value="<?php echo get_post_meta($rf_id,'rf_country',true)?>">
+                                                                <input type="number" class="form-control sur_pri" onKeyPress="if(this.value.length==10) return false;" min="0" name="client_phone" placeholder="Enter here" value="<?php echo get_post_meta($rf_id,'rf_country',true)?>">
 
                                                             </div>
 
@@ -495,7 +495,7 @@
 
                                                                 <label>Alternative Telephone</label>
 
-                                                                <input type="number" class="form-control sur_alt"  onKeyPress="if(this.value.length==10) return false;" min="0" name="intake_phone2" placeholder="Enter here" value="<?php echo get_post_meta($rf_id,'rf_country',true)?>">
+                                                                <input type="number" class="form-control sur_alt"  onKeyPress="if(this.value.length==10) return false;" min="0" name="client_phone2" placeholder="Enter here" value="<?php echo get_post_meta($rf_id,'rf_country',true)?>">
 
                                                             </div>
 
@@ -509,7 +509,7 @@
 
                                                                 <label>Best Time to Contact</label>
 
-                                                                <select class="form-control set-postion sur_best" name="intake_contact_time">
+                                                                <select class="form-control set-postion sur_best" name="client_preferred_contact_time">
 
                                                                     <option value="" selected> Select any option</option>
 
