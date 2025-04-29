@@ -1,35 +1,17 @@
 <?php 
 
-
-
 /* Template Name: Disaster Situational Report*/
-
-get_header('new'); ?>
-
-
-
+get_header('dashboard'); ?>
 
 
 <?php 
 
    global $wpdb; 
-
-    $allCities = $wpdb->get_results("SELECT * FROM `wp_cities`");     
     
     $current_user_id = get_current_user_id();
-    
-    $post_details = $wpdb->get_results( 
-        $wpdb->prepare(
-            "
-            SELECT * 
-            FROM {$wpdb->posts} 
-            WHERE post_author = %d
-            AND post_type = 'groups'
-            ",
-            $current_user_id
-        )
-    );
-   echo $group_result= count($post_details);
+
+    $user = new \KCC\User($current_user_id);
+
     // Check if any posts were found
     if ( !empty($post_details) ) {
         foreach ( $post_details as $post ) {
@@ -42,53 +24,16 @@ get_header('new'); ?>
         // echo 'No posts found for this user.';
     }
 
+    $report_type = \KCC\Reports\ReportType::fromSlug('disaster-situational-report');
+    
+   
+
     ?>
 
-<style>
-
-    .donation_tab_pills{
-
-        background: unset;
-
-        box-shadow: none;
-
-    }
-
-    table, td, th{
-
-        border: 0px;
-
-    }
-
-    .modal{
-
-        visibility: unset;
-
-    }
-
-    .modal-groups{
-
-        border-radius: 1.5rem;
-
-
-
-    }
-
-    .modal-groups .form-control{
-
-        height: 55px; 
-
-        background: #f5f5f5;       
-
-    }
-
-</style>
 
 <div class="col-xl-12 ">
 
     <div class="row justify-content-end mt-3">
-
-        <?php include('user_topbar.php')?>
 
         <div class="col-xl-12 col-lg-11 col-md-11 col-10 d-flex align-items-center justify-content-end text-align-end flex-wrap my-4">
 
@@ -96,13 +41,11 @@ get_header('new'); ?>
 
                 <div class="notification_Sec_main">
 
-                    <h5>Disaster Situational Report</h5>
+                    <h5><?= $report_type->plural_name();?></h5>
 
                     
 
-                    <p>These reports detail the location, type, and severity of disasters as well as critical logistics and transportation information.
-
-                    </p>                            
+                    <p><?= $report_type->description();?></p>                            
 
                 </div>                    
 
@@ -126,22 +69,16 @@ get_header('new'); ?>
 
             <div class="btn_list_blog ">
 
-                 <a id= "cgr" href=":;" class="mr-4" data-toggle="modal" data-target="#selectGroupModal">
-
+                 <a id= "cgr" href="#" class="mr-4" data-toggle="modal" data-target="#selectGroupModal">
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/plus_icon.png" class="img-fluid mr-2">
-
-                    Create a New
-
+                    Create New
                 </a> 
-
-                
 
                 <a href="javascript:void(0);" data-toggle="modal" data-target="#filterModal">
 
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/group_icon.png" class="img-fluid mr-2">
 
                     Filter By
-
                 </a>
 
             </div>
@@ -165,11 +102,11 @@ get_header('new'); ?>
                        // $myResults = search_DisasterReport();
 
                           if(isset($_GET['submit']))
-
                             {
 
-                               
-
+// this is the filters.  Do later.                               
+pre("now implement the filters");
+die;
                                 $current_user_id = get_current_user_id();
 
                                 $Q_name  =  $_GET['q_name'];
@@ -187,20 +124,7 @@ get_header('new'); ?>
                             else
 
                             {
-
-                                 $current_user_id = get_current_user_id();
-
-                                 $reportData = get_posts( array(
-
-                                     'post_type'      => 'reportsforms',
-
-                                     'post_status'    => 'publish',
-
-                                     'post_author'    =>  $current_user_id,
-
-                                     'numberposts' => 1000
-
-                                ));       
+                                $reports = $user->reports( $report_type->slug() );
 
                             }
 
@@ -242,61 +166,33 @@ get_header('new'); ?>
 
                              <tbody>
 
-                             <?php if(!empty($reportData)){
+                             <?php if(!empty($reports)){
 
-                                    foreach($reportData as $report){
-
-                                            $reportAuthor = $report->post_author;
-
-                                            $rid = $report->ID;
-
-                                            $postMeta = get_post_meta($rid);
-
-                                            $gid = get_post_meta($report->ID, 'group_id', true );
-
-                                            $args = array(
-
-                                                            'post_type' => 'groups',
-
-                                                            'post__in' => array($gid)
-
-                                                        );
-
-                                            $groupData = get_posts($args);
-
-                                            $groupData = $groupData[0];
-
-                                            
-
-                                            $reportGroupID = $groupData->ID;
-
-                                            $ralatedMembers = learndash_get_groups_user_ids($reportGroupID);
-
-                                            if(in_array($current_user_id, $ralatedMembers) || $current_user_id == $reportAuthor ){
-
+                                    foreach($reports as $report){
+                                        
                                          ?>
 
                                                 <tr class="bg-color">
 
-                                                    <td><?php echo get_post_meta($rid,'report_id',true)?></td>
+                                                    <td><?= $report->slug();?></td>
 
-                                                    <td><?php echo get_the_time('m-d-Y', $rid) ?></td>
+                                                    <td><?= $report->date(); ?></td>
 
-                                                    <td><?php echo $report->post_title;?></td>
+                                                    <td><?php echo $report->title();?></td>
 
-                                                    <td><?php echo @$groupData->post_title;?></td>
+                                                    <td><a href="<?= $report->group()->permalink();?>"><?= $report->group()->name();?></a></td>
 
-                                                    <td><?php echo get_user_meta($reportAuthor,'country',true)?></td>
+                                                    <td><?= $report->country()?></td>
 
-                                                    <td><?php echo get_user_meta($reportAuthor,'state',true)?></td>
+                                                    <td><?= $report->state()?></td>
 
-                                                    <td><?php echo get_user_meta($reportAuthor,'city',true)?></td>
+                                                    <td><?= $report->city()?></td>
 
-                                                    <td><?php echo get_post_meta($rid,'rf_contact_person',true)?></td>
+                                                    <td><?= $report->contact_name()?></td>
 
                                                     <td style="width:12%;">
 
-                                                        <a href="<?php echo site_url('disaster-situational-report')."?id=".$rid; ?>" class="d-block">
+                                                        <a href="<?= $report->permalink();?>" class="d-block">
 
                                                             <div class="orange-box report-btn">
 
@@ -310,7 +206,7 @@ get_header('new'); ?>
 
                                                 </tr>
 
-                                          <?php }}
+                                          <?php }
 
                                         }?>                            
 
@@ -332,71 +228,6 @@ get_header('new'); ?>
 
         </div>
 
-      <?php include('common_user_footer.php')?>
-
-      <!-- <script>
-
-            function goToGroup()
-
-            {
-
-                 const href = document.getElementById('cgr');
-
-                  //  var hash = location.hash.replace( /^#/, '' ); 
-
-                  //$('div.tab-pane.active').removeClass('active');
-
-                
-
-
-
-                   $(#pills-profile).tab('show');
-
-                    $(#pills-profile).addClass('active');
-
-                  
-
-            }
-
-            window.addEventListener("hashchange", goToGroup, false);
-
-
-
-      </script> -->
-
-
-
-      <script type="text/javascript">
-
-        $(function() {
-
-          // Javascript to enable link to tab
-
-          var hash = document.location.hash;
-
-          if (hash) {
-
-            console.log(hash);
-
-            $('.nav-link a[href='+hash+']').tab('show');
-
-          }
-
-
-
-          // Change hash for page-reload
-
-          $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-
-            window.location.hash = e.target.hash;
-
-          });
-
-        });
-
-    </script>
-
-
 
     </div>        
 
@@ -407,7 +238,12 @@ get_header('new'); ?>
 
 
 <!-- Modal -->
-<?php if($group_result==0){ ?>
+<?php 
+ $all_groups = $user->allMyGroups();
+
+ $group_count = count($all_groups);
+
+if($group_count==0){ ?>
 <div class="modal fade" id="selectGroupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 
   <div class="modal-dialog modal-dialog-centered">
@@ -429,6 +265,8 @@ get_header('new'); ?>
    <p>Still groups are not created for this user.</p>
 </div>
 <?php } else{
+
+   
     ?>
     <div class="modal fade" id="selectGroupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 
@@ -438,7 +276,7 @@ get_header('new'); ?>
 
     <div class="modal-header">
 
-      <h5 class="modal-title" id="exampleModalLabel">Published From:</h5>
+      <h5 class="modal-title" id="exampleModalLabel">Select Audience:</h5>
 
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
@@ -449,35 +287,17 @@ get_header('new'); ?>
     </div>
 
     <div class="modal-body mt-2 mb-2">
+        <input type="hidden" name="report_type" id="report_type" value="disaster-situational-report"/>
   <select class="form-control" name="group_id" id="myGroup" required>
       <?php
-      $current_user_id = get_current_user_id();  
-
-      $args = array(
-          'numberposts'   => -1,
-          'post_type'     => 'groups',
-          'post_status'   => 'publish',
-          'author'        => $current_user_id,
-          'meta_query'    => array(
-              'relation' => 'AND',
-              array(
-                  'key'     => 'group_type',
-                  'value'   => 'closed',
-                  'compare' => '!='
-              )
-          )
-      );
-
-      $all_groups = get_posts($args);
-      $group_count = count($all_groups);
-
+      
       if ($group_count > 1) {
           echo '<option>-- Select any group --</option>';
       }
 
-      foreach ($all_groups as $value) {
-          $selected = ($group_count == 1) ? 'selected' : '';
-          echo '<option value="' . $value->ID . '" ' . $selected . '>' . $value->post_title . ' - ' . get_post_meta($value->ID, 'group_type', true) . ' group</option>';
+      foreach ($all_groups as $group) {
+          $selected = (count($all_groups) == 1) ? 'selected' : '';
+          echo '<option value="' . $group->id() . '" ' . $selected . '>' . $group->name() . ' - ' . $group->type() . ' group</option>';
      } ?>
      
     </select>
@@ -531,30 +351,6 @@ get_header('new'); ?>
 
                     </div>
 
-                    <!--<div class="form-group select_sec">
-
-                        <label for="exampleFormControlSelect1">Filter by City</label>
-
-                        <select class="form-control" id="groupcity" name="q_city">
-
-                            <option value="">Select</option>
-
-                                         <?//php 
-
-                                          //  foreach($allCities as $Cities){ 
-
-                                               
-
-                                           //  ?>
-
-                                            <option value="<?//php echo $Cities->city; ?>" > <//?php echo $Cities->city; ?></option>
-
-                                         <?//php }?>                                                    
-
-                        </select>
-
-                    </div>-->
-
                     <div class="form-group">
 
                         <label for="exampleInputPassword1">Filter by Name</label>
@@ -597,43 +393,4 @@ get_header('new'); ?>
 
 </div>
 
-
-
-
-
-<script>
-
-//  var urlmenu = document.getElementById( 'myGroup' );
-
- // urlmenu.onchange = function() {
-
- //     window.open( 'create-disaster-report?gid=' + this.options[ this.selectedIndex ].value );
-
- //};
-
-</script>
-
-
-
-
-
-<script>
-
-function updateLocationLink() {
-
-  var groupID = myGroup.value;
-
-   window.open( 'create-disaster-report?gid=' + groupID );
-
-}
-
-</script>
-
-
-
-
-
-
-
-
-
+<?php get_footer(); ?>

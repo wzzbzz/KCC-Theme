@@ -1,4 +1,8 @@
 <?php
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+
 $path = preg_replace('/wp-content(?!.*wp-content).*/', '', __DIR__);
 require_once ($path . 'wp-load.php');
 global $current_user;
@@ -88,7 +92,7 @@ if (isset($_REQUEST['submit'])) {
 
 
     // $job_title = $_POST['job_title'];
-    $id = $_POST['id'];
+    $id = get_current_user_id();
     if (!function_exists('wp_handle_upload'))
         require_once (ABSPATH . 'wp-admin/includes/file.php');
     // profile image upload
@@ -230,7 +234,7 @@ $job_title = get_user_meta($user->ID, 'job_title', true);
                                 <label for="imageUpload"></label>
                             </div>
                             <?php
-                            $cover_img = get_user_meta($user->ID, 'cover_photo', true);
+                            $cover_img = get_user_meta($user->ID, 'profile_photo', true);
                             if (empty($cover_img)) {
                                 $cover_img = "https://via.placeholder.com/1920x318";
                             }
@@ -262,9 +266,9 @@ $job_title = get_user_meta($user->ID, 'job_title', true);
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">* Username</label>
+                                            <label for="exampleInputPassword1">* Nickname</label>
                                             <input type="text" name="uname" class="form-control"
-                                                id="exampleInputPassword1" placeholder="Janedoe23"
+                                                id="exampleInputPassword1" placeholder="Enter here"
                                                 value="<?php echo $current_user->uname ?>" required>
                                         </div>
                                     </div>
@@ -403,19 +407,9 @@ $job_title = get_user_meta($user->ID, 'job_title', true);
 
 <!-- City Dropdown -->
 <div class="col-xl-6 col-lg-6 col-md-6 col-12">
-    <div class="form-group select_sec">
+    <div class="form-group">
         <label for="exampleFormControlSelect1">* City</label>
-        <select class="form-control" name="city" id="city">
-                                                        <option value="" selected>Select City</option>
-
-
-                                                        <?php foreach ($allCitiesExist as $value) { ?>
-
-                                                            <option value="<?php echo $value->city ?>" <?php if ($current_user->city == $value->city) {
-                                                                                                            echo 'selected="selected"';
-                                                                                                        } ?>><?php echo $value->city ?></option>
-                                                        <?php } ?>
-                                                    </select>
+       <input type="text" name="city" class="form-control" value="<?php echo $city ?>">
     </div>
 </div>   
 

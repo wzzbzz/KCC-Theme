@@ -127,7 +127,7 @@
     .main_side_bar_left { height: max-content;  width: 75px;  position: absolute;  top: 0;  left: 0;}
     .center_logo_sec { background-size: contain;  height: auto; display: grid;
     justify-content: unset;  background-position: center left;  min-height: max-content;  padding: 2rem 0;}
-    .main_menu_Sec a {  margin: 0.2rem 0rem; } 
+    .main_menu_Sec {  padding: 0.2rem 0rem; } 
     .top_logo_sec .side_open_logo {max-width: 110px; height: auto;}
     .top_logo_sec .small_logo{max-width: 70px; height: auto;}
     .bottom_logo_sec {   position: relative;  bottom: unset;}
@@ -143,12 +143,15 @@
     .menu_icon {width: 70px;}
     .side_text_view p { font-size: 15px;}
     .main_menu_Sec.active a:before { width: 3px;}
+
+    .main_menu_Sec{ padding: 0.2rem 0rem; }
+
     .main_side_bar_left:hover {width: 230px;}
     .top_logo_sec { padding: 1rem 0rem 0rem 0.2rem;}
     .main_side_bar_left { height: max-content;  width: 80px;  position: absolute;  top: 0;  left: 0;}
     .center_logo_sec { background-size: contain;  height: auto; display: grid;
     justify-content: unset;  background-position: center left;  min-height: max-content;  padding: 2rem 0;}
-    .main_menu_Sec a {  margin: 0.2rem 0rem;min-height: 60px; } 
+    .main_menu_Sec a { min-height: 60px; } 
     .top_logo_sec .side_open_logo {max-width: 110px; height: auto;}
     .top_logo_sec .small_logo{max-width: 70px; height: auto;}
     .bottom_logo_sec {   position: relative;  bottom: unset;}
@@ -326,7 +329,9 @@
     .side_text_view p { font-size: 15px;}
     .main_menu_Sec.active a:before { width: 3px;}
     .main_side_bar_left:hover {width: 230px;} */
-	   .add-memberbtn {top:125px;right:25px;}
+
+    .main_menu_Sec{padding: 0.2rem 0rem;}
+	.add-memberbtn {top:125px;right:25px;}
     .menu_icon {width: 70px;}
     .side_text_view p { font-size: 15px;}
     .main_menu_Sec.active a:before { width: 3px;}
@@ -335,7 +340,7 @@
     .main_side_bar_left { height: max-content;  width: 80px;  position: absolute;  top: 0;  left: 0;}
     .center_logo_sec { background-size: contain;  height: auto; display: grid;
     justify-content: unset;  background-position: center left;  min-height: max-content;  padding: 2rem 0;}
-    .main_menu_Sec a {  margin: 0.2rem 0rem;min-height: 60px; } 
+    .main_menu_Sec a { min-height: 60px; } 
     .top_logo_sec .side_open_logo {max-width: 110px; height: auto;}
     .top_logo_sec .small_logo{max-width: 70px; height: auto;}
     .bottom_logo_sec {   position: relative;  bottom: unset;}
@@ -543,6 +548,7 @@
     .main_menu_Sec.active a:before { width: 3px;}
     .main_side_bar_left:hover {width: 230px;} */
 
+    .main_menu_Sec{padding: 0.2rem 0rem;}
     .menu_icon {width: 70px;}
     .side_text_view p { font-size: 15px;}
     .main_menu_Sec.active a:before { width: 3px;}
@@ -551,7 +557,7 @@
     .main_side_bar_left { height: max-content;  width: 80px;  position: absolute;  top: 0;  left: 0;}
     .center_logo_sec { background-size: contain;  height: auto; display: grid;
     justify-content: unset;  background-position: center left;  min-height: max-content;  padding: 2rem 0;}
-    .main_menu_Sec a {  margin: 0.2rem 0rem;min-height: 60px; } 
+    .main_menu_Sec a { min-height: 60px; } 
     .top_logo_sec .side_open_logo {max-width: 110px; height: auto;}
     .top_logo_sec .small_logo{max-width: 70px; height: auto;}
     .bottom_logo_sec {   position: relative;  bottom: unset;}

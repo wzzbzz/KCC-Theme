@@ -1,0 +1,293 @@
+{
+    "id": "disaster-situational-report-form",
+    "title": "Disaster Situational Report",
+    "method": "POST",
+    "action": "",
+    "class": "row mediadoc_form",
+    "enctype": "multipart/form-data",
+    "hidden": [
+        {
+            "name": "group_id",
+            "value": "the-group-id",
+            "type": "hidden"
+        },
+        {
+            "name": "rf_id",
+            "value": "the-rf-id",
+            "type": "hidden"
+        },
+        {
+            "name": "report_guid",
+            "value": "DSR-group-id-user-id-timestamp",
+            "type": "hidden"
+        },
+        {
+            "name": "action",
+            "value": "kcc_form_submit"
+        },
+        {
+            "name": "report_type",
+            "value": "dsr"
+        },
+        {
+            "name": "nonce",
+            "value": "the-nonce",
+            "type": "hidden"
+        }
+    ],
+    "pages":[
+        {
+            "id":"disaster-details",
+            "title":"Disaster Details",
+            "fields":[
+                {
+                    "id":"disaster-name",
+                    "title":"Disaster Name",
+                    "type":"text",
+                    "required":true,
+                    "placeholder":"Enter Disaster Name",
+                    "value": "post_title"
+                },
+                {
+                    "id": "disaster-location",
+                    "title": "Disaster Location",
+                    "type": "group",
+                    "required": true,
+                    "fields":[
+                        {
+                            "id":"country",
+                            "title":"Country",
+                            "type":"select",
+                            "required":true,
+                            "options":  "\\KCC\\Forms\\Forms::allCountries",
+                            "default": "user-country",
+                            "onchange": "getStates",
+                            "value": "meta:country"
+                        },
+                        {
+                            "id":"state",
+                            "title":"State",
+                            "type":"select",
+                            "required":true,
+                            "options":  "\\KCC\\Forms\\Forms::allStates",
+                            "default": "user-state",
+                            "onchange": "getCities",
+                            "value": "meta:state"
+                        },
+                        {
+                            "id":"city",
+                            "title":"City",
+                            "type":"select",
+                            "required":true,
+                            "default": "user-city",
+                            "values":  "\\KCC\\Forms\\Forms::allCities"
+                        },
+                        {
+                            "id":"street-address",
+                            "title":"Street Address",
+                            "type":"text",
+                            "required":true,
+                            "default": "user-street-address",
+                            "placeholder":"Enter Street Address"
+                        }
+                    ]
+                
+                },
+                {
+                    "id":"disaster-date",
+                    "title":"Disaster Date",
+                    "type":"date",
+                    "required":true,
+                    "placeholder":"Enter Disaster Date",
+                    "value": ""
+                },
+                {
+                    "id":"disaster-time",
+                    "title":"Disaster Time",
+                    "type":"time",
+                    "required":true,
+                    "placeholder":"Enter Disaster Time",
+                    "value": "post_time"
+                }
+            ]
+        },
+        {
+            "id": "contact-information",
+            "title": "Contact Information",
+
+            "fields":[
+
+                {
+                    "id": "organization",
+                    "title": "Organization",
+                    "type": "group",
+                    "fields":[
+
+                        {
+                            "id":"organization-name",
+                            "title":"Organization Name",
+                            "type":"text",
+                            "required":true,
+                            "placeholder":"Enter Organization Name",
+                            "value": "meta:organization-name"
+                        },
+                        {
+                            "id":"contact-person",
+                            "title":"Contact Person",
+                            "type":"text",
+                            "required":true,
+                            "placeholder":"Enter Contact Person",
+                            "value": "meta:contact-person"
+                        },
+                        {
+                            "id":"contact-person-title",
+                            "title":"Contact Person Title",
+                            "type":"text",
+                            "required":true,
+                            "placeholder":"Enter Contact Person Title",
+                            "value": "meta:contact-person-title"
+                        },
+                        {
+                            "id":"contact-person-email",
+                            "title":"Contact Person Email",
+                            "type":"email",
+                            "required":true,
+                            "placeholder":"Enter Contact Person Email",
+                            "value": "meta:contact-person-email"
+                        },
+                        {
+                            "id":"contact-person-phone",
+                            "title":"Contact Person Phone",
+                            "type":"tel",
+                            "required":true,
+                            "placeholder":"Enter Contact Person Phone",
+                            "value": "meta:contact-person-phone"
+                        },
+                        {
+                            "id":"contact-person-address",
+                            "title":"Contact Person Address",
+                            "type":"group",
+                            "required":true,
+                            "placeholder":"Enter Contact Person Address",
+                            "fields":[
+                                {
+                                    "id":"contact-country",
+                                    "title":"Country",
+                                    "type":"select",
+                                    "required":true,
+                                    "options":  "\\KCC\\Forms\\Forms::allCountries",
+                                    "default": "user-country",
+                                    "onchange": "getStates",
+                                    "value": "meta:contact-person-country"
+                                },
+                                {
+                                    "id":"contact-state",
+                                    "title":"State",
+                                    "type":"select",
+                                    "required":true,
+                                    "options":  "\\KCC\\Forms\\Forms::allStates",
+                                    "default": "user-state",
+                                    "onchange": "getCities",
+                                    "value": "meta:contact-person-state"
+                                },
+                                {
+                                    "id":"contact-city",
+                                    "title":"City",
+                                    "type":"select",
+                                    "required":true,
+                                    "default": "user-city",
+                                    "values":  "\\KCC\\Forms\\Forms::allCities"
+                                },
+                                {
+                                    "id":"contact-street-address",
+                                    "title":"Street Address",
+                                    "type":"text",
+                                    "required":true,
+                                    "default": "user-street-address",
+                                    "placeholder":"Enter Street Address",
+                                    "value": "meta:contact-person-street-address"
+                                },
+                                {
+                                    "id":"contact-zip-code",
+                                    "title":"Zip Code",
+                                    "type":"text",
+                                    "required":true,
+                                    "default": "user-zip-code",
+                                    "placeholder":"Enter Zip Code",
+                                    "value": "meta:contact-person-zip-code"
+                                }
+                            ]
+                        }
+
+                    ]
+
+
+                },
+                {
+                    "id": "site-contact",
+                    "title": "On Site Contact (If Different)",
+                    "type": "group",
+                    "fields":[
+                        
+                        {
+                            "id":"on-site-organization-name",
+                            "title":"Organization Name",
+                            "type":"text",
+                            "required":true,
+                            "placeholder":"Enter Organization Name",
+                            "value": "meta:site-organization-name"
+                        },
+                        {
+                            "id":"site-contact-person",
+                            "title":"Site Contact Person",
+                            "type":"text",
+                            "required":true,
+                            "placeholder":"Enter Site Contact Person",
+                            "value": "meta:site-contact-person"
+                        },
+
+                        {
+                            "id":"site-contact-person-title",
+                            "title":"Site Contact Person Title",
+                            "type":"text",
+                            "required":true,
+                            "placeholder":"Enter Site Contact Person Title",
+                            "value": "meta:site-contact-person-title"
+                        },
+                        {
+                            "id":"site-contact-person-email",
+                            "title":"Site Contact Person Email",
+                            "type":"email",
+                            "required":true,
+                            "placeholder":"Enter Site Contact Person Email",
+                            "value": "meta:site-contact-person-email"
+                        },
+                        {
+                            "id":"site-contact-person-phone",
+                            "title":"Site Contact Person Phone",
+                            "type":"tel",
+                            "required":true,
+                            "placeholder":"Enter Site Contact Person Phone",
+                            "value": "meta:site-contact-person-phone"
+                        }
+                        
+
+                    ]
+                }
+                
+            ]
+        },
+        {
+            "id": "disaster-type",
+            "title": "Disaster Type",
+        },
+        {
+            "id": "logistics-security",
+            "title": "Logistics & Security",
+        },
+        {
+            "id":"complete",
+            "title":"Complete"
+        }
+    ]
+}

@@ -304,7 +304,7 @@ if ( is_user_logged_in() ) { ?>
                             </div>
                         </div>
                         <div class="tab-pane" id="media-documents" role="tabpanel">
-                            <?php include('resoucre_media_inc.php');?>
+                            <?php include('resource_media_inc.php');?>
                         </div>
                     </div>
                 </div>

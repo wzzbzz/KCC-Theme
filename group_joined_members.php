@@ -72,7 +72,7 @@
                             </ul>
                         </div>
                     <div class="back_btn">
-                        <a href="<?php echo site_url('wccgroups')?>">Back</a>
+                        <a href="<?php echo site_url('groups')?>">Back</a>
                     </div>
                     </div>
                 <div class="groups_tabs">

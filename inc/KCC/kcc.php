@@ -1,6 +1,26 @@
 <?php
 
 
+// define _KCC_ROOT_ as the root directory of the plugin
+define('__KCC_ROOT__', __DIR__);
+
+if( isset($_GET['debug']) && $_GET['debug'] == 'true' ){
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+}
+
+if(isset($_GET['delete_applications_from_postmeta'])){
+    $args = array(
+        'post_type' => 'kcc_report',
+        'posts_per_page' => -1,
+        'post_status' => 'any'
+    );
+    $reports = get_posts($args);
+    foreach($reports as $report){
+        delete_post_meta($report->ID, 'applications');
+    }
+}
 
 // make an autoload function for the /jwc/Wordpress directory
 spl_autoload_register(function ($class) {
@@ -29,5 +49,27 @@ spl_autoload_register(function ($class) {
     }
 });
 
-$groups = new KCC\Groups();
-$roles = new KCC\Roles();
+/* function for comments */
+//add_filter( 'comment_form_defaults', 'leave_a_comment_title_tag' );
+function leave_a_comment_title_tag( $defaults ){
+  $user = new KCC\User( get_current_user_id() );
+  $defaults['title_reply_before'] = '<p id="reply-title" class="comment-reply-title">';
+  $defaults['title_reply_after'] = '</p>';
+  return $defaults;
+}
+
+
+new KCC\Users();
+new KCC\Members();
+// these function calls will set up the hooks
+new KCC\Groups();
+new KCC\Roles();
+new KCC\Communications\Announcements();
+new KCC\Communications\BlogPosts();
+new KCC\FlashMessages\FlashMessages();
+
+// right now Reports must precede Forms....
+new KCC\Reports\Reports();
+new KCC\Reports\ReportTypes();
+new KCC\Reports\OrganizationVolunteerRequests();
+new KCC\Forms\Forms();

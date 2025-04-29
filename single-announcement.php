@@ -2,161 +2,14 @@
 
 if ( is_user_logged_in() ) {
 
-get_header('new');
-
+get_header('dashboard');
 
 
 global $post;
-
-
-
 ?>
 
-<style type="text/css">
 
-    .announcement-bg{
-
-        background: #FFFFFF 0% 0% no-repeat padding-box;
-
-        box-shadow: 0px 10px 20px #00000029;
-
-        opacity: 1;    
-
-        margin: 50px 0px;
-
-        border-bottom-left-radius:20px;
-
-        border-bottom-right-radius:20px;
-
-        
-
-    }
-
-    .announcement-bg img{
-
-        min-height: 500px;
-
-        height: 499px;
-
-        border-radius: 11px;
-
-        width: 100%;
-
-    }
-
-    .announcement-bg .announcement-desc{
-
-        padding-top: 25px;
-
-        padding-left: 35px;
-
-        padding-right: 35px;
-
-        padding-bottom: 35px;
-
-        opacity: 1;
-
-    }
-
-    .announcement-bg .announcement-desc .date p{
-
-        color: #71706F;
-
-        font-size: 14px;
-
-    }
-
-    .announcement-bg .announcement-desc .main-title h3{
-
-        font-size: 26px;
-
-        color: #242424;
-
-        padding-bottom: 20px;
-
-    }
-
-    .announcement-bg .announcement-desc .description-sec p{
-
-        padding-bottom: 30px;
-
-        color: #71706F;
-
-        font-size: 14px;
-
-    }
-
-    .announcement-bg .announcement-desc .description-sec p:last-child{
-
-        padding-bottom: 0px;
-
-    }
-
-    .top-title-II .title-II h3{
-
-        color: #132843;
-
-        font-size: 26px;
-
-    }
-
-    .top-title-II .detail-btn .btn-outline-primary:hover{
-
-        background: #F96703;
-
-        border: 1px solid #F96703;
-
-        color: #fff;
-
-    }
-
-
-
-    .top-title-II .detail-btn .btn-outline-primary{
-
-        width: 202px;
-
-        min-height: 50px;
-
-        background: #FFFFFF 0% 0% no-repeat padding-box;
-
-        box-shadow: 0px 3px 99px #CCD6FF3E;
-
-        border: 1px solid #0E559F;
-
-        border-radius: 9px;
-
-        opacity: 1;
-
-        color: #0E559F;
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
-
-    }
-
-</style>
-
-</head>
-
-
-
-<body class="main_all_bg_Sec">    
-
-       <?php include('usermenucommon.php')?>
-
-
-
-    <div class="col-xl-12 annoucement_detail_main_content">
-
-        <div class="row justify-content-end mt-3">
-
-            <?php include('user_topbar.php')?>
-
-        </div>        
+    <div class="col-xl-12 annoucement_detail_main_content">   
 
          <?php $img = get_the_post_thumbnail_url(get_the_ID(),'large'); 
 
@@ -204,7 +57,7 @@ global $post;
 
                         <div class="announcement-bg">
 
-                            <div class="image">
+                            <div class="image d-flex justify-content-center">
 
                                 <img src="<?php echo $img; ?>" alt="" height="" title="">
 
@@ -243,8 +96,6 @@ global $post;
                 </div>
 
             </div>
-
-           <?php include('common_user_footer.php')?>
 
         </div>
 
@@ -400,26 +251,4 @@ global $post;
 
 
 
-<?php get_footer('new'); }?>
-
-<script type="text/javascript">
-
-     $(".editAnnouncement").click(function () {
-
-                let title = $(this).data('title');
-
-                let img = $(this).data('img');
-
-                let desc = $(this).data('desc');
-
-                 let edit_ann_id = $(this).data('id');
-
-                $('#post_title1').val(title);               
-
-                $('#post_content1').html(desc);
-
-                $('#edit_ann_id').val(edit_ann_id);               
-
-            });
-
-</script>
+<?php get_footer(); }?>

@@ -1,4 +1,5 @@
 <?php
+
 /* Template Name: Register */
 $path = preg_replace('/wp-content(?!.*wp-content).*/', '', __DIR__);
 require_once($path . 'wp-load.php');
@@ -554,14 +555,12 @@ if (!empty($email)) {
                         <div id="um_field_206_user_email" class="um-field um-field-text  um-field-user_email um-field-text um-field-type_text" data-key="user_email">
                           <div class="form-floating">
                             <input autocomplete="off" class="um-form-field valid not-required  form-control" type="email" name="user_email" id="user_email" value="" placeholder="Enter your email" data-validate="unique_email" required="" data-key="user_email">
-                            <label for="floatingInput">Enter your email</label>
                           </div>
                         </div>
                         <div id="um_field_206_user_password" class="um-field um-field-password  um-field-user_password um-field-password um-field-type_password">
 
                           <div class="form-floating">
-                            <input autocomplete="off" onChange="checkPassword()" class="um-form-field valid not-required  form-control" type="password" name="user_password" id="user_password" value="" placeholder="Enter Your Email" data-validate="unique_email" required="" data-key="user_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
-                            <label for="floatingInput">Password</label>
+                            <input autocomplete="off" onfocusout="checkPassword()" class="um-form-field valid not-required  form-control" type="password" name="user_password" id="user_password" value="" placeholder="Enter Password" data-validate="unique_email" required="" data-key="user_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
                           </div>
                         </div>
 
@@ -576,8 +575,7 @@ if (!empty($email)) {
 
                         <div id="um_field_206_confirm_user_password" class="um-field um-field-password  um-field-user_password um-field-password um-field-type_password" data-key="confirm_user_password">
                           <div class="form-floating">
-                            <input onChange="checkPassword()" autocomplete="off" class="um-form-field valid not-required  form-control" type="password" name="confirm" value="" placeholder="Enter Your Email" required="">
-                            <label for="floatingInput">Retype Password</label>
+                            <input onChange="checkPassword()" autocomplete="off" class="um-form-field valid not-required  form-control" type="password" name="confirm" value="" placeholder="Retype Password" required="">
                           </div>
                         </div>
 

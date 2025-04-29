@@ -3,7 +3,7 @@
 
 
 /* Template Name: After Action Reports*/
-
+die("hi");
 get_header('new'); ?>
 
 <style>

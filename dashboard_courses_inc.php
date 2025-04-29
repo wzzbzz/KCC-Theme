@@ -212,7 +212,7 @@
 
                                                             ?>
 
-                                                            <img src="<?php echo $feat_image; ?>" style="width: 212px ;height: 110px;" class="img-fluid" alt="image">
+                                                            <img src="<?php echo $feat_image; ?>" style="width: 110px" class="img-fluid" alt="image">
 
                                                         </div>
 

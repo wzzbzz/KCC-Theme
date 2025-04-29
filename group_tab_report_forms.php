@@ -4,7 +4,8 @@ if (!is_user_logged_in() ){
     wp_redirect( 'login' );
 }
  else{
-get_header('new'); 
+get_header('dashboard');
+} 
 global $post;
 $group_id=$post->ID;
 $author_id=$post->post_author;
@@ -28,7 +29,7 @@ if(empty($author_img)){
 
  if(!in_array($current_user_id,$ldUsersList) && $author_id!=$current_user_id){
     $_SESSION['flash_msg'] = "You are not allowed to access this group.";
-    header('Location: '.site_url('wccgroups'));
+    header('Location: '.site_url('groups'));
         exit;
  }
 
@@ -74,7 +75,7 @@ if(empty($author_img)){
 }
 
 
-.donate_detais_main .imgHeightWidth {
+.donate_details_main .imgHeightWidth {
     height: 200px;
     width: 100%;
     background: transparent url('img/shutterstock_1143859865.png') 0% 0% no-repeat padding-box;
@@ -150,7 +151,7 @@ if(empty($author_img)){
             
         <div class="col-xl-11 col-lg-11 col-md-11 col-10  my-0">
            <div class="donation_tab_pills ">
-                <div class="donate_detais_main">
+                <div class="donate_details_main">
                     <?php  
                     $groupImg = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
                         if(empty($groupImg)){                                                        
@@ -447,7 +448,7 @@ $feedAjaxUrl = admin_url('admin-ajax.php?nonce='.$nonce);
 
 
     $(document).ready(function(){
-        $("#serach_user").on("keyup", function() {
+        $("#search_user").on("keyup", function() {
             var value = $(this).val().toLowerCase();
             $(".add-mem-list").children('div').children('div').children('div').children('h5').filter(function() {         
 
@@ -934,5 +935,5 @@ function deleteAnnouncement(id){
 imgUpload.addEventListener('change', previewImgs, false);
  </script>
 
-<?php }
+<?php 
 ?>

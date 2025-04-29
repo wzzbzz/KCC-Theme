@@ -406,7 +406,7 @@ ul.super_box li img {
 	height: 40px;
 	width: 40px;
 	border-radius: 50%;
-	margin-left: -15px;
+	/* margin-left: -15px; */
 }
 .main_all_bg_Sec .custom-card .main-group-image .mem-image:first-child img{
 	margin-left: -45px;
@@ -2631,10 +2631,10 @@ label {
 	padding-left: 10px;
 	padding-top: 5px;
 }
-.create-report .form-box .report-next-tab .all-form .main-form-section .seletc-form{
+.create-report .form-box .report-next-tab .all-form .main-form-section .select-form{
 	min-height: 60px;
 }
-.create-report .form-box .report-next-tab .all-form .main-form-section .seletc-form-height{
+.create-report .form-box .report-next-tab .all-form .main-form-section .select-form-height{
 	min-height: 80px;
 }
 
@@ -2643,7 +2643,7 @@ label {
 	left: 0px;
 	position: absolute;
 }
-.create-report .form-box .report-next-tab .all-form .main-form-section .seletc-form .form-control{
+.create-report .form-box .report-next-tab .all-form .main-form-section .select-form .form-control{
 	min-height: 60px;
 }
 
@@ -2706,7 +2706,7 @@ input[type="radio"] {
 }
 
 
-.create-report .form-box .report-next-tab .all-form .main-form-section .seletc-form .form-control{
+.create-report .form-box .report-next-tab .all-form .main-form-section .select-form .form-control{
 	min-height: 60px;
 }
 

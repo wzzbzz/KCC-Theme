@@ -9,7 +9,7 @@
    
    $expList = $wpdb->get_results( "SELECT * FROM user_experience WHERE user_id = '".$current_user->ID."' ",ARRAY_A); 
    $skillList = $wpdb->get_results( "SELECT * FROM user_skills WHERE user_id = '".$current_user->ID."' ",ARRAY_A);  
-   get_header('new'); 
+   get_header('dashboard'); 
  
     ?>
 <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/lavleen.css">
@@ -79,7 +79,7 @@
             </div>
       <div class="col-xl-11 col-lg-11 col-md-11 col-10 ">
         <div class="donation_tab_pills">
-           <div class="donate_detais_main profile_img">
+           <div class="donate_details_main profile_img">
                <!-- <img src="<?php //echo get_template_directory_uri(); ?>/assets/images/detail_click.png" class="img-fluid membergroup-img pro_img1" alt="image"> -->
                   <?php 
                      $cover_img = get_user_meta( $_GET['userID'],'cover_photo',true);

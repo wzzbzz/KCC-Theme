@@ -6,6 +6,9 @@ a.disabled {
 </style>
       <?php 
         $current_user_id = get_current_user_id();  
+
+        $user = new KCC\User($current_user_id);
+
         $args = array(
         'numberposts'   => -1,
         'post_type'     => 'groups',
@@ -18,6 +21,7 @@ a.disabled {
                           
         $grp_id[]=$value->ID;
         }  
+
       // print_r($grp_id);
     ?>
 <div class="tab-content" id="pills-tabContent">
@@ -85,13 +89,13 @@ a.disabled {
                     </div>
                 </div>
                   <?php 
-                      $current_user_id = get_current_user_id();
-                      $reportData = get_posts( array(
-                                                      'post_type'      => 'reportsforms',
-                                                      'post_status'    => 'publish',
-                                                      'post_author'    =>  $current_user_id,
-                                                       'numberposts' => 1000
-                                                 ) );
+
+                      $report_type_slug = 'disaster-situational-report';
+                      $allReports = $user->reports($report_type_slug);
+                      $report_type = \KCC\Reports\ReportType::fromSlug($report_type_slug);
+                      $viewClass = $report_type->getViewClass();
+                      $reportData = $allReports;
+                 
                  ?>
 
 
@@ -99,75 +103,16 @@ a.disabled {
                   <div class="table-responsive">
                   <table class="table table-hover">
                      <thead>
-                        <tr>
-                            <th>Report No.</th>
-                            <th>Date</th>
-                            <th>Event</th>
-                            <th>Group</th>
-                            <th>Country</th>
-                            <th>State</th>
-                            <th>City</th>
-                            <th>Contact person</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>&nbsp;</th>
-                        </tr>
+                        <?= $viewClass::tableHeader(); ?>
                      </thead>
                      <tbody>
 
                       
-                           <?php if(!empty($reportData)){
-                              foreach($reportData as $report){
-                                  $rid = $report->ID;
-                                  $postAuthor = $report->post_author;
-                                  $postMeta = get_post_meta($rid);
-                                  $gid = get_post_meta($report->ID, 'group_id', true );
-                                  $allRnnUser= get_post_meta($rid,'rf_publish',true);
-                                   $gid = get_post_meta($report->ID, 'group_id', true );
-                                        $args = array(
-                                                        'post_type' => 'groups',
-                                                        'post__in' => array($gid)
-                                                    );
-
-                                $groupData = get_posts($args);
-                                $groupData =$groupData[0];
-                                 $reportGroupID = $groupData->ID;
-                                 $ralatedMembers = learndash_get_groups_user_ids($reportGroupID);
-                                  if(in_array($current_user_id, $ralatedMembers) || $current_user_id == $postAuthor ){
-                               
-                           ?>
-                                 <tr class="bg-color">
-                                     <td><?php echo get_post_meta($rid,'report_id',true)?></td>
-                                     <td><?php echo get_post_meta($rid,'rf_date',true)?></td>
-                                     <td><?php echo $report->post_title;?></td>
-                                     <td><?php echo @$groupData->post_title;?></td>
-                                     <!--<td><//?php echo get_post_meta($rid,'rf_org',true)?></td>-->
-                                     <td><?php echo get_user_meta($postAuthor,'country',true)?></td>
-                                     <td><?php echo get_user_meta($postAuthor,'state',true)?></td>
-                                     <td><?php echo get_user_meta($postAuthor,'city',true)?></td>
-                                     <td><?php echo get_post_meta($rid,'rf_contact_person',true)?></td>
-                                      <td>
-                                           <div class="organization">
-                                                <a href="javascript:void(0);" title="<?php echo get_post_meta($rid,'rf_email',true)?>"><?php echo get_post_meta($rid,'rf_email',true)?></a>
-                                            </div>
-                                        </td>
-                                        <td style="width:15%;">
-                                            <div class="mail-section">
-                                                <div>
-                                                    <a href="tel:<?php echo get_post_meta($rid,'rf_phone',true)?>" title="<?php echo get_post_meta($rid,'rf_phone',true)?>"><?php echo get_post_meta($rid,'rf_phone',true)?></a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td style="width:12%;">
-                                            <a href="<?php echo site_url('disaster-situational-report')."?id=".$rid; ?>" class="d-block">
-                                                <div class="orange-box report-btn">
-                                                    <p>View</p>
-                                                </div>
-                                            </a>
-                                        </td>
-                                 </tr>
-
-                         <?php } }
+                           <?php if(!empty($allReports)){
+                            foreach($allReports as $report){
+                              $reportView = new $viewClass($report);
+                              $reportView->render_table_row();
+                            }
                       }?>
 
                      </tbody>
@@ -185,116 +130,32 @@ a.disabled {
                             Create a New</button>
                         </a> 
                         <div class="btn_list_blog mt-3">
-                            <a href="<?php echo site_url('received-request')?>">
+                            <a href="<?php echo site_url('reports/organization-volunteer-request/manage-applications')?>">
                                 Requests Received
                             </a>
                         </div>
                     </div>
                  </div>
              <?php 
-                   $current_user_id = get_current_user_id();
-                   $reportData = get_posts( array(
-                                                'post_type'      => 'volunteer_request',
-                                                'post_status'    => 'publish',
-                                                'author'    =>  $current_user_id,
-                                                 'numberposts' => 1000
-                                           ) );
+                   $report_type_slug = 'organization-volunteer-request';
+                    $report_type = \KCC\Reports\ReportType::fromSlug($report_type_slug);
+                    $viewClass = $report_type->getViewClass();
+                    $allReports = $user->reports($report_type_slug);
+                    $reportData = $allReports;
+
               ?>
             <div class="global-table d-board w-100">
                <div class="table-responsive">
                   <table class="table table-hover">
                      <thead>
-                         <tr>
-                             <th>Report No.</th>
-                             <th>Date</th>
-                             <th>Event</th>
-                             <th>Group</th>
-                             <th>Country</th>
-                             <th>State</th>
-                             <th>city</th>
-                             <th>Contact Person</th>
-                             <th>Organization</th>
-                             <th>&nbsp;</th>
-                            
-                        </tr>
+                        <?= $viewClass::tableHeader(); ?>
                      </thead>
                      <tbody>
-                        <?php if(!empty($reportData)){
-                           foreach($reportData as $report){
-                               $reportAuthor =  $report->post_author;
-                               $rid = $report->ID;
-                               $postMeta = get_post_meta($rid);
-                               $track_url  =    site_url('track-request');
-                               $gid = get_post_meta($report->ID, 'group_id', true );
-                                        $args = array(
-                                                        'post_type' => 'groups',
-                                                        'post__in' => array($gid)
-                                                    );
-
-                                $groupData = get_posts($args);
-                                $groupData =$groupData[0];
-                                 $reportGroupID = $groupData->ID;
-                                 $ralatedMembers = learndash_get_groups_user_ids($reportGroupID);
-                                  if(in_array($current_user_id, $ralatedMembers) || $current_user_id == $reportAuthor ){
-                        ?>
-                              <tr class="bg-color">
-                                          <td><?php echo get_post_meta($rid,'report_id',true)?></td>
-                                        <td><?php echo $report->post_date; ?></td>
-                                        <td><?php echo $report->post_title;?>
-                                          <td><?php echo @$groupData->post_title;?></td>
-                                        <td><?php echo get_user_meta($reportAuthor,'country',true)?></td>
-                                        <td><?php echo get_user_meta($reportAuthor,'state',true)?></td>
-                                        <td><?php echo get_user_meta($reportAuthor,'city',true)?></td>
-                                         <td><?php echo get_post_meta($rid,'vol_person',true)?></td>
-                                         <td><?php echo get_post_meta($rid,'vol_org',true)?></td>
-                                        
-                                        
-                                        <?//php echo get_post_meta($rid,'report_status',true)?>
-                                        <?php if($current_user_id != $report->post_author){ ?>
-                                        <td>
-                                            <a href="<?php echo site_url('view-organization-request-form')."?id=".$rid; ?>" class="d-block" target="_blank">
-                                                <div class="orange-box report-btn">
-                                                    <p>View</p>
-                                                </div>
-                                            </a>
-                                        </td>
-                                        <td style="width:12%;">
-                                          
-                                          <?php  if(get_post_meta($rid,'report_status_for_'.$rid,true) == 'report_applied')  { ?>
-                                          
-                                           <?php 
-                                        echo "<a href='$track_url/?rid=$rid' class='d-block'>";
-                                            echo "<div class='orange-box report-btn'>";     
-                                            echo "<p>Track</p>";        
-                                            echo "</div>";
-                                            echo "</a>";
-                                           ?>
-                                          
-                                           <?php }  else { ?>
-                                           
-                                              <?php 
-                                                echo "<a href='javascript::void(0)' class='d-block' onclick= 'notApplied()'>";
-                                                echo "<div class='orange-box report-btn disabled'>";     
-                                                echo "<p>Track</p>";        
-                                                echo "</div>";
-                                                echo "</a>";
-                                              
-                                              ?>
-                                            <?php }  ?>
-                                        
-                                        </td>
-                                        <?php } else{ ?>
-                                          <td>
-                                            <a href="<?php echo site_url('view-organization-request-form')."?id=".$rid; ?>" class="d-block" target="_blank">
-                                                <div class="orange-box report-btn">
-                                                    <p>View</p>
-                                                </div>
-                                            </a>
-                                        </td>
-                                        <?php } }?>     
-                                    </tr>
-                       
-                           <?php } }?>
+                        <?php if(!empty($allReports)){
+                           foreach($allReports as $report){
+                              $reportView = new $viewClass($report);
+                              $reportView->render_table_row();
+                            } }?>
                                
                      </tbody>
                   </table>
@@ -310,7 +171,7 @@ a.disabled {
                         Create a New</button>
                     </a> 
                     <div class="btn_list_blog mt-3">
-                        <a href="<?php echo site_url('survivors-received-request')?>">
+                        <a href="<?php echo site_url('reports/survivor-needs-intake/manage-applications')?>">
                             Requests Received
                         </a>
                    </div>
@@ -372,7 +233,7 @@ a.disabled {
                                        <td><?php echo get_user_meta($reportAuthor,'country',true)?></td>
                                         <td><?php echo get_user_meta($reportAuthor,'state',true)?></td>
                                          <td><?php echo get_user_meta($reportAuthor,'city',true)?></td>
-                                         <td><?php echo get_post_meta($rid,'intake_firstName',true)?></td>
+                                         <td><?php echo get_post_meta($rid,'client_firstName',true)?></td>
                                           <td><?php echo get_post_meta($rid,'vol_org',true)?></td>
                                          <?php if($current_user_id != $report->post_author){ ?>
                                          <td><a href="<?php echo site_url('view-survivor-need-intake-request-form')."?id=".$rid; ?>" class="d-block" target="_blank">
@@ -470,7 +331,7 @@ a.disabled {
                                                         );
     
                                             $groupData = get_posts($args);
-                                            $groupData =$groupData[0];
+                                            $groupData = is_array($groupData)?$groupData[0]:$groupData;
                                           $reportGroupID = $groupData->ID;
                                             $ralatedMembers = learndash_get_groups_user_ids($reportGroupID);
                                             if(in_array($current_user_id, $ralatedMembers) || $current_user_id == $reportAuthor ){

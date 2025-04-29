@@ -15,6 +15,12 @@ class WPPost extends WPEntity{
             }
             
         }
+
+        // check to see if post exists
+        if(!get_post($post_id)){
+            return false;
+        }
+
         $this->post_id = $post_id;    
     }
 
@@ -23,20 +29,32 @@ class WPPost extends WPEntity{
         return $this->post_id;
     }
 
+    public function type(){
+        return get_post_type($this->post_id);
+    }
+
     public function title(){
         return get_the_title($this->post_id);
     }
 
-    public function content(){
-        return apply_filters('the_content', get_post_field('post_content', $this->post_id));
+    public function slug(){
+        return get_post_field('post_name', $this->post_id);
+    }
+
+    public function content( $filters = false ){
+        if($filters){
+            return apply_filters('the_content', get_post_field('post_content', $this->post_id));
+        }
+        return get_post_field('post_content', $this->post_id);
     }
 
     public function excerpt(){
         return apply_filters('the_excerpt', get_post_field('post_excerpt', $this->post_id));
     }
 
-    public function date(){
-        return get_the_date('F j, Y', $this->post_id);
+    public function date($fmt = 'F j, Y'){
+        $post = get_post($this->post_id);
+        return date($fmt, strtotime($post->post_date));
     }
 
     public function author_id(){
@@ -47,8 +65,14 @@ class WPPost extends WPEntity{
         return new \jwc\Wordpress\WPUser( $this->author_id() );
     }
 
-    public function thumbnail($size = 'thumbnail'){
-        return get_the_post_thumbnail($this->post_id, $size);
+    public function currentUserIsAuthor(){
+        return get_current_user_id() == $this->author_id();
+    }
+    public function thumbnail($size = 'large'){
+        if(empty($this->thumbnail_url($size))){
+            return '';
+        }
+        return "<img src='{$this->thumbnail_url($size)}' alt='{$this->thumbnail_alt($size)}' title='{$this->thumbnail_title($size)}' />";
     }
 
     public function permalink(){
@@ -59,6 +83,13 @@ class WPPost extends WPEntity{
         return get_post_meta($this->post_id, $key, $single);
     }
 
+    public function get_meta($key, $single = true){
+        return get_post_meta($this->post_id, $key, $single);
+    }
+
+    public function add_meta($key, $value, $unique = false){
+        return add_post_meta($this->post_id, $key, $value, $unique);
+    }
     public function set_meta($key, $value){
         return update_post_meta($this->post_id, $key, $value);
     }
@@ -160,6 +191,10 @@ class WPPost extends WPEntity{
         $thumbnail_id = get_post_thumbnail_id($this->post_id);
         $metadata = wp_get_attachment_metadata($thumbnail_id);
         return $metadata['image'];
+    }
+
+    public function dump_meta(){
+        return get_post_meta($this->post_id);
     }
 
 }

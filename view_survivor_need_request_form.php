@@ -332,7 +332,7 @@
 
                            <h4>Client First Name</h4>
 
-                           <p><?php echo get_post_meta($survivor_id,'intake_firstName',true)?></p>
+                           <p><?php echo get_post_meta($survivor_id,'client_firstName',true)?></p>
 
                         </div>
 
@@ -340,7 +340,7 @@
 
                            <h4>Client Last Name</h4>
 
-                           <p><?php echo get_post_meta($survivor_id,'intake_lastName',true)?></p>
+                           <p><?php echo get_post_meta($survivor_id,'client_lastName',true)?></p>
 
                         </div>
 
@@ -350,7 +350,7 @@
 
                            <h4>Address</h4>
 
-                           <p><?php echo get_post_meta($survivor_id,'intake_address',true)?></p>
+                           <p><?php echo get_post_meta($survivor_id,'client_address',true)?></p>
 
                         </div>
 
@@ -404,7 +404,7 @@
 
                            <h4>Primary Telephone</h4>
 
-                           <p><?php echo get_post_meta($survivor_id,'intake_phone',true)?></p>
+                           <p><?php echo get_post_meta($survivor_id,'client_phone',true)?></p>
 
                         </div>
 
@@ -412,7 +412,7 @@
 
                            <h4>Best Time to Contact</h4>
 
-                           <p><?php echo get_post_meta($survivor_id,'intake_contact_time',true)?></p>
+                           <p><?php echo get_post_meta($survivor_id,'client_preferred_contact_time',true)?></p>
 
                         </div>
 

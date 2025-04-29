@@ -21,6 +21,14 @@ class WPEntity{
     public function id(){}
     public function name(){}
     public function meta($field_name){}
+
+    public function print_field($value, $empty = ""){
+        if(empty($value)){
+            return $empty;
+        }else{
+            return $value;
+        }
+    }
 }
 ?>
         

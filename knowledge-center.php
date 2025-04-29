@@ -2,189 +2,10 @@
 /* Template Name: Knowledge Center */
 if (is_user_logged_in()) {
     include 'aq_resizer.php';
-    get_header('new');
+    get_header('dashboard');
     ?>
-    <style>
-        .main_box_btm img {
-            height: 200px;
-        }
-
-        .title_course .start_course {
-            font-size: 18px;
-            color: #242424;
-            font-weight: 550;
-            margin-top: 1rem;
-            margin-left: 5px;
-            margin-bottom: -5px;
-        }
-
-        .title_course h5 {
-            margin-top: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .progress {
-            width: 100%;
-            height: 10px;
-            border-radius: 50px;
-            background-color: #ffffff;
-            position: relative;
-            cursor: pointer;
-            /* margin: 0 0px; */
-            margin: 8px 0px 5px 0px;
-        }
-
-        .progress-bar {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            color: #fff;
-            text-align: center;
-            white-space: nowrap;
-            background-color: #f9671d;
-            transition: width .6s ease;
-            border-radius: 50px;
-        }
-
-        .right_side_know h5 {
-            font-size: 11px;
-            /* color: #222222; */
-        }
-
-        .right_side_know h3 {
-            font-size: 16px;
-            color: #242424;
-            margin: 0.5rem 0rem;
-            font-weight: 550;
-        }
-
-        .pro-per h5 {
-            color: #F96703;
-            font-size: 15px;
-        }
-
-        .pro-per .complete_pro {
-            color: #4ABE2B;
-            font-size: 13px;
-        }
-
-        .crt-title {
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .crt-title-span {
-            font-size: 10px;
-        }
-
-        .card-box .title h3 {
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 3px;
-        }
-
-        .card-box .title p {
-            font-size: 11px;
-        }
-
-        .card-box .certificate-btn {
-            min-height: 40px;
-            border-radius: 9px;
-            box-shadow: 0px 10px 20px #00000029;
-            background: #F96703 0% 0% no-repeat padding-box;
-        }
-
-        .card-box .left-side {
-            padding-right: 50px;
-        }
-
-        .footer_f2 {
-            width: auto;
-        }
-
-        .right_side_know h3 a {
-            color: #000;
-            font-weight: 550;
-        }
-
-        .card-box {
-            margin-top: -10px;
-            margin-bottom: -10px;
-            margin-left: 10px;
-            margin-right: 2px;
-        }
-
-        .main_box_btm h5 {
-            font-size: 16px;
-        }
-
-        .donation_tab_pills {
-            padding: 2rem 3rem 2rem 0rem;
-        }
-
-        .donation_tab_pills.mian_knowlage_top ul.nav-pills {
-            margin-left: 15px;
-        }
-
-        .items_circle {
-            top: 762px;
-            left: 484px;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            /* UI Properties */
-            background: var(--unnamed-color-71706f) 0% 0% no-repeat padding-box;
-            background: #71706F 0% 0% no-repeat padding-box;
-            opacity: 1;
-        }
-
-        .inner-card-box {
-            display: flex;
-        }
-
-        .earned-box {
-            display: flex;
-        }
-
-        @media (min-width:320px) and (max-width:576px) {
-            .progress {
-                width: 80%;
-                height: 10px;
-                border-radius: 50px;
-                background-color: #ffffff;
-                position: relative;
-                cursor: pointer;
-                /* margin: 0 0px; */
-                margin: -24px 20px 5px 40px;
-            }
-
-            .inner-card-box {
-                display: inline;
-            }
-
-            .earned-box {
-                display: inline;
-            }
-
-            .card-box .left-side {
-                padding-right: 50px;
-                margin-top: -5px;
-            }
-
-            button.certificate-btn {
-                margin-bottom: 15px;
-            }
-
-            .top_center_main {
-                margin-left: 0px !important;
-            }
-        }
-    </style>
+    
     <div class="col-xl-12 ">
-        <div class="row justify-content-end mt-3">
-                <?php include ('user_topbar.php') ?>
-        </div>
-
         <div class="row justify-content-end mt-3 footer_f2">
 
             <div class="col-xl-11 col-lg-11 col-md-11 col-10  ">
@@ -260,8 +81,7 @@ if (is_user_logged_in()) {
                                         <h5>Collaborative Disaster Volunteer Credential</h5>
                                         <p>This training program prepares volunteers to work safely by providing a common
                                             approach to volunteering in disaster environments</p>
-                                        <a href="<?php echo site_url('collaborative-disaster-volunteer/'); ?>"
-                                            target="_blank">
+                                        <a href="<?php echo site_url('collaborative-disaster-volunteer/'); ?>">
                                             <button class="btn btn_view">
                                                 View Courses
                                             </button>
@@ -275,8 +95,7 @@ if (is_user_logged_in()) {
                                         <h5>Stand-alone or Elective Training</h5>
                                         <p>One-time trainings that can be taken alone or in conjunction with other available
                                             courses</p>
-                                        <a href="<?php echo site_url('standalone-or-elective-training/'); ?>"
-                                            target="_blank">
+                                        <a href="<?php echo site_url('standalone-or-elective-training/'); ?>" >
                                             <button class="btn btn_view">
                                                 View Courses
                                             </button>
@@ -289,7 +108,7 @@ if (is_user_logged_in()) {
                                             alt="">
                                         <h5>Covid-19 Trainings</h5>
                                         <p>New safety trainings for individuals, disaster volunteers & managers</p>
-                                        <a href="<?php echo site_url('covid-19-training-list/'); ?>" target="_blank">
+                                        <a href="<?php echo site_url('covid-19-training-list/'); ?>">
                                             <button class="btn btn_view">
                                                 View Courses
                                             </button>
@@ -302,7 +121,7 @@ if (is_user_logged_in()) {
                                             alt="">
                                         <h5>Other Languages</h5>
                                         <p>Selection trainings available in Spanish, French, and Ukrainian</p>
-                                        <a href="<?php echo site_url('other-languages-list/'); ?>" target="_blank">
+                                        <a href="<?php echo site_url('other-languages-list/'); ?>">
                                             <button class="btn btn_view">
                                                 View Courses
                                             </button>
@@ -569,7 +388,6 @@ if (is_user_logged_in()) {
                     </div>
                 </div>
             </div>
-            <?php include ('common_user_footer.php') ?>
 
         </div>
 

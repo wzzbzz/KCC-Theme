@@ -88,14 +88,14 @@
                                     <tr class="bg-color">
                                         <td><?php echo get_post_meta($rid,'report_id',true)?></td>
                                         <td><?php echo get_post_meta($rid,'rf_date',true)?></td>
-                                        <td><?php echo get_post_meta($rid,'rf_org',true)?></td>
+                                        <td><?php echo get_post_meta($rid,'organization',true)?></td>
                                         <td><?php echo get_user_meta($postauthor,'country',true)?></td>
                                         <td><?php echo get_user_meta($postauthor,'state',true)?></td>
                                         <td><?php echo get_user_meta($postauthor,'city',true)?></td>
-                                        <td><?php echo get_post_meta($rid,'rf_contact_person',true)?></td>
+                                        <td><?php echo get_post_meta($rid,'contact_person',true)?></td>
                                         <td>
                                            <div class="organization">
-                                               <?php echo get_post_meta($rid,'rf_org',true)?>
+                                               <?php echo get_post_meta($rid,'organization',true)?>
                                             </div>
                                         </td>
                                         <!--<td style="width:15%;">
@@ -368,7 +368,7 @@
                                         <td><?php echo get_user_meta($postauthor,'state',true)?></td>
                                         <td><?php echo get_user_meta($postauthor,'city',true)?></td>
                                         
-                                        <td><?php echo get_post_meta($rid,'intake_firstName',true)?> <?php echo get_post_meta($rid,'intake_lastName',true)?></td>
+                                        <td><?php echo get_post_meta($rid,'client_firstName',true)?> <?php echo get_post_meta($rid,'client_lastName',true)?></td>
                                       <?php if($current_user_id != $report->post_author){ ?>
                                         <td style="width:12%;">
                                           <?php if( (get_post_meta($rid,'report_status_'.$current_user_id,true) == 'applied') && (get_post_meta($rid,'report_applied_by_'.$current_user_id,true) == $current_user_id)){ ?>

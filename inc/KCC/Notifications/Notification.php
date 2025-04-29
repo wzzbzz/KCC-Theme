@@ -25,6 +25,9 @@ class Notification{
     protected $bcc;
     protected $calledFrom;
     protected $post_id;
+    protected $group_id;
+    protected $emailLogId;
+
 
     // this constructor will pull all arguments, whether the notification needs them or not.
     public function __construct($args){
@@ -43,6 +46,8 @@ class Notification{
         $this->actionlink = $args['action_link'] ?? '';
         $this->calledFrom = $args['calledFrom'] ?? '';
         $this->post_id = $args['post_id'] ?? '';
+        $this->group_id = $args['group_id'] ?? '';
+        $this->user_id = $args['user_id'] ?? '';
 
     }
 
@@ -52,20 +57,56 @@ class Notification{
         $this->send_emails();
     }
 
-    public function send_emails(){
-        die("sending emails");
+    public function send_emails()
+    {
+        $this->headers = 'From: ' . get_bloginfo('name') . ' <no_reply@worldcares.org>' . "\r\n";
+        $this->headers .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
+
+        foreach ($this->recipients['to'] as $recipient) {
+            $this->send_email($recipient);
+        }
     }
 
     public function send_email( $recipient ){
-        die("sending emails");
+
+        global $wpdb;
+        $result = wp_mail($recipient->email(), $this->subject, $this->body, $this->headers);
+
+            $this->to = $recipient->email();
+
+            $result = $wpdb->insert(
+                'emailLog',
+                array(
+                    'dateCreated' => current_time('mysql'),
+                    'subject' => $this->subject,
+                    'body' => $this->body,
+                    'to_email' => $this->to,
+                    'actionLink' => $this->actionlink,
+                ),
+                array('%s', '%s', '%s', '%s', '%s')
+            );
+            $this->emailLogId = $wpdb->insert_id;
+            $this->send_notification($recipient);
     }
 
 
-    public function send_dashboard_notifications(){
-        die("sending dashboard notification");
-    }
+    public function send_notification( $recipient){
+        global $wpdb;
+        
+        $insert_result = $wpdb->insert(
+            'kcc_notifications',
+            array(
+                'datecreated' => current_time('mysql'),
+                'userId' => $recipient->id(),
 
-    public function send_dashboard_notification( $recipient){
-        die("sending dashboard notification");
+                'originSystemPostId' => $this->group_id,
+                'icontodisplay' => 'fas fa-calendar-alt',
+                'title' => $this->subject,
+                'shorttext' => $this->body,
+                'linkTo' => $this->actionlink,
+                'emailLogId' => $this->emailLogId
+            ),
+            array('%s', '%s', '%d', '%s', '%s', '%s', '%s', '%d')
+        );
     }
 }

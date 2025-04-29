@@ -1,78 +1,22 @@
 <?php 
 /* Template Name: Tab My Groups */ 
  $current_user_id = get_current_user_id();
- ?>
- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Groups</title>
-    <!-- Favicon -->    
-    <link rel="shortcut icon" type="image/jpg" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.png"> 
 
-    <!-- css links -->
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/all.min.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/owl.carousel.min.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/owl.theme.default.min.css" rel="stylesheet">
-    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/font.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/style.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/responsive.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/wcc_custom_style.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://knowledge.communication.worldcares.org/wp-content/themes/astra/assets/css/style_new.min.css"/>
+if ( is_user_logged_in() ) {
+get_header('dashboard'); ?>
 
-</head>
-<body class="main_all_bg_Sec">
-    <style type="text/css">
-    .title_group 
-    {
-    font-size: 25px;
-    }
-    .btn-primary {
-    background: #F9671D 0% 0% no-repeat padding-box;
-    box-shadow: 0px 3px 99px #ccd6ff3e;
-    border-radius: 9px;
-    font-size: 13px;
-    color: #FFFFFF;
-    height:50px;
-    padding:12px 12px;
-    border:1px solid#F9671D;
-}
-.btn-primary:hover {
-    background: #F9671D 0% 0% no-repeat padding-box;
-    box-shadow: 0px 3px 99px #ccd6ff3e;
-    border-radius: 9px;
-    font-size: 13px;
-    color: #FFFFFF;
-    height:50px;
-    padding:12px 12px;
-    border:1px solid#F9671D;
-}
-  
-    </style>
-    <?php include('user-sidebar.php')?>
+
 
     <div class="col-xl-12 ">
         <div class="row justify-content-end mt-3">
-
-            <div class="col-xl-11 col-lg-11 col-md-11 col-10 d-flex align-items-center flex-wrap">
-                <?php include('user_topbar.php')?>                
-            </div>
             <div class="col-xl-11 col-lg-11 col-md-11 col-10  mt-4 px-0">
             <div class="col-xl-12 col-lg-11 col-md-11 col-12  my-4">           
-                 <?php do_action('flash_msg');
-                    echo @$_SESSION['flash_msg'];
-                 ?>
                 <div class="group_box g_group_box">
                     <div class="d-lg-flex d-md-flex align-items-center justify-content-between grp_box">
                         <div class="g_group_box_new">
                             <ul class="nav nav-pills mb-3 linked_blog" id="pills-tab" role="tablist">
                                 <li class="nav-item group_btn">
-                                <a href="<?php echo site_url()?>/wccgroups/" class="nav-link">All</a>
+                                <a href="<?php echo site_url()?>/groups/" class="nav-link">All</a>
                                 </li>
                                 <li class="nav-item group_btn">
                                 <a href= "<?php echo site_url()?>/tab-my-groups/"  class="nav-link active">My Groups</a>
@@ -89,7 +33,7 @@
                         </div>
                         
                         <div class="back_btn">
-                            <a href="<?php echo site_url('wccgroups')?>">Back</a>
+                            <a href="<?php echo site_url('groups')?>">Back</a>
                         </div>
                     </div>
 
@@ -108,6 +52,7 @@
                     <div class="row mt-5 mx-1 profile_row">
                             <?php
                                 if(isset($_GET['submit']))
+                                // tis is when they are filtered.
                                     {
                                         $Q_group_type  =  $_GET['q_group_type'];
                                                 if(!empty($Q_group_type))
@@ -165,109 +110,9 @@
 
                                             $j=1;
                                             foreach($myGroups as $grpupVal){
-
-                                                $groupImg = wp_get_attachment_url( get_post_thumbnail_id($grpupVal->ID) );
-                                                if(empty($groupImg)){                                                        
-                                                    $groupImg= get_template_directory_uri()."/assets/images/range_1.png";
-                                                }
-                                         
-                                            $author_id=$grpupVal->post_author;
-                                            $author_img = get_avatar_url( $author_id ); 
-                                            if(empty($author_img)){
-                                                $author_img = get_template_directory_uri()."/avatar.png";
-                                            }                   
-                                       
-                                            $userList = learndash_get_groups_user_ids($grpupVal->ID);
-
-                                            $group_type = get_post_meta($grpupVal->ID,'group_type',true);
-                                                                    
-                                        ?>
-                                            <div class="col-lg-3">
-                                                <div class="custom-card">
-                                                     <a href="<?php echo get_permalink($grpupVal->ID)?>">
-                                                   <!--  <a href="javascript:void(0);" data-toggle="modal" data-target="#group-modal"> -->
-                                                        <div class="image">
-                                                            <img src="<?php echo $groupImg ?>" alt="" height="" title="" width="">
-                                                            <div class="public-text">
-                                                                <p>
-                                                                <?php if($group_type =='Close'){ ?>
-                                                                    <?php echo 'Closed'; ?>   
-                                                                <?php } else {  ?>
-                                                                     <?php echo $group_type ;?>
-                                                                <?php } ?>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-flex justify-content-between">
-                                                            <div class="group-title">
-                                                                <h4><?php echo $grpupVal->post_title?></h4>
-                                                                <h6 class="mt-2" style="font-size:12px;"><?php echo date("m-d-Y",strtotime($grpupVal->post_date)); ?></h6>
-                                                            </div>
-                                                            <div class="total-member">
-                                                                <p><?php echo count($userList)?> Member</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-flex main-content  align-items-center">
-                                                            <div class="left-text">
-                                                                Manager
-                                                            </div>
-                                                            <div class="member-image">
-                                                                <img src="<?php echo $author_img; ?>" alt="<?//php echo the_author_meta( 'display_name' , $author_id ); ?>" height="" title="" width="">
-                                                            </div>
-                                                            <div class="right-text">
-                                                                <?php echo the_author_meta( 'user_nicename' , $author_id )?>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-flex">
-
-                                                           <div class="main-group-image">
-                                                                <?php if(!empty( $userList)){?>
-                                                                    <?php
-                                                                        $i=1;
-                                                                         foreach ($userList as $key => $member_id) {
-                                                   
-                                                                        $member_img = get_avatar_url( $member_id ); 
-                                                                        if(empty($member_img)){
-                                                                            $member_img = get_template_directory_uri()."/avatar.png";
-                                                                        }
-                                                                     if($j>3){
-                                                            echo "+".(count($userList)-3);
-                                                            break;
-                                                            }else{
-                                                             echo '<div class="mem-image">
-                                                            <img src="'.$member_img.'" alt="" height="" title="" width="">
-                                                        </div>';   
-                                                            }
-                                                         $j++; 
-                                                        
-                                                          } 
-                                                             } ?>
-                                                    
-                                                            </div>
-
-                                                           
-                                                        </div>
-                                                        <div class="card-text">
-                                                           <p><?php echo  substr($grpupVal->post_content,0,100)?>...</p>
-                                                        </div>
-                                                         <div class="col-md-12 text-center ">
-                                                             <?php if($group_type == 'Private'){?>
-                                                            <a target="_blank" href="https://knowledge.communication.worldcares.org/private-group-members?group_id=<?php echo $grpupVal->ID?>"><button class="btn btn-primary mb-3"> Members </button></a>
-                                                            <?php } elseif($group_type == 'Closed') { ?>
-                                                            
-                                                            <a target="_blank" href="https://knowledge.communication.worldcares.org/closed-group-members?group_id=<?php echo $grpupVal->ID?>"><button class="btn btn-primary mb-3"> Members </button></a>
-                                                            
-                                                            <?php } else { ?>
-                                                             
-                                                             <a target="_blank" href="https://knowledge.communication.worldcares.org/all-joined-members?group_id=<?php echo $grpupVal->ID?>"><button class="btn btn-primary mb-3"> Members </button></a> 
-                                                             
-                                                            <?php } ?>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                         <?php }   
+                                                $group = new KCC\Group($grpupVal->ID);
+                                                $group->render_cell();  
+                                            }   
                                      }else {
                                        /* echo "You have not joined any groups.";*/
                                      } 
@@ -288,9 +133,6 @@
             </div>
             </div> 
         </div>
-        <div class="col-md-12 mt-4 pt-2 justify-content-end d-flex">
-                <?php include('common_user_footer.php')?> 
-            </div>
     </div>
 
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -527,79 +369,10 @@
       </div>
    </div>
 </div>
-<script>     
-     var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
-     
-    $(document).ready(function() {
-        
-        $(".GroupeModalCenter").click(function() {
-            var mthtml = $(this).html();
-            var gid = $(this).attr('data-gid');
-            $('#requestaccess').attr('data-gid',gid);
-            $('.umsjee').html(mthtml);
-            $('#GroupeModalCenter').modal('show');
-        });        
 
-        $("#requestaccess").click( function(e) {
-          e.preventDefault(); 
-          var group_id = $(this).data("gid");
-          var nonce = $(this).attr("data-nonce");
-          $.ajax({
-             type : "post",
-             dataType : "json",
-             url :ajaxurl,
-             data : {"action": "send_group_request", "group_id" : group_id, "nonce": nonce},
-             success: function(response) {  
-                  console.log(response);          
-                  alert(response.msg);
-                 $('#GroupeModalCenter').modal('hide');
-                
-             }
-          });
-       });
-        ////
-        $(".joinGroupeModal").click(function() {
-            var mthtml = $(this).html();
-            var gid = $(this).attr('data-gid');
-            $('#joinGroupeAccess').attr('data-gid',gid);
-            $('.umsjee').html(mthtml);
-            $('#joinGroupeModal').modal('show');
-        });
-        
-         $(".ownerModal").click(function() {
-            var mthtml = $(this).html();
-            var gid = $(this).attr('data-gid');
-            $('#ownerModal').attr('data-gid',gid);
-            $('.umsjee').html(mthtml);
-            $('#ownerModal').modal('show');
-        });
-
-          $("#joinGroupeAccess").click( function(e) {
-          e.preventDefault(); 
-          var group_id = $(this).data("gid");
-          var nonce = $(this).attr("data-nonce");
-          $.ajax({
-             type : "post",
-             dataType : "json",
-             url :ajaxurl,
-             data : {"action": "join_open_group", "group_id" : group_id, "nonce": nonce},
-             success: function(response) {  
-                 $('#joinGroupeModal').modal('hide');      
-                 window.location =   response.group_url;                
-             }
-          });
-       });
-
-});
-</script>
-<script> 
-        function allGroup(){
-           $('#tab_type').val('allGroup');
-        }
-         function myGroup(){
-           $('#tab_type').val('MyGroup');
-        }
-         function myGroupRequests(){
-           $('#tab_type').val('MyGroupRequests');
-        }
-   </script>
+<?php get_footer();?>
+<?php //get_footer(); ?>
+<?php } else {
+    wp_redirect( 'login' );
+    exit;
+} ?>

@@ -64,11 +64,11 @@
                                                                   ?>
                                                             <tr class="bg-color">
                                                                  <td><?php echo get_post_meta($rid,'rf_date',true)?></td>
-                                                                <td><?php echo get_post_meta($rid,'rf_org',true)?></td>
+                                                                <td><?php echo get_post_meta($rid,'organization',true)?></td>
                                                                 <td><?php echo get_post_meta($rid,'rf_city',true)?></td>
                                                                 <td><?php echo get_post_meta($rid,'rf_statue',true)?></td>
                                                                 <td><?php echo get_post_meta($rid,'rf_country',true)?></td>
-                                                                <td><?php echo get_post_meta($rid,'rf_contact_person',true)?></td>
+                                                                <td><?php echo get_post_meta($rid,'contact_person',true)?></td>
                                                                 <td>
                                                                        <div class="organization">
                                                                             <a href="javascript:void(0);" title="<?php echo get_post_meta($rid,'rf_email',true)?>"><?php echo get_post_meta($rid,'rf_email',true)?></a>
@@ -217,7 +217,7 @@
                                                                     <td><?php echo get_post_meta($rid,'intake_state',true)?></td>
                                                                     <td><?php echo get_post_meta($rid,'intake_country',true)?></td>
                                                                     <td><?php echo get_post_meta($rid,'client_need',true)?></td>
-                                                                    <td><?php echo get_post_meta($rid,'intake_firstName',true)?> <?php echo get_post_meta($rid,'intake_lastName',true)?></td>
+                                                                    <td><?php echo get_post_meta($rid,'client_firstName',true)?> <?php echo get_post_meta($rid,'client_lastName',true)?></td>
                                                                     <td><?php echo get_post_meta($rid,'rf_date',true)?></td>
                                                                     <td style="width:12%;">
                                                                         <a href="<?php echo site_url('track-request')?>" class="d-block">

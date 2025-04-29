@@ -35,7 +35,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
+die("hi");
 $in_focus_mode = LearnDash_Settings_Section::get_section_setting( 'LearnDash_Settings_Theme_LD30', 'focus_mode_enabled' );
 
 add_filter( 'comments_array', 'learndash_remove_comments', 1, 2 ); ?>

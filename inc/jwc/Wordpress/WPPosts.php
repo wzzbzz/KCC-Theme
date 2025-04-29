@@ -2,21 +2,15 @@
 
 namespace jwc\Wordpress;
 
-class WPPosts extends WPCollection{
+class WPPosts extends WPController{
 
-    public function __construct()
-    {
-        add_action('init', array($this, 'init'));
-        add_action('admin_init', array($this, 'admin_init'));
-    }
-
-    public function init()
-    {
-        // add custom post types
+  
+    
+    public function register(){
         $this->register_post_type();
     }
-
-    public static function register_post_type()
+    
+    public function register_post_type()
     {
         // here you will register your custom post types
     }
