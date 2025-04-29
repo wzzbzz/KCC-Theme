@@ -67,6 +67,7 @@ class Forms extends \jwc\Wordpress\WPController
         ];
         $args = wp_parse_args($args, $defaults);
         extract($args);
+        
  
         $html = "<select class='form-control country' id='$id' name='$name' "
                . ($required ? 'required' : '') . " " . ( ($change_target) ? "data-change-target='" . $change_target . "'" : '') . ">";

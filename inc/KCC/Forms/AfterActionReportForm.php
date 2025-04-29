@@ -987,7 +987,7 @@ class AfterActionReportForm extends Form
                                                         'change_target' => null,
                                                         'required' => true,
                                                     ];
-                                                    echo Forms::stateSelect('state', 'state', $this->state(), null, true);
+                                                    echo Forms::stateSelect($args);
                                                      ?>
 
                                                 </div>
